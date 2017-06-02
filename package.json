@@ -1,0 +1,70 @@
+{
+  "name": "com.idi.central.web",
+  "version": "1.0.0",
+  "description": "IDI Studio Central",
+  "main": "main.js",
+  "scripts": {
+    "start": "webpack-dev-server --config config/webpack.dev.js --progress",
+    "test": "karma start",
+    "build": "webpack --config config/webpack.dev.js --progress --profile --bail",
+    "webpack": "webpack",
+    "rimraf": "rimraf"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnny-l-wang/com.idi.central.web.git"
+  },
+  "keywords": [
+    "angular4",
+    "webpack"
+  ],
+  "author": "johnny.l.wang@hotmail.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@angular/animations": "~4.1.3",
+    "@angular/common": "~4.1.3",
+    "@angular/compiler": "~4.1.3",
+    "@angular/core": "^4.1.3",
+    "@angular/forms": "~4.1.3",
+    "@angular/http": "~4.1.3",
+    "core-js": "^2.4.1",
+    "rxjs": "5.4.0",
+    "zone.js": "^0.8.11"
+  },
+  "devDependencies": {
+    "reflect-metadata": "^0.1.10",
+    "html-webpack-plugin": "^2.28.0",
+    "@angular/compiler-cli": "~4.1.3",
+    "@angular/platform-browser": "~4.1.3",
+    "@angular/platform-browser-dynamic": "~4.1.3",
+    "@angular/platform-server": "~4.1.3",
+    "@angular/router": "~4.1.3",
+    "@angularclass/hmr": "^1.2.2",
+    "@angularclass/hmr-loader": "^3.0.2",
+    "@types/jasmine": "^2.5.49",
+    "@types/node": "^7.0.23",
+    "angular2-template-loader": "^0.6.2",
+    "awesome-typescript-loader": "^3.1.3",
+    "bootstrap": "^3.3.7",
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "2.1.0",
+    "file-loader": "^0.11.1",
+    "font-awesome": "^4.7.0",
+    "html-loader": "^0.4.5",
+    "postcss-loader": "^2.0.5",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.18.1",
+    "to-string-loader": "^1.1.5",
+    "ts-helpers": "^1.1.2",
+    "url-loader": "^0.5.8",
+    "webpack": "2.6.1",
+    "webpack-dev-server": "2.4.5",
+    "webpack-merge": "^4.1.0",
+    "typescript": "^2.3.4"
+  },
+  "bugs": {
+    "url": "https://github.com/johnny-l-wang/com.idi.central.web/issues"
+  },
+  "homepage": "https://github.com/johnny-l-wang/com.idi.central.web#readme"
+}
