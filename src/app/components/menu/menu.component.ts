@@ -9,13 +9,13 @@ import { Menu } from '../../models/menu';
 })
 export class MenuComponent {
     menus: Menu[] = [
-        { name: "menu-1", action: "action-1" },
-        { name: "menu-2", action: "action-2" },
-        { name: "menu-3", action: "action-3" },
-        { name: "menu-4", action: "action-4" }
+        { name: "menu-1", action: "action-1", actived: true },
+        { name: "menu-2", action: "action-2", actived: false },
+        { name: "menu-3", action: "action-3", actived: false },
+        { name: "menu-4", action: "action-4", actived: false }
     ];
 
-    selectedMenu: Menu;// = this.menus[0];
+    selectedMenu: Menu;
 
     onSelected(item: Menu): void {
         this.selectedMenu = item;

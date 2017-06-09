@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 //Component
-import { AppComponent } from './components/app/app.component';
+import { AppComponent } from './components/app-root/app-root.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
 
