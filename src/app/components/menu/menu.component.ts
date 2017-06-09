@@ -9,7 +9,7 @@ import { Menu } from '../../models/menu';
 })
 export class MenuComponent {
     menus: Menu[] = [
-        { name: "menu-1", action: "action-1", actived: true },
+        { name: "Dashboard", action: "dashboard", actived: true },
         { name: "menu-2", action: "action-2", actived: false },
         { name: "menu-3", action: "action-3", actived: false },
         { name: "menu-4", action: "action-4", actived: false }

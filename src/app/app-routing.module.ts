@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 
-import { LayoutComponent } from './components/layout/layout.component';
-import { MenuComponent } from './components/menu/menu.component';
+//Components
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Route[] = [
-    { path: '', component: LayoutComponent }
+    { path: '', component: DashboardComponent },
+    { path: 'dashboard', component: DashboardComponent }
 ];
 
 @NgModule({
