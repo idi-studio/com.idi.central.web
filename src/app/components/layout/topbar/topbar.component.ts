@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
     templateUrl: './topbar.component.html'
 })
 export class TopbarComponent {
-   
+
 }
