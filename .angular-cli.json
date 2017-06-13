@@ -17,7 +17,11 @@
     "styles": [
       "styles.css"
     ],
-    "scripts": [],
+    "scripts": [
+      // "assets/js/jquery/jquery.min.js",
+      // "assets/js/tether/tether.min.js",
+      // "assets/js/bootstrap/bootstrap.min.js"
+    ],
     "environmentSource": "environments/environment.ts",
     "environments": {
       "dev": "environments/environment.ts",
