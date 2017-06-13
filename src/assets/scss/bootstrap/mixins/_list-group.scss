@@ -20,9 +20,11 @@
     }
 
     &.active {
-      color: #fff;
-      background-color: $color;
-      border-color: $color;
+      @include plain-hover-focus {
+        color: #fff;
+        background-color: $color;
+        border-color: $color;
+      }
     }
   }
 }

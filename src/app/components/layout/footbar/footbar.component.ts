@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'footbar',
-    templateUrl: './footbar.component.html',
-    styleUrls: ['./footbar.component.css']
+    templateUrl: './footbar.component.html'
 })
 export class FootbarComponent {
 

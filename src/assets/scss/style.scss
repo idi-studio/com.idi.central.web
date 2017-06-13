@@ -1,8 +1,26 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700,300");
+@import "variables";
+@import "bootstrap";
 
-$font-family-sans-serif:     'Roboto', sans-serif;
+@import "typography";
+@import "common";
+@import "menu";
+@import "buttons";
+@import "modal";
+@import "sweetalert";
+@import "icons";
+@import "pages";
+@import "components";
+@import "helper";
+@import "calendar";
+@import "checkbox-radio";
+@import "notifications";
+@import "progress";
+@import "forms";
+@import "tables";
+@import "charts";
+@import "treeview";
+@import "tour";
+@import "widgets";
+@import "accountpages";
 
-@import "font-awesome/font-awesome";
-@import "material-design-iconic-font/material-design-iconic-font";
-@import "bootstrap/bootstrap";
-@import "waves/waves";
+
