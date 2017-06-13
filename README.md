@@ -25,7 +25,9 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Sass
 
-sass --watch src/assets/scss:src/assets/css
+sass --watch src/assets/scss/style.scss:src/assets/css/style.css
+sass --style nested src/assets/scss/style.scss src/assets/css/style.css
+sass --style compressed src/assets/scss/style.scss src/assets/css/style.min.css
 
 ## Further help
 
