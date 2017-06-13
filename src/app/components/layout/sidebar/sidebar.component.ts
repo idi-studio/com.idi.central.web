@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { Menu } from '../../../models/menu';
 
 @Component({
-    selector: 'sidemenu',
-    templateUrl: './sidemenu.component.html'
+    selector: 'sidebar',
+    templateUrl: './sidebar.component.html'
 })
-export class SidemenuComponent {
+export class SidebarComponent {
     menus: Menu[] = [
         { name: "Dashboard", action: "dashboard", actived: true },
         { name: "menu-2", action: "action-2", actived: false },

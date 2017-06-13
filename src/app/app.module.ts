@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 //Component
 import { AppRootComponent } from './components/app-root/app-root.component';
 import { TopbarComponent } from './components/layout/topbar/topbar.component';
-import { SidemenuComponent } from './components/layout/sidemenu/sidemenu.component';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 import { SidebarRightComponent } from './components/layout/sidebar-right/sidebar-right.component';
 import { FootbarComponent } from './components/layout/footbar/footbar.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -19,7 +19,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   declarations: [
     AppRootComponent,
     TopbarComponent,
-    SidemenuComponent,
+    SidebarComponent,
     SidebarRightComponent,
     FootbarComponent,
     MenuComponent,
