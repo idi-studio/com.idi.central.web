@@ -51,26 +51,25 @@ export class SidebarComponent implements OnInit {
             });
 
             function onSelected(e) {
-                if (!$(e).attr("ng-reflect-router-link")) {
-                    $("#sidebar-menu a").each(function () {
-                        $(this).removeClass("active");
-                        $(this).parent().removeClass("active");
-                        $(this).parent().parent().prev().removeClass("active");
-                    });
-                    return;
-                }
+                $("#sidebar-menu a").each(function () {
+                    $(this).removeClass("active");
+                    $(this).parent().removeClass("active");
+                    $(this).parent().parent().prev().removeClass("active");
+                });
 
-                if (e.href == window.location.href) {
+                if ($(e).attr("ng-reflect-router-link") && e.href == window.location.href) {
                     $(e).addClass("active");
                     $(e).parent().addClass("active"); // add active to li of the current link
                     $(e).parent().parent().prev().addClass("active"); // add active class to an anchor
-                    $(e).parent().parent().prev().click(); // click the item to make it drop
                 }
             }
         });
     }
     navigation: MenuItem[] = [
         new MenuItem("Dashboard", "dashboard", "zmdi zmdi-view-dashboard", true),
+        new MenuItem("Administrators", null, "zmdi zmdi-accounts-list-alt", false, [
+            new MenuItem("Roles", "admin/role"),
+        ]),
         new MenuItem("Components", null, "zmdi zmdi-album", false, [
             new MenuItem("Buttons"),
             new MenuItem("Cards"),

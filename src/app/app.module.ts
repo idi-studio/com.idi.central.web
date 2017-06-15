@@ -13,6 +13,7 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
 import { SidebarRightComponent } from './components/shared/sidebar-right/sidebar-right.component';
 import { FootbarComponent } from './components/shared/footbar/footbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { RoleListComponent } from './components/roles/role-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SidebarComponent,
     SidebarRightComponent,
     FootbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    RoleListComponent
   ],
   exports: [],//declarations 的子集，可用于其它模块的组件模板。
   imports: [BrowserModule, FormsModule, AppRoutingModule],//本模块声明的组件模板需要的类所在的其它模块
