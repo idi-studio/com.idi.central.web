@@ -36,13 +36,42 @@ export class SidebarComponent implements OnInit {
                         $(this).next("ul").slideUp(350);
                         $(".pull-right i", $(this).parent()).removeClass("md-remove").addClass("md-add");
                     }
+
+                    onSelected(this);
                 }
             });
+
+            $("#sidebar-menu a").each(function () {
+                if ($(this).attr("ng-reflect-router-link") && this.href == window.location.href) {
+                    $(this).addClass("active");
+                    $(this).parent().addClass("active"); // add active to li of the current link
+                    $(this).parent().parent().prev().addClass("active"); // add active class to an anchor
+                    $(this).parent().parent().prev().click(); // click the item to make it drop
+                }
+            });
+
+            function onSelected(e) {
+                if (!$(e).attr("ng-reflect-router-link")) {
+                    $("#sidebar-menu a").each(function () {
+                        $(this).removeClass("active");
+                        $(this).parent().removeClass("active");
+                        $(this).parent().parent().prev().removeClass("active");
+                    });
+                    return;
+                }
+
+                if (e.href == window.location.href) {
+                    $(e).addClass("active");
+                    $(e).parent().addClass("active"); // add active to li of the current link
+                    $(e).parent().parent().prev().addClass("active"); // add active class to an anchor
+                    $(e).parent().parent().prev().click(); // click the item to make it drop
+                }
+            }
         });
     }
     navigation: MenuItem[] = [
-        new MenuItem("Dashboard", "zmdi zmdi-view-dashboard"),
-        new MenuItem("Components", "zmdi zmdi-album", null, null, [
+        new MenuItem("Dashboard", "dashboard", "zmdi zmdi-view-dashboard", true),
+        new MenuItem("Components", null, "zmdi zmdi-album", false, [
             new MenuItem("Buttons"),
             new MenuItem("Cards"),
             new MenuItem("Dropdowns"),
@@ -54,7 +83,7 @@ export class SidebarComponent implements OnInit {
         ])
     ];
     help: MenuItem[] = [
-        new MenuItem("Pages", "zmdi zmdi-collection-item", null, null, [
+        new MenuItem("Pages", null, "zmdi zmdi-collection-item", null, [
             new MenuItem("Starter Page"),
             new MenuItem("Login"),
             new MenuItem("Register"),
