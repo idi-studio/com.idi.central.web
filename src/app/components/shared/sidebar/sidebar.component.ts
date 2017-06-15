@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
 
                         // open our new menu and add the open class
                         $(this).next("ul").slideDown(350);
-                        $(this).addClass("subdrop");
+                        //$(this).addClass("subdrop");
                         $(".pull-right i", $(this).parents(".has_sub:last")).removeClass("md-add").addClass("md-remove");
                         $(".pull-right i", $(this).siblings("ul")).removeClass("md-remove").addClass("md-add");
                     } else if ($(this).hasClass("subdrop")) {
@@ -68,7 +68,8 @@ export class SidebarComponent implements OnInit {
     navigation: MenuItem[] = [
         new MenuItem("Dashboard", "dashboard", "zmdi zmdi-view-dashboard", true),
         new MenuItem("Administrators", null, "zmdi zmdi-accounts-list-alt", false, [
-            new MenuItem("Roles", "admin/role"),
+            new MenuItem("Roles", "role/list"),
+            new MenuItem("Users", "user/list"),
         ]),
         new MenuItem("Components", null, "zmdi zmdi-album", false, [
             new MenuItem("Buttons"),

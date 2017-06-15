@@ -4,12 +4,10 @@ import { PageHeader } from '../../models/page-header';
 declare var $: any;
 
 @Component({
-    templateUrl: './role-list.component.html'
+    templateUrl: './user-list.component.html'
 })
-export class RoleListComponent implements OnInit {
-
-    header: PageHeader = new PageHeader("Roles", ["Administrators", "Roles"]);
-
+export class UserListComponent implements OnInit {
+    header: PageHeader = new PageHeader("Roles", ["Administrators", "Users"]);
     ngOnInit(): void {
         $(function () {
             $('#datatable').DataTable();

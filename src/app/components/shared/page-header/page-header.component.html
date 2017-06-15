@@ -1,0 +1,12 @@
+<div *ngIf="header" class="row">
+  <div class="col-xs-12">
+    <div class="page-title-box">
+      <h4 class="page-title">{{header.title}}</h4>
+      <ol class="breadcrumb p-0">
+        <li class="active">Central</li>
+        <li class="active" *ngFor="let item of header.path">{{item}}</li>
+      </ol>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>

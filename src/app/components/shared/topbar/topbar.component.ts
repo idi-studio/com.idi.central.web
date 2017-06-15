@@ -7,6 +7,7 @@ declare var $: any;
     templateUrl: './topbar.component.html'
 })
 export class TopbarComponent implements OnInit {
+    title: string = "Central";
     ngOnInit(): void {
         $(function () {
             function toggle_slimscroll(item) {
