@@ -7,7 +7,7 @@ declare var $: any;
     templateUrl: './user-list.component.html'
 })
 export class UserListComponent implements OnInit {
-    header: PageHeader = new PageHeader("Roles", ["Administrators", "Users"]);
+    header: PageHeader = new PageHeader("Users", ["Administrators", "Users"]);
     ngOnInit(): void {
         $(function () {
             $('#datatable').DataTable();
