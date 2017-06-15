@@ -70,27 +70,20 @@ export class SidebarComponent implements OnInit {
         new MenuItem("Administrators", null, "zmdi zmdi-accounts-list-alt", false, [
             new MenuItem("Roles", "role/list"),
             new MenuItem("Users", "user/list")
+        ]),
+        new MenuItem("Purchase", null, "zmdi zmdi-truck", null, [
+            new MenuItem("Come soon...")
+        ]),
+        new MenuItem("Sales", null, "zmdi zmdi-labels", null, [
+            new MenuItem("Come soon...")
+        ]),
+        new MenuItem("Inventory ", null, "zmdi zmdi-store", null, [
+            new MenuItem("Come soon...")
         ])
-        // new MenuItem("Components", null, "zmdi zmdi-album", false, [
-        //     new MenuItem("Buttons"),
-        //     new MenuItem("Cards"),
-        //     new MenuItem("Dropdowns"),
-        //     new MenuItem("Checkboxs-Radios"),
-        //     new MenuItem("Navs"),
-        //     new MenuItem("Progress"),
-        //     new MenuItem("Modals"),
-        //     new MenuItem("Alerts"),
-        // ])
     ];
     help: MenuItem[] = [
         new MenuItem("User Guide", null, "fa fa-book", null, [
             new MenuItem("Come soon...")
-            // new MenuItem("Login"),
-            // new MenuItem("Register"),
-            // new MenuItem("Recover Password"),
-            // new MenuItem("Lock Screen"),
-            // new MenuItem("Error 404"),
-            // new MenuItem("Error 500")
-        ]),
+        ])
     ];
 }
