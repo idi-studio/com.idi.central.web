@@ -41,47 +41,27 @@ export class SidebarComponent implements OnInit {
         });
     }
     navigation: MenuItem[] = [
-        { name: "Dashboard", icon: "zmdi zmdi-view-dashboard", action: "", actived: true, sub: [] },
-        {
-            name: "User Interface", icon: "zmdi zmdi-format-underlined", action: "", actived: false, sub: [
-                { name: "Buttons", icon: "", action: "", actived: false, sub: [] },
-                { name: "Cards", icon: "", action: "", actived: false, sub: [] },
-                { name: "Dropdowns", icon: "", action: "", actived: false, sub: [] },
-                { name: "Checkboxs-Radios", icon: "", action: "", actived: false, sub: [] },
-                { name: "Navs", icon: "", action: "", actived: false, sub: [] },
-                { name: "Progress", icon: "", action: "", actived: false, sub: [] },
-                { name: "Modals", icon: "", action: "", actived: false, sub: [] },
-                { name: "Alerts", icon: "", action: "", actived: false, sub: [] }
-            ]
-        },
-        {
-            name: "Components", icon: "zmdi zmdi-album", action: "", actived: false, sub: [
-                { name: "Grid", icon: "", action: "", actived: false, sub: [] },
-                { name: "Range sliders", icon: "", action: "", actived: false, sub: [] },
-                { name: "Sweet Alerts", icon: "", action: "", actived: false, sub: [] },
-                { name: "Ratings", icon: "", action: "", actived: false, sub: [] },
-                { name: "Treeview", icon: "", action: "", actived: false, sub: [] },
-                { name: "Tour", icon: "", action: "", actived: false, sub: [] }
-            ]
-        }
+        new MenuItem("Dashboard", "zmdi zmdi-view-dashboard"),
+        new MenuItem("Components", "zmdi zmdi-album", null, null, [
+            new MenuItem("Buttons"),
+            new MenuItem("Cards"),
+            new MenuItem("Dropdowns"),
+            new MenuItem("Checkboxs-Radios"),
+            new MenuItem("Navs"),
+            new MenuItem("Progress"),
+            new MenuItem("Modals"),
+            new MenuItem("Alerts"),
+        ])
     ];
-    more: MenuItem[] = [
-        {
-            name: "Pages", icon: "zmdi zmdi-collection-item", action: "", actived: false, sub: [
-                { name: "Starter Page", icon: "", action: "", actived: false, sub: [] },
-                { name: "Login", icon: "", action: "", actived: false, sub: [] },
-                { name: "Register", icon: "", action: "", actived: false, sub: [] },
-                { name: "Recover Password", icon: "", action: "", actived: false, sub: [] },
-                { name: "Lock Screen", icon: "", action: "", actived: false, sub: [] },
-                { name: "Error 404", icon: "", action: "", actived: false, sub: [] },
-                { name: "Error 500", icon: "", action: "", actived: false, sub: [] }
-            ]
-        },
-        {
-            name: "Multi Level", icon: "", action: "", actived: false, sub: [
-                { name: "Menu Level 1.1", icon: "", action: "", actived: false, sub: [] },
-                { name: "Menu Level 1.2", icon: "", action: "", actived: false, sub: [] }
-            ]
-        }
+    help: MenuItem[] = [
+        new MenuItem("Pages", "zmdi zmdi-collection-item", null, null, [
+            new MenuItem("Starter Page"),
+            new MenuItem("Login"),
+            new MenuItem("Register"),
+            new MenuItem("Recover Password"),
+            new MenuItem("Lock Screen"),
+            new MenuItem("Error 404"),
+            new MenuItem("Error 500")
+        ]),
     ];
 }
