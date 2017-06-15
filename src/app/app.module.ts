@@ -8,11 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 //Component
 import { AppRootComponent } from './components/app-root/app-root.component';
-import { TopbarComponent } from './components/layout/topbar/topbar.component';
-import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
-import { SidebarRightComponent } from './components/layout/sidebar-right/sidebar-right.component';
-import { FootbarComponent } from './components/layout/footbar/footbar.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { TopbarComponent } from './components/shared/topbar/topbar.component';
+import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
+import { SidebarRightComponent } from './components/shared/sidebar-right/sidebar-right.component';
+import { FootbarComponent } from './components/shared/footbar/footbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SidebarComponent,
     SidebarRightComponent,
     FootbarComponent,
-    MenuComponent,
     DashboardComponent
   ],
   exports: [],//declarations 的子集，可用于其它模块的组件模板。

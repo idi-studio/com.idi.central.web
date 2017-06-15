@@ -1,5 +1,0 @@
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item" *ngFor="let menu of menus" (click)="onSelected(menu)">
-        <a class="nav-link" [class.active]="menu.actived" href="javascript:void(0)" routerLink="/{{menu.action}}">{{menu.name}} <span class="sr-only">(current)</span></a>
-    </li>
-</ul>
