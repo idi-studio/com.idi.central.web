@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 //Component
 import { AppRootComponent } from './components/app-root/app-root.component';
+import { LoginComponent } from './components/pages/login/login.component';
+import { MainComponent } from './components/pages/main/main.component';
 import { TopbarComponent } from './components/shared/topbar/topbar.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { SidebarRightComponent } from './components/shared/sidebar-right/sidebar-right.component';
@@ -20,14 +22,9 @@ import { UserListComponent } from './components/users/user-list.component';
 @NgModule({
   declarations: [
     AppRootComponent,
-    TopbarComponent,
-    SidebarComponent,
-    SidebarRightComponent,
-    FootbarComponent,
-    PageHeaderComponent,
-    DashboardComponent,
-    RoleListComponent,
-    UserListComponent
+    LoginComponent, MainComponent,
+    TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
+    DashboardComponent, RoleListComponent, UserListComponent
   ],
   exports: [],//declarations 的子集，可用于其它模块的组件模板。
   imports: [BrowserModule, FormsModule, AppRoutingModule],//本模块声明的组件模板需要的类所在的其它模块

@@ -10,12 +10,14 @@ declare var $: any;
 export class SidebarComponent implements OnInit {
     ngOnInit(): void {
         $(function () {
+            console.log("=>SidebarComponent Init");
             // NAVIGATION HIGHLIGHT & OPEN PARENT
             $("#sidebar-menu ul li.has_sub a.active").parents("li:last").children("a:first").addClass("active").trigger("click");
 
             var ua = navigator.userAgent, event = (ua.match(/iP/i)) ? "touchstart" : "click";
 
             $("#sidebar-menu a").on(event, function (e) {
+                console.log('=>menu clicked');
                 if (!$("#wrapper").hasClass("enlarged")) {
                     if ($(this).parent().hasClass("has_sub")) {
 
