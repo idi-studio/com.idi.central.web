@@ -22641,7 +22641,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
    Accounts pages
 ============= */
 .account-pages {
-  background: #64b0f2;
+  background: #2b3d51;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -22658,7 +22658,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
     margin: 20px 15px; }
   .wrapper-page .card-box {
     box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
-    border: 5px solid #64b0f2; }
+    border: 5px solid #2b3d51; }
   .wrapper-page .logo {
     font-size: 24px;
     color: #1bb99a !important; }

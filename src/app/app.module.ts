@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 //Component
 import { AppRootComponent } from './components/app-root/app-root.component';
 import { LoginComponent } from './components/pages/login/login.component';
+import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
 import { MainComponent } from './components/pages/main/main.component';
 import { TopbarComponent } from './components/shared/topbar/topbar.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
@@ -22,7 +23,7 @@ import { UserListComponent } from './components/users/user-list.component';
 @NgModule({
   declarations: [
     AppRootComponent,
-    LoginComponent, MainComponent,
+    MainComponent, LoginComponent, ForgotPasswordComponent,
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
     DashboardComponent, RoleListComponent, UserListComponent
   ],

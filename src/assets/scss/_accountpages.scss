@@ -3,7 +3,7 @@
 ============= */
 
 .account-pages {
-  background: $custom;
+  background: $dark;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -23,7 +23,7 @@
 
   .card-box{
     box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
-    border: 5px solid $custom;
+    border: 5px solid $dark;
   }
   .logo {
     font-size: 24px;
