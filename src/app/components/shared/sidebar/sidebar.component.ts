@@ -38,54 +38,21 @@ export class SidebarComponent implements OnInit {
 
             // var ua = navigator.userAgent, event = (ua.match(/iP/i)) ? "touchstart" : "click";
 
-            // $("#sidebar-menu a").on(event, function (e) {
-            //     if (!$("#wrapper").hasClass("enlarged")) {
-            //         if ($(this).parent().hasClass("has_sub")) {
-
-            //         }
-            //         if (!$(this).hasClass("subdrop")) {
-            //             // hide any open menus and remove all other classes
-            //             $("ul", $(this).parents("ul:first")).slideUp(350);
-            //             $("a", $(this).parents("ul:first")).removeClass("subdrop");
-            //             $("#sidebar-menu .pull-right i").removeClass("md-remove").addClass("md-add");
-
-            //             // open our new menu and add the open class
-            //             $(this).next("ul").slideDown(350);
-            //             //$(this).addClass("subdrop");
-            //             $(".pull-right i", $(this).parents(".has_sub:last")).removeClass("md-add").addClass("md-remove");
-            //             $(".pull-right i", $(this).siblings("ul")).removeClass("md-remove").addClass("md-add");
-            //         } else if ($(this).hasClass("subdrop")) {
-            //             $(this).removeClass("subdrop");
-            //             $(this).next("ul").slideUp(350);
-            //             $(".pull-right i", $(this).parent()).removeClass("md-remove").addClass("md-add");
-            //         }
-
-            //         onSelected(this);
-            //     }
-            // });
-
             $("#sidebar-menu a").each(function () {
-                if ($(this).attr("ng-reflect-router-link") && this.href == window.location.href) {
+                if (this.href == window.location.href) {
                     $(this).addClass("active");
                     $(this).parent().addClass("active"); // add active to li of the current link
                     $(this).parent().parent().prev().addClass("active"); // add active class to an anchor
-                    $(this).parent().parent().prev().click(); // click the item to make it drop
+
+                    if ($(this).parent().parent().prev().parent().hasClass("has_sub")) {
+                        var menuElement = $(this).parent().parent().prev();
+                        menuElement.addClass("subdrop");
+                        menuElement.next("ul").slideDown(350);
+                        $(".pull-right i", menuElement.parents(".has_sub:last")).removeClass("md-add").addClass("md-remove");
+                        $(".pull-right i", menuElement.siblings("ul")).removeClass("md-remove").addClass("md-add");
+                    }
                 }
             });
-
-            // function onSelected(e) {
-            //     $("#sidebar-menu a").each(function () {
-            //         $(this).removeClass("active");
-            //         $(this).parent().removeClass("active");
-            //         $(this).parent().parent().prev().removeClass("active");
-            //     });
-
-            //     if ($(e).attr("ng-reflect-router-link") && e.href == window.location.href) {
-            //         $(e).addClass("active");
-            //         $(e).parent().addClass("active"); // add active to li of the current link
-            //         $(e).parent().parent().prev().addClass("active"); // add active class to an anchor
-            //     }
-            // }
         });
     }
 
@@ -95,7 +62,9 @@ export class SidebarComponent implements OnInit {
         console.log(sender);
 
         if (!$("#wrapper").hasClass("enlarged")) {
+            //one level
             if ($(sender).parent().hasClass("has_sub")) { }
+
             if (!$(sender).hasClass("subdrop")) {
                 // hide any open menus and remove all other classes
                 $("ul", $(sender).parents("ul:first")).slideUp(350);
@@ -104,7 +73,9 @@ export class SidebarComponent implements OnInit {
 
                 // open our new menu and add the open class
                 $(sender).next("ul").slideDown(350);
-                //$(this).addClass("subdrop");
+                if ($(sender).parent().hasClass("has_sub")) {
+                    $(sender).addClass("subdrop");
+                }
                 $(".pull-right i", $(sender).parents(".has_sub:last")).removeClass("md-add").addClass("md-remove");
                 $(".pull-right i", $(sender).siblings("ul")).removeClass("md-remove").addClass("md-add");
             } else if ($(sender).hasClass("subdrop")) {
@@ -113,5 +84,15 @@ export class SidebarComponent implements OnInit {
                 $(".pull-right i", $(sender).parent()).removeClass("md-remove").addClass("md-add");
             }
         }
+
+        $("#sidebar-menu a").each(function () {
+            $(this).removeClass("active");
+            $(this).parent().removeClass("active");
+            $(this).parent().parent().prev().removeClass("active");
+        });
+
+        $(sender).addClass("active");
+        $(sender).parent().addClass("active"); // add active to li of the current link
+        $(sender).parent().parent().prev().addClass("active"); // add active class to an anchor 
     }
 }
