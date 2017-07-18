@@ -16,4 +16,8 @@ export class MenuItem {
     hasSub() {
         return this.sub.length > 0;
     }
+
+    isLink() {
+        return this.action.length > 0;
+    }
 }

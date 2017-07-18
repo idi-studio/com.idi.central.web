@@ -11,7 +11,7 @@ import { RoleListComponent } from './components/roles/role-list.component';
 import { UserListComponent } from './components/users/user-list.component';
 
 const routes: Route[] = [
-    { path: '', redirectTo: "/central", pathMatch: "full" },
+    { path: '', redirectTo: "/login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'lock-screen', component: LockScreenComponent },

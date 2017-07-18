@@ -4,23 +4,31 @@
       <ul>
         <li class="text-muted menu-title">Navigation</li>
         <li class="has_sub" *ngFor="let menu of navigation">
-          <a routerLink="{{menu.action}}" class="waves-effect" (click)="OnMenuItemClick($event)">
+          <a *ngIf="menu.isLink()" routerLink="{{menu.action}}" class="waves-effect" (click)="OnMenuItemClick($event)">
+            <i [class]="menu.icon"></i> <span> {{menu.name}} </span> <span class="menu-arrow" *ngIf="menu.hasSub()"></span>
+          </a>
+          <a *ngIf="!menu.isLink()" class="waves-effect" (click)="OnMenuItemClick($event)">
             <i [class]="menu.icon"></i> <span> {{menu.name}} </span> <span class="menu-arrow" *ngIf="menu.hasSub()"></span>
           </a>
           <ul class="list-unstyled" *ngIf="menu.hasSub()">
             <li *ngFor="let submenu of menu.sub">
-              <a routerLink="{{submenu.action}}" (click)="OnMenuItemClick($event)">{{submenu.name}}</a>
+              <a *ngIf="!menu.isLink()" routerLink="{{submenu.action}}" (click)="OnMenuItemClick($event)">{{submenu.name}}</a>
+              <a *ngIf="menu.isLink()" (click)="OnMenuItemClick($event)" >{{submenu.name}}</a>
             </li>
           </ul>
         </li>
         <li class="text-muted menu-title">Help</li>
         <li class="has_sub" *ngFor="let menu of help">
-          <a routerLink="{{menu.action}}" class="waves-effect" (click)="OnMenuItemClick($event)">
+          <a *ngIf="menu.isLink()" routerLink="{{menu.action}}" class="waves-effect" (click)="OnMenuItemClick($event)">
+            <i [class]="menu.icon"></i> <span> {{menu.name}} </span> <span class="menu-arrow" *ngIf="menu.hasSub()"></span>
+          </a>
+           <a *ngIf="!menu.isLink()" class="waves-effect" (click)="OnMenuItemClick($event)">
             <i [class]="menu.icon"></i> <span> {{menu.name}} </span> <span class="menu-arrow" *ngIf="menu.hasSub()"></span>
           </a>
           <ul class="list-unstyled" *ngIf="menu.hasSub()">
             <li *ngFor="let submenu of menu.sub">
-              <a routerLink="{{submenu.action}}" (click)="OnMenuItemClick($event)">{{submenu.name}}</a>
+              <a *ngIf="!menu.isLink()" routerLink="{{submenu.action}}" (click)="OnMenuItemClick($event)">{{submenu.name}}</a>
+              <a *ngIf="menu.isLink()" (click)="OnMenuItemClick($event)">{{submenu.name}}</a>
             </li>
           </ul>
         </li>
