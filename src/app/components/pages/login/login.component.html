@@ -17,13 +17,13 @@
 
           <div class="form-group row">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required="" placeholder="Username">
+              <input name="username" [(ngModel)]="username" class="form-control" type="text" required="" placeholder="Username">
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-xs-12">
-              <input class="form-control" type="password" required="" placeholder="Password">
+              <input name="password" [(ngModel)]="password" class="form-control" type="password" required="" placeholder="Password">
             </div>
           </div>
 
@@ -38,7 +38,7 @@
 
           <div class="form-group text-center row m-t-10">
             <div class="col-xs-12">
-              <button class="btn btn-success btn-block waves-effect waves-light" type="submit" routerLink="/central">Log In</button>
+              <button (click)="signIn()" class="btn btn-success btn-block waves-effect waves-light" type="submit">Log In</button>
             </div>
           </div>
 
