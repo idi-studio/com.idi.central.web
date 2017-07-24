@@ -23,6 +23,18 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void { }
 
     async signIn(): Promise<void> {
-        this._router.navigate(["/central"]);
+        try {
+            this._loadingService.register('form-sign-in');
+            
+            let result = this._tokenService.signIn(this.username, this.password).toPromise();
+
+            // console.log(result);
+
+            // this._router.navigate(["/central"]);
+        } catch (error) {
+            this._dialogService.openAlert({ message: 'There was an error from api.' });
+        } finally {
+            this._loadingService.resolve('form-sign-in');
+        }
     }
 }
