@@ -1,0 +1,1 @@
+export const API: string = 'http://localhost:50963';
