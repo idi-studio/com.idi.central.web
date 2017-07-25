@@ -11,8 +11,8 @@ import 'rxjs/add/operator/toPromise';
 })
 export class LoginComponent implements OnInit {
 
-    username: string="administrator";
-    password: string="p@55w0rd";
+    username: string = "administrator";
+    password: string = "p@55w0rd";
 
     constructor(private _tokenService: TokenService,
         private _router: Router,
@@ -25,12 +25,15 @@ export class LoginComponent implements OnInit {
     async signIn(): Promise<void> {
         try {
             this._loadingService.register('form-sign-in');
-            
-            let result = this._tokenService.signIn(this.username, this.password).toPromise();
 
-            // console.log(result);
+            let result = await this._tokenService.signIn(this.username, this.password).toPromise();
 
-            // this._router.navigate(["/central"]);
+            if (result.status == 1) {
+                this._router.navigate(["/central"]);
+            }
+            else{
+                this._dialogService.openAlert({ message: result.message });
+            }
         } catch (error) {
             this._dialogService.openAlert({ message: 'There was an error from api.' });
         } finally {

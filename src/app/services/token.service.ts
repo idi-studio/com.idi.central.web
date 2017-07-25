@@ -5,34 +5,29 @@ import { HttpInterceptorService, RESTService } from '@covalent/http';
 import { API } from '../configs/api.config';
 
 @Injectable()
-// export class TokenService extends RESTService<any> {
-
-// constructor(private _http: HttpInterceptorService) {
-//     super(_http, {
-//         baseUrl: API.baseAddress,
-//         path: '/api/token',
-//         baseHeaders: new Headers({ 'Content-Type': 'application/json' })
-//     });
-// }
 export class TokenService {
 
-    constructor(private http: HttpInterceptorService) { }
+    constructor(private _http: HttpInterceptorService) { }
 
     signIn(username: string, password: string): any {
+
         var body = new URLSearchParams();
         body.set("username", username);
         body.set("password", password);
         body.set("grant_type", "password");
 
-
-        //var data = "username=" + username + "&password=" + password + "&grant_type=password";
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        // headers.append("Authorization", "Basic " + API.clientKey);
 
-        return this.http.post('/api/token', body.toString(), { headers: headers })
+        return this._http.post('/api/token', body.toString(), { headers: headers })
             .map((res: Response) => {
-                return res.json();
+                var result = res.json();
+
+                if (result.status == 1) {
+                    API.token = result.data.access_token
+                }
+
+                return result;
             });
     }
 }
