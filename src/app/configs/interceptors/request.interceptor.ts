@@ -12,9 +12,6 @@ export class RequestInterceptor implements IHttpInterceptor {
             requestOptions.headers["Authorization"] = "Basic " + API.clientKey
         }
 
-        requestOptions.headers["Accept"] = "application/json"
-        requestOptions.headers["Content-Type"] = "application/json"
-        requestOptions.headers["Access-Control-Allow-Origin"] = "*"
         requestOptions.url = API.baseAddress + requestOptions.url
 
         console.log(requestOptions.headers)

@@ -16,19 +16,24 @@ import { API } from '../configs/api.config';
 // }
 export class TokenService {
 
-    constructor(private _http: HttpInterceptorService) { }
+    constructor(private http: HttpInterceptorService) { }
 
-    signIn(username: String, password: String): any {
-        let data: any = { username: username, password: password };
+    signIn(username: string, password: string): any {
+        var body = new URLSearchParams();
+        body.set("username", username);
+        body.set("password", password);
+        body.set("grant_type", "password");
 
-        return this._http.post('/api/token', data, API.defaultHeader)
+
+        //var data = "username=" + username + "&password=" + password + "&grant_type=password";
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        // headers.append("Authorization", "Basic " + API.clientKey);
+
+        return this.http.post('/api/token', body.toString(), { headers: headers })
             .map((res: Response) => {
                 return res.json();
             });
-        // return this._http.post('/api/token', data, { headers: new Headers({ 'Content-Type': 'application/json' }) })
-        //     .map((res: Response) => {
-        //         return res.json();
-        //     });
     }
 }
 

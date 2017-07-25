@@ -11,8 +11,8 @@ import 'rxjs/add/operator/toPromise';
 })
 export class LoginComponent implements OnInit {
 
-    username: String;
-    password: String;
+    username: string="administrator";
+    password: string="p@55w0rd";
 
     constructor(private _tokenService: TokenService,
         private _router: Router,
