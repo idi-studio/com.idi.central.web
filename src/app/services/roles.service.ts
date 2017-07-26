@@ -6,23 +6,21 @@ import { HttpInterceptorService, RESTService } from '@covalent/http';
 import { API } from '../configs/api.config';
 import { RoleItem } from '../models/role';
 
-export interface IRole {
+export interface IRoleRow {
     id: string;
     name: string;
     descrition: string;
-    isActive: boolean;
+    active: boolean;
 }
 
 @Injectable()
-export class RolesService extends RESTService<IRole> {
+export class RolesService extends RESTService<IRoleRow> {
 
     constructor(private _http: HttpInterceptorService) {
         super(_http, { baseUrl: API.baseUrl, path: '/api/roles' });
     }
 
-    getAll(): Observable<Array<IRole>> {
-
-        console.log(API)
+    getAll(): Observable<Array<IRoleRow>> {
 
         return this._http.get('/api/roles', { headers: new Headers({ 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", "Authorization": "Bearer " + API.token }) })
             .map((res: Response) => {
@@ -32,7 +30,7 @@ export class RolesService extends RESTService<IRole> {
                 if (result.status == 1)
                     return result.data.rows
 
-                return new Array<IRole>()
+                return new Array<IRoleRow>()
             });
     }
 }

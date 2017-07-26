@@ -25,7 +25,9 @@
     "@angular/platform-browser-dynamic": "^4.3.1",
     "@angular/router": "^4.3.1",
     "@covalent/core": "^1.0.0-beta.6",
+    "@covalent/highlight": "^1.0.0-beta.6",
     "@covalent/http": "^1.0.0-beta.6",
+    "@covalent/markdown": "^1.0.0-beta.6",
     "core-js": "^2.4.1",
     "rxjs": "^5.4.0",
     "zone.js": "^0.8.12"

@@ -3,10 +3,12 @@ import { PageHeader } from '../../models/page-header';
 import { RoleItem } from '../../models/role';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { RolesService, IRole } from '../../services/roles.service';
+import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
+import { IPageChangeEvent } from '@covalent/core';
+import { RolesService, IRoleRow } from '../../services/roles.service';
 import 'rxjs/add/operator/toPromise';
 
-declare var $: any;
+// declare var $: any;
 
 @Component({
     templateUrl: './role-list.component.html',
@@ -16,50 +18,92 @@ export class RoleListComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Roles", ["Administrators", "Roles"]);
 
-    roles: Array<IRole> = [];
-    // roles: Array<RoleItem> = [
-    //     new RoleItem(1, "Administrators", true),
-    //     new RoleItem(2, "Manager", true),
-    //     new RoleItem(3, "Finance", true),
-    //     new RoleItem(4, "Staff", true),
-    // ];
+    // roles: Array<IRoleRow> = [];
+    data: IRoleRow[] = [];
 
-    constructor(private _rolesService: RolesService,
-        private _router: Router,
-        private _route: ActivatedRoute,
-        private _loadingService: TdLoadingService,
-        private _dialogService: TdDialogService) { }
+    columns: ITdDataTableColumn[] = [
+        { name: 'id', label: '#', tooltip: 'Role UUID' },
+        { name: 'name', label: 'Name', filter: true },
+        { name: 'descrition', label: 'Descrition' },
+        { name: 'active', label: 'Status', filter: true },
+    ];
 
+    filteredData: any[] = this.data;
+    filteredTotal: number = this.data.length;
+    searchTerm: string = '';
+    fromRow: number = 1;
+    currentPage: number = 1;
+    pageSize: number = 5;
+    sortBy: string = 'name';
+    selectedRows: any[] = [];
+    sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+
+    constructor(private _rolesService: RolesService, private _router: Router, private _route: ActivatedRoute,
+        private _loadingService: TdLoadingService, private _dialogService: TdDialogService, private _dataTableService: TdDataTableService) { }
 
     ngOnInit(): void {
 
-        this.load();
+        this.filter();
 
-        $(function () {
-            $('#datatable').DataTable();
+        // $(function () {
+        //     $('#datatable').DataTable();
 
-            var table = $('#datatable-buttons').DataTable({
-                lengthChange: false,
-                buttons: ['copy', 'excel', 'pdf', 'colvis']
+        //     var table = $('#datatable-buttons').DataTable({
+        //         lengthChange: false,
+        //         buttons: ['copy', 'excel', 'pdf', 'colvis']
+        //     });
+
+        //     table.buttons().container().appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+        // });
+    }
+
+    sort(sortEvent: ITdDataTableSortChangeEvent): void {
+        this.sortBy = sortEvent.name;
+        this.sortOrder = sortEvent.order;
+        this.filter();
+    }
+
+    search(searchTerm: string): void {
+        this.searchTerm = searchTerm;
+        this.filter();
+    }
+
+    page(pagingEvent: IPageChangeEvent): void {
+        this.fromRow = pagingEvent.fromRow;
+        this.currentPage = pagingEvent.page;
+        this.pageSize = pagingEvent.pageSize;
+        this.filter();
+    }
+
+    async filter(): Promise<void> {
+        this.data = await this._rolesService.getAll().toPromise()
+
+        let newData: IRoleRow[] = this.data;
+
+        let excludedColumns: string[] = this.columns
+            .filter((column: ITdDataTableColumn) => {
+                return ((column.filter === undefined && column.hidden === true) ||
+                    (column.filter !== undefined && column.filter === false));
+            }).map((column: ITdDataTableColumn) => {
+                return column.name;
             });
 
-            table.buttons().container().appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-        });
+        newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+        this.filteredTotal = newData.length;
+        newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
+        newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+        this.filteredData = newData;
     }
 
-    async load(): Promise<void> {
-        console.log("->load");
-        try {
-            this._loadingService.register('role.list')
-            this.roles = await this._rolesService.getAll().toPromise()
-            console.log(this.roles)
-        } catch (error) {
-            this.roles = []
-        } finally {
-            // this.roles = []
-            // this.filteredUsers = Object.assign([], this.users);
-            this._loadingService.resolve('role.list');
-        }
-    }
+    // async load(): Promise<void> {
+    //     try {
+    //         this._loadingService.register('role.list')
+    //         this.data = await this._rolesService.getAll().toPromise()
+    //     } catch (error) {
+    //         this.data = []
+    //     } finally {
+    //         this._loadingService.resolve('role.list');
+    //     }
+    // }
 
 }
