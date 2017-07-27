@@ -120,37 +120,32 @@
                             </a>
       </li>
 
-      <li class="nav-item dropdown notification-list">
+      <li *ngIf="profile!=null" class="nav-item dropdown notification-list">
         <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
           aria-haspopup="false" aria-expanded="false">
-                                <img src="assets/images/users/avatar-0.jpg" alt="user" class="img-circle">
-                            </a>
+          <img src="assets/images/users/{{profile.photo}}" alt="user" class="img-circle">
+        </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-arrow profile-dropdown " aria-labelledby="Preview">
           <!-- item-->
           <div class="dropdown-item noti-title">
-            <h5 class="text-overflow"><small>Welcome ! Johnny</small> </h5>
+            <h5 class="text-overflow"><small>Welcome ! {{profile.name}}</small> </h5>
           </div>
-
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item">
             <i class="zmdi zmdi-account-circle"></i> <span>Profile</span>
           </a>
-
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item">
             <i class="zmdi zmdi-settings"></i> <span>Settings</span>
           </a>
-
           <!-- item-->
           <a routerLink="/lock-screen" class="dropdown-item notify-item">
             <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
           </a>
-
           <!-- item-->
           <a routerLink="/login" class="dropdown-item notify-item" routerLink="/login">
-                                    <i class="zmdi zmdi-power"></i> <span>Logout</span>
-                                </a>
-
+            <i class="zmdi zmdi-power"></i> <span>Logout</span>
+          </a>
         </div>
       </li>
 

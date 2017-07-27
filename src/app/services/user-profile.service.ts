@@ -5,23 +5,26 @@ import { Observable } from 'rxjs/Observable';
 import { HttpInterceptorService, RESTService } from '@covalent/http';
 import { API } from '../configs/api.config';
 
-export interface IRoleRow {
+export interface IUserProfile {
     id: string;
+    username: string;
     name: string;
-    descrition: string;
-    active: boolean;
+    gender: number;
+    birthday: Date;
+    photo: string;
 }
 
 @Injectable()
-export class RolesService extends RESTService<IRoleRow> {
+export class UserProfileService extends RESTService<IUserProfile> {
 
     constructor(private _http: HttpInterceptorService) {
-        super(_http, { baseUrl: API.instance.baseUrl, path: '/api/roles' });
+        super(_http, { baseUrl: API.instance.baseUrl, path: '/api/user/profile' });
     }
 
-    getAll(): Observable<Array<IRoleRow>> {
+    get(): Observable<IUserProfile> {
+        let username = API.instance.get("username");
 
-        return this._http.get('/api/roles', {
+        return this._http.get('/api/user/profile/' + username, {
             headers: new Headers({
                 'Content-Type': 'application/json',
                 "Access-Control-Allow-Origin": "*",
@@ -29,12 +32,12 @@ export class RolesService extends RESTService<IRoleRow> {
             })
         }).map((res: Response) => {
 
-                var result = res.json();
+            var result = res.json();
 
-                if (result.status == 1)
-                    return result.data.rows
+            if (result.status == 1)
+                return result.data
 
-                return new Array<IRoleRow>()
-            });
+            return null;
+        });
     }
 }

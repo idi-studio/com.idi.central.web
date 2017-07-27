@@ -1,14 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { TdDialogService } from '@covalent/core';
+import { UserProfileService, IUserProfile } from '../../../services/user-profile.service';
 
 declare var $: any;
 
 @Component({
     selector: 'topbar',
-    templateUrl: './topbar.component.html'
+    templateUrl: './topbar.component.html',
+    viewProviders: [UserProfileService],
 })
 export class TopbarComponent implements OnInit {
     title: string = "Central";
+    profile: IUserProfile;
+
+    constructor(
+        private _userProfileService: UserProfileService,
+        private _dialogService: TdDialogService) { }
+
     ngOnInit(): void {
+        this.init();
+        this.load();
+    }
+
+    async load(): Promise<void> {
+        try {
+            this.profile = await this._userProfileService.get().toPromise()
+        }
+        catch (error) {
+            this.profile = null;
+            this._dialogService.openAlert({ message: error });
+        }
+    }
+
+    private init(): void {
         $(function () {
             function toggle_slimscroll(item) {
                 if ($("#wrapper").hasClass("enlarged")) {

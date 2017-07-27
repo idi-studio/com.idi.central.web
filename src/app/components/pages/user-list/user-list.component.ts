@@ -17,6 +17,7 @@ export class UserListComponent implements OnInit {
 
     columns: ITdDataTableColumn[] = [
         { name: 'photo', label: 'Photo', tooltip: 'Photo' },
+        { name: 'username', label: 'User ID', filter: true },
         { name: 'name', label: 'Name', filter: true },
         { name: 'gender', label: 'Gender' },
         { name: 'birthday', label: 'Birthday', filter: true },
@@ -29,7 +30,7 @@ export class UserListComponent implements OnInit {
     fromRow: number = 1;
     currentPage: number = 1;
     pageSize: number = 5;
-    sortBy: string = 'name';
+    sortBy: string = 'username';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
@@ -48,7 +49,7 @@ export class UserListComponent implements OnInit {
         catch (error) {
             this.data = [];
             // console.log(`${error}`);
-            this._dialogService.openAlert({message: error});
+            this._dialogService.openAlert({ message: error });
         }
         finally {
             this._loadingService.resolve('user-list');
@@ -70,7 +71,7 @@ export class UserListComponent implements OnInit {
         this.filteredData = newData;
     }
 
-        sort(sortEvent: ITdDataTableSortChangeEvent): void {
+    sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
         this.sortOrder = sortEvent.order;
         this.filter();

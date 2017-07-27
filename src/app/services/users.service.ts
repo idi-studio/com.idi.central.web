@@ -9,6 +9,10 @@ export interface IUserRow {
     id: string;
     username: string;
     active: boolean;
+    name: string;
+    gender: number;
+    birthday: Date;
+    photo: string;
 }
 
 @Injectable()
@@ -26,8 +30,7 @@ export class UsersService extends RESTService<IUserRow> {
                 "Access-Control-Allow-Origin": "*",
                 "Authorization": "Bearer " + API.instance.get("token")
             })
-        })
-            .map((res: Response) => {
+        }).map((res: Response) => {
 
                 var result = res.json();
 

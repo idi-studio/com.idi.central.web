@@ -25,6 +25,7 @@ export class TokenService {
 
                 if (result.status == 1) {
                     API.instance.set("token", result.data.access_token);
+                    API.instance.set("username", username);
                 }
 
                 return result;
