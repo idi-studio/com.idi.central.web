@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PageHeader } from '../../models/page-header';
-import { RoleItem } from '../../models/role';
+import { PageHeader } from '../../../models/page-header';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
-import { IPageChangeEvent } from '@covalent/core';
-import { RolesService, IRoleRow } from '../../services/roles.service';
+import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
+import { RolesService, IRoleRow } from '../../../services/roles.service';
 import 'rxjs/add/operator/toPromise';
-
-// declare var $: any;
 
 @Component({
     templateUrl: './role-list.component.html',
@@ -18,11 +13,10 @@ export class RoleListComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Roles", ["Administrators", "Roles"]);
 
-    // roles: Array<IRoleRow> = [];
     data: IRoleRow[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'id', label: '#', tooltip: 'Role UUID' },
+        { name: 'id', label: '#', tooltip: 'Role ID' },
         { name: 'name', label: 'Name', filter: true },
         { name: 'descrition', label: 'Descrition' },
         { name: 'active', label: 'Status', filter: true },
@@ -42,19 +36,7 @@ export class RoleListComponent implements OnInit {
         private _loadingService: TdLoadingService, private _dialogService: TdDialogService, private _dataTableService: TdDataTableService) { }
 
     ngOnInit(): void {
-
         this.filter();
-
-        // $(function () {
-        //     $('#datatable').DataTable();
-
-        //     var table = $('#datatable-buttons').DataTable({
-        //         lengthChange: false,
-        //         buttons: ['copy', 'excel', 'pdf', 'colvis']
-        //     });
-
-        //     table.buttons().container().appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-        // });
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -76,7 +58,16 @@ export class RoleListComponent implements OnInit {
     }
 
     async filter(): Promise<void> {
-        this.data = await this._rolesService.getAll().toPromise()
+        try {
+            this._loadingService.register('role-list');
+            this.data = await this._rolesService.getAll().toPromise()
+        }
+        catch (error) {
+            this.data = [];
+        }
+        finally {
+            this._loadingService.resolve('role-list');
+        }
 
         let newData: IRoleRow[] = this.data;
 
@@ -94,16 +85,4 @@ export class RoleListComponent implements OnInit {
         newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
         this.filteredData = newData;
     }
-
-    // async load(): Promise<void> {
-    //     try {
-    //         this._loadingService.register('role.list')
-    //         this.data = await this._rolesService.getAll().toPromise()
-    //     } catch (error) {
-    //         this.data = []
-    //     } finally {
-    //         this._loadingService.resolve('role.list');
-    //     }
-    // }
-
 }

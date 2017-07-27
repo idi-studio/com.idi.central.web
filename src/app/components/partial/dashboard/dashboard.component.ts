@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageHeader } from '../../models/page-header';
+import { PageHeader } from '../../../models/page-header';
 
 @Component({
     templateUrl: './dashboard.component.html',

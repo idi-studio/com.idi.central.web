@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageHeader } from '../../models/page-header';
+import { PageHeader } from '../../../models/page-header';
 
 declare var $: any;
 
