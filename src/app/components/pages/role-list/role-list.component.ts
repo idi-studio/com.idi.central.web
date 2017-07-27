@@ -16,10 +16,9 @@ export class RoleListComponent implements OnInit {
     data: IRoleRow[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'id', label: '#', tooltip: 'Role ID' },
         { name: 'name', label: 'Name', filter: true },
         { name: 'descrition', label: 'Descrition' },
-        { name: 'active', label: 'Status', filter: true },
+        { name: 'active', label: 'Active?', filter: true },
     ];
 
     filteredData: any[] = this.data;

@@ -15,12 +15,18 @@
       <md-divider></md-divider>
       <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [clickable]="clickable" [multiple]="multiple"
         [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <md-icon *ngIf="value" class="tc-light-green-800">check_box</md-icon>
+            <md-icon *ngIf="!value" class="tc-light-green-800">check_box_outline_blank</md-icon>
+          </div>
+        </ng-template>
       </td-data-table>
       <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
         <h3>No results to display.</h3>
       </div>
       <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>Page:</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+        <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
       </td-paging-bar>
     </div>
   </div>
