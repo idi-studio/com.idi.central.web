@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class RoleListComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Roles", ["Administrators", "Roles"]);
+    header: PageHeader = new PageHeader("Roles", ["Administration", "Roles"]);
 
     data: IRoleRow[] = [];
 
@@ -38,24 +38,6 @@ export class RoleListComponent implements OnInit {
         this.filter();
     }
 
-    sort(sortEvent: ITdDataTableSortChangeEvent): void {
-        this.sortBy = sortEvent.name;
-        this.sortOrder = sortEvent.order;
-        this.filter();
-    }
-
-    search(searchTerm: string): void {
-        this.searchTerm = searchTerm;
-        this.filter();
-    }
-
-    page(pagingEvent: IPageChangeEvent): void {
-        this.fromRow = pagingEvent.fromRow;
-        this.currentPage = pagingEvent.page;
-        this.pageSize = pagingEvent.pageSize;
-        this.filter();
-    }
-
     async filter(): Promise<void> {
         try {
             this._loadingService.register('role-list');
@@ -63,6 +45,7 @@ export class RoleListComponent implements OnInit {
         }
         catch (error) {
             this.data = [];
+             this._dialogService.openAlert({message: error});
         }
         finally {
             this._loadingService.resolve('role-list');
@@ -83,5 +66,23 @@ export class RoleListComponent implements OnInit {
         newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
         newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
         this.filteredData = newData;
+    }
+
+     sort(sortEvent: ITdDataTableSortChangeEvent): void {
+        this.sortBy = sortEvent.name;
+        this.sortOrder = sortEvent.order;
+        this.filter();
+    }
+
+    search(searchTerm: string): void {
+        this.searchTerm = searchTerm;
+        this.filter();
+    }
+
+    page(pagingEvent: IPageChangeEvent): void {
+        this.fromRow = pagingEvent.fromRow;
+        this.currentPage = pagingEvent.page;
+        this.pageSize = pagingEvent.pageSize;
+        this.filter();
     }
 }
