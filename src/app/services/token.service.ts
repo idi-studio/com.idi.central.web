@@ -24,7 +24,7 @@ export class TokenService {
                 var result = res.json();
 
                 if (result.status == 1) {
-                    API.token = result.data.access_token
+                    API.instance.set("token", result.data.access_token);
                 }
 
                 return result;

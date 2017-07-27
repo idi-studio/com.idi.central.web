@@ -17,12 +17,18 @@ export interface IRoleRow {
 export class RolesService extends RESTService<IRoleRow> {
 
     constructor(private _http: HttpInterceptorService) {
-        super(_http, { baseUrl: API.baseUrl, path: '/api/roles' });
+        super(_http, { baseUrl: API.instance.baseUrl, path: '/api/roles' });
     }
 
     getAll(): Observable<Array<IRoleRow>> {
 
-        return this._http.get('/api/roles', { headers: new Headers({ 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*", "Authorization": "Bearer " + API.token }) })
+        return this._http.get('/api/roles', {
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Authorization": "Bearer " + API.instance.get("token")
+            })
+        })
             .map((res: Response) => {
 
                 var result = res.json();

@@ -9,13 +9,13 @@ export class RequestInterceptor implements IHttpInterceptor {
     onRequest(requestOptions: RequestOptionsArgs): RequestOptionsArgs {
 
         if (requestOptions.url == "/api/token") {
-            requestOptions.headers["Authorization"] = "Basic " + API.clientKey
+            requestOptions.headers["Authorization"] = "Basic " + API.instance.clientKey
         }
         else {
-            requestOptions.headers["Authorization"] = "Bearer " + API.token
+            requestOptions.headers["Authorization"] = "Bearer " + API.instance.get("token")
         }
 
-        requestOptions.url = API.baseUrl + requestOptions.url
+        requestOptions.url = API.instance.baseUrl + requestOptions.url
 
         return requestOptions
     }
