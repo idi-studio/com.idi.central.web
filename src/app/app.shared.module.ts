@@ -15,10 +15,16 @@ import {
     MdToolbarModule, MdSnackBarModule, MdSidenavModule,
     MdTabsModule, MdSelectModule,
 } from '@angular/material';
+import { DynamicFormsCoreModule } from "@ng2-dynamic-forms/core";
+import { DynamicFormsMaterialUIModule } from "@ng2-dynamic-forms/ui-material";
+
 // import { NgxChartsModule, } from '@swimlane/ngx-charts';
+const DYNAMIC_FORMS_MODULES: any[] = [
+    DynamicFormsCoreModule, DynamicFormsMaterialUIModule
+];
 
 const FLEX_LAYOUT_MODULES: any[] = [
-  FlexLayoutModule,
+    FlexLayoutModule,
 ];
 
 const ANGULAR_MODULES: any[] = [
@@ -52,6 +58,7 @@ const COVALENT_MODULES: any[] = [
         COVALENT_MODULES,
         // CHART_MODULES,
         FLEX_LAYOUT_MODULES,
+        DYNAMIC_FORMS_MODULES
     ],
     declarations: [
 
@@ -62,6 +69,7 @@ const COVALENT_MODULES: any[] = [
         COVALENT_MODULES,
         // CHART_MODULES,
         FLEX_LAYOUT_MODULES,
+        DYNAMIC_FORMS_MODULES
     ]
 })
 export class SharedModule { }
