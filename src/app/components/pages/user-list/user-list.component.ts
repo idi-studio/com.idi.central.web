@@ -16,10 +16,10 @@ export class UserListComponent implements OnInit {
     data: IUserRow[] = [];
 
     columns: ITdDataTableColumn[] = [
+        { name: 'photo', label: 'Photo', tooltip: 'Photo' },
         { name: 'name', label: 'Name', filter: true },
         { name: 'gender', label: 'Gender' },
         { name: 'birthday', label: 'Birthday', filter: true },
-        { name: 'photo', label: 'Photo' },
         { name: 'active', label: 'Active?', filter: true },
     ];
 

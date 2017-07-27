@@ -28,7 +28,14 @@
             <i *ngIf="value==1" class="fa fa-male tc-light-blue-800" aria-hidden="true"></i>
           </div>
         </ng-template>
-        
+        <ng-template tdDataTableTemplate="birthday" let-value="value" let-row="row" let-column="column">
+          <div layout="row">{{value | date: 'yyyy-MM-dd'}}</div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="photo" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <img alt="photo" class="img-circle" src="assets/images/users/avatar-0.jpg" height="24" width="24">
+          </div>
+        </ng-template>
       </td-data-table>
       <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
         <h3>No results to display.</h3>
