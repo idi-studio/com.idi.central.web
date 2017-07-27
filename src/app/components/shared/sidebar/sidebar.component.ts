@@ -10,7 +10,7 @@ declare var $: any;
 export class SidebarComponent implements OnInit {
     navigation: MenuItem[] = [
         new MenuItem("Dashboard", "dashboard", "zmdi zmdi-view-dashboard", true),
-        new MenuItem("Administrators", null, "zmdi zmdi-accounts-list-alt", false, [
+        new MenuItem("Administration", null, "zmdi zmdi-accounts-list-alt", false, [
             new MenuItem("Roles", "role/list"),
             new MenuItem("Users", "user/list")
         ]),

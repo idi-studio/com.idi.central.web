@@ -21,6 +21,14 @@
             <md-icon *ngIf="!value" class="tc-light-green-800">check_box_outline_blank</md-icon>
           </div>
         </ng-template>
+        <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <i *ngIf="value==-1" class="fa fa-user-secret" aria-hidden="true"></i>
+            <i *ngIf="value==0" class="fa fa-female tc-pink-800" aria-hidden="true"></i>
+            <i *ngIf="value==1" class="fa fa-male tc-light-blue-800" aria-hidden="true"></i>
+          </div>
+        </ng-template>
+        
       </td-data-table>
       <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
         <h3>No results to display.</h3>

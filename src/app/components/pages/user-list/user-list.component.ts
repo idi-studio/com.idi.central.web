@@ -16,8 +16,10 @@ export class UserListComponent implements OnInit {
     data: IUserRow[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'username', label: 'Name', filter: true },
-        // { name: 'descrition', label: 'Descrition' },
+        { name: 'name', label: 'Name', filter: true },
+        { name: 'gender', label: 'Gender' },
+        { name: 'birthday', label: 'Birthday', filter: true },
+        { name: 'photo', label: 'Photo' },
         { name: 'active', label: 'Active?', filter: true },
     ];
 
@@ -27,7 +29,7 @@ export class UserListComponent implements OnInit {
     fromRow: number = 1;
     currentPage: number = 1;
     pageSize: number = 5;
-    sortBy: string = 'username';
+    sortBy: string = 'name';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
@@ -56,8 +58,7 @@ export class UserListComponent implements OnInit {
 
         let excludedColumns: string[] = this.columns
             .filter((column: ITdDataTableColumn) => {
-                return ((column.filter === undefined && column.hidden === true) ||
-                    (column.filter !== undefined && column.filter === false));
+                return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
             }).map((column: ITdDataTableColumn) => {
                 return column.name;
             });

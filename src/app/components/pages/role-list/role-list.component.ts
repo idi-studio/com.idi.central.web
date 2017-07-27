@@ -55,8 +55,7 @@ export class RoleListComponent implements OnInit {
 
         let excludedColumns: string[] = this.columns
             .filter((column: ITdDataTableColumn) => {
-                return ((column.filter === undefined && column.hidden === true) ||
-                    (column.filter !== undefined && column.filter === false));
+                return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
             }).map((column: ITdDataTableColumn) => {
                 return column.name;
             });
