@@ -28,7 +28,8 @@ const routes: Route[] = [
             { path: 'role/list', component: RoleListComponent },
             { path: 'user/list', component: UserListComponent }
         ]
-    }
+    },
+    // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

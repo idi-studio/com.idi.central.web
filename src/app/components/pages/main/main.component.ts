@@ -8,7 +8,12 @@ declare var jQuery: any;
     templateUrl: './main.component.html'
 })
 export class MainComponent implements OnInit {
+
     ngOnInit(): void {
+        this.load();
+    }
+
+    private load(): void {
         var resizefunc = [];
         var w, h, dw, dh;
 

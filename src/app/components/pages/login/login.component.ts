@@ -47,9 +47,34 @@ export class LoginComponent implements OnInit {
                 this._dialogService.openAlert({ message: result.message });
             }
         } catch (error) {
-            this._dialogService.openAlert({ message: 'There was an error from api.' });
+            this.handleError(error)
         } finally {
             this._loadingService.resolve('form-sign-in');
         }
+    }
+
+    private handleError(error: Response) {
+
+        let errMsg: string;
+
+        switch (error.status) {
+            case 0:
+                errMsg = "Cannot connect to server."
+                break;
+            case 400:
+                errMsg = "Bad Request."
+                break;
+            case 401:
+                errMsg = "Unauthorized."
+                break;
+            case 500:
+                errMsg = "Internal server error."
+                break;
+            default:
+                errMsg = `Error status - ${error.status}.`
+                break;
+        }
+
+        this._dialogService.openAlert({ message: errMsg })
     }
 }
