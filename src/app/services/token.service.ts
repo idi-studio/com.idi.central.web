@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Response, Http, Headers } from '@angular/http';
-import { HttpInterceptorService, RESTService } from '@covalent/http';
-// import { Observable } from 'rxjs/Observable';
-import { API } from '../configs/api.config';
+import { Response, Headers } from '@angular/http';
+import { HttpInterceptorService } from '@covalent/http';
+import { API } from '../core';
 
 @Injectable()
 export class TokenService {

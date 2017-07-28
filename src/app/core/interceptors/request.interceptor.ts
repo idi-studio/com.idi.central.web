@@ -17,6 +17,8 @@ export class RequestInterceptor implements IHttpInterceptor {
 
         requestOptions.url = API.instance.baseUrl + requestOptions.url
 
+        console.log(requestOptions)
+
         return requestOptions
     }
 }

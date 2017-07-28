@@ -3,7 +3,7 @@ import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { HttpInterceptorService, RESTService } from '@covalent/http';
-import { API } from '../configs/api.config';
+import { API } from '../core/api.config';
 
 export interface IRoleRow {
     id: string;

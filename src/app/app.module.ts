@@ -12,8 +12,8 @@ import { SharedModule } from './app.shared.module';
 
 //Common
 import { AppComponent } from './app.component';
-import { RequestInterceptor } from './configs/interceptors/request.interceptor';
-import { API } from './configs/api.config';
+import { RequestInterceptor } from './core/interceptors/request.interceptor';
+import { API } from './core/api.config';
 
 const HttpInterceptorProviders: Type<IHttpInterceptor>[] = [RequestInterceptor];
 
