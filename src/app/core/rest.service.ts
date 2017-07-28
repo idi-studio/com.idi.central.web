@@ -1,8 +1,6 @@
 import { Headers, Response, RequestMethod, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { API } from '../core/api.config';
-import 'rxjs/add/operator/catch';
-// import 'rxjs/add/operator/map';
 
 export class RESTService {
 

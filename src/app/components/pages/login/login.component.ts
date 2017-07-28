@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
         private _tokenService: TokenService,
         private _router: Router,
         private _route: ActivatedRoute,
-        private _loadingService: TdLoadingService,
-        private _dialogService: TdDialogService
+        private _loading: TdLoadingService,
+        private _dialog: TdDialogService
     ) { }
 
     ngOnInit(): void {
@@ -35,22 +35,20 @@ export class LoginComponent implements OnInit {
         let username: string = this.formControlUsername.value;
         let password: string = this.formControlPassword.value;
 
-        try {
-            this._loadingService.register('form-sign-in');
+        this._loading.register('form-sign-in');
 
-            let result = await this._tokenService.signIn(username, password).toPromise();
-
+        this._tokenService.signIn(username, password).subscribe(result => {
             if (result.status == 1) {
-                this._router.navigate(["/central"]);
+                this._router.navigate(["/central"])
             }
             else {
-                this._dialogService.openAlert({ message: result.message });
+                this._dialog.openAlert({ message: result.message });
             }
-        } catch (error) {
-            this.handleError(error)
-        } finally {
-            this._loadingService.resolve('form-sign-in');
-        }
+            this._loading.resolve('form-sign-in');
+        }, error => {
+            this.handleError(error);
+            this._loading.resolve('form-sign-in')
+        });
     }
 
     private handleError(error: Response) {
@@ -75,6 +73,6 @@ export class LoginComponent implements OnInit {
                 break;
         }
 
-        this._dialogService.openAlert({ message: errMsg })
+        this._dialog.openAlert({ message: errMsg })
     }
 }

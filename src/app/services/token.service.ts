@@ -32,15 +32,3 @@ export class TokenService extends RESTService {
         API.instance.remove("username");
     }
 }
-
-// export function TokenProviderFactory(
-//     parent: TokenService, interceptorHttp: HttpInterceptorService): TokenService {
-//     return parent || new TokenService(interceptorHttp);
-// }
-
-// export const TokenProvider: Provider = {
-//     // If there is already a service available, use that. Otherwise, provide a new one.
-//     provide: TokenService,
-//     deps: [[new Optional(), new SkipSelf(), TokenService], HttpInterceptorService],
-//     useFactory: TokenProviderFactory,
-// };
