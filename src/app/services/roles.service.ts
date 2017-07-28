@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { HttpInterceptorService, RESTService } from '@covalent/http';
-import { API } from '../core/api.config';
+import { RESTService } from '../core';
 
 export interface IRoleRow {
     id: string;
@@ -13,28 +12,20 @@ export interface IRoleRow {
 }
 
 @Injectable()
-export class RolesService extends RESTService<IRoleRow> {
+export class RolesService extends RESTService {
 
-    constructor(private _http: HttpInterceptorService) {
-        super(_http, { baseUrl: API.instance.baseUrl, path: '/api/roles' });
-    }
+    constructor(http: Http) { super(http) }
 
     getAll(): Observable<Array<IRoleRow>> {
 
-        return this._http.get('/api/roles', {
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Authorization": "Bearer " + API.instance.get("token")
-            })
-        }).map((res: Response) => {
+        return super.get('/api/roles').map((res: Response) => {
 
-                var result = res.json();
+            var result = res.json();
 
-                if (result.status == 1)
-                    return result.data.rows
+            if (result.status == 1)
+                return result.data.rows
 
-                return new Array<IRoleRow>()
-            });
+            return new Array<IRoleRow>()
+        });
     }
 }

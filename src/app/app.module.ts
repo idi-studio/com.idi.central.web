@@ -5,17 +5,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Module
 import { AppRoutingModule, CentralComponents } from './app.routing.module';
-import { CovalentHttpModule, IHttpInterceptor } from '@covalent/http';
+// import { CovalentHttpModule, IHttpInterceptor } from '@covalent/http';
 // import { CovalentHighlightModule } from '@covalent/highlight';
 // import { CovalentMarkdownModule } from '@covalent/markdown';
 import { SharedModule } from './app.shared.module';
 
 //Common
 import { AppComponent } from './app.component';
-import { RequestInterceptor } from './core/interceptors/request.interceptor';
-import { API } from './core/api.config';
+// import { RequestInterceptor } from './core/interceptors/request.interceptor';
+// import { API } from './core/api.config';
 
-const HttpInterceptorProviders: Type<IHttpInterceptor>[] = [RequestInterceptor];
+// const HttpInterceptorProviders: Type<IHttpInterceptor>[] = [RequestInterceptor];
 
 @NgModule({
   declarations: [
@@ -24,15 +24,15 @@ const HttpInterceptorProviders: Type<IHttpInterceptor>[] = [RequestInterceptor];
   exports: [],//declarations 的子集，可用于其它模块的组件模板。
   imports: [
     AppRoutingModule, BrowserModule, BrowserAnimationsModule, SharedModule,
-    CovalentHttpModule.forRoot({
-      interceptors: [{
-        interceptor: RequestInterceptor, paths: ['**'],
-      }],
-      // CovalentHighlightModule, CovalentMarkdownModule,
-    }),
+    // CovalentHttpModule.forRoot({
+    //   interceptors: [{
+    //     interceptor: RequestInterceptor, paths: ['**'],
+    //   }],
+    // CovalentHighlightModule, CovalentMarkdownModule,
+    // }),
   ],//本模块声明的组件模板需要的类所在的其它模块
   providers: [
-    HttpInterceptorProviders,
+    // HttpInterceptorProviders,
   ],// 服务的创建者，并加入到全局服务列表中，可用于应用任何部分
   bootstrap: [AppComponent]//指定应用的主视图（称为根组件），它是所有其它视图的宿主。只有根模块才能设置bootstrap属性
 })

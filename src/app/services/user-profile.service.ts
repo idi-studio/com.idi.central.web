@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Response, Http, Headers } from '@angular/http';
+import { Response, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
-import { HttpInterceptorService, RESTService } from '@covalent/http';
-import { API } from '../core/api.config';
+import { API, RESTService } from '../core';
 
 export interface IUserProfile {
     id: string;
@@ -15,22 +13,14 @@ export interface IUserProfile {
 }
 
 @Injectable()
-export class UserProfileService extends RESTService<IUserProfile> {
+export class UserProfileService extends RESTService {
 
-    constructor(private _http: HttpInterceptorService) {
-        super(_http, { baseUrl: API.instance.baseUrl, path: '/api/user/profile' });
-    }
+    constructor(http: Http) { super(http) }
 
     get(): Observable<IUserProfile> {
         let username = API.instance.get("username");
 
-        return this._http.get('/api/user/profile/' + username, {
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Authorization": "Bearer " + API.instance.get("token")
-            })
-        }).map((res: Response) => {
+        return super.get('/api/user/profile/' + username, ).map((res: Response) => {
 
             var result = res.json();
 

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
-import { HttpInterceptorService, RESTService } from '@covalent/http';
-import { API } from '../core/api.config';
+import { API, RESTService } from '../core';
 
 export interface IUserRow {
     id: string;
@@ -16,28 +14,20 @@ export interface IUserRow {
 }
 
 @Injectable()
-export class UsersService extends RESTService<IUserRow> {
+export class UsersService extends RESTService {
 
-    constructor(private _http: HttpInterceptorService) {
-        super(_http, { baseUrl: API.instance.baseUrl, path: '/api/users' });
-    }
+    constructor(http: Http) { super(http) }
 
     getAll(): Observable<Array<IUserRow>> {
 
-        return this._http.get('/api/users', {
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                "Access-Control-Allow-Origin": "*",
-                "Authorization": "Bearer " + API.instance.get("token")
-            })
-        }).map((res: Response) => {
+        return super.get('/api/users').map((res: Response) => {
 
-                var result = res.json();
+            var result = res.json();
 
-                if (result.status == 1)
-                    return result.data.rows
+            if (result.status == 1)
+                return result.data.rows
 
-                return new Array<IUserRow>()
-            });
+            return new Array<IUserRow>()
+        });
     }
 }
