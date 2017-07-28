@@ -7,7 +7,6 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './role-list.component.html',
-    viewProviders: [RolesService],
 })
 export class RoleListComponent implements OnInit {
 
@@ -31,8 +30,13 @@ export class RoleListComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private _rolesService: RolesService, private _router: Router, private _route: ActivatedRoute,
-        private _loadingService: TdLoadingService, private _dialogService: TdDialogService, private _dataTableService: TdDataTableService) { }
+    constructor(
+        private _rolesService: RolesService, 
+        private _router: Router, private _route: ActivatedRoute,
+        private _loadingService: TdLoadingService, 
+        private _dialogService: TdDialogService, 
+        private _dataTableService: TdDataTableService
+    ) { }
 
     ngOnInit(): void {
         this.filter();

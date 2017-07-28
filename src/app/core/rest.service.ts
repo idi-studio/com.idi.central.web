@@ -28,8 +28,6 @@ export class RESTService {
             headers.append('Authorization', "Bearer " + API.instance.get("token"));
         }
 
-        console.log(headers)
-
         return headers;
     }
 }

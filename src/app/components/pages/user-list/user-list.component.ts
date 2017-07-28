@@ -7,7 +7,6 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './user-list.component.html',
-    viewProviders: [UsersService],
 })
 export class UserListComponent implements OnInit {
 
@@ -34,8 +33,14 @@ export class UserListComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private _usersService: UsersService, private _router: Router, private _route: ActivatedRoute,
-        private _loadingService: TdLoadingService, private _dialogService: TdDialogService, private _dataTableService: TdDataTableService) { }
+    constructor(
+        private _usersService: UsersService, 
+        private _router: Router, 
+        private _route: ActivatedRoute,
+        private _loadingService: TdLoadingService, 
+        private _dialogService: TdDialogService, 
+        private _dataTableService: TdDataTableService
+    ) { }
 
     ngOnInit(): void {
         this.filter();

@@ -10,19 +10,20 @@ const USERNAME_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
     templateUrl: './login.component.html',
-    styleUrls: ['login.component.css'],
-    viewProviders: [TokenService],
+    styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
 
     formControlUsername = new FormControl('', [Validators.required, Validators.pattern(USERNAME_REGEX)]);
     formControlPassword = new FormControl('', [Validators.required]);
 
-    constructor(private _tokenService: TokenService,
+    constructor(
+        private _tokenService: TokenService,
         private _router: Router,
         private _route: ActivatedRoute,
         private _loadingService: TdLoadingService,
-        private _dialogService: TdDialogService) { }
+        private _dialogService: TdDialogService
+    ) { }
 
     ngOnInit(): void {
         this.formControlUsername.setValue("administrator");
