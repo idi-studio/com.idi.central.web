@@ -25,6 +25,12 @@ export class TokenService extends RESTService {
             return result;
         });
     }
+
+    signOut(): void {
+        
+        API.instance.remove("token");
+        API.instance.remove("username");
+    }
 }
 
 // export function TokenProviderFactory(

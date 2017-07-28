@@ -7,13 +7,17 @@ export class API {
     private API() { }
 
     set(key: string, value: string) {
-        localStorage.setItem(key, value);
+        localStorage.setItem(key, value)
         // console.log(`set cache with key: '${key}', value: '${value}'`);
     }
 
     get(key: string): string {
-        let value = localStorage.getItem(key);
+        let value = localStorage.getItem(key)
         // console.log(`get cache value: '${value}' with key: '${key}'`);
         return value || "";
+    }
+
+    remove(key: string) {
+        localStorage.removeItem(key)
     }
 }

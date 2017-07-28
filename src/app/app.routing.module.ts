@@ -3,6 +3,7 @@ import { RouterModule, Route } from '@angular/router';
 
 //Components
 import { LoginComponent } from './components/pages/login/login.component';
+import { LogoutComponent } from './components/pages/logout/logout.component';
 import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
 import { LockScreenComponent } from './components/pages/lock-screen/lock-screen.component';
 import { MainComponent } from './components/pages/main/main.component';
@@ -18,6 +19,7 @@ import { PageHeaderComponent } from './components/shared/page-header/page-header
 const routes: Route[] = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
+    { path: 'logout', component: LogoutComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'lock-screen', component: LockScreenComponent },
     {
@@ -40,6 +42,6 @@ export class AppRoutingModule {
 export const CentralComponents: any[] = [
     MainComponent, TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
     DashboardComponent,
-    LoginComponent, ForgotPasswordComponent, LockScreenComponent,
+    LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     RoleListComponent, UserListComponent
 ];
