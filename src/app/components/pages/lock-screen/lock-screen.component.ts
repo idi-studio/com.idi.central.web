@@ -27,7 +27,7 @@ export class LockScreenComponent extends BaseComponent {
         let username: string = this.profile.username;
         let password: string = this.formControlPassword.value;
 
-        this.loading.register('form-unlock');
+        this.load();
 
         this.token.apply(username, password).subscribe(result => {
             if (result.status == 1) {
@@ -36,10 +36,10 @@ export class LockScreenComponent extends BaseComponent {
             else {
                 this.show(result.message)
             }
-            this.loading.resolve('form-unlock');
+            this.unload();
         }, error => {
             this.handleError(error);
-            this.loading.resolve('form-unlock')
+            this.unload();
         });
     }
 }

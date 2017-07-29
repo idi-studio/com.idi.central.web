@@ -19,11 +19,11 @@ export class MainComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.load();
+        this.init();
         this.authorized = Runtime.instance.authorized()
     }
 
-    private load(): void {
+    private init(): void {
         var resizefunc = [];
         var w, h, dw, dh;
 

@@ -61,4 +61,12 @@ export abstract class BaseComponent {
     protected navigate(url: string) {
         this.router.navigate([url])
     }
+
+    protected load() {
+        this.loading.register();
+    }
+
+    protected unload() {
+        this.loading.resolve();
+    }
 }

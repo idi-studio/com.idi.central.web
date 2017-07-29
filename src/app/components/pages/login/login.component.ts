@@ -33,44 +33,19 @@ export class LoginComponent extends BaseComponent implements OnInit {
         let username: string = this.formControlUsername.value;
         let password: string = this.formControlPassword.value;
 
-        this.loading.register('form-sign-in');
+        this.load()
 
         this.token.apply(username, password).subscribe(result => {
             if (result.status == 1) {
-                this.router.navigate(["/central"])
+                this.navigate("/central")
             }
             else {
-                this.dialog.openAlert({ message: result.message });
+                this.show(result.message);
             }
-            this.loading.resolve('form-sign-in');
+            this.unload()
         }, error => {
             this.handleError(error);
-            this.loading.resolve('form-sign-in')
+            this.unload()
         });
     }
-
-    // private handleError(error: Response) {
-
-    //     let errMsg: string;
-
-    //     switch (error.status) {
-    //         case 0:
-    //             errMsg = "Cannot connect to server."
-    //             break;
-    //         case 400:
-    //             errMsg = "Bad Request."
-    //             break;
-    //         case 401:
-    //             errMsg = "Unauthorized."
-    //             break;
-    //         case 500:
-    //             errMsg = "Internal server error."
-    //             break;
-    //         default:
-    //             errMsg = `Error status - ${error.status}.`
-    //             break;
-    //     }
-
-    //     this._dialog.openAlert({ message: errMsg })
-    // }
 }
