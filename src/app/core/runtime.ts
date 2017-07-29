@@ -30,6 +30,12 @@ export class Runtime {
     authorize(username: string, token: string) {
         this.set("username", username);
         this.set("token", token);
-        this.set("username", "Y");
+        this.set("authorized", "Y");
+    }
+
+    unauthorize() {
+        this.remove("username");
+        this.remove("token");
+        this.set("authorized", "N");
     }
 }

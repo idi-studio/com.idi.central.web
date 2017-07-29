@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { BaseComponent } from '../../../core'
+import { BaseComponent, Runtime } from '../../../core'
 
 declare var $: any;
 declare var FastClick: any;
@@ -12,12 +12,15 @@ declare var jQuery: any;
 })
 export class MainComponent extends BaseComponent implements OnInit {
 
+    authorized: boolean
+
     constructor(protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(router, loading, dialog)
     }
 
     ngOnInit(): void {
         this.load();
+        this.authorized = Runtime.instance.authorized()
     }
 
     private load(): void {

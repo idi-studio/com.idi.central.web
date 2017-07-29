@@ -26,8 +26,6 @@ export class TokenService extends RESTService {
     }
 
     signOut(): void {
-
-        Runtime.instance.remove("token");
-        Runtime.instance.remove("username");
+        Runtime.instance.unauthorize()
     }
 }
