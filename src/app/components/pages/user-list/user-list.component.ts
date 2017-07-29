@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageHeader } from '../../../models/page-header';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
-import { UsersService, IUserRow } from '../../../services/users.service';
+import { UserService, IUserRow } from '../../../services';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -33,13 +33,8 @@ export class UserListComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(
-        private _usersService: UsersService, 
-        private _router: Router, 
-        private _route: ActivatedRoute,
-        private _loadingService: TdLoadingService, 
-        private _dialogService: TdDialogService, 
-        private _dataTableService: TdDataTableService
+    constructor(private user: UserService, private router: Router, private route: ActivatedRoute,
+        private loading: TdLoadingService, private dialog: TdDialogService, private dataTable: TdDataTableService
     ) { }
 
     ngOnInit(): void {
@@ -48,16 +43,16 @@ export class UserListComponent implements OnInit {
 
     async filter(): Promise<void> {
         try {
-            this._loadingService.register('user-list');
-            this.data = await this._usersService.getAll().toPromise()
+            this.loading.register('user-list');
+            this.data = await this.user.all().toPromise()
         }
         catch (error) {
             this.data = [];
             // console.log(`${error}`);
-            this._dialogService.openAlert({ message: error });
+            this.dialog.openAlert({ message: error });
         }
         finally {
-            this._loadingService.resolve('user-list');
+            this.loading.resolve('user-list');
         }
 
         let newData: IUserRow[] = this.data;
@@ -69,10 +64,10 @@ export class UserListComponent implements OnInit {
                 return column.name;
             });
 
-        newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+        newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
         this.filteredTotal = newData.length;
-        newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
-        newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+        newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
+        newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
         this.filteredData = newData;
     }
 

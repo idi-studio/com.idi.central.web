@@ -7,14 +7,14 @@ export class TokenService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    signIn(username: string, password: string): any {
+    apply(username: string, password: string): any {
 
         var params = new URLSearchParams();
         params.set("username", username);
         params.set("password", password);
         params.set("grant_type", "password");
 
-        return super.post('/api/token', params.toString()).map((res: Response) => {
+        return this.post('/api/token', params.toString()).map((res: Response) => {
             var result = res.json();
 
             if (result.status == 1) {
@@ -25,7 +25,7 @@ export class TokenService extends RESTService {
         });
     }
 
-    signOut(): void {
+    clear(): void {
         Runtime.instance.unauthorize()
     }
 }

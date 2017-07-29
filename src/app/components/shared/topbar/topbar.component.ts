@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { TdDialogService } from '@covalent/core';
-import { UserProfileService, IUserProfile } from '../../../services/user-profile.service';
+import { UserService, IUserProfile } from '../../../services';
 
 declare var $: any;
 
 @Component({
     selector: 'topbar',
-    templateUrl: './topbar.component.html',
-    viewProviders: [UserProfileService],
+    templateUrl: './topbar.component.html'
 })
 export class TopbarComponent implements OnInit {
     title: string = "Central";
     profile: IUserProfile;
 
     constructor(
-        private _userProfileService: UserProfileService,
-        private _dialogService: TdDialogService) { }
+        private user: UserService,
+        private dialog: TdDialogService) { }
 
     ngOnInit(): void {
         this.init();
@@ -24,11 +23,11 @@ export class TopbarComponent implements OnInit {
 
     async load(): Promise<void> {
         try {
-            this.profile = await this._userProfileService.get().toPromise()
+            this.profile = await this.user.profile().toPromise()
         }
         catch (error) {
             this.profile = null;
-            this._dialogService.openAlert({ message: error });
+            this.dialog.openAlert({ message: error });
         }
     }
 

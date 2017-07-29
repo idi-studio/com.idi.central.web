@@ -18,13 +18,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     formControlUsername = new FormControl('', [Validators.required, Validators.pattern(USERNAME_REGEX)]);
     formControlPassword = new FormControl('', [Validators.required]);
 
-    constructor(
-        private tokenService: TokenService,
-        private route: ActivatedRoute,
-        protected router: Router,
-        protected loading: TdLoadingService,
-        protected dialog: TdDialogService
-    ) {
+    constructor(private token: TokenService, private route: ActivatedRoute, protected router: Router,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(router, loading, dialog)
     }
 
@@ -40,7 +35,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
         this.loading.register('form-sign-in');
 
-        this.tokenService.signIn(username, password).subscribe(result => {
+        this.token.apply(username, password).subscribe(result => {
             if (result.status == 1) {
                 this.router.navigate(["/central"])
             }

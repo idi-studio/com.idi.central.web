@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageHeader } from '../../../models/page-header';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
-import { RolesService, IRoleRow } from '../../../services/roles.service';
+import { RoleService, IRoleRow } from '../../../services';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -30,12 +30,8 @@ export class RoleListComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(
-        private _rolesService: RolesService, 
-        private _router: Router, private _route: ActivatedRoute,
-        private _loadingService: TdLoadingService, 
-        private _dialogService: TdDialogService, 
-        private _dataTableService: TdDataTableService
+    constructor(private role: RoleService, private router: Router, private route: ActivatedRoute,
+        private loading: TdLoadingService, private dialog: TdDialogService, private dataTable: TdDataTableService
     ) { }
 
     ngOnInit(): void {
@@ -44,15 +40,15 @@ export class RoleListComponent implements OnInit {
 
     async filter(): Promise<void> {
         try {
-            this._loadingService.register('role-list');
-            this.data = await this._rolesService.getAll().toPromise()
+            this.loading.register('role-list');
+            this.data = await this.role.all().toPromise()
         }
         catch (error) {
             this.data = [];
-             this._dialogService.openAlert({message: error});
+            this.dialog.openAlert({ message: error });
         }
         finally {
-            this._loadingService.resolve('role-list');
+            this.loading.resolve('role-list');
         }
 
         let newData: IRoleRow[] = this.data;
@@ -64,14 +60,14 @@ export class RoleListComponent implements OnInit {
                 return column.name;
             });
 
-        newData = this._dataTableService.filterData(newData, this.searchTerm, true, excludedColumns);
+        newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
         this.filteredTotal = newData.length;
-        newData = this._dataTableService.sortData(newData, this.sortBy, this.sortOrder);
-        newData = this._dataTableService.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+        newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
+        newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
         this.filteredData = newData;
     }
 
-     sort(sortEvent: ITdDataTableSortChangeEvent): void {
+    sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
         this.sortOrder = sortEvent.order;
         this.filter();
