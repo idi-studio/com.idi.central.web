@@ -15,7 +15,7 @@ export class TopbarComponent implements OnInit {
     title: string = "Central";
     profile: IUserProfile;
 
-    constructor(private user: UserService, private router: Router, private dialog: TdDialogService) { }
+    constructor(private user: UserService, private router: Router) { }
 
     ngOnInit(): void {
         this.init();
@@ -28,7 +28,6 @@ export class TopbarComponent implements OnInit {
         }
         catch (error) {
             this.profile = null;
-            this.dialog.openAlert({ message: error });
         }
     }
 

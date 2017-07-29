@@ -35,17 +35,21 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
         this.load()
 
-        this.token.apply(username, password).subscribe(result => {
+        try {
+            let result = await this.token.apply(username, password).toPromise();
+
             if (result.status == 1) {
                 this.navigate("/central")
             }
             else {
                 this.show(result.message);
             }
-            this.unload()
-        }, error => {
+        }
+        catch (error) {
             this.handleError(error);
+        }
+        finally {
             this.unload()
-        });
+        }
     }
 }
