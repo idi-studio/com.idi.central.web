@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { API, RESTService } from '../core';
+import { Runtime, RESTService } from '../core';
 
 export interface IUserRow {
     id: string;

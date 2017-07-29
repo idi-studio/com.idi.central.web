@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TdDialogService, TdLoadingService } from '@covalent/core';
+import { BaseComponent } from '../../../core'
 
 declare var $: any;
 declare var FastClick: any;
@@ -7,7 +10,11 @@ declare var jQuery: any;
 @Component({
     templateUrl: './main.component.html'
 })
-export class MainComponent implements OnInit {
+export class MainComponent extends BaseComponent implements OnInit {
+
+    constructor(protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(router, loading, dialog)
+    }
 
     ngOnInit(): void {
         this.load();

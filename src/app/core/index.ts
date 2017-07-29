@@ -1,2 +1,3 @@
 export { RESTService } from './rest.service';
-export { API } from './api.config';
+export { Runtime } from './runtime';
+export { BaseComponent } from './base.component';

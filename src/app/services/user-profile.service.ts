@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { API, RESTService } from '../core';
+import { Runtime, RESTService } from '../core';
 
 export interface IUserProfile {
     id: string;
@@ -18,7 +18,7 @@ export class UserProfileService extends RESTService {
     constructor(http: Http) { super(http) }
 
     get(): Observable<IUserProfile> {
-        let username = API.instance.get("username");
+        let username = Runtime.instance.get("username");
 
         return super.get('/api/user/profile/' + username, ).map((res: Response) => {
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers, Http } from '@angular/http';
-import { API, RESTService } from '../core';
+import { Runtime, RESTService } from '../core';
 
 @Injectable()
 export class TokenService extends RESTService {
@@ -18,8 +18,7 @@ export class TokenService extends RESTService {
             var result = res.json();
 
             if (result.status == 1) {
-                API.instance.set("token", result.data.access_token);
-                API.instance.set("username", username);
+                Runtime.instance.authorize(username, result.data.access_token)
             }
 
             return result;
@@ -27,8 +26,8 @@ export class TokenService extends RESTService {
     }
 
     signOut(): void {
-        
-        API.instance.remove("token");
-        API.instance.remove("username");
+
+        Runtime.instance.remove("token");
+        Runtime.instance.remove("username");
     }
 }
