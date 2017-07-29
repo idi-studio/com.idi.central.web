@@ -3,12 +3,13 @@ import { PageHeader } from '../../../models/page-header';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
 import { UserService, IUserRow } from '../../../services';
+import { BaseComponent } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './user-list.component.html',
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Users", ["Administration", "Users"]);
 
@@ -33,26 +34,28 @@ export class UserListComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private user: UserService, private router: Router, private route: ActivatedRoute,
-        private loading: TdLoadingService, private dialog: TdDialogService, private dataTable: TdDataTableService
-    ) { }
+    constructor(private user: UserService, private route: ActivatedRoute, private dataTable: TdDataTableService,
+        protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(router, loading, dialog)
+    }
 
     ngOnInit(): void {
         this.filter();
     }
 
     async filter(): Promise<void> {
+
+        this.load();
+
         try {
-            this.loading.register('user-list');
             this.data = await this.user.all().toPromise()
         }
         catch (error) {
             this.data = [];
-            // console.log(`${error}`);
-            this.dialog.openAlert({ message: error });
+            this.handleError(error)
         }
         finally {
-            this.loading.resolve('user-list');
+            this.unload()
         }
 
         let newData: IUserRow[] = this.data;

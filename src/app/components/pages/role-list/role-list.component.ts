@@ -3,12 +3,13 @@ import { PageHeader } from '../../../models/page-header';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
 import { RoleService, IRoleRow } from '../../../services';
+import { BaseComponent } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './role-list.component.html',
 })
-export class RoleListComponent implements OnInit {
+export class RoleListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Roles", ["Administration", "Roles"]);
 
@@ -30,41 +31,43 @@ export class RoleListComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private role: RoleService, private router: Router, private route: ActivatedRoute,
-        private loading: TdLoadingService, private dialog: TdDialogService, private dataTable: TdDataTableService
-    ) { }
+    constructor(private role: RoleService, private route: ActivatedRoute, private dataTable: TdDataTableService,
+        protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(router, loading, dialog)
+    }
 
     ngOnInit(): void {
         this.filter();
     }
 
     async filter(): Promise<void> {
+        this.load();
+
         try {
-            this.loading.register('role-list');
             this.data = await this.role.all().toPromise()
         }
         catch (error) {
             this.data = [];
-            this.dialog.openAlert({ message: error });
+            this.handleError(error)
         }
         finally {
-            this.loading.resolve('role-list');
+            this.unload()
+
+            let newData: IRoleRow[] = this.data;
+
+            let excludedColumns: string[] = this.columns
+                .filter((column: ITdDataTableColumn) => {
+                    return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
+                }).map((column: ITdDataTableColumn) => {
+                    return column.name;
+                });
+
+            newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
+            this.filteredTotal = newData.length;
+            newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
+            newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+            this.filteredData = newData;
         }
-
-        let newData: IRoleRow[] = this.data;
-
-        let excludedColumns: string[] = this.columns
-            .filter((column: ITdDataTableColumn) => {
-                return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
-            }).map((column: ITdDataTableColumn) => {
-                return column.name;
-            });
-
-        newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
-        this.filteredTotal = newData.length;
-        newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
-        newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-        this.filteredData = newData;
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
