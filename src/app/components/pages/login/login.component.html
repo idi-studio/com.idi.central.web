@@ -47,7 +47,8 @@
 
           <div class="form-group text-center row m-t-10">
             <div class="col-xs-12">
-              <button (click)="signIn()" [disabled]="!(formControlPassword.valid&&formControlUsername.valid)" class="btn btn-success btn-block waves-effect waves-light" type="submit">Log In</button>
+              <button (click)="signIn()" [disabled]="!(formControlPassword.valid&&formControlUsername.valid)" class="btn btn-success btn-block waves-effect waves-light"
+                type="submit">Log In</button>
             </div>
           </div>
 
@@ -64,10 +65,14 @@
           </div>
 
           <div class="form-group row m-b-0 text-xs-center">
-            <div class="col-sm-12">
-              <button type="button" class="btn btn-facebook waves-effect waves-light m-t-20"><i class="fa fa-facebook m-r-5"></i> Facebook </button>
-              <button type="button" class="btn btn-twitter waves-effect waves-light m-t-20"><i class="fa fa-twitter m-r-5"></i> Twitter </button>
-              <button type="button" class="btn btn-googleplus waves-effect waves-light m-t-20"><i class="fa fa-google-plus m-r-5"></i> Google+ </button>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-qq btn-block waves-effect waves-light m-t-20"><i class="fa fa-qq" aria-hidden="true"></i> QQ </button>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-wechat btn-block waves-effect waves-light m-t-20"><i class="fa fa-weixin" aria-hidden="true"></i> Wechat </button>
+            </div>
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-alipay btn-block waves-effect waves-light m-t-20"><img width="16" width="16" src="./assets/images/alipay.ico"> Alipay </button>
             </div>
           </div>
 
