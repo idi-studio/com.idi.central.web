@@ -8,25 +8,33 @@
         <a class="logo"><i class="zmdi zmdi-group-work icon-c-logo"></i> <span>Central</span></a>
       </div>
       <div class="m-t-10 p-20">
-        <form method="post" action="index.html" role="form" class="text-xs-center">
+        <form class="text-xs-center">
           <div class="user-thumb">
-            <img src="assets/images/users/avatar-0.jpg" class="img-responsive img-circle img-thumbnail" alt="thumbnail">
+            <img src="./assets/images/users/{{profile.photo}}" class="img-responsive img-circle img-thumbnail" alt="thumbnail">
           </div>
           <div class="form-group">
             <p class="text-muted m-t-10">
-              Enter your password to access the admin.
+              {{profile.name}}
             </p>
+
             <div class="form-group row m-t-30">
               <div class="col-xs-12">
-                <input class="form-control" type="password" required="" placeholder="Enter password">
+                <md-input-container class="md-input-full-width">
+                  <input mdInput placeholder="Password" type="password" [formControl]="formControlPassword" maxlength="20">
+                  <md-error *ngIf="formControlPassword.hasError('required')">
+                    Password is <strong>required</strong>
+                  </md-error>
+                </md-input-container>
               </div>
             </div>
 
-            <div class="form-group row text-center m-t-20 m-b-0">
+            <div class="form-group text-center row m-t-20 m-b-0">
               <div class="col-xs-12">
-                <button class="btn btn-success btn-block waves-effect waves-light" type="submit" routerLink="/central">Enter Now</button>
+                <button (click)="unlock()" [disabled]="!formControlPassword.valid" class="btn btn-success btn-block waves-effect waves-light"
+                  type="submit">Unlock</button>
               </div>
             </div>
+
           </div>
 
         </form>

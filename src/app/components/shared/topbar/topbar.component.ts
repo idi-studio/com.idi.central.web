@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService } from '@covalent/core';
 import { UserService, IUserProfile } from '../../../services';
+import { Runtime } from '../../../core';
 
 declare var $: any;
 
@@ -9,12 +11,11 @@ declare var $: any;
     templateUrl: './topbar.component.html'
 })
 export class TopbarComponent implements OnInit {
+
     title: string = "Central";
     profile: IUserProfile;
 
-    constructor(
-        private user: UserService,
-        private dialog: TdDialogService) { }
+    constructor(private user: UserService, private router: Router, private dialog: TdDialogService) { }
 
     ngOnInit(): void {
         this.init();
@@ -29,6 +30,14 @@ export class TopbarComponent implements OnInit {
             this.profile = null;
             this.dialog.openAlert({ message: error });
         }
+    }
+
+    lock(): void {
+        this.router.navigate(["/lock-screen"])
+    }
+
+    logout(): void {
+        this.router.navigate(["/logout"])
     }
 
     private init(): void {

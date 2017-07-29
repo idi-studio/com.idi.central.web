@@ -7,11 +7,25 @@ export abstract class BaseComponent {
 
     constructor(protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         console.log(`router.url:${router.url}`)
-        if (!Runtime.instance.authorized() && router.url != "/login") {
+
+        if (this.checkIdentity()) {
             dialog.openConfirm({ message: "Please sign-in your account first.", acceptButton: "OK" }).afterClosed().subscribe(() => {
                 router.navigate(["/login"])
             })
         }
+    }
+
+    private checkIdentity(): boolean {
+        if (Runtime.instance.authorized())
+            return false;
+
+        if (this.router.url == "/login")
+            return false;
+
+        if (this.router.url == "/lock-screen")
+            return false;
+
+        return true
     }
 
     protected handleError(error: Response) {
@@ -36,6 +50,15 @@ export abstract class BaseComponent {
                 break;
         }
 
-        this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: errMsg })
+        this.show(errMsg);
+        // this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: errMsg })
+    }
+
+    protected show(message: string) {
+        this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
+    }
+
+    protected navigate(url: string) {
+        this.router.navigate([url])
     }
 }
