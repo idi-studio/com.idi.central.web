@@ -3,7 +3,7 @@
     <div id="sidebar-menu">
       <ul>
         <li class="text-muted menu-title">Navigation</li>
-        <li class="has_sub" *ngFor="let menu of navigation">
+        <li class="has_sub" *ngFor="let menu of main">
           <a *ngIf="menu.isLink()" routerLink="{{menu.action}}" class="waves-effect" (click)="OnMenuItemClick($event)">
             <i [class]="menu.icon"></i> <span> {{menu.name}} </span> <span class="menu-arrow" *ngIf="menu.hasSub()"></span>
           </a>

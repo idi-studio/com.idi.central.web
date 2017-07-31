@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PageHeader } from '../../../models/page-header';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
 import { UserService, IUserRow } from '../../../services';
-import { BaseComponent } from '../../../core';
+import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({

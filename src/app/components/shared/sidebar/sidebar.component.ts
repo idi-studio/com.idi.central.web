@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from '../../../models/menu-item';
+import { MenuItem, Navigation } from '../../../core';
 
 declare var $: any;
 
@@ -8,28 +8,9 @@ declare var $: any;
     templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent implements OnInit {
-    navigation: MenuItem[] = [
-        new MenuItem("Dashboard", "dashboard", "zmdi zmdi-view-dashboard", true),
-        new MenuItem("Administration", null, "zmdi zmdi-accounts-list-alt", false, [
-            new MenuItem("Roles", "role/list"),
-            new MenuItem("Users", "user/list")
-        ]),
-        new MenuItem("Purchase", null, "zmdi zmdi-truck", null, [
-            new MenuItem("Come soon...")
-        ]),
-        new MenuItem("Sales", null, "zmdi zmdi-labels", null, [
-            new MenuItem("Come soon...")
-        ]),
-        new MenuItem("Inventory ", null, "zmdi zmdi-store", null, [
-            new MenuItem("Come soon...")
-        ])
-    ];
 
-    help: MenuItem[] = [
-        new MenuItem("User Guide", null, "fa fa-book", null, [
-            new MenuItem("Come soon...")
-        ])
-    ];
+    main: MenuItem[] = Navigation.instance.main
+    help: MenuItem[] = Navigation.instance.help
 
     ngOnInit(): void {
         $(function () {
