@@ -8,16 +8,18 @@ import { ForgotPasswordComponent } from './components/common/forgot-password/for
 import { LockScreenComponent } from './components/common/lock-screen/lock-screen.component';
 import { MainComponent } from './components/common/main/main.component';
 
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-
-import { RoleListComponent } from './components/administration/role-list/role-list.component';
-import { UserListComponent } from './components/administration/user-list/user-list.component';
-
 import { TopbarComponent } from './components/shared/topbar/topbar.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { SidebarRightComponent } from './components/shared/sidebar-right/sidebar-right.component';
 import { FootbarComponent } from './components/shared/footbar/footbar.component';
 import { PageHeaderComponent } from './components/shared/page-header/page-header.component';
+
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { RoleListComponent } from './components/administration/role-list/role-list.component';
+import { UserListComponent } from './components/administration/user-list/user-list.component';
+
+import { ProdListComponent } from './components/retailing/prod-list/prod-list.component';
 
 const routes: Route[] = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
@@ -29,7 +31,8 @@ const routes: Route[] = [
         path: 'central', component: MainComponent, children: [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'role/list', component: RoleListComponent },
-            { path: 'user/list', component: UserListComponent }
+            { path: 'user/list', component: UserListComponent },
+            { path: 'prod/list', component: ProdListComponent }
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -44,8 +47,9 @@ export class AppRoutingModule {
 }
 
 export const CentralComponents: any[] = [
-    MainComponent, TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
+    TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
+    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent,
-    LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
-    RoleListComponent, UserListComponent
+    RoleListComponent, UserListComponent,
+    ProdListComponent,
 ];

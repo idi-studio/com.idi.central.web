@@ -41,10 +41,10 @@ export class Navigation {
                 new MenuItem("Roles", "role/list"),
                 new MenuItem("Users", "user/list")
             ]),
-            new MenuItem("Purchase", null, "zmdi zmdi-truck", null, [
-                new MenuItem("Come soon...")
+            new MenuItem("Retailing", null, "zmdi zmdi-labels", null, [
+                new MenuItem("Products", "prod/list")
             ]),
-            new MenuItem("Sales", null, "zmdi zmdi-labels", null, [
+            new MenuItem("Purchase", null, "zmdi zmdi-truck", null, [
                 new MenuItem("Come soon...")
             ]),
             new MenuItem("Inventory ", null, "zmdi zmdi-store", null, [

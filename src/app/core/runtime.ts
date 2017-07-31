@@ -4,10 +4,6 @@ export class Runtime {
     public baseUrl: string = "http://localhost:50963"
     public clientKey: string = "Y29tLmlkaS5jZW50cmFsLndlYjo2RUQ1QzQ3OC0xRjNBLTRDODItQjY2OC05OTkxN0Q2Nzc4NEU="
 
-    constructor() {
-        this.set("authorized", "N")
-    }
-
     set(key: string, value: string) {
         localStorage.setItem(key, value)
         // console.log(`set cache with key: '${key}', value: '${value}'`);
