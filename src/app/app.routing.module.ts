@@ -2,14 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 
 //Components
-import { LoginComponent } from './components/pages/login/login.component';
-import { LogoutComponent } from './components/pages/logout/logout.component';
-import { ForgotPasswordComponent } from './components/pages/forgot-password/forgot-password.component';
-import { LockScreenComponent } from './components/pages/lock-screen/lock-screen.component';
-import { MainComponent } from './components/pages/main/main.component';
-import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
-import { RoleListComponent } from './components/pages/role-list/role-list.component';
-import { UserListComponent } from './components/pages/user-list/user-list.component';
+import { LoginComponent } from './components/common/login/login.component';
+import { LogoutComponent } from './components/common/logout/logout.component';
+import { ForgotPasswordComponent } from './components/common/forgot-password/forgot-password.component';
+import { LockScreenComponent } from './components/common/lock-screen/lock-screen.component';
+import { MainComponent } from './components/common/main/main.component';
+
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { RoleListComponent } from './components/administration/role-list/role-list.component';
+import { UserListComponent } from './components/administration/user-list/user-list.component';
+
 import { TopbarComponent } from './components/shared/topbar/topbar.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { SidebarRightComponent } from './components/shared/sidebar-right/sidebar-right.component';
