@@ -7,7 +7,7 @@ export interface IProductRow {
     id: string;
     name: string;
     code: string;
-    profile: any;
+    profile: Array<any>;
     active: boolean;
 }
 

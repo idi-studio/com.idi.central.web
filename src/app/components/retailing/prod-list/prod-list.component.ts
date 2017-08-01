@@ -16,8 +16,8 @@ export class ProdListComponent extends BaseComponent implements OnInit {
 
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Name', filter: true },
-        { name: 'code', label: 'Code', filter: true },
-        { name: 'profile', label: 'Description', filter: true },
+        { name: 'code', label: 'Code', filter: true, hidden: true },
+        { name: 'profile', label: 'Description', filter: false },
         { name: 'active', label: 'Active?', filter: true },
     ];
 
