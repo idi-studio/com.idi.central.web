@@ -17,7 +17,12 @@
         [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
         <ng-template tdDataTableTemplate="profile" let-value="value" let-row="row" let-column="column">
           <div layout="row">
-            <div *ngFor="let item of value"><span class="label label-info">{{ item.value }}</span>&nbsp;</div>
+            <div *ngFor="let item of value">
+              <span *ngIf="item.key=='Model'" class="label label-default">{{ item.value }}</span>
+              <span *ngIf="item.key=='Color'" class="label label-success">{{ item.value }}</span>
+              <span *ngIf="item.key=='Year'" class="label label-info">{{ item.value }}</span>
+              <span *ngIf="item.key!='Model'&&item.key!='Color'&&item.key!='Year'" class="label label-danger">{{ item.value }}</span>&nbsp;
+            </div>
           </div>
         </ng-template>
         <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
