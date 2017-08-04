@@ -1,0 +1,11 @@
+.md-input-full-width {
+  width: 100%;
+}
+
+.mat-select-flex {
+  padding-top: 3px;
+}
+
+.mat-select-flex .mat-select {
+  width: 100%;
+}

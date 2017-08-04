@@ -20,6 +20,7 @@ import { RoleListComponent } from './components/administration/role-list/role-li
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
 import { ProdListComponent } from './components/retailing/prod-list/prod-list.component';
+import { ProdEditComponent } from './components/retailing/prod-edit/prod-edit.component';
 
 const routes: Route[] = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
@@ -32,7 +33,9 @@ const routes: Route[] = [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'role/list', component: RoleListComponent },
             { path: 'user/list', component: UserListComponent },
-            { path: 'prod/list', component: ProdListComponent }
+            { path: 'prod/list', component: ProdListComponent },
+            { path: 'prod/edit', component: ProdEditComponent },
+
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -51,5 +54,5 @@ export const CentralComponents: any[] = [
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent,
     RoleListComponent, UserListComponent,
-    ProdListComponent,
+    ProdListComponent, ProdEditComponent
 ];

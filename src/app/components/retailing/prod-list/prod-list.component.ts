@@ -71,6 +71,10 @@ export class ProdListComponent extends BaseComponent implements OnInit {
         }
     }
 
+    add():void{
+        this.navigate("/central/prod/edit")
+    }
+
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
         this.sortOrder = sortEvent.order;

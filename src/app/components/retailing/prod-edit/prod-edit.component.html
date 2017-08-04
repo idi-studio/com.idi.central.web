@@ -1,0 +1,65 @@
+<page-header [header]="header"></page-header>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="card-box">
+      <div layout="row" layout-align="end end" class="pad-left-sm pad-right-sm">
+        <a (click)="back()">
+          <md-icon class="tc-grey-800">cancel</md-icon>
+        </a>
+      </div>
+      <form class="m-t-20">
+        <div class="form-group row">
+          <div class="col-md-6 col-xs-12">
+            <md-input-container class="md-input-full-width">
+              <input mdInput placeholder="Name" [formControl]="formControlProdName" autocomplete="off" maxlength="50">
+              <md-error *ngIf="formControlProdName.hasError('pattern')">
+                please enter a valid product name
+              </md-error>
+              <md-error *ngIf="formControlProdName.hasError('required')">
+                product name is <strong>required</strong>
+              </md-error>
+            </md-input-container>
+          </div>
+          <div class="col-md-6 col-xs-12">
+            <md-input-container class="md-input-full-width">
+              <input mdInput placeholder="Code" [formControl]="formControlProdCode" autocomplete="off" maxlength="50">
+              <md-error *ngIf="formControlProdCode.hasError('pattern')">
+                please enter a valid product code
+              </md-error>
+              <md-error *ngIf="formControlProdCode.hasError('required')">
+                product code is <strong>required</strong>
+              </md-error>
+            </md-input-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 col-xs-12">
+            <div class="mat-input-container md-input-full-width">
+              <div class="mat-input-wrapper">
+                <div class="mat-input-infix mat-select-flex" style="width:100%;">
+                  <md-select placeholder="Category of Tag">
+                    <md-option *ngFor="let tag of tags" [value]="tag.key">
+                      {{ tag.value }}
+                    </md-option>
+                  </md-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xs-12">
+            <md-input-container class="md-input-full-width">
+              <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20">
+              <md-error *ngIf="formControlProdTag.hasError('pattern')">
+                please enter a valid product tag
+              </md-error>
+              <md-error *ngIf="formControlProdTag.hasError('required')">
+                product tag is <strong>required</strong>
+              </md-error>
+            </md-input-container>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
