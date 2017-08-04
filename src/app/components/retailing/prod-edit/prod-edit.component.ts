@@ -41,6 +41,10 @@ export class ProdEditComponent extends BaseComponent implements OnInit {
         });
     }
 
+    valid(): boolean {
+        return this.formControlProdName.valid && this.formControlProdCode.valid
+    }
+
     back(): void {
         this.navigate("central/prod/list")
     }
