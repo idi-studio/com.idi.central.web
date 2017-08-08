@@ -4,15 +4,15 @@
   <div class="col-xs-12">
     <div class="card-box">
       <div layout="row" layout-align="end end" class="pad-left-sm pad-right-sm">
-        <a (click)="back()" routerLink="/" >
+        <a (click)="back()" routerLink="/">
           <md-icon class="tc-grey-800">cancel</md-icon>
         </a>
       </div>
-      <form class="m-t-20">
+      <div class="m-t-20">
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
-              <input mdInput placeholder="Name of Product" [formControl]="formControlProdName" autocomplete="off" maxlength="50">
+              <input mdInput placeholder="Name" [formControl]="formControlProdName" autocomplete="off" maxlength="50">
               <md-error *ngIf="formControlProdName.hasError('pattern')">
                 please enter a valid product name
               </md-error>
@@ -23,7 +23,7 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
-              <input mdInput placeholder="Code of Product" [formControl]="formControlProdCode" autocomplete="off" maxlength="50">
+              <input mdInput placeholder="Code" [formControl]="formControlProdCode" autocomplete="off" maxlength="50">
               <md-error *ngIf="formControlProdCode.hasError('pattern')">
                 please enter a valid product code
               </md-error>
@@ -37,8 +37,8 @@
           <div class="col-md-4 col-sm-6 col-xs-10">
             <div class="mat-input-container md-input-full-width">
               <div class="mat-input-wrapper">
-                <div class="mat-input-infix mat-select-flex" style="width:100%;">
-                  <md-select placeholder="Category of Tag">
+                <div class="mat-input-infix mat-select-flex">
+                  <md-select name="category" placeholder="Category" [(ngModel)]="selectedCategory" #category>
                     <md-option *ngFor="let tag of tags" [value]="tag.key">
                       {{ tag.value }}
                     </md-option>
@@ -48,8 +48,8 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-6 col-xs-10">
-            <md-input-container class="md-input-full-width">
-              <input mdInput placeholder="Tag of Product" [formControl]="formControlProdTag" autocomplete="off" maxlength="20">
+            <md-input-container>
+              <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
               <md-error *ngIf="formControlProdTag.hasError('pattern')">
                 please enter a valid product tag
               </md-error>
@@ -57,6 +57,18 @@
                 product tag is <strong>required</strong>
               </md-error>
             </md-input-container>
+            <button md-button (click)="add(category.selected.value, tag.value)">
+               <md-icon class="tc-grey-800">add</md-icon>
+            </button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-xs-8">
+            <md-chip-list>
+              <md-chip *ngFor="let chip of chips" class="md-chip">
+                {{chip.value}} <a (click)="remove(chip.key)" href="javascript:void(0)" class="tc-grey-800"><i class="fa fa-times" aria-hidden="true"></i></a>
+              </md-chip>
+            </md-chip-list>
           </div>
         </div>
         <div class="form-group text-center row m-t-10">
@@ -65,7 +77,7 @@
             <button (click)="submit()" [disabled]="!valid()" class="btn btn-success btn-block waves-effect waves-light" type="submit">Submit</button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>

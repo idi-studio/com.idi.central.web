@@ -51,7 +51,9 @@ export abstract class BaseComponent {
         }
 
         this.show(errMsg);
-        // this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: errMsg })
+
+        if (error.status == 401)
+            this.router.navigate(["/central"])
     }
 
     protected show(message: string) {
