@@ -12,7 +12,7 @@
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
-              <input mdInput placeholder="Name" [formControl]="formControlProdName" autocomplete="off" maxlength="50">
+              <input mdInput name="name" [(ngModel)]="name" placeholder="Name" [formControl]="formControlProdName" autocomplete="off" maxlength="50">
               <md-error *ngIf="formControlProdName.hasError('pattern')">
                 please enter a valid product name
               </md-error>
@@ -23,7 +23,7 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
-              <input mdInput placeholder="Code" [formControl]="formControlProdCode" autocomplete="off" maxlength="50">
+              <input mdInput name="code" [(ngModel)]="code" placeholder="Code" [formControl]="formControlProdCode" autocomplete="off" maxlength="50">
               <md-error *ngIf="formControlProdCode.hasError('pattern')">
                 please enter a valid product code
               </md-error>
@@ -40,7 +40,7 @@
                 <div class="mat-input-infix mat-select-flex">
                   <md-select name="category" placeholder="Category" [(ngModel)]="selectedCategory" #category>
                     <md-option *ngFor="let tag of tags" [value]="tag.key">
-                      {{ tag.value }}
+                      {{ tag.name }}
                     </md-option>
                   </md-select>
                 </div>

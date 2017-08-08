@@ -16,15 +16,15 @@
       <md-divider></md-divider>
       <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [clickable]="clickable" [multiple]="multiple"
         [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
-        <ng-template tdDataTableTemplate="profile" let-value="value" let-row="row" let-column="column">
+         <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <md-chip-list>
               <md-chip *ngFor="let item of value">
-                <span mdTooltip="{{item.key}}">{{ item.value }}</span>
+                <span mdTooltip="{{item.name}}">{{ item.value }}</span>
               </md-chip>
             </md-chip-list>
           </div>
-        </ng-template>
+        </ng-template> 
         <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <md-icon *ngIf="value" class="tc-grey-800">check_box</md-icon>

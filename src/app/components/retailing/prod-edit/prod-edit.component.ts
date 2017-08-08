@@ -24,17 +24,32 @@ export class ProdEditComponent extends BaseComponent implements OnInit {
     formControlProdCtg = new FormControl('', [Validators.required])
     formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(PROD_TAG_REGEX)])
 
-    selectedCategory: string;
-    tags: [ITag] = [{ key: "Model", value: "Model" }, { key: "Color", value: "Color" }, { key: "Year", value: "Year" }]
-    chips: ITag[];
+    name: string; code: string; selectedCategory: string;
+    tags: ITag[];
+    chips: ITag[] = [];
 
-    constructor(private product: ProductService, private route: ActivatedRoute, private snackBar: MdSnackBar,
+    constructor(private product: ProductService, private tag: TagService, private route: ActivatedRoute, private snackBar: MdSnackBar,
         protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(router, loading, dialog)
     }
 
     ngOnInit(): void {
-        this.chips = []
+        this.filter();
+    }
+
+    async filter(): Promise<void> {
+        this.load();
+
+        try {
+            this.tags = await this.tag.all().toPromise()
+        }
+        catch (error) {
+            this.tags = [];
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 
     valid(): boolean {
@@ -55,10 +70,34 @@ export class ProdEditComponent extends BaseComponent implements OnInit {
             return
         }
 
-        this.chips.push({ key: category, value: tag });
+        let item = this.tags.filter(e => e.key == category)[0];
+
+        this.chips.push({ key: item.key, name: item.name, value: tag });
         this.selectedCategory = "";
         this.formControlProdTag.setValue("");
         this.formControlProdTag.reset();
+    }
+
+    async submit(): Promise<void> {
+        if (!this.valid)
+            return;
+
+        try {
+            let result = await this.product.add(this.name, this.code, this.chips).toPromise()
+
+            this.show(result.message)
+        }
+        catch (error) {
+            this.tags = [];
+            this.handleError(error)
+        }
+        finally {
+            this.name = ""
+            this.code = ""
+            this.formControlProdName.reset();
+            this.formControlProdCode.reset();
+            this.unload()
+        }
     }
 
 }

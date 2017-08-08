@@ -18,7 +18,7 @@ export class ProdListComponent extends BaseComponent implements OnInit {
         { name: 'name', label: 'Name', filter: true },
         { name: 'code', label: 'Code', filter: true, hidden: true },
         { name: 'description', label: 'Description', filter: true, hidden: true },
-        { name: 'profile', label: 'Tags', filter: false },
+        { name: 'tags', label: 'Tags', filter: false },
         { name: 'active', label: 'Active?', filter: true },
     ];
 

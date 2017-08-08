@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService } from '../core';
+import { ITag } from '../services';
 
 export interface IProductRow {
     id: string;
@@ -15,6 +16,12 @@ export interface IProductRow {
 export class ProductService extends RESTService {
 
     constructor(http: Http) { super(http) }
+
+    add(name: string, code: string, tags: ITag[]): Observable<any> {
+        return super.post('/api/products', { name: name, code: code, tags: tags }).map((res: Response) => {
+            return res.json();
+        });
+    }
 
     all(): Observable<Array<IProductRow>> {
 
