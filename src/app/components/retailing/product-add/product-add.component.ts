@@ -12,12 +12,12 @@ const PROD_CODE_REGEX = /^[A-Za-z0-9]+$/;
 const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
-    templateUrl: './prod-edit.component.html',
-    styleUrls: ['prod-edit.component.css']
+    templateUrl: './product-add.component.html',
+    styleUrls: ['product-add.component.css']
 })
-export class ProdEditComponent extends BaseComponent implements OnInit {
+export class ProductAddComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Edit"])
+    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Add"])
 
     formControlProdName = new FormControl('', [Validators.required, Validators.pattern(PROD_NAME_REGEX)])
     formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(PROD_CODE_REGEX)])
@@ -57,7 +57,7 @@ export class ProdEditComponent extends BaseComponent implements OnInit {
     }
 
     back(): void {
-        this.navigate("central/prod/list")
+        this.navigate("central/product/list")
     }
 
     remove(key: string): void {

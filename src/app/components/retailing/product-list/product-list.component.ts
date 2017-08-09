@@ -9,9 +9,9 @@ import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './prod-list.component.html',
+    templateUrl: './product-list.component.html',
 })
-export class ProdListComponent extends BaseComponent implements OnInit {
+export class ProductListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Products", ["Retailing", "Products"]);
 
@@ -77,7 +77,7 @@ export class ProdListComponent extends BaseComponent implements OnInit {
     }
 
     add(): void {
-        this.navigate("/central/prod/edit")
+        this.navigate("/central/product/add")
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
