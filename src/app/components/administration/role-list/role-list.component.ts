@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
-import { RoleService, IRoleRow } from '../../../services';
+import { RoleService, IRole } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
@@ -12,7 +12,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Roles", ["Administration", "Roles"]);
 
-    data: IRoleRow[] = [];
+    data: IRole[] = [];
 
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Name', filter: true },
@@ -52,7 +52,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
 
-            let newData: IRoleRow[] = this.data;
+            let newData: IRole[] = this.data;
 
             let excludedColumns: string[] = this.columns
                 .filter((column: ITdDataTableColumn) => {

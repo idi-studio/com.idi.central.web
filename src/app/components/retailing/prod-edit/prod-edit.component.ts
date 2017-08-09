@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { ProductService, TagService, IProductRow, ITag } from '../../../services';
+import { ProductService, TagService, IProduct, ITag } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 

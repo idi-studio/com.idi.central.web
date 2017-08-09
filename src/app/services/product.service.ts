@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { RESTService } from '../core';
 import { ITag } from '../services';
 
-export interface IProductRow {
+export interface IProduct {
     id: string;
     name: string;
     code: string;
-    profile: Array<any>;
+    tags: Array<any>;
     active: boolean;
 }
 
@@ -23,16 +23,16 @@ export class ProductService extends RESTService {
         });
     }
 
-    all(): Observable<Array<IProductRow>> {
+    all(): Observable<Array<IProduct>> {
 
         return super.get('/api/products').map((res: Response) => {
 
             var result = res.json();
 
             if (result.status == 1)
-                return result.data.rows
+                return result.data
 
-            return new Array<IProductRow>()
+            return new Array<IProduct>()
         });
     }
 }

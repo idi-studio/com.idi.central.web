@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
-import { UserService, IUserRow } from '../../../services';
+import { UserService, IUser } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
@@ -12,7 +12,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Users", ["Administration", "Users"]);
 
-    data: IUserRow[] = [];
+    data: IUser[] = [];
 
     columns: ITdDataTableColumn[] = [
         { name: 'photo', label: 'Photo', tooltip: 'Photo' },
@@ -57,7 +57,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
             this.unload()
         }
 
-        let newData: IUserRow[] = this.data;
+        let newData: IUser[] = this.data;
 
         let excludedColumns: string[] = this.columns
             .filter((column: ITdDataTableColumn) => {

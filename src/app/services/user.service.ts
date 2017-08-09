@@ -12,7 +12,7 @@ export interface IUserProfile {
     photo: string;
 }
 
-export interface IUserRow {
+export interface IUser {
     id: string;
     username: string;
     active: boolean;
@@ -43,16 +43,16 @@ export class UserService extends RESTService {
         });
     }
 
-    all(): Observable<Array<IUserRow>> {
+    all(): Observable<Array<IUser>> {
 
         return super.get('/api/users').map((res: Response) => {
 
             var result = res.json();
 
             if (result.status == 1)
-                return result.data.rows
+                return result.data
 
-            return new Array<IUserRow>()
+            return new Array<IUser>()
         });
     }
 }

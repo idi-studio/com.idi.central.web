@@ -3,7 +3,7 @@ import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService } from '../core';
 
-export interface IRoleRow {
+export interface IRole {
     id: string;
     name: string;
     descrition: string;
@@ -15,16 +15,16 @@ export class RoleService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    all(): Observable<Array<IRoleRow>> {
+    all(): Observable<Array<IRole>> {
 
         return super.get('/api/roles').map((res: Response) => {
 
             var result = res.json();
 
             if (result.status == 1)
-                return result.data.rows
+                return result.data
 
-            return new Array<IRoleRow>()
+            return new Array<IRole>()
         });
     }
 }

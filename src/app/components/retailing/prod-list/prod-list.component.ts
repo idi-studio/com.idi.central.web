@@ -4,7 +4,7 @@ import {
     TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
-import { ProductService, IProductRow } from '../../../services';
+import { ProductService, IProduct } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
@@ -15,7 +15,7 @@ export class ProdListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Products", ["Retailing", "Products"]);
 
-    data: IProductRow[] = [];
+    data: IProduct[] = [];
 
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Name', filter: true },
@@ -59,7 +59,7 @@ export class ProdListComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
 
-            let newData: IProductRow[] = this.data;
+            let newData: IProduct[] = this.data;
 
             let excludedColumns: string[] = this.columns
                 .filter((column: ITdDataTableColumn) => {
