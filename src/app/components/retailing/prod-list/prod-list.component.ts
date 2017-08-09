@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
+import {
+    TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
+    ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
+} from '@covalent/core';
 import { ProductService, IProductRow } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
@@ -22,6 +25,8 @@ export class ProdListComponent extends BaseComponent implements OnInit {
         { name: 'active', label: 'Active?', filter: true },
     ];
 
+    clickable: boolean = true;
+    selectable: boolean = false;
     filteredData: any[] = this.data;
     filteredTotal: number = this.data.length;
     searchTerm: string = '';
@@ -71,7 +76,7 @@ export class ProdListComponent extends BaseComponent implements OnInit {
         }
     }
 
-    add():void{
+    add(): void {
         this.navigate("/central/prod/edit")
     }
 
@@ -84,6 +89,10 @@ export class ProdListComponent extends BaseComponent implements OnInit {
     search(searchTerm: string): void {
         this.searchTerm = searchTerm;
         this.filter();
+    }
+
+    rowClick(clickEvent: ITdDataTableRowClickEvent): void {
+        this.show(clickEvent.row.name);
     }
 
     page(pagingEvent: IPageChangeEvent): void {

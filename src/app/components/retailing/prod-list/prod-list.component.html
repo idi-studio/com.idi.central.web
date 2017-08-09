@@ -11,12 +11,15 @@
         <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
           flex>
         </td-search-box>
-         <a (click)="add()" routerLink="/"><md-icon class="tc-grey-800">add</md-icon></a>
+        <a (click)="add()" routerLink="/">
+          <md-icon class="tc-grey-800">add</md-icon>
+        </a>
       </div>
       <md-divider></md-divider>
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [clickable]="clickable" [multiple]="multiple"
-        [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
-         <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
+      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [clickable]="clickable" [selectable]="selectable" [clickable]="clickable"
+        [multiple]="multiple" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)"
+        (rowSelect)="rowSelect($event)" (rowClick)="rowClick($event)" >
+        <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <md-chip-list>
               <md-chip *ngFor="let item of value">
@@ -24,7 +27,7 @@
               </md-chip>
             </md-chip-list>
           </div>
-        </ng-template> 
+        </ng-template>
         <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <md-icon *ngIf="value" class="tc-grey-800">check_box</md-icon>
