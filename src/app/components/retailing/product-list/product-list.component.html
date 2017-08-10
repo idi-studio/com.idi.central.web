@@ -35,8 +35,9 @@
         </ng-template>
         <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
           <div layout="row" layout-align="end end">
-            <button md-button (click)="edit(value)" mdTooltip="Edit" class="md-caption"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></button>
-            <button md-button (click)="delete(value)" mdTooltip="Delete" class="md-caption"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button> 
+            <div class="label label-default" (click)="edit(value)" mdTooltip="Edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="label label-danger" (click)="delete(value)" mdTooltip="Delete"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></div>
           </div>
         </ng-template>
       </td-data-table>
