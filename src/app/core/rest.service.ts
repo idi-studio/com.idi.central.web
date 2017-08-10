@@ -10,6 +10,10 @@ export class RESTService {
         return this.http.post(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 
+    protected put(url: string, params: any): Observable<any> {
+        return this.http.put(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
+    }
+
     protected get(url: string): Observable<any> {
         return this.http.get(Runtime.instance.baseUrl + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
     }

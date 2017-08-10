@@ -104,7 +104,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     edit(id: string): void {
-        this.show("edit:" + id);
+        // this.show("edit:" + id);
+        this.navigate(`/central/product/edit/${id}`)
     }
 
     delete(id: string): void {

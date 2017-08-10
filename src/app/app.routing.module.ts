@@ -20,8 +20,10 @@ import { RoleListComponent } from './components/administration/role-list/role-li
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
 import { ProductListComponent } from './components/retailing/product-list/product-list.component';
-import { ProductAddComponent } from './components/retailing/product-add/product-add.component';
-import { ProductEditComponent } from './components/retailing/product-edit/product-edit.component';
+import { ProductMaintainComponent } from './components/retailing/product-maintain/product-maintain.component';
+
+// import { ProductAddComponent } from './components/retailing/product-add/product-add.component';
+// import { ProductEditComponent } from './components/retailing/product-edit/product-edit.component';
 
 const routes: Route[] = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
@@ -35,8 +37,8 @@ const routes: Route[] = [
             { path: 'role/list', component: RoleListComponent },
             { path: 'user/list', component: UserListComponent },
             { path: 'product/list', component: ProductListComponent },
-            { path: 'product/add', component: ProductAddComponent },
-            { path: 'product/edit/:id', component: ProductEditComponent },
+            { path: 'product/add', component: ProductMaintainComponent },
+            { path: 'product/edit/:id', component: ProductMaintainComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -55,5 +57,5 @@ export const CentralComponents: any[] = [
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent,
     RoleListComponent, UserListComponent,
-    ProductListComponent, ProductAddComponent,ProductEditComponent
+    ProductListComponent, ProductMaintainComponent,
 ];

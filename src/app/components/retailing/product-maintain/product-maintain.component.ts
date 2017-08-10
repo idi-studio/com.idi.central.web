@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, TagService, IProduct, ITag } from '../../../services';
-import { BaseComponent, PageHeader } from '../../../core';
+import { BaseComponent, PageHeader, Maintain } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 const PROD_NAME_REGEX = /^[A-Za-z0-9]+$/;
@@ -12,21 +12,22 @@ const PROD_CODE_REGEX = /^[A-Za-z0-9]+$/;
 const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
-    templateUrl: './product-add.component.html',
-    styleUrls: ['product-add.component.css']
+    templateUrl: './product-maintain.component.html',
+    styleUrls: ['product-maintain.component.css']
 })
-export class ProductAddComponent extends BaseComponent implements OnInit {
+export class ProductMaintainComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Add"])
-
+    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Maintain"])
+    formControlProdCtg = new FormControl('', [Validators.required])
     formControlProdName = new FormControl('', [Validators.required, Validators.pattern(PROD_NAME_REGEX)])
     formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(PROD_CODE_REGEX)])
-    formControlProdCtg = new FormControl('', [Validators.required])
     formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(PROD_TAG_REGEX)])
 
-    name: string; code: string; selectedCategory: string;
-    tags: ITag[];
-    chips: ITag[] = [];
+    mode: Maintain;
+    selectedCategory: string
+    current: IProduct = { id: "", name: "", code: "", tags: [], active: false }
+    tags: ITag[]
+    chips: ITag[] = []
 
     constructor(private product: ProductService, private tag: TagService, private route: ActivatedRoute, private snackBar: MdSnackBar,
         protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
@@ -34,6 +35,19 @@ export class ProductAddComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.mode = this.route.snapshot.paramMap.has('id') ? Maintain.Edit : Maintain.Add
+
+        switch (this.mode) {
+            case Maintain.Add:
+                this.header = new PageHeader("Product", ["Retailing", "Product", "Add"])
+                break;
+            case Maintain.Edit:
+                this.header = new PageHeader("Product", ["Retailing", "Product", "Edit"])
+                break;
+            default:
+                break;
+        }
+
         this.filter();
     }
 
@@ -43,6 +57,12 @@ export class ProductAddComponent extends BaseComponent implements OnInit {
         try {
             this.tags = await this.tag.all().toPromise()
             this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ""
+
+            if (this.mode == Maintain.Edit) {
+                let id = this.route.snapshot.paramMap.get('id');
+                this.current = await this.product.single(id).toPromise()
+                this.chips = this.current.tags
+            }
         }
         catch (error) {
             this.tags = [];
@@ -90,7 +110,20 @@ export class ProductAddComponent extends BaseComponent implements OnInit {
             return;
 
         try {
-            let result = await this.product.add(this.name, this.code, this.chips).toPromise()
+
+            let result: any;
+            this.current.tags = this.chips
+
+            switch (this.mode) {
+                case Maintain.Add:
+                    result = await this.product.add(this.current).toPromise()
+                    break;
+                case Maintain.Edit:
+                    result = await this.product.update(this.current).toPromise()
+                    break;
+                default:
+                    return;
+            }
 
             this.show(result.message)
         }
@@ -99,10 +132,6 @@ export class ProductAddComponent extends BaseComponent implements OnInit {
             this.handleError(error)
         }
         finally {
-            this.name = ""
-            this.code = ""
-            this.formControlProdName.reset();
-            this.formControlProdCode.reset();
             this.unload()
         }
     }

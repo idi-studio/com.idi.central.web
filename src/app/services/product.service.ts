@@ -17,9 +17,26 @@ export class ProductService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    add(name: string, code: string, tags: ITag[]): Observable<any> {
-        return super.post('/api/products', { name: name, code: code, tags: tags }).map((res: Response) => {
+    add(value: IProduct): Observable<any> {
+        return super.post('/api/products', value).map((res: Response) => {
             return res.json();
+        });
+    }
+
+    update(value: IProduct): Observable<any> {
+        return super.put(`/api/products/${value.id}`, value).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    single(id: string): Observable<IProduct> {
+        return super.get(`/api/products/${id}`).map((res: Response) => {
+            var result = res.json();
+
+            if (result.status == 1)
+                return result.data
+
+            return null;
         });
     }
 
