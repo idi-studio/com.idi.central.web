@@ -22,8 +22,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         { name: 'code', label: 'Code', filter: true, hidden: true },
         { name: 'description', label: 'Description', filter: true, hidden: true },
         { name: 'tags', label: 'Tags', filter: false },
-        { name: 'active', label: 'Active?', filter: true },
-        { name: 'id', label: '', filter: false },
+        { name: 'active', label: 'Active?', filter: false, hidden: true },
+        { name: 'id', label: '', filter: false, hidden: false },
     ];
 
     clickable: boolean = true;
@@ -104,7 +104,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     edit(id: string): void {
-        // this.show("edit:" + id);
         this.navigate(`/central/product/edit/${id}`)
     }
 

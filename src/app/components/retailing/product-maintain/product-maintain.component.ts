@@ -17,7 +17,7 @@ const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 })
 export class ProductMaintainComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Maintain"])
+    header: PageHeader;// = new PageHeader("Product", ["Retailing", "Product", "Maintain"])
     formControlProdCtg = new FormControl('', [Validators.required])
     formControlProdName = new FormControl('', [Validators.required, Validators.pattern(PROD_NAME_REGEX)])
     formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(PROD_CODE_REGEX)])

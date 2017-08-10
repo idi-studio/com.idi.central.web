@@ -18,6 +18,11 @@
       <md-divider></md-divider>
       <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
         [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+        <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
+          <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
+          <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i>
+          <span>{{value}}</span>
+        </ng-template>
         <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <md-chip-list>
@@ -27,12 +32,12 @@
             </md-chip-list>
           </div>
         </ng-template>
-        <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
+        <!-- <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <i *ngIf="!value" class="fa fa-square-o fa-2x" aria-hidden="true"></i>
             <i *ngIf="value" class="fa fa-check-square-o fa-2x" aria-hidden="true"></i>
           </div>
-        </ng-template>
+        </ng-template> -->
         <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
           <div layout="row" layout-align="end end">
             <div class="label label-default" (click)="edit(value)" mdTooltip="Edit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></div>
