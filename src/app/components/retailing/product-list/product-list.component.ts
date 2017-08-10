@@ -23,6 +23,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         { name: 'description', label: 'Description', filter: true, hidden: true },
         { name: 'tags', label: 'Tags', filter: false },
         { name: 'active', label: 'Active?', filter: true },
+        { name: 'id', label: '', filter: false },
     ];
 
     clickable: boolean = true;
@@ -91,14 +92,22 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
-    rowClick(clickEvent: ITdDataTableRowClickEvent): void {
-        this.show(clickEvent.row.name);
-    }
+    // rowClick(clickEvent: ITdDataTableRowClickEvent): void {
+    //     this.show(clickEvent.row.name);
+    // }
 
     page(pagingEvent: IPageChangeEvent): void {
         this.fromRow = pagingEvent.fromRow;
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
         this.filter();
+    }
+
+    edit(id: string): void {
+        this.show("edit:" + id);
+    }
+
+    delete(id: string): void {
+        this.show("delete:" + id);
     }
 }

@@ -12,10 +12,10 @@ const PROD_CODE_REGEX = /^[A-Za-z0-9]+$/;
 const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
-    templateUrl: './product-add.component.html',
-    styleUrls: ['product-add.component.css']
+    templateUrl: './product-edit.component.html',
+    styleUrls: ['product-edit.component.css']
 })
-export class ProductAddComponent extends BaseComponent implements OnInit {
+export class ProductEditComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Add"])
 
@@ -42,7 +42,6 @@ export class ProductAddComponent extends BaseComponent implements OnInit {
 
         try {
             this.tags = await this.tag.all().toPromise()
-            this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ""
         }
         catch (error) {
             this.tags = [];
@@ -71,16 +70,10 @@ export class ProductAddComponent extends BaseComponent implements OnInit {
             return
         }
 
-        let tags = this.chips.filter(e => e.key == category)
-
-        if (tags.length > 0) {
-            this.show(`Duplicated Tag - ${tags[0].name}`)
-            return
-        }
-
         let item = this.tags.filter(e => e.key == category)[0];
 
         this.chips.push({ key: item.key, name: item.name, value: tag });
+        this.selectedCategory = "";
         this.formControlProdTag.setValue("");
         this.formControlProdTag.reset();
     }

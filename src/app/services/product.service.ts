@@ -8,7 +8,7 @@ export interface IProduct {
     id: string;
     name: string;
     code: string;
-    tags: Array<any>;
+    tags: Array<ITag>;
     active: boolean;
 }
 

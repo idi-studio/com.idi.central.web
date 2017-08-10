@@ -16,9 +16,8 @@
         </a>
       </div>
       <md-divider></md-divider>
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [clickable]="clickable" [selectable]="selectable" [clickable]="clickable"
-        [multiple]="multiple" [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)"
-        (rowSelect)="rowSelect($event)" (rowClick)="rowClick($event)" >
+      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
+        [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
         <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
           <div layout="row">
             <md-chip-list>
@@ -30,8 +29,14 @@
         </ng-template>
         <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
           <div layout="row">
-            <md-icon *ngIf="value" class="tc-grey-800">check_box</md-icon>
-            <md-icon *ngIf="!value" class="tc-grey-800">check_box_outline_blank</md-icon>
+            <i *ngIf="!value" class="fa fa-square-o fa-2x" aria-hidden="true"></i>
+            <i *ngIf="value" class="fa fa-check-square-o fa-2x" aria-hidden="true"></i>
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+          <div layout="row" layout-align="end end">
+            <button md-button (click)="edit(value)" mdTooltip="Edit" class="md-caption"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></button>
+            <button md-button (click)="delete(value)" mdTooltip="Delete" class="md-caption"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button> 
           </div>
         </ng-template>
       </td-data-table>
