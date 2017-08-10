@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, TagService, IProduct, ITag } from '../../../services';
-import { BaseComponent, PageHeader, Maintain } from '../../../core';
+import { BaseComponent, PageHeader, Command } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 const PROD_NAME_REGEX = /^[A-Za-z0-9]+$/;
@@ -17,13 +17,13 @@ const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 })
 export class ProductMaintainComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader;// = new PageHeader("Product", ["Retailing", "Product", "Maintain"])
+    header: PageHeader;
     formControlProdCtg = new FormControl('', [Validators.required])
     formControlProdName = new FormControl('', [Validators.required, Validators.pattern(PROD_NAME_REGEX)])
     formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(PROD_CODE_REGEX)])
     formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(PROD_TAG_REGEX)])
 
-    mode: Maintain;
+    mode: Command;
     selectedCategory: string
     current: IProduct = { id: "", name: "", code: "", tags: [], active: false }
     tags: ITag[]
@@ -35,13 +35,13 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.route.snapshot.paramMap.has('id') ? Maintain.Edit : Maintain.Add
+        this.mode = this.route.snapshot.paramMap.has('id') ? Command.Update : Command.Create
 
         switch (this.mode) {
-            case Maintain.Add:
+            case Command.Create:
                 this.header = new PageHeader("Product", ["Retailing", "Product", "Add"])
                 break;
-            case Maintain.Edit:
+            case Command.Update:
                 this.header = new PageHeader("Product", ["Retailing", "Product", "Edit"])
                 break;
             default:
@@ -58,7 +58,7 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
             this.tags = await this.tag.all().toPromise()
             this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ""
 
-            if (this.mode == Maintain.Edit) {
+            if (this.mode == Command.Update) {
                 let id = this.route.snapshot.paramMap.get('id');
                 this.current = await this.product.single(id).toPromise()
                 this.chips = this.current.tags
@@ -115,10 +115,10 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
             this.current.tags = this.chips
 
             switch (this.mode) {
-                case Maintain.Add:
+                case Command.Create:
                     result = await this.product.add(this.current).toPromise()
                     break;
-                case Maintain.Edit:
+                case Command.Update:
                     result = await this.product.update(this.current).toPromise()
                     break;
                 default:

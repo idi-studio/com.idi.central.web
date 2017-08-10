@@ -1,4 +1,5 @@
-export enum Maintain {
-    Add = 1,
-    Edit = 2
+export enum Command {
+    Create = 2,
+    Update = 4,
+    Delete = 8
 }
