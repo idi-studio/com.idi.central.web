@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response, Headers, Http } from '@angular/http';
-import { Runtime, RESTService } from '../core';
+import { Runtime, RESTService, Status } from '../core';
 
 @Injectable()
 export class TokenService extends RESTService {
@@ -17,7 +17,7 @@ export class TokenService extends RESTService {
         return this.post('/api/token', params.toString()).map((res: Response) => {
             var result = res.json();
 
-            if (result.status == 1) {
+            if (result.status == Status.Success) {
                 Runtime.instance.authorize(username, result.data.access_token)
             }
 

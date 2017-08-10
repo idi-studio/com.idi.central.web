@@ -93,7 +93,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     // rowClick(clickEvent: ITdDataTableRowClickEvent): void {
-    //     this.show(clickEvent.row.name);
+    //     this.alert(clickEvent.row.name);
     // }
 
     page(pagingEvent: IPageChangeEvent): void {
@@ -108,6 +108,26 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     delete(id: string): void {
-        this.show("delete:" + id);
+
+        this.confirm("Are you confirm to delete this record?", (accepted) => {
+            if (accepted) {
+                this.handleDelete(id)
+            }
+        })
+    }
+
+    async handleDelete(id: string): Promise<void> {
+        try {
+            let result = await this.product.remove(id).toPromise()
+            // this.show(result);
+            this.alert(result.message)
+            this.filter();
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 }

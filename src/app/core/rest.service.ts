@@ -14,6 +14,10 @@ export class RESTService {
         return this.http.put(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 
+    protected delete(url: string): Observable<any> {
+        return this.http.delete(Runtime.instance.baseUrl + url, { headers: this.buildHeader(url) })
+    }
+
     protected get(url: string): Observable<any> {
         return this.http.get(Runtime.instance.baseUrl + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
     }

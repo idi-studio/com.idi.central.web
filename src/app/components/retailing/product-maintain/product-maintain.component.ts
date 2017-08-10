@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, TagService, IProduct, ITag } from '../../../services';
-import { BaseComponent, PageHeader, Command } from '../../../core';
+import { BaseComponent, PageHeader, Command, Status } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 const PROD_NAME_REGEX = /^[A-Za-z0-9]+$/;
@@ -94,7 +94,7 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
         let tags = this.chips.filter(e => e.key == category)
 
         if (tags.length > 0) {
-            this.show(`Duplicated Tag - ${tags[0].name}`)
+            this.alert(`Duplicated Tag - ${tags[0].name}`)
             return
         }
 
@@ -125,7 +125,11 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
                     return;
             }
 
-            this.show(result.message)
+            this.alert(result.message)
+
+            if (result.status == Status.Success) {
+                this.back()
+            }
         }
         catch (error) {
             this.tags = [];

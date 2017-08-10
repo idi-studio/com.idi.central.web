@@ -50,14 +50,34 @@ export abstract class BaseComponent {
                 break;
         }
 
-        this.show(errMsg);
+        this.alert(errMsg);
 
         if (error.status == 401)
             this.router.navigate(["/central"])
     }
 
-    protected show(message: string) {
+    protected alert(message: string) {
         this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
+    }
+
+    // protected show(result: any) {
+    //     let message = result.message
+
+    //     for (let item of result.details.info) {
+    //         message += `${item}`
+    //     }
+
+    //     this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
+    // }
+
+    protected confirm(message: string, callback?: (accepted: boolean) => void): void {
+        this.dialog.openConfirm({
+            message: message,
+            disableClose: true,
+            title: 'CENTRAL MESSAGE',
+            cancelButton: 'Disagree',
+            acceptButton: 'Agree',
+        }).afterClosed().subscribe(callback);
     }
 
     protected navigate(url: string) {

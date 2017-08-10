@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { BaseComponent } from '../../../core';
+import { BaseComponent, Status } from '../../../core';
 import { TokenService } from '../../../services';
 
 import 'rxjs/add/operator/toPromise';
@@ -38,11 +38,11 @@ export class LoginComponent extends BaseComponent implements OnInit {
         try {
             let result = await this.token.apply(username, password).toPromise();
 
-            if (result.status == 1) {
+            if (result.status == Status.Success) {
                 this.navigate("/central")
             }
             else {
-                this.show(result.message);
+                this.alert(result.message);
             }
         }
         catch (error) {

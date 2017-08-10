@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { RESTService } from '../core';
+import { RESTService, Status } from '../core';
 import { ITag } from '../services';
 
 export interface IProduct {
@@ -29,11 +29,17 @@ export class ProductService extends RESTService {
         });
     }
 
+    remove(id: string): Observable<any> {
+        return super.delete(`/api/products/${id}`).map((res: Response) => {
+            return res.json();
+        });
+    }
+
     single(id: string): Observable<IProduct> {
         return super.get(`/api/products/${id}`).map((res: Response) => {
             var result = res.json();
 
-            if (result.status == 1)
+            if (result.status == Status.Success)
                 return result.data
 
             return null;
@@ -46,7 +52,7 @@ export class ProductService extends RESTService {
 
             var result = res.json();
 
-            if (result.status == 1)
+            if (result.status == Status.Success)
                 return result.data
 
             return new Array<IProduct>()

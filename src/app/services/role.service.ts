@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { RESTService } from '../core';
+import { RESTService, Status } from '../core';
 
 export interface IRole {
     id: string;
@@ -21,7 +21,7 @@ export class RoleService extends RESTService {
 
             var result = res.json();
 
-            if (result.status == 1)
+            if (result.status == Status.Success)
                 return result.data
 
             return new Array<IRole>()

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { TokenService, IUserProfile } from '../../../services';
-import { Runtime, BaseComponent } from '../../../core';
+import { Runtime, BaseComponent, Status } from '../../../core';
 
 @Component({
     templateUrl: './lock-screen.component.html',
@@ -30,11 +30,11 @@ export class LockScreenComponent extends BaseComponent {
         this.load();
 
         this.token.apply(username, password).subscribe(result => {
-            if (result.status == 1) {
+            if (result.status == Status.Success) {
                 this.navigate("/central")
             }
             else {
-                this.show(result.message)
+                this.alert(result.message)
             }
             this.unload();
         }, error => {

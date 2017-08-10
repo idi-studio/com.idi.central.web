@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Runtime, RESTService } from '../core';
+import { Runtime, RESTService, Status } from '../core';
 
 export interface IUserProfile {
     id: string;
@@ -34,7 +34,7 @@ export class UserService extends RESTService {
 
             var result = res.json();
 
-            if (result.status == 1) {
+            if (result.status == Status.Success) {
                 Runtime.instance.set("profile", JSON.stringify(result.data))
                 return result.data
             }
@@ -49,7 +49,7 @@ export class UserService extends RESTService {
 
             var result = res.json();
 
-            if (result.status == 1)
+            if (result.status == Status.Success)
                 return result.data
 
             return new Array<IUser>()
