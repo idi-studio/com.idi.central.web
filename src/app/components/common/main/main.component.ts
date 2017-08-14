@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { BaseComponent, Runtime } from '../../../core'
 
@@ -14,8 +14,8 @@ export class MainComponent extends BaseComponent implements OnInit {
 
     authorized: boolean
 
-    constructor(protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(router, loading, dialog)
+    constructor(protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, loading, dialog)
     }
 
     ngOnInit(): void {

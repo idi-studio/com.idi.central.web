@@ -14,10 +14,9 @@ export class LockScreenComponent extends BaseComponent {
     profile: IUserProfile
     formControlPassword = new FormControl('', [Validators.required]);
 
-    constructor(private token: TokenService, private route: ActivatedRoute, protected router: Router,
-        protected loading: TdLoadingService, protected dialog: TdDialogService) {
-
-        super(router, loading, dialog)
+    constructor(private token: TokenService,
+        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, loading, dialog)
 
         Runtime.instance.unauthorize()
         this.profile = JSON.parse(Runtime.instance.get("profile")) as IUserProfile

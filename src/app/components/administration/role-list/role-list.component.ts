@@ -30,9 +30,9 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private role: RoleService, private route: ActivatedRoute, private dataTable: TdDataTableService,
-        protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(router, loading, dialog)
+    constructor(private role: RoleService, private dataTable: TdDataTableService,
+        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, loading, dialog)
     }
 
     ngOnInit(): void {

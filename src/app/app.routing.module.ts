@@ -20,10 +20,9 @@ import { RoleListComponent } from './components/administration/role-list/role-li
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
 import { ProductListComponent } from './components/retailing/product-list/product-list.component';
-import { ProductMaintainComponent } from './components/retailing/product-maintain/product-maintain.component';
-
-// import { ProductAddComponent } from './components/retailing/product-add/product-add.component';
-// import { ProductEditComponent } from './components/retailing/product-edit/product-edit.component';
+import { ProductInfoComponent } from './components/retailing/product-info/product-info.component';
+import { ProductPriceComponent } from './components/retailing/product-price/product-price.component';
+import { ProductPriceListComponent } from './components/retailing/product-price-list/product-price-list.component';
 
 const routes: Route[] = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
@@ -37,8 +36,10 @@ const routes: Route[] = [
             { path: 'role/list', component: RoleListComponent },
             { path: 'user/list', component: UserListComponent },
             { path: 'product/list', component: ProductListComponent },
-            { path: 'product/add', component: ProductMaintainComponent },
-            { path: 'product/edit/:id', component: ProductMaintainComponent },
+            { path: 'product/add', component: ProductInfoComponent },
+            { path: 'product/edit/:id', component: ProductInfoComponent },
+            { path: 'product/prices/:id', component: ProductPriceListComponent },
+            { path: 'product/price/:mode/:id', component: ProductPriceComponent }
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -57,5 +58,5 @@ export const CentralComponents: any[] = [
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent,
     RoleListComponent, UserListComponent,
-    ProductListComponent, ProductMaintainComponent,
+    ProductListComponent, ProductInfoComponent, ProductPriceComponent, ProductPriceListComponent
 ];

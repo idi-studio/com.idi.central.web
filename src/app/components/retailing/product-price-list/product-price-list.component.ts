@@ -4,25 +4,26 @@ import {
     TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
-import { ProductService, IProduct } from '../../../services';
+import { ProductService, ProductPriceService, IProduct, IProductPrice } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './product-list.component.html',
+    templateUrl: './product-price-list.component.html',
 })
-export class ProductListComponent extends BaseComponent implements OnInit {
+export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Products", ["Retailing", "Products"]);
+    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Prices"]);
 
-    data: IProduct[] = [];
+    current: IProduct = { id: "", name: "", code: "", tags: [], active: false }
+    data: IProductPrice[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'name', label: 'Name', filter: true },
-        { name: 'code', label: 'Code', filter: true, hidden: true },
-        { name: 'description', label: 'Description', filter: true, hidden: true },
-        { name: 'tags', label: 'Tags', filter: false },
-        { name: 'active', label: 'Active?', filter: false, hidden: true },
+        { name: 'category', label: 'Category', filter: true },
+        { name: 'amount', label: 'Amount', filter: true },
+        { name: 'grade', label: 'grade', filter: true, hidden: true },
+        { name: 'startdate', label: 'Start Date', filter: false },
+        { name: 'duedate', label: 'Due Date', filter: false },
         { name: 'id', label: '', filter: false, hidden: false },
     ];
 
@@ -34,11 +35,11 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     fromRow: number = 1;
     currentPage: number = 1;
     pageSize: number = 5;
-    sortBy: string = 'name';
+    sortBy: string = 'category';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private product: ProductService, private dataTable: TdDataTableService,
+    constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, loading, dialog)
     }
@@ -51,7 +52,11 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.data = await this.product.all().toPromise()
+            let id = this.getParam("id")
+            this.current = await this.product.single(id).toPromise()
+            this.data = await this.price.all(id).toPromise()
+
+            this.header.title = `Product - ${this.current.name}`
         }
         catch (error) {
             this.data = [];
@@ -60,7 +65,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
 
-            let newData: IProduct[] = this.data;
+            let newData: IProductPrice[] = this.data;
 
             let excludedColumns: string[] = this.columns
                 .filter((column: ITdDataTableColumn) => {
@@ -78,7 +83,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     add(): void {
-        this.navigate("/central/product/price/add")
+        this.navigate(`/central/product/price/add/${this.current.id}`)
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -103,11 +108,6 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/product/price/edit/${id}`)
     }
 
-    showPrices(id: string): void {
-        this.navigate(`/central/product/prices/${id}`)
-    }
-
-
     delete(id: string): void {
 
         this.confirm("Are you confirm to delete this record?", (accepted) => {
@@ -119,7 +119,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 
     async handleDelete(id: string): Promise<void> {
         try {
-            let result = await this.product.remove(id).toPromise()
+            let result = await this.price.remove(id).toPromise()
             // this.show(result);
             this.alert(result.message)
             this.filter();

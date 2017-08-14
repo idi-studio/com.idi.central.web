@@ -12,10 +12,10 @@ const PROD_CODE_REGEX = /^[A-Za-z0-9]+$/;
 const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
-    templateUrl: './product-maintain.component.html',
-    styleUrls: ['product-maintain.component.css']
+    templateUrl: './product-info.component.html',
+    styleUrls: ['product-info.component.css']
 })
-export class ProductMaintainComponent extends BaseComponent implements OnInit {
+export class ProductInfoComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     formControlProdCtg = new FormControl('', [Validators.required])
@@ -29,13 +29,13 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
     tags: ITag[]
     chips: ITag[] = []
 
-    constructor(private product: ProductService, private tag: TagService, private route: ActivatedRoute, private snackBar: MdSnackBar,
-        protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(router, loading, dialog)
+    constructor(private product: ProductService, private tag: TagService, private snackBar: MdSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, loading, dialog)
     }
 
     ngOnInit(): void {
-        this.mode = this.route.snapshot.paramMap.has('id') ? Command.Update : Command.Create
+        this.mode = this.getMode()
 
         switch (this.mode) {
             case Command.Create:
@@ -45,6 +45,7 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
                 this.header = new PageHeader("Product", ["Retailing", "Product", "Edit"])
                 break;
             default:
+                this.back();
                 break;
         }
 
@@ -59,7 +60,7 @@ export class ProductMaintainComponent extends BaseComponent implements OnInit {
             this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ""
 
             if (this.mode == Command.Update) {
-                let id = this.route.snapshot.paramMap.get('id');
+                let id = this.getParam('id');
                 this.current = await this.product.single(id).toPromise()
                 this.chips = this.current.tags
             }

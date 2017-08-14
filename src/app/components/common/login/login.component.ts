@@ -18,9 +18,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     formControlUsername = new FormControl('', [Validators.required, Validators.pattern(USERNAME_REGEX)]);
     formControlPassword = new FormControl('', [Validators.required]);
 
-    constructor(private token: TokenService, private route: ActivatedRoute, protected router: Router,
-        protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(router, loading, dialog)
+    constructor(private token: TokenService, protected router: Router,
+        protected route: ActivatedRoute, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, loading, dialog)
     }
 
     ngOnInit(): void {

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { Runtime } from './runtime';
+import { Command } from './enums';
 
 export abstract class BaseComponent {
 
-    constructor(protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+    constructor(protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         console.log(`router.url:${router.url}`)
 
         if (this.checkIdentity()) {
@@ -26,6 +27,28 @@ export abstract class BaseComponent {
             return false;
 
         return true
+    }
+
+    protected getMode(): Command {
+        if (!this.route.snapshot.paramMap.has('mode'))
+            return Command.None
+
+        let mode = this.route.snapshot.paramMap.get('mode')
+
+        switch (mode) {
+            case 'add':
+                return Command.Create;
+            case 'edit':
+                return Command.Update;
+            case 'delete':
+                return Command.Delete;
+            default:
+                return Command.None;
+        }
+    }
+
+    protected getParam(name: string): string {
+        return this.route.snapshot.paramMap.get(name)
     }
 
     protected handleError(error: Response) {

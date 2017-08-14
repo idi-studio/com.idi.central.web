@@ -33,9 +33,9 @@ export class UserListComponent extends BaseComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private user: UserService, private route: ActivatedRoute, private dataTable: TdDataTableService,
-        protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(router, loading, dialog)
+    constructor(private user: UserService, private dataTable: TdDataTableService,
+         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, loading, dialog)
     }
 
     ngOnInit(): void {
