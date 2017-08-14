@@ -72,7 +72,8 @@
         </div>
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
-            <md-slide-toggle [(ngModel)]="current.active" [checked]="current.active">{{current.active?"Activated":"Inactive"}}</md-slide-toggle>
+            <md-checkbox  [checked]="current.active" [(ngModel)]="current.active"  [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
+            <!-- <md-slide-toggle [(ngModel)]="current.active" [checked]="current.active">{{current.active?"Activated":"Inactive"}}</md-slide-toggle> -->
           </div>
         </div>
         <div class="form-group row">

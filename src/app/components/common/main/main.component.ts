@@ -4,7 +4,7 @@ import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { BaseComponent, Runtime } from '../../../core'
 
 declare var $: any;
-declare var FastClick: any;
+// declare var FastClick: any;
 declare var jQuery: any;
 
 @Component({
@@ -109,7 +109,7 @@ export class MainComponent extends BaseComponent implements OnInit {
         }
 
         $(function () {
-            FastClick.attach(document.body);
+            // FastClick.attach(document.body);
             resizefunc.push("initscrolls");
             resizefunc.push("changeptype");
 
