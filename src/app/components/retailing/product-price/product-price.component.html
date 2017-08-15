@@ -14,7 +14,7 @@
             <div class="mat-input-container md-input-full-width">
               <div class="mat-input-wrapper">
                 <div class="mat-input-infix mat-select-flex">
-                  <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="selectedCategory">
+                  <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category">
                     <md-option *ngFor="let category of priceCategory" [value]="category.key">
                       {{ category.value }}
                     </md-option>

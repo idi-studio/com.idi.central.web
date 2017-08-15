@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { ProductService, ProductPriceService, CategoryService, IProduct, IProductPrice, ICategory, TypeNames } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
+import { ProductService, ProductPriceService, CategoryService, IProduct, IProductPrice, TypeNames } from '../../../services';
+import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -16,12 +16,11 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
     header: PageHeader
     mode: Command
-    selectedCategory: string
-    priceCategory: ICategory[]
+    priceCategory: any[]
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false }
-    current: IProductPrice = { id: "", category: "", amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
+    current: IProductPrice = { id: "", category: PriceCategory.Cost, amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
@@ -62,13 +61,11 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
             if (this.mode == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()
-                this.selectedCategory = this.priceCategory[0].key
             }
 
             if (this.mode == Command.Update) {
                 this.current = await this.price.single(id).toPromise()
                 this.currentProduct = await this.product.single(this.current.pid).toPromise()
-                this.selectedCategory = this.current.category
             }
 
             this.header.title = `Product - ${this.currentProduct.name}`

@@ -3,10 +3,10 @@ import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
 
-export interface ICategory {
-    key: string;
-    value: string;
-}
+// export interface ICategory {
+//     key: string;
+//     value: string;
+// }
 
 export const TypeNames = {
     PriceCategory: "PriceCategory"
@@ -17,7 +17,7 @@ export class CategoryService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    all(typeName: string): Observable<Array<ICategory>> {
+    all(typeName: string): Observable<Array<any>> {
 
         return super.get(`/api/category/${typeName}`).map((res: Response) => {
 
@@ -26,7 +26,7 @@ export class CategoryService extends RESTService {
             if (result.status == Status.Success)
                 return result.data
 
-            return new Array<ICategory>()
+            return new Array<any>()
         });
     }
 }
