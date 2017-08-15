@@ -14,7 +14,7 @@
             <div class="mat-input-container md-input-full-width">
               <div class="mat-input-wrapper">
                 <div class="mat-input-infix mat-select-flex">
-                  <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category">
+                  <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category" (change)="onCategoryChanged($event)">
                     <md-option *ngFor="let category of priceCategory" [value]="category.key">
                       {{ category.value }}
                     </md-option>
@@ -30,6 +30,12 @@
             <md-input-container class="md-input-full-width">
               <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
                 autocomplete="off">
+                <md-error *ngIf="formControlGrade.hasError('max')">
+                Grade should be less than or equal to is 100.
+              </md-error>
+              <md-error *ngIf="formControlGrade.hasError('min')">
+                Grade should be greater than or equal to is 0.
+              </md-error>
               <md-error *ngIf="formControlGrade.hasError('required')">
                 Grade is <strong>required</strong>
               </md-error>

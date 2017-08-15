@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdSelect, MdSelectChange } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, ProductPriceService, CategoryService, IProduct, IProductPrice, TypeNames } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from '../../../core';
@@ -24,7 +24,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
-    formControlGrade = new FormControl({ value: "", disabled: true }, [Validators.required])
+    formControlGrade = new FormControl({ value: "0", disabled: true }, [Validators.required, Validators.min(0), Validators.max(0)])
     formControlStart = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
     formControlDue = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
 
@@ -61,6 +61,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
             if (this.mode == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()
+                this.current.pid = this.currentProduct.id
             }
 
             if (this.mode == Command.Update) {
@@ -79,11 +80,21 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     valid(): boolean {
-        return this.formControlAmount.valid && this.formControlGrade.valid && this.formControlStart.valid && this.formControlDue.valid
+        return true// this.formControlCategory.valid && this.formControlAmount.valid && this.formControlGrade.valid && this.formControlStart.valid && this.formControlDue.valid
     }
 
     back(): void {
         this.navigate(`central/product/prices/${this.currentProduct.id}`)
+    }
+
+    onCategoryChanged(event: MdSelectChange): void {
+        if (event.value == PriceCategory.VIP) {
+            this.formControlGrade.enable()
+        }
+        else {
+            this.formControlGrade.setValue(0)
+            this.formControlGrade.disable()
+        }
     }
 
     async submit(): Promise<void> {

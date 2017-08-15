@@ -8,8 +8,8 @@ export interface IProductPrice {
     category: number;
     amount: number;
     grade: number;
-    startdate: Date;
-    duedate: Date;
+    startdate: string;
+    duedate: string;
     pid: string;
     active: boolean;
 }
