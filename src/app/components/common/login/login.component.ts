@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { BaseComponent, Status } from '../../../core';
+import { BaseComponent, Status, Regex } from '../../../core';
 import { TokenService } from '../../../services';
-
 import 'rxjs/add/operator/toPromise';
-
-const USERNAME_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
     templateUrl: './login.component.html',
@@ -15,7 +12,7 @@ const USERNAME_REGEX = /^[A-Za-z0-9]+$/;
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
-    formControlUsername = new FormControl('', [Validators.required, Validators.pattern(USERNAME_REGEX)]);
+    formControlUsername = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)]);
     formControlPassword = new FormControl('', [Validators.required]);
 
     constructor(private token: TokenService, protected router: Router,

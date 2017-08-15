@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { RESTService, Status, PriceCategory } from '../core';
+import { RESTService, Status } from '../core';
 
 export interface IProductPrice {
     id: string;
-    category: PriceCategory;
+    category: string;
     amount: number;
     grade: number;
     startdate: Date;

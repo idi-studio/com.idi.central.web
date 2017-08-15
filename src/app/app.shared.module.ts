@@ -13,7 +13,7 @@ import {
     MdListModule, MdMenuModule, MdTooltipModule,
     MdSlideToggleModule, MdInputModule, MdCheckboxModule,
     MdToolbarModule, MdSnackBarModule, MdSidenavModule,
-    MdTabsModule, MdSelectModule, MdChipsModule
+    MdTabsModule, MdSelectModule, MdChipsModule, MdDatepickerModule, MdNativeDateModule,
 } from '@angular/material';
 
 // import { NgxChartsModule, } from '@swimlane/ngx-charts';
@@ -31,7 +31,7 @@ const MATERIAL_MODULES: any[] = [
     MdListModule, MdMenuModule, MdTooltipModule,
     MdSlideToggleModule, MdInputModule, MdCheckboxModule,
     MdToolbarModule, MdSnackBarModule, MdSidenavModule,
-    MdTabsModule, MdSelectModule, MdChipsModule
+    MdTabsModule, MdSelectModule, MdChipsModule, MdDatepickerModule, MdNativeDateModule
 ];
 
 const COVALENT_MODULES: any[] = [
@@ -54,9 +54,8 @@ const COVALENT_MODULES: any[] = [
         // CHART_MODULES,
         FLEX_LAYOUT_MODULES,
     ],
-    declarations: [
-
-    ],
+    declarations: [ ],
+    providers: [ ],
     exports: [
         ANGULAR_MODULES,
         MATERIAL_MODULES,

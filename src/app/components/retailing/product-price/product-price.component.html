@@ -14,75 +14,70 @@
             <div class="mat-input-container md-input-full-width">
               <div class="mat-input-wrapper">
                 <div class="mat-input-infix mat-select-flex">
-                  <md-select name="category" placeholder="Category" [(ngModel)]="selectedCategory" #category>
-                    <md-option *ngFor="let tag of tags" [value]="tag.key">
-                      {{ tag.name }}
+                  <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="selectedCategory">
+                    <md-option *ngFor="let category of priceCategory" [value]="category.key">
+                      {{ category.value }}
                     </md-option>
                   </md-select>
+                  <md-error *ngIf="formControlCategory.hasError('required')">
+                    Category is <strong>required</strong>
+                  </md-error>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
-            <!-- <md-input-container class="md-input-full-width">
-              <input mdInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlProdName" autocomplete="off"
-                maxlength="50">
-              <md-error *ngIf="formControlProdName.hasError('pattern')">
-                please enter a valid product name
+            <md-input-container class="md-input-full-width">
+              <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
+                autocomplete="off">
+              <md-error *ngIf="formControlGrade.hasError('required')">
+                Grade is <strong>required</strong>
               </md-error>
-              <md-error *ngIf="formControlProdName.hasError('required')">
-                product name is <strong>required</strong>
-              </md-error>
-            </md-input-container> -->
-          </div>
-          <div class="col-md-4 col-sm-6 col-xs-10">
-            <!-- <md-input-container class="md-input-full-width">
-              <input mdInput name="code" [(ngModel)]="current.code" placeholder="Code" [formControl]="formControlProdCode" autocomplete="off"
-                maxlength="50">
-              <md-error *ngIf="formControlProdCode.hasError('pattern')">
-                please enter a valid product code
-              </md-error>
-              <md-error *ngIf="formControlProdCode.hasError('required')">
-                product code is <strong>required</strong>
-              </md-error>
-            </md-input-container> -->
+            </md-input-container>
           </div>
         </div>
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
-            <!-- <div class="mat-input-container md-input-full-width">
-              <div class="mat-input-wrapper">
-                <div class="mat-input-infix mat-select-flex">
-                  <md-select name="category" placeholder="Category" [(ngModel)]="selectedCategory" #category>
-                    <md-option *ngFor="let tag of tags" [value]="tag.key">
-                      {{ tag.name }}
-                    </md-option>
-                  </md-select>
-                </div>
-              </div>
-            </div> -->
+            <md-input-container class="md-input-full-width">
+              <input mdInput name="startdate" [(ngModel)]="current.startdate" [min]="minDate" [max]="maxDate" [formControl]="formControlStart"
+                [mdDatepicker]="startpicker" placeholder="Start Date">
+              <span mdSuffix>00:00:00 &nbsp;</span>
+              <button mdSuffix [mdDatepickerToggle]="startpicker"></button>
+              <md-error *ngIf="formControlStart.hasError('pattern')">
+                The date format should be as 'YYYY/M/D'
+              </md-error>
+              <md-error *ngIf="formControlStart.hasError('required')">
+                Start date is <strong>required</strong>
+              </md-error>
+            </md-input-container>
+            <md-datepicker #startpicker></md-datepicker>
           </div>
           <div class="col-md-4 col-sm-6 col-xs-10">
-            <div layout="row" layout-align="start end" class="pad-left-sm pad-right-sm">
-              <!-- <md-input-container>
-                <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
-                <md-error *ngIf="formControlProdTag.hasError('pattern')">
-                  please enter a valid product tag
-                </md-error>
-                <md-error *ngIf="formControlProdTag.hasError('required')">
-                  product tag is <strong>required</strong>
-                </md-error>
-              </md-input-container>
-              <div class="mat-input-container md-input-full-width">
-                <div class="mat-input-wrapper">
-                  <button md-button (click)="add(category.selected.value, tag.value)">
-                    <md-icon class="tc-grey-800">add</md-icon>
-                  </button>
-                </div>
-              </div> -->
-            </div>
+            <md-input-container class="md-input-full-width">
+              <input mdInput name="duedate" [(ngModel)]="current.duedate" [min]="minDate" [max]="maxDate" [formControl]="formControlDue"
+                [mdDatepicker]="duepicker" placeholder="Due Date">
+              <span mdSuffix>23:59:59 &nbsp;</span>
+              <button mdSuffix [mdDatepickerToggle]="duepicker"></button>
+              <md-error *ngIf="formControlDue.hasError('pattern')">
+                The date format should be as 'YYYY/M/D'
+              </md-error>
+              <md-error *ngIf="formControlDue.hasError('required')">
+                Due date is <strong>required</strong>
+              </md-error>
+            </md-input-container>
+            <md-datepicker #duepicker></md-datepicker>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-4 col-sm-6 col-xs-10">
+            <md-input-container class="md-input-full-width">
+              <input mdInput type="number" name="amount" [(ngModel)]="current.amount" placeholder="Amount" [formControl]="formControlAmount"
+                autocomplete="off">
+              <md-error *ngIf="formControlAmount.hasError('required')">
+                Amount is <strong>required</strong>
+              </md-error>
+            </md-input-container>
           </div>
         </div>
         <div class="form-group row">
@@ -90,15 +85,6 @@
             <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
           </div>
         </div>
-        <!-- <div class="form-group row">
-          <div class="col-xs-8">
-            <md-chip-list>
-              <md-chip *ngFor="let chip of chips" class="md-chip">
-                {{chip.value}} <a (click)="remove(chip.key)" href="javascript:void(0)" class="tc-grey-800"><i class="fa fa-times" aria-hidden="true"></i></a>
-              </md-chip>
-            </md-chip-list>
-          </div>
-        </div> -->
         <div class="form-group text-center row m-t-10">
           <div class="col-md-6 col-sm-6"></div>
           <div class="col-xs-10 col-sm-6 col-md-2">

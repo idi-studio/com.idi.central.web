@@ -1,33 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { ProductService, ProductPriceService, IProduct, IProductPrice } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, PriceCategory } from '../../../core';
+import { ProductService, ProductPriceService, CategoryService, IProduct, IProductPrice, ICategory, TypeNames } from '../../../services';
+import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
 import 'rxjs/add/operator/toPromise';
-
-const PROD_NAME_REGEX = /^[A-Za-z0-9]+$/;
-const PROD_CODE_REGEX = /^[A-Za-z0-9]+$/;
-const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
     templateUrl: './product-price.component.html',
-    styleUrls: ['product-price.component.css']
+    styleUrls: ['product-price.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class ProductPriceComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader;
-    formControlProdCtg = new FormControl('', [Validators.required])
-    formControlProdName = new FormControl('', [Validators.required, Validators.pattern(PROD_NAME_REGEX)])
-    formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(PROD_CODE_REGEX)])
-    formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(PROD_TAG_REGEX)])
-
-    mode: Command;
+    header: PageHeader
+    mode: Command
+    selectedCategory: string
+    priceCategory: ICategory[]
+    minDate = new Date(2010, 0, 1)
+    maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false }
-    current: IProductPrice = { id: "", category: PriceCategory.Cost, amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
+    current: IProductPrice = { id: "", category: "", amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
 
-    constructor(private product: ProductService, private price: ProductPriceService, private snackBar: MdSnackBar,
+    formControlCategory = new FormControl('', [Validators.required])
+    formControlAmount = new FormControl('', [Validators.required])
+    formControlGrade = new FormControl({ value: "", disabled: true }, [Validators.required])
+    formControlStart = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
+    formControlDue = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
+
+    constructor(private product: ProductService, private price: ProductPriceService, private category: CategoryService, private snackBar: MdSnackBar,
         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, loading, dialog)
     }
@@ -56,13 +58,17 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
         try {
             let id = this.getParam('id');
 
+            this.priceCategory = await this.category.all(TypeNames.PriceCategory).toPromise()
+
             if (this.mode == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()
+                this.selectedCategory = this.priceCategory[0].key
             }
 
             if (this.mode == Command.Update) {
                 this.current = await this.price.single(id).toPromise()
                 this.currentProduct = await this.product.single(this.current.pid).toPromise()
+                this.selectedCategory = this.current.category
             }
 
             this.header.title = `Product - ${this.currentProduct.name}`
@@ -76,45 +82,23 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     valid(): boolean {
-        return this.formControlProdName.valid && this.formControlProdCode.valid
+        return this.formControlAmount.valid && this.formControlGrade.valid && this.formControlStart.valid && this.formControlDue.valid
     }
 
     back(): void {
         this.navigate(`central/product/prices/${this.currentProduct.id}`)
     }
 
-    // remove(key: string): void {
-    //     let index = this.chips.findIndex(chip => chip.key == key)
-    //     this.chips.splice(index, 1)
-    // }
-
-    // add(category: string, tag: string) {
-    //     if (this.formControlProdTag.invalid || this.selectedCategory == null) {
-    //         return
-    //     }
-
-    //     let tags = this.chips.filter(e => e.key == category)
-
-    //     if (tags.length > 0) {
-    //         this.alert(`Duplicated Tag - ${tags[0].name}`)
-    //         return
-    //     }
-
-    //     let item = this.tags.filter(e => e.key == category)[0];
-
-    //     this.chips.push({ key: item.key, name: item.name, value: tag });
-    //     this.formControlProdTag.setValue("");
-    //     this.formControlProdTag.reset();
-    // }
-
     async submit(): Promise<void> {
+
+        console.log(this.current)
+
         if (!this.valid)
-            return;
+            return
 
         try {
 
             let result: any;
-            // this.current.tags = this.chips
 
             switch (this.mode) {
                 case Command.Create:
@@ -134,7 +118,6 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            // this.tags = [];
             this.handleError(error)
         }
         finally {

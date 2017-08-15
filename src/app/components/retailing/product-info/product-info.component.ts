@@ -4,12 +4,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, TagService, IProduct, ITag } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status } from '../../../core';
+import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
 import 'rxjs/add/operator/toPromise';
-
-const PROD_NAME_REGEX = /^[A-Za-z0-9]+$/;
-const PROD_CODE_REGEX = /^[A-Za-z0-9]+$/;
-const PROD_TAG_REGEX = /^[A-Za-z0-9]+$/;
 
 @Component({
     templateUrl: './product-info.component.html',
@@ -19,9 +15,9 @@ export class ProductInfoComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     formControlProdCtg = new FormControl('', [Validators.required])
-    formControlProdName = new FormControl('', [Validators.required, Validators.pattern(PROD_NAME_REGEX)])
-    formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(PROD_CODE_REGEX)])
-    formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(PROD_TAG_REGEX)])
+    formControlProdName = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
+    formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
+    formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
 
     mode: Command;
     selectedCategory: string

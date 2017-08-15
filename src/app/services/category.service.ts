@@ -1,0 +1,32 @@
+import { Injectable } from '@angular/core';
+import { Response, Http, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { RESTService, Status } from '../core';
+
+export interface ICategory {
+    key: string;
+    value: string;
+}
+
+export const TypeNames = {
+    PriceCategory: "PriceCategory"
+}
+
+@Injectable()
+export class CategoryService extends RESTService {
+
+    constructor(http: Http) { super(http) }
+
+    all(typeName: string): Observable<Array<ICategory>> {
+
+        return super.get(`/api/category/${typeName}`).map((res: Response) => {
+
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return new Array<ICategory>()
+        });
+    }
+}
