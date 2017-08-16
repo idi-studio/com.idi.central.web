@@ -23,6 +23,12 @@
           <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i>
           <span>{{value}}</span>
         </ng-template>
+        <ng-template tdDataTableTemplate="grade" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <span *ngIf="!hasGrade(row.category)" class="text-xs tc-grey-400">N.A</span>
+            <span *ngIf="hasGrade(row.category)" class="text-xs">{{value}}</span>
+          </div>
+        </ng-template>
         <ng-template tdDataTableTemplate="startdate" let-value="value" let-row="row" let-column="column">
           <div *ngIf="hasTerm(row.category)" layout="row">
             <span class="text-xs">{{row.startdate | date: 'yyyy/M/d HH:mm:ss'}}</span>
@@ -30,7 +36,7 @@
             <span class="text-xs">{{row.duedate | date: 'yyyy/M/d  HH:mm:ss'}}</span>
           </div>
           <div *ngIf="!hasTerm(row.category)" layout="row">
-            <span class="text-xs">N.A</span>
+            <span class="text-xs tc-grey-400">N.A</span>
           </div>
         </ng-template>
         <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">

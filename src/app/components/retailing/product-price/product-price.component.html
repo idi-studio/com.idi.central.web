@@ -9,6 +9,7 @@
         </a>
       </div>
       <div class="m-t-20">
+
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <div class="mat-input-container md-input-full-width">
@@ -28,21 +29,16 @@
           </div>
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
-              <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
+              <input mdInput type="number" name="amount" [(ngModel)]="current.amount" placeholder="Amount" [formControl]="formControlAmount"
                 autocomplete="off">
-                <md-error *ngIf="formControlGrade.hasError('max')">
-                Grade should be less than or equal to 100.
-              </md-error>
-              <md-error *ngIf="formControlGrade.hasError('min')">
-                Grade should be greater than or equal to 0.
-              </md-error>
-              <md-error *ngIf="formControlGrade.hasError('required')">
-                Grade is <strong>required</strong>
+              <md-error *ngIf="formControlAmount.hasError('required')">
+                Amount is <strong>required</strong>
               </md-error>
             </md-input-container>
           </div>
         </div>
-        <div class="form-group row">
+
+        <div class="form-group row" *ngIf="hasTerm(current.category)">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
               <input mdInput name="startdate" [(ngModel)]="current.startdate" [min]="minDate" [max]="maxDate" [formControl]="formControlStart"
@@ -50,7 +46,7 @@
               <span mdSuffix>00:00:00 &nbsp;</span>
               <button mdSuffix [mdDatepickerToggle]="startpicker"></button>
               <!-- <md-error *ngIf="formControlStart.hasError('pattern')">
-                The date format should be as 'YYYY/MM/DD'
+                The date format should be as 'yyyy/MM/dd'
               </md-error> -->
               <md-error *ngIf="formControlStart.hasError('required')">
                 Start date is <strong>required</strong>
@@ -65,7 +61,7 @@
               <span mdSuffix>23:59:59 &nbsp;</span>
               <button mdSuffix [mdDatepickerToggle]="duepicker"></button>
               <!-- <md-error *ngIf="formControlDue.hasError('pattern')">
-                The date format should be as 'YYYY/MM/DD'
+                The date format should be as 'yyyy/MM/dd'
               </md-error> -->
               <md-error *ngIf="formControlDue.hasError('required')">
                 Due date is <strong>required</strong>
@@ -75,28 +71,37 @@
           </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row" *ngIf="hasGrade(current.category)">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-input-container class="md-input-full-width">
-              <input mdInput type="number" name="amount" [(ngModel)]="current.amount" placeholder="Amount" [formControl]="formControlAmount"
+              <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
                 autocomplete="off">
-              <md-error *ngIf="formControlAmount.hasError('required')">
-                Amount is <strong>required</strong>
+              <md-error *ngIf="formControlGrade.hasError('max')">
+                Grade should be less than or equal to 100.
+              </md-error>
+              <md-error *ngIf="formControlGrade.hasError('min')">
+                Grade should be greater than or equal to 0.
+              </md-error>
+              <md-error *ngIf="formControlGrade.hasError('required')">
+                Grade is <strong>required</strong>
               </md-error>
             </md-input-container>
           </div>
         </div>
+
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
           </div>
         </div>
-        <div class="form-group text-center row m-t-10">
+
+        <div class="form-group row text-center  m-t-10">
           <div class="col-md-6 col-sm-6"></div>
           <div class="col-xs-10 col-sm-6 col-md-2">
             <button (click)="submit()" [disabled]="!valid()" class="btn btn-success btn-block waves-effect waves-light" type="submit">Submit</button>
           </div>
         </div>
+
       </div>
     </div>
   </div>

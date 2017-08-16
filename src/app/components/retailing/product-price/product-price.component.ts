@@ -26,8 +26,6 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     formControlGrade = new FormControl({ value: "0", disabled: true }, [Validators.required, Validators.min(0), Validators.max(100)])
     formControlStart = new FormControl('', [Validators.required])
     formControlDue = new FormControl('', [Validators.required])
-    // formControlStart = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
-    // formControlDue = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
 
     constructor(private product: ProductService, private price: ProductPriceService, private category: CategoryService, private snackBar: MdSnackBar,
         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
@@ -53,7 +51,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     async filter(): Promise<void> {
-        this.load();
+        this.load()
 
         try {
             let id = this.getParam('id');
@@ -69,11 +67,11 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
                 let data = await this.price.single(id).toPromise()
                 this.current = data
                 this.current.startdate = new Date(data.startdate)
-                this.current.duedate = new Date(data.startdate)
+                this.current.duedate = new Date(data.duedate)
                 this.currentProduct = await this.product.single(this.current.pid).toPromise()
             }
 
-            this.header.title = `Product - ${this.currentProduct.name}`
+            this.initUI()
         }
         catch (error) {
             this.handleError(error)
@@ -84,10 +82,17 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     valid(): boolean {
-        if (this.current.category == PriceCategory.VIP) {
-            return this.formControlCategory.valid && this.formControlAmount.valid && this.formControlGrade.valid && this.formControlStart.valid && this.formControlDue.valid
+        let valid: boolean = true
+
+        if (this.hasGrade(this.current.category)) {
+            valid = this.formControlGrade.valid
         }
-        return this.formControlCategory.valid && this.formControlAmount.valid && this.formControlStart.valid && this.formControlDue.valid
+
+        if (this.hasTerm(this.current.category)) {
+            valid = valid && this.formControlStart.valid && this.formControlDue.valid
+        }
+
+        return valid && this.formControlCategory.valid && this.formControlAmount.valid
     }
 
     back(): void {
@@ -95,7 +100,32 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     onCategoryChanged(event: MdSelectChange): void {
-        if (event.value == PriceCategory.VIP) {
+        this.initUI();
+    }
+
+    hasTerm(category: number): boolean {
+        switch (category) {
+            case PriceCategory.Discount:
+            case PriceCategory.VIP:
+                return true
+            default:
+                return false
+        }
+    }
+
+    hasGrade(category: number): boolean {
+        switch (category) {
+            case PriceCategory.VIP:
+                return true
+            default:
+                return false
+        }
+    }
+
+    initUI(): void {
+        this.header.title = `Product - ${this.currentProduct.name}`
+
+        if (this.hasGrade(this.current.category)) {
             this.formControlGrade.enable()
         }
         else {

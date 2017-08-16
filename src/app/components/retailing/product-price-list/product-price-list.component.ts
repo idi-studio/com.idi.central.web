@@ -22,7 +22,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         { name: 'category', label: 'Category', filter: true, hidden: true },
         { name: 'categoryname', label: 'Category', filter: true },
         { name: 'amount', label: 'Amount', numeric: true, format: v => v.toFixed(2), filter: true },
-        { name: 'grade', label: 'grade', filter: true, hidden: true },
+        { name: 'grade', label: 'Grade', filter: true },
         { name: 'startdate', label: 'Expiration Date', filter: false },
         { name: 'id', label: '', filter: false, hidden: false },
     ];
@@ -107,6 +107,15 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     hasTerm(category: number): boolean {
         switch (category) {
             case PriceCategory.Discount:
+            case PriceCategory.VIP:
+                return true
+            default:
+                return false
+        }
+    }
+
+     hasGrade(category: number): boolean {
+        switch (category) {
             case PriceCategory.VIP:
                 return true
             default:
