@@ -9,9 +9,9 @@ export interface IProductPrice {
     categoryname: string;
     amount: number;
     grade: number;
-    startdate: string;
-    duedate: string;
-    productid: string;
+    startdate: Date;
+    duedate: Date;
+    pid: string;
     active: boolean;
 }
 

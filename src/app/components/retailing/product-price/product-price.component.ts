@@ -10,7 +10,6 @@ import 'rxjs/add/operator/toPromise';
 @Component({
     templateUrl: './product-price.component.html',
     styleUrls: ['product-price.component.css'],
-    // encapsulation: ViewEncapsulation.None,
 })
 export class ProductPriceComponent extends BaseComponent implements OnInit {
 
@@ -20,7 +19,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false }
-    current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, startdate: null, duedate: null, productid: "", active: false }
+    current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
@@ -63,12 +62,15 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
             if (this.mode == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()
-                this.current.productid = this.currentProduct.id
+                this.current.pid = this.currentProduct.id
             }
 
             if (this.mode == Command.Update) {
-                this.current = await this.price.single(id).toPromise()
-                this.currentProduct = await this.product.single(this.current.productid).toPromise()
+                let data = await this.price.single(id).toPromise()
+                this.current = data
+                this.current.startdate = new Date(data.startdate)
+                this.current.duedate = new Date(data.startdate)
+                this.currentProduct = await this.product.single(this.current.pid).toPromise()
             }
 
             this.header.title = `Product - ${this.currentProduct.name}`
