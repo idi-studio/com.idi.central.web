@@ -5,7 +5,7 @@ import {
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
 import { ProductService, ProductPriceService, IProduct, IProductPrice } from '../../../services';
-import { BaseComponent, PageHeader } from '../../../core';
+import { BaseComponent, PageHeader, PriceCategory } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -19,11 +19,11 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     data: IProductPrice[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'category', label: 'Category', filter: true },
-        { name: 'amount', label: 'Amount', filter: true },
+        { name: 'category', label: 'Category', filter: true, hidden: true },
+        { name: 'categoryname', label: 'Category', filter: true },
+        { name: 'amount', label: 'Amount', numeric: true, format: v => v.toFixed(2), filter: true },
         { name: 'grade', label: 'grade', filter: true, hidden: true },
-        { name: 'startdate', label: 'Start Date', filter: false },
-        { name: 'duedate', label: 'Due Date', filter: false },
+        { name: 'startdate', label: 'Expiration Date', filter: false },
         { name: 'id', label: '', filter: false, hidden: false },
     ];
 
@@ -102,6 +102,16 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
         this.filter();
+    }
+
+    hasTerm(category: number): boolean {
+        switch (category) {
+            case PriceCategory.Discount:
+            case PriceCategory.VIP:
+                return true
+            default:
+                return false
+        }
     }
 
     edit(id: string): void {

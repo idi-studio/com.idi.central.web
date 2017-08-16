@@ -6,6 +6,7 @@ import { RESTService, Status } from '../core';
 export interface IProductPrice {
     id: string;
     category: number;
+    categoryname: string;
     amount: number;
     grade: number;
     startdate: string;

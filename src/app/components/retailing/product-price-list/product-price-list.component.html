@@ -18,18 +18,19 @@
       <md-divider></md-divider>
       <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
         [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
-        <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
+        <ng-template tdDataTableTemplate="categoryname" let-value="value" let-row="row" let-column="column">
           <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
           <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i>
           <span>{{value}}</span>
         </ng-template>
-        <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <md-chip-list>
-              <md-chip *ngFor="let item of value">
-                <span mdTooltip="{{item.name}}">{{ item.value }}</span>
-              </md-chip>
-            </md-chip-list>
+        <ng-template tdDataTableTemplate="startdate" let-value="value" let-row="row" let-column="column">
+          <div *ngIf="hasTerm(row.category)" layout="row">
+            <span class="text-xs">{{row.startdate | date: 'yyyy/M/d HH:mm:ss'}}</span>
+            <span class="text-xs tc-grey-400">&nbsp;to&nbsp;</span>
+            <span class="text-xs">{{row.duedate | date: 'yyyy/M/d  HH:mm:ss'}}</span>
+          </div>
+          <div *ngIf="!hasTerm(row.category)" layout="row">
+            <span class="text-xs">N.A</span>
           </div>
         </ng-template>
         <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
@@ -37,7 +38,6 @@
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
             <md-menu #menu="mdMenu">
               <button md-menu-item (click)="edit(value)"><md-icon>edit</md-icon><span>Edit</span></button>
-              <button md-menu-item (click)="price(value)"><md-icon>attach_money</md-icon><span>Price</span></button>
               <button md-menu-item (click)="delete(value)"><md-icon class="tc-red-800">delete</md-icon><span>Remove</span></button>
             </md-menu>
           </div>

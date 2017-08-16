@@ -20,11 +20,11 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false }
-    current: IProductPrice = { id: "", category: PriceCategory.Cost, amount: 0.00, grade: 0, startdate: null, duedate: null, productid: "", active: false }
+    current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, startdate: null, duedate: null, productid: "", active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
-    formControlGrade = new FormControl({ value: "0", disabled: true }, [Validators.required, Validators.min(0), Validators.max(0)])
+    formControlGrade = new FormControl({ value: "0", disabled: true }, [Validators.required, Validators.min(0), Validators.max(100)])
     formControlStart = new FormControl('', [Validators.required])
     formControlDue = new FormControl('', [Validators.required])
     // formControlStart = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
