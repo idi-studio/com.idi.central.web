@@ -49,9 +49,9 @@
                 [mdDatepicker]="startpicker" placeholder="Start Date">
               <span mdSuffix>00:00:00 &nbsp;</span>
               <button mdSuffix [mdDatepickerToggle]="startpicker"></button>
-              <md-error *ngIf="formControlStart.hasError('pattern')">
-                The date format should be as 'YYYY/M/D'
-              </md-error>
+              <!-- <md-error *ngIf="formControlStart.hasError('pattern')">
+                The date format should be as 'YYYY/MM/DD'
+              </md-error> -->
               <md-error *ngIf="formControlStart.hasError('required')">
                 Start date is <strong>required</strong>
               </md-error>
@@ -64,9 +64,9 @@
                 [mdDatepicker]="duepicker" placeholder="Due Date">
               <span mdSuffix>23:59:59 &nbsp;</span>
               <button mdSuffix [mdDatepickerToggle]="duepicker"></button>
-              <md-error *ngIf="formControlDue.hasError('pattern')">
-                The date format should be as 'YYYY/M/D'
-              </md-error>
+              <!-- <md-error *ngIf="formControlDue.hasError('pattern')">
+                The date format should be as 'YYYY/MM/DD'
+              </md-error> -->
               <md-error *ngIf="formControlDue.hasError('required')">
                 Due date is <strong>required</strong>
               </md-error>

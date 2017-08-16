@@ -10,7 +10,7 @@ export interface IProductPrice {
     grade: number;
     startdate: string;
     duedate: string;
-    pid: string;
+    productid: string;
     active: boolean;
 }
 

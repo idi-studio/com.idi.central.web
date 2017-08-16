@@ -10,7 +10,7 @@ import 'rxjs/add/operator/toPromise';
 @Component({
     templateUrl: './product-price.component.html',
     styleUrls: ['product-price.component.css'],
-    encapsulation: ViewEncapsulation.None,
+    // encapsulation: ViewEncapsulation.None,
 })
 export class ProductPriceComponent extends BaseComponent implements OnInit {
 
@@ -20,13 +20,15 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false }
-    current: IProductPrice = { id: "", category: PriceCategory.Cost, amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
+    current: IProductPrice = { id: "", category: PriceCategory.Cost, amount: 0.00, grade: 0, startdate: null, duedate: null, productid: "", active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
     formControlGrade = new FormControl({ value: "0", disabled: true }, [Validators.required, Validators.min(0), Validators.max(0)])
-    formControlStart = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
-    formControlDue = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
+    formControlStart = new FormControl('', [Validators.required])
+    formControlDue = new FormControl('', [Validators.required])
+    // formControlStart = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
+    // formControlDue = new FormControl('', [Validators.required, Validators.pattern(Regex.DATE)])
 
     constructor(private product: ProductService, private price: ProductPriceService, private category: CategoryService, private snackBar: MdSnackBar,
         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
@@ -61,12 +63,12 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
             if (this.mode == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()
-                this.current.pid = this.currentProduct.id
+                this.current.productid = this.currentProduct.id
             }
 
             if (this.mode == Command.Update) {
                 this.current = await this.price.single(id).toPromise()
-                this.currentProduct = await this.product.single(this.current.pid).toPromise()
+                this.currentProduct = await this.product.single(this.current.productid).toPromise()
             }
 
             this.header.title = `Product - ${this.currentProduct.name}`
@@ -80,7 +82,10 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     valid(): boolean {
-        return true// this.formControlCategory.valid && this.formControlAmount.valid && this.formControlGrade.valid && this.formControlStart.valid && this.formControlDue.valid
+        if (this.current.category == PriceCategory.VIP) {
+            return this.formControlCategory.valid && this.formControlAmount.valid && this.formControlGrade.valid && this.formControlStart.valid && this.formControlDue.valid
+        }
+        return this.formControlCategory.valid && this.formControlAmount.valid && this.formControlStart.valid && this.formControlDue.valid
     }
 
     back(): void {
