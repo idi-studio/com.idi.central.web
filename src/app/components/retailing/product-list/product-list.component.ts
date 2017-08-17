@@ -23,6 +23,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         { name: 'description', label: 'Description', filter: true, hidden: true },
         { name: 'tags', label: 'Tags', filter: false },
         { name: 'active', label: 'Active?', filter: false, hidden: true },
+        { name: 'onshelf', label: 'OnShelf?', filter: false, hidden: false },
         { name: 'id', label: '', filter: false, hidden: false },
     ];
 

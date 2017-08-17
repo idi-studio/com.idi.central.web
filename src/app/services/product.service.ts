@@ -5,11 +5,12 @@ import { RESTService, Status } from '../core';
 import { ITag } from '../services';
 
 export interface IProduct {
-    id: string;
-    name: string;
-    code: string;
-    tags: Array<ITag>;
-    active: boolean;
+    id: string
+    name: string
+    code: string
+    tags: Array<ITag>
+    active: boolean
+    onshelf: boolean
 }
 
 @Injectable()

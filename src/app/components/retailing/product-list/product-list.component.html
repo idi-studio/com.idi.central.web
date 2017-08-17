@@ -20,8 +20,7 @@
         [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
         <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
           <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
-          <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i>
-          <span>{{value}}</span>
+          <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
         </ng-template>
         <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
           <div layout="row">
@@ -31,6 +30,10 @@
               </md-chip>
             </md-chip-list>
           </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="onshelf" let-value="value" let-row="row" let-column="column">
+          <i *ngIf="!value" class="fa fa-square-o" aria-hidden="true"></i>
+          <i *ngIf="value" class="fa fa-check-square-o" aria-hidden="true"></i>
         </ng-template>
         <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
           <div layout="row" layout-align="end end">

@@ -15,13 +15,13 @@ export class ProductInfoComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     formControlProdCtg = new FormControl('', [Validators.required])
-    formControlProdName = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
+    formControlProdName = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_NAME)])
     formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
-    formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
+    formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_TAG)])
 
     mode: Command;
     selectedCategory: string
-    current: IProduct = { id: "", name: "", code: "", tags: [], active: false }
+    current: IProduct = { id: "", name: "", code: "", tags: [], active: false, onshelf: false }
     tags: ITag[]
     chips: ITag[] = []
 
@@ -68,6 +68,10 @@ export class ProductInfoComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
         }
+    }
+
+    editable(): boolean {
+        return this.mode == Command.Update
     }
 
     valid(): boolean {

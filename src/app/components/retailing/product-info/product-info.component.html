@@ -15,7 +15,7 @@
               <input mdInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlProdName" autocomplete="off"
                 maxlength="50">
               <md-error *ngIf="formControlProdName.hasError('pattern')">
-                please enter a valid product name
+                Only Support case letters, Chinese, numbers and spaces.
               </md-error>
               <md-error *ngIf="formControlProdName.hasError('required')">
                 product name is <strong>required</strong>
@@ -27,7 +27,7 @@
               <input mdInput name="code" [(ngModel)]="current.code" placeholder="Code" [formControl]="formControlProdCode" autocomplete="off"
                 maxlength="50">
               <md-error *ngIf="formControlProdCode.hasError('pattern')">
-                please enter a valid product code
+                 Only Support case letters and numbers.
               </md-error>
               <md-error *ngIf="formControlProdCode.hasError('required')">
                 product code is <strong>required</strong>
@@ -54,7 +54,7 @@
               <md-input-container>
                 <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
                 <md-error *ngIf="formControlProdTag.hasError('pattern')">
-                  please enter a valid product tag
+                    Only Support case letters, Chinese and numbers.
                 </md-error>
                 <md-error *ngIf="formControlProdTag.hasError('required')">
                   product tag is <strong>required</strong>
@@ -73,6 +73,9 @@
         <div class="form-group row">
           <div class="col-md-4 col-sm-6 col-xs-10">
             <md-checkbox  [checked]="current.active" [(ngModel)]="current.active"  [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
+          </div>
+           <div *ngIf="editable()" class="col-md-4 col-sm-6 col-xs-10">
+            <md-checkbox  [checked]="current.onshelf" [(ngModel)]="current.onshelf"  [indeterminate]="indeterminate"> {{current.onshelf?"On Shelf":"Off Shelf"}} </md-checkbox>
           </div>
         </div>
         <div class="form-group row">
