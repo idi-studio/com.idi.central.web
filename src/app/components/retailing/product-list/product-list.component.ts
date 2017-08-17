@@ -78,7 +78,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     add(): void {
-        this.navigate("/central/product/price/add")
+        this.navigate("/central/product/add")
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -100,7 +100,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     edit(id: string): void {
-        this.navigate(`/central/product/price/edit/${id}`)
+        this.navigate(`/central/product/edit/${id}`)
     }
 
     showPrices(id: string): void {

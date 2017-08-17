@@ -36,8 +36,8 @@ const routes: Route[] = [
             { path: 'role/list', component: RoleListComponent },
             { path: 'user/list', component: UserListComponent },
             { path: 'product/list', component: ProductListComponent },
-            { path: 'product/add', component: ProductInfoComponent },
-            { path: 'product/edit/:id', component: ProductInfoComponent },
+            { path: 'product/:mode', component: ProductInfoComponent },
+            { path: 'product/:mode/:id', component: ProductInfoComponent },
             { path: 'product/prices/:id', component: ProductPriceListComponent },
             { path: 'product/price/:mode/:id', component: ProductPriceComponent }
         ]
