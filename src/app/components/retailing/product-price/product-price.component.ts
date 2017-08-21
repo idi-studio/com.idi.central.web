@@ -18,7 +18,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     priceCategory: any[]
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
-    currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false }
+    currentProduct: IProduct = { id: "", name: "", code: "", tags: [], active: false, onshelf: false }
     current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
 
     formControlCategory = new FormControl('', [Validators.required])

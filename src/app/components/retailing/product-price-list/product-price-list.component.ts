@@ -15,7 +15,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Prices"]);
 
-    current: IProduct = { id: "", name: "", code: "", tags: [], active: false }
+    current: IProduct = { id: "", name: "", code: "", tags: [], active: false, onshelf: false }
     data: IProductPrice[] = [];
 
     columns: ITdDataTableColumn[] = [
@@ -114,7 +114,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         }
     }
 
-     hasGrade(category: number): boolean {
+    hasGrade(category: number): boolean {
         switch (category) {
             case PriceCategory.VIP:
                 return true
