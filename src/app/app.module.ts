@@ -12,10 +12,14 @@ import { SharedModule } from './app.shared.module';
 import { AppComponent } from './app.component';
 
 //Services
-import { TokenService, RoleService, UserService, ProductService, ProductPriceService, TagService, CategoryService } from './services';
+import {
+  TokenService, RoleService, UserService, ProductService, ProductPriceService,
+  TagService, CategoryService, OrderService, OrderItemService
+} from './services';
 
 export const CentralServices: any[] = [
-  TokenService, RoleService, UserService, ProductService, ProductPriceService, TagService, CategoryService,
+  TokenService, RoleService, UserService, ProductService, ProductPriceService,
+  TagService, CategoryService, OrderService, OrderItemService
 ];
 
 @NgModule({

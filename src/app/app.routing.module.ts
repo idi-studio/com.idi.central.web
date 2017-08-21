@@ -24,6 +24,8 @@ import { ProductInfoComponent } from './components/retailing/product-info/produc
 import { ProductPriceComponent } from './components/retailing/product-price/product-price.component';
 import { ProductPriceListComponent } from './components/retailing/product-price-list/product-price-list.component';
 
+import { OrderListComponent } from './components/retailing/order-list/order-list.component';
+
 const routes: Route[] = [
     { path: '', redirectTo: "/login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
@@ -39,7 +41,8 @@ const routes: Route[] = [
             { path: 'product/info/:mode', component: ProductInfoComponent },
             { path: 'product/info/:mode/:id', component: ProductInfoComponent },
             { path: 'product/prices/:id', component: ProductPriceListComponent },
-            { path: 'product/price/:mode/:id', component: ProductPriceComponent }
+            { path: 'product/price/:mode/:id', component: ProductPriceComponent },
+            { path: 'order/list', component: OrderListComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -58,5 +61,6 @@ export const CentralComponents: any[] = [
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent,
     RoleListComponent, UserListComponent,
-    ProductListComponent, ProductInfoComponent, ProductPriceComponent, ProductPriceListComponent
+    ProductListComponent, ProductInfoComponent, ProductPriceComponent, ProductPriceListComponent,
+    OrderListComponent,
 ];
