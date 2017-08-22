@@ -20,7 +20,7 @@ export class OrderService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    add(value: IOrder): Observable<any> {
+    add(value: any): Observable<any> {
         return super.post('/api/order', value).map((res: Response) => {
             return res.json();
         });

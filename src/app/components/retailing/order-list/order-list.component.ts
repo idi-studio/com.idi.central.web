@@ -5,7 +5,7 @@ import {
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
 import { OrderService, IOrder } from '../../../services';
-import { BaseComponent, PageHeader } from '../../../core';
+import { BaseComponent, PageHeader, Status } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -23,7 +23,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         { name: 'date', label: 'Date', filter: true },
         { name: 'statusdesc', label: 'Status', filter: true },
         { name: 'remark', label: 'Remark', filter: true },
-      
     ];
 
     clickable: boolean = true;
@@ -78,7 +77,28 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     }
 
     add(): void {
-        this.navigate("/central/order/add")
+        this.handleCreate();
+    }
+
+    async handleCreate(): Promise<any> {
+        try {
+            let order = { cid: null, remark: "N/A" }
+
+            let result = await this.order.add(order).toPromise()
+
+            if (result.status == Status.Success) {
+                this.navigate(`/central/order/edit/${result.details.oid}`)
+            }
+            else {
+                this.alert(result.message)
+            }
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 
     edit(id: string): void {
@@ -131,4 +151,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
             this.unload()
         }
     }
+
+
 }
