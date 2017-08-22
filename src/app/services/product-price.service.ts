@@ -51,7 +51,7 @@ export class ProductPriceService extends RESTService {
 
     all(id: string): Observable<Array<IProductPrice>> {
 
-        return super.get(`/api/product/prices/${id}`).map((res: Response) => {
+        return super.get(`/api/product/price/list/${id}`).map((res: Response) => {
 
             var result = res.json();
 

@@ -16,7 +16,7 @@ export class TagService extends RESTService {
 
     all(): Observable<Array<ITag>> {
 
-        return super.get('/api/tags').map((res: Response) => {
+        return super.get('/api/tag/list').map((res: Response) => {
 
             var result = res.json();
 

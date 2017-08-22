@@ -51,7 +51,7 @@ export class OrderService extends RESTService {
 
     all(): Observable<Array<IOrder>> {
 
-        return super.get('/api/order').map((res: Response) => {
+        return super.get('/api/order/list').map((res: Response) => {
 
             var result = res.json();
 

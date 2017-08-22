@@ -45,7 +45,7 @@ export class UserService extends RESTService {
 
     all(): Observable<Array<IUser>> {
 
-        return super.get('/api/users').map((res: Response) => {
+        return super.get('/api/user/list').map((res: Response) => {
 
             var result = res.json();
 

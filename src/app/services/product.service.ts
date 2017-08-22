@@ -19,25 +19,25 @@ export class ProductService extends RESTService {
     constructor(http: Http) { super(http) }
 
     add(value: IProduct): Observable<any> {
-        return super.post('/api/products', value).map((res: Response) => {
+        return super.post('/api/product', value).map((res: Response) => {
             return res.json();
         });
     }
 
     update(value: IProduct): Observable<any> {
-        return super.put(`/api/products/${value.id}`, value).map((res: Response) => {
+        return super.put(`/api/product/${value.id}`, value).map((res: Response) => {
             return res.json();
         });
     }
 
     remove(id: string): Observable<any> {
-        return super.delete(`/api/products/${id}`).map((res: Response) => {
+        return super.delete(`/api/product/${id}`).map((res: Response) => {
             return res.json();
         });
     }
 
     single(id: string): Observable<IProduct> {
-        return super.get(`/api/products/${id}`).map((res: Response) => {
+        return super.get(`/api/product/${id}`).map((res: Response) => {
             var result = res.json();
 
             if (result.status == Status.Success)
@@ -49,7 +49,7 @@ export class ProductService extends RESTService {
 
     all(): Observable<Array<IProduct>> {
 
-        return super.get('/api/products').map((res: Response) => {
+        return super.get('/api/product/list').map((res: Response) => {
 
             var result = res.json();
 

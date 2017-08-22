@@ -17,7 +17,7 @@ export class RoleService extends RESTService {
 
     all(): Observable<Array<IRole>> {
 
-        return super.get('/api/roles').map((res: Response) => {
+        return super.get('/api/role/list').map((res: Response) => {
 
             var result = res.json();
 
