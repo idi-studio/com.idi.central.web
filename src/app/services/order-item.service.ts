@@ -14,12 +14,19 @@ export interface IOrderItem {
     qty: number
 }
 
+export interface INewOrderItem {
+    oid: string
+    pid: string
+    unitprice: number
+    qty: number
+}
+
 @Injectable()
 export class OrderItemService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    add(value: IOrderItem): Observable<any> {
+    add(value: INewOrderItem): Observable<any> {
         return super.post('/api/order/item', value).map((res: Response) => {
             return res.json();
         });

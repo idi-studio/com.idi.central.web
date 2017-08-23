@@ -13,6 +13,14 @@ export interface IProduct {
     onshelf: boolean
 }
 
+export interface IProductSell {
+    id: string
+    name: string
+    code: string
+    tags: Array<ITag>
+    prices: any
+}
+
 @Injectable()
 export class ProductService extends RESTService {
 
@@ -50,6 +58,18 @@ export class ProductService extends RESTService {
     all(): Observable<Array<IProduct>> {
 
         return super.get('/api/product/list').map((res: Response) => {
+
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return new Array<IProduct>()
+        });
+    }
+
+    selling(): Observable<Array<IProductSell>> {
+        return super.get('/api/product/selling').map((res: Response) => {
 
             var result = res.json();
 
