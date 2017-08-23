@@ -7,10 +7,10 @@ import { ITag } from '../services';
 export interface IOrderItem {
     id: string
     name: string
-    orderid: string
-    productid: string
+    oid: string
+    pid: string
     unitprice: number
-    readjustunitprice: number
+    newunitprice?: number
     qty: number
 }
 

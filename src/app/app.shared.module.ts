@@ -1,5 +1,5 @@
 import { NgModule, } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { FlexLayoutModule, } from '@angular/flex-layout';
 import {
@@ -54,8 +54,8 @@ const COVALENT_MODULES: any[] = [
         // CHART_MODULES,
         FLEX_LAYOUT_MODULES,
     ],
-    declarations: [ ],
-    providers: [ ],
+    declarations: [],
+    providers: [],
     exports: [
         ANGULAR_MODULES,
         MATERIAL_MODULES,

@@ -18,11 +18,11 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     data: IOrder[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'id', label: '', filter: false, hidden: true },
         { name: 'sn', label: 'SN', filter: true },
-        { name: 'date', label: 'Date', filter: true },
         { name: 'statusdesc', label: 'Status', filter: true },
+        { name: 'date', label: 'Date', filter: true },
         { name: 'remark', label: 'Remark', filter: true },
+        { name: 'id', label: '', filter: false }
     ];
 
     clickable: boolean = true;

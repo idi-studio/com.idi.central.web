@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+// import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { OrderService, OrderItemService, IOrder, IOrderItem } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
+import { List } from 'linqts'
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -14,13 +16,7 @@ import 'rxjs/add/operator/toPromise';
 export class OrderComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
-    formControlProdCtg = new FormControl('', [Validators.required])
-    formControlProdName = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_NAME)])
-    formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
-    formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_TAG)])
-
     mode: Command;
-    selectedCategory: string
     current: IOrder = { id: "", customerid: "", sn: "", status: "", statusdesc: "", date: "", remark: "", items: [] }
 
     constructor(private order: OrderService, private orderitem: OrderItemService, private snackBar: MdSnackBar,
@@ -32,9 +28,6 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.mode = this.getMode()
 
         switch (this.mode) {
-            // case Command.Create:
-            //     this.header = new PageHeader("Order", ["Retailing", "Order", "Add"])
-            //     break;
             case Command.Update:
                 this.header = new PageHeader("Order", ["Retailing", "Order", "Edit"])
                 break;
@@ -50,14 +43,11 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            // this.tags = await this.tag.all().toPromise()
-            // this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ""
+            let id = this.getParam("id");
+            this.current = await this.order.single(id).toPromise()
 
-            // if (this.mode == Command.Update) {
-            //     let id = this.getParam('id');
-            //     this.current = await this.product.single(id).toPromise()
-            //     this.chips = this.current.tags
-            // }
+            // this.current.items.push({ id: "1", name: "iPhone7", unitprice: 5484.00, qty: 2, newunitprice: null, oid: this.current.id, pid: "1" })
+            // this.current.items.push({ id: "2", name: "iPhone6", unitprice: 4866.07, qty: 3, newunitprice: null, oid: this.current.id, pid: "2" })
         }
         catch (error) {
             this.handleError(error)
@@ -67,67 +57,32 @@ export class OrderComponent extends BaseComponent implements OnInit {
         }
     }
 
-    editable(): boolean {
-        return this.mode == Command.Update
-    }
-
-    valid(): boolean {
-        return this.formControlProdName.valid && this.formControlProdCode.valid
+    total(): number {
+        return new List(this.current.items).Sum(e => e.unitprice * e.qty);
     }
 
     back(): void {
         this.navigate("central/order/list")
     }
 
-    // remove(key: string): void {
-    //     let index = this.chips.findIndex(chip => chip.key == key)
-    //     this.chips.splice(index, 1)
-    // }
-
-    add(category: string, tag: string) {
-        if (this.formControlProdTag.invalid || this.selectedCategory == null) {
-            return
-        }
-
-        // let tags = this.chips.filter(e => e.key == category)
-
-        // if (tags.length > 0) {
-        //     this.alert(`Duplicated Tag - ${tags[0].name}`)
-        //     return
-        // }
-
-        // let item = this.tags.filter(e => e.key == category)[0];
-
-        // this.chips.push({ key: item.key, name: item.name, value: tag });
-        this.formControlProdTag.setValue("");
-        this.formControlProdTag.reset();
+    add(id: string): void {
+        this.navigate(`central/order/item/add/${id}`)
     }
 
-    async submit(): Promise<void> {
-        if (!this.valid)
-            return;
+    delete(id: string): void {
 
-        try {
-
-            let result: any;
-            // this.current.tags = this.chips
-
-            // switch (this.mode) {
-            //     case Command.Create:
-            //         result = await this.product.add(this.current).toPromise()
-            //         break;
-            //     case Command.Update:
-            //         result = await this.product.update(this.current).toPromise()
-            //         break;
-            //     default:
-            //         return;
-            // }
-
-            this.alert(result.message)
-
-            if (result.status == Status.Success) {
-                this.back()
+        this.confirm("Are you confirm to delete this record?", (accepted) => {
+            if (accepted) {
+                this.handleDelete(id)
             }
+        })
+    }
+
+    async handleDelete(id: string): Promise<void> {
+        try {
+            let result = await this.orderitem.remove(id).toPromise()
+            this.alert(result.message)
+            this.filter();
         }
         catch (error) {
             this.handleError(error)
@@ -136,5 +91,4 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.unload()
         }
     }
-
 }
