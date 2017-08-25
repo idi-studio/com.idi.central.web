@@ -20,7 +20,7 @@ import { RoleListComponent } from './components/administration/role-list/role-li
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
 import { ProductListComponent } from './components/retailing/product-list/product-list.component';
-import { ProductInfoComponent } from './components/retailing/product-info/product-info.component';
+import { ProductComponent } from './components/retailing/product/product.component';
 import { ProductPriceComponent } from './components/retailing/product-price/product-price.component';
 import { ProductPriceListComponent } from './components/retailing/product-price-list/product-price-list.component';
 
@@ -39,8 +39,8 @@ const routes: Route[] = [
             { path: 'role/list', component: RoleListComponent },
             { path: 'user/list', component: UserListComponent },
             { path: 'product/list', component: ProductListComponent },
-            { path: 'product/info/:mode', component: ProductInfoComponent },
-            { path: 'product/info/:mode/:id', component: ProductInfoComponent },
+            { path: 'product/info/:mode', component: ProductComponent },
+            { path: 'product/info/:mode/:id', component: ProductComponent },
             { path: 'product/prices/:id', component: ProductPriceListComponent },
             { path: 'product/price/:mode/:id', component: ProductPriceComponent },
             { path: 'order/list', component: OrderListComponent },
@@ -63,6 +63,6 @@ export const CentralComponents: any[] = [
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent,
     RoleListComponent, UserListComponent,
-    ProductListComponent, ProductInfoComponent, ProductPriceComponent, ProductPriceListComponent,
+    ProductListComponent, ProductComponent, ProductPriceComponent, ProductPriceListComponent,
     OrderListComponent, OrderComponent, 
 ];

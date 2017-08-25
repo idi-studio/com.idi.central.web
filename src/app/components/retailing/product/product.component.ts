@@ -8,10 +8,10 @@ import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './product-info.component.html',
-    styleUrls: ['product-info.component.css']
+    templateUrl: './product.component.html',
+    styleUrls: ['product.component.css']
 })
-export class ProductInfoComponent extends BaseComponent implements OnInit {
+export class ProductComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     formControlProdCtg = new FormControl('', [Validators.required])
