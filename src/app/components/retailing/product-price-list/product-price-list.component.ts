@@ -82,6 +82,10 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         }
     }
 
+    back(): void {
+        this.navigate("/central/product/list")
+    }
+
     add(): void {
         this.navigate(`/central/product/price/add/${this.current.id}`)
     }

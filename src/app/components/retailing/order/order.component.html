@@ -3,10 +3,8 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="card-box">
-      <div layout="row" layout-align="end end" class="pad-left-sm pad-right-sm">
-        <a (click)="back()" routerLink="/">
-          <md-icon class="tc-grey-800">cancel</md-icon>
-        </a>
+      <div layout="row" layout-align="end end">
+        <md-icon (click)="back()" class="tc-grey-800">cancel</md-icon>
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
@@ -32,6 +30,11 @@
           </md-input-container>
         </div>
       </div>
+    </div>
+    <div class="card-box" *ngIf="!editable">
+      <div layout="row" layout-align="end end">
+        <md-icon (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</md-icon>
+      </div>
       <div class="row">
         <div class="col-xs-10">
           <div class="table-responsive">
@@ -43,12 +46,7 @@
                   <th>Unit Price</th>
                   <th>Qty.</th>
                   <th>Amount</th>
-                  <th class="text-right">
-                    <span class="tc-green-800" (click)="add(current.id)">
-                        <!-- <i class="fa fa-shopping-cart" aria-hidden="true"></i> -->
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                    </span>
-                  </th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -62,7 +60,7 @@
                   <td>{{item.qty | number:'1.2-2'}}</td>
                   <td>{{item.unitprice*item.qty | number:'1.2-2'}}</td>
                   <td class="text-right">
-                    <span class="tc-red-800" (click)="delete(item.id)"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                    <span class="tc-red-800" (click)="delete(item.id)"><i class="fa fa-times" aria-hidden="true"></i></span>
                   </td>
                 </tr>
               </tbody>
@@ -81,5 +79,50 @@
         </div>
       </div>
     </div>
+    <div class="card-box" *ngIf="editable">
+      <div class="row">
+        <div layout="row" layout-align="start center">
+          <span *ngIf="!searchBox.searchVisible">
+            <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="md-title">
+                  <md-icon (click)="cancel()">keyboard_arrow_left</md-icon>
+            </span>
+          <span *ngIf="selectedRows.length && selectable" class="md-body-1">0 item(s) selected</span>
+          </span>
+          <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+            flex>
+          </td-search-box>
+        </div>
+        <md-divider></md-divider>
+        <div class="row">
+          <div class="col-xs-10">
+            <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
+              [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+              <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
+                <div layout="row">
+                  <md-chip-list>
+                    <md-chip *ngFor="let item of value">
+                      <span mdTooltip="{{item.name}}">{{ item.value }}</span>
+                    </md-chip>
+                  </md-chip-list>
+                </div>
+              </ng-template>
+              <ng-template tdDataTableTemplate="prices" let-value="value" let-row="row" let-column="column">
+                {{value.Selling | number:'1.2-2'}}
+              </ng-template>
+              <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+                <div layout="row" layout-align="end end">
+                  <button md-icon-button (click)="add(value)"><md-icon>add_shopping_cart</md-icon></button>
+                </div>
+              </ng-template>
+            </td-data-table>
+            <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+              <span class="md-caption tc-grey-400">No Product(s) for Sale.</span>
+            </div>
+            <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+              <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+            </td-paging-bar>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
