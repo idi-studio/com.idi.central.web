@@ -1,0 +1,21 @@
+<page-header [header]="header"></page-header>
+
+<div class="row">
+  <div class="card-box">
+    <div layout="row" layout-align="end end">
+      <md-icon (click)="back()" class="tc-grey-800">cancel</md-icon>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <td-file-upload #fileMultipleUpload (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)" (cancel)="cancelMultipleEvent()"
+          accept="image/png, image/jpeg" defaultColor="accent" activeColor="warn" cancelColor="primary" multiple [disabled]="disabled">
+          <md-icon>file_upload</md-icon>
+          <span> {{ fileMultipleUpload.files?.name || fileMultipleUpload.files?.length }} <span *ngIf="fileMultipleUpload.files?.length">files selected</span>          </span>
+          <ng-template td-file-input-label>
+            <md-icon>file_upload</md-icon>
+          </ng-template>
+        </td-file-upload>
+      </div>
+    </div>
+  </div>
+</div>

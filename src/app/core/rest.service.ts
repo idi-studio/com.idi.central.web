@@ -1,6 +1,6 @@
 import { Headers, Response, RequestMethod, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Runtime } from '../core';
+import { Runtime } from './runtime';
 
 export class RESTService {
 

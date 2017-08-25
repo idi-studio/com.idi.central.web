@@ -108,6 +108,9 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/product/prices/${id}`)
     }
 
+    showImages(id: string): void {
+        this.navigate(`/central/product/images/${id}`)
+    }
 
     delete(id: string): void {
 

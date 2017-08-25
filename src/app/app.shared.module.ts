@@ -7,6 +7,7 @@ import {
     CovalentNotificationsModule, CovalentLayoutModule, CovalentMenuModule,
     CovalentPagingModule, CovalentSearchModule, CovalentStepsModule,
     CovalentCommonModule, CovalentDialogsModule, CovalentChipsModule,
+    CovalentFileModule
 } from '@covalent/core';
 import {
     MdButtonModule, MdCardModule, MdIconModule,
@@ -37,7 +38,7 @@ const MATERIAL_MODULES: any[] = [
 const COVALENT_MODULES: any[] = [
     CovalentDataTableModule, CovalentMediaModule, CovalentLoadingModule,
     CovalentNotificationsModule, CovalentLayoutModule, CovalentMenuModule,
-    CovalentPagingModule, CovalentSearchModule, CovalentStepsModule,
+    CovalentPagingModule, CovalentSearchModule, CovalentStepsModule, CovalentFileModule,
     CovalentCommonModule, CovalentDialogsModule, CovalentChipsModule,
 ];
 
