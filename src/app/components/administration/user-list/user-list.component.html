@@ -1,48 +1,46 @@
 <page-header [header]="header"></page-header>
 
 <div class="row">
-  <div class="col-xs-12">
-    <div class="card-box">
-      <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
-        <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+  <div class="card-box">
+    <div layout="row" layout-align="start center">
+      <span *ngIf="!searchBox.searchVisible">
         <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="md-title"><md-icon>list</md-icon></span>
-        <span *ngIf="selectedRows.length && selectable" class="md-body-1">0 item(s) selected</span>
-        </span>
-        <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
-          flex>
-        </td-search-box>
-      </div>
-      <md-divider></md-divider>
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [clickable]="clickable" [multiple]="multiple"
-        [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
-        <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <md-icon *ngIf="value" class="tc-light-green-800">check_box</md-icon>
-            <md-icon *ngIf="!value" class="tc-light-green-800">check_box_outline_blank</md-icon>
-          </div>
-        </ng-template>
-        <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <i *ngIf="value==-1" class="fa fa-user-secret" aria-hidden="true"></i>
-            <i *ngIf="value==0" class="fa fa-female tc-pink-800" aria-hidden="true"></i>
-            <i *ngIf="value==1" class="fa fa-male tc-light-blue-800" aria-hidden="true"></i>
-          </div>
-        </ng-template>
-        <ng-template tdDataTableTemplate="birthday" let-value="value" let-row="row" let-column="column">
-          <div layout="row">{{value | date: 'yyyy-MM-dd'}}</div>
-        </ng-template>
-        <ng-template tdDataTableTemplate="photo" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <img alt="photo" class="img-circle" src="assets/images/users/{{value}}" height="24" width="24">
-          </div>
-        </ng-template>
-      </td-data-table>
-      <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-        <h3>No results to display.</h3>
-      </div>
-      <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
-      </td-paging-bar>
+      <span *ngIf="selectedRows.length && selectable" class="md-body-1">0 item(s) selected</span>
+      </span>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+        flex>
+      </td-search-box>
     </div>
+    <md-divider></md-divider>
+    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [clickable]="clickable" [multiple]="multiple"
+      [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+      <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <md-icon *ngIf="value" class="tc-light-green-800">check_box</md-icon>
+          <md-icon *ngIf="!value" class="tc-light-green-800">check_box_outline_blank</md-icon>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <i *ngIf="value==-1" class="fa fa-user-secret" aria-hidden="true"></i>
+          <i *ngIf="value==0" class="fa fa-female tc-pink-800" aria-hidden="true"></i>
+          <i *ngIf="value==1" class="fa fa-male tc-light-blue-800" aria-hidden="true"></i>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="birthday" let-value="value" let-row="row" let-column="column">
+        <div layout="row">{{value | date: 'yyyy-MM-dd'}}</div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="photo" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <img alt="photo" class="img-circle" src="assets/images/users/{{value}}" height="24" width="24">
+        </div>
+      </ng-template>
+    </td-data-table>
+    <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+      <h3>No results to display.</h3>
+    </div>
+    <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+      <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
   </div>
 </div>
