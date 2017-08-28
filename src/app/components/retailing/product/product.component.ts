@@ -21,7 +21,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
     mode: Command;
     selectedCategory: string
-    current: IProduct = { id: "", name: "", code: "", tags: [], active: false, onshelf: false }
+    current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
     tags: ITag[]
     chips: ITag[] = []
 

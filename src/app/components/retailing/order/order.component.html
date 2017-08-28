@@ -111,9 +111,6 @@
               <ng-template tdDataTableTemplate="prices" let-value="value" let-row="row" let-column="column">
                 {{value.Selling | number:'1.2-2'}}
               </ng-template>
-              <!-- <ng-template tdDataTableTemplate="remark" let-value="value" let-row="row" let-column="column">
-                <div style="width:80px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{value}}</div>
-              </ng-template> -->
               <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
                 <div layout="row" layout-align="end end">
                   <button md-icon-button (click)="add(value)"><md-icon>add_shopping_cart</md-icon></button>

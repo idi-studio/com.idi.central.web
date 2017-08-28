@@ -13,12 +13,14 @@ import { AppComponent } from './app.component';
 
 //Services
 import {
-  TokenService, RoleService, UserService, ProductService, ProductPriceService,
+  TokenService, RoleService, UserService,
+  ProductService, ProductPriceService, ProductImageService,
   TagService, CategoryService, OrderService, OrderItemService
 } from './services';
 
 export const CentralServices: any[] = [
-  TokenService, RoleService, UserService, ProductService, ProductPriceService,
+  TokenService, RoleService, UserService,
+  ProductService, ProductPriceService, ProductImageService,
   TagService, CategoryService, OrderService, OrderItemService
 ];
 

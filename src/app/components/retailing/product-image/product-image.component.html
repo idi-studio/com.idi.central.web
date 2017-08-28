@@ -7,15 +7,44 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <td-file-upload #fileMultipleUpload (select)="selectMultipleEvent($event)" (upload)="uploadMultipleEvent($event)" (cancel)="cancelMultipleEvent()"
-          accept="image/png, image/jpeg" defaultColor="accent" activeColor="warn" cancelColor="primary" multiple [disabled]="disabled">
-          <md-icon>file_upload</md-icon>
-          <span> {{ fileMultipleUpload.files?.name || fileMultipleUpload.files?.length }} <span *ngIf="fileMultipleUpload.files?.length">files selected</span>          </span>
-          <ng-template td-file-input-label>
-            <md-icon>file_upload</md-icon>
-          </ng-template>
-        </td-file-upload>
+        <md-input-container class="md-input-full-width" tdFileDrop [disabled]="disabled" (fileDrop)="files = $event" (click)="fileInput.inputElement.click()"
+          (keyup.enter)="fileInput.inputElement.click()" (keyup.delete)="fileInput.clear()" (keyup.backspace)="fileInput.clear()"
+          flex>
+          <input mdInput placeholder="Please select or drop images" [value]="files?.length ? (files?.length + ' files') : files?.name" [disabled]="disabled"
+            readonly/>
+          <md-icon mdPrefix>image</md-icon>
+          <md-icon *ngIf="files" (click)="fileInput.clear()" (keyup.enter)="fileInput.clear()" mdSuffix>cancel</md-icon>
+        </md-input-container>
       </div>
+      <div class="col-md-4 col-sm-6 col-xs-10" layout="row" layout-align="start center">
+        <span class="push-right-xs">
+        <td-file-input #fileInput [(ngModel)]="files" multiple [disabled]="disabled">
+          <md-icon>folder</md-icon>&nbsp;<span class="text-upper">Browse</span>
+        </td-file-input>
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <span class="push-right-xs">
+          <button md-raised-button color="accent" [disabled]="!files">
+              <md-icon>file_upload</md-icon>&nbsp;<span class="text-upper">Upload</span>
+        </button>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="current.images.length==0" class="row" class="md-padding" layout="row" layout-align="center center">
+      <h3>No results to display.</h3>
+    </div>
+    <div *ngIf="current.images.length>0" class="row">
+      <md-card *ngFor="let image of current.images" class="col-md-4 col-sm-6 col-xs-10">
+        <md-card-header>
+          <md-card-title>{{image.name}}</md-card-title>
+        </md-card-header>
+        <img md-card-image src="{{'assets/images/products/'+image.filename}}">
+        <md-card-actions>
+          <div layout="row" layout-align="end end">
+            <md-icon (click)="delete(current.id)">delete</md-icon>
+          </div>
+        </md-card-actions>
+      </md-card>
     </div>
   </div>
 </div>

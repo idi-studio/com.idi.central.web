@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
-import { ITag } from '../services';
+import { ITag, IProductImage } from '../services';
 
 export interface IProduct {
     id: string
     name: string
     code: string
     tags: Array<ITag>
+    images: Array<IProductImage>
     active: boolean
     onshelf: boolean
 }
