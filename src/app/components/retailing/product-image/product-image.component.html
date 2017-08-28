@@ -34,10 +34,10 @@
       <h3>No results to display.</h3>
     </div>
     <div *ngIf="current.images.length>0" class="row">
-      <md-card *ngFor="let image of current.images" class="col-md-4 col-sm-6 col-xs-10">
+      <md-card *ngFor="let image of current.images" class="col-md-3 col-sm-3 col-xs-10">
         <md-card-header>
-          <md-card-title>
-            <md-icon>image</md-icon> {{image.name}}
+          <md-card-title class="md-card-title-pad-left-none">
+            <md-icon>image</md-icon>&nbsp;<span>{{image.name}}</span>
           </md-card-title>
         </md-card-header>
         <div layout="row" layout-align="center center">
@@ -45,6 +45,7 @@
         </div>
         <md-card-actions>
           <div layout="row" layout-align="end end">
+            <span class="md-caption tc-grey-400">{{image.date}}</span>
             <md-icon (click)="delete(image.id)">delete</md-icon>
           </div>
         </md-card-actions>

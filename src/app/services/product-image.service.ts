@@ -9,6 +9,7 @@ export interface IProductImage {
     pid: string
     name: string
     filename: string
+    date: string
 }
 
 @Injectable()
