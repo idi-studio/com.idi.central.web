@@ -43,7 +43,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private order: OrderService, private orderItem: OrderItemService, private product: ProductService, private dataTable: TdDataTableService,
+    constructor(private order: OrderService, private orderItem: OrderItemService, private product: ProductService,
+        private dataTable: TdDataTableService, private snackBar: MdSnackBar,
         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, loading, dialog)
     }
@@ -141,13 +142,36 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.editable = true;
     }
 
+    async save(): Promise<void> {
+        try {
+            let result = await this.order.update(this.current).toPromise()
+
+            if (result.status == Status.Success) {
+                this.snackBar.open("Order remark updated.", "", { duration: 2000, });
+            }
+            else {
+                this.alert(result.message)
+            }
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
     async add(pid: string): Promise<void> {
         try {
             let item: INewOrderItem = { oid: this.orderId, pid: pid, unitprice: 100, qty: 1 }
             let result = await this.orderItem.add(item).toPromise()
 
-            // if (result.status != Status.Success)
-            this.alert(result.message)
+            if (result.status == Status.Success) {
+                this.snackBar.open("Order updated.", "", { duration: 2000, });
+            }
+            else {
+                this.alert(result.message)
+            }
         }
         catch (error) {
             this.handleError(error)

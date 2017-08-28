@@ -30,6 +30,9 @@
           </md-chip-list>
         </div>
       </ng-template>
+      <ng-template tdDataTableTemplate="remark" let-value="value" let-row="row" let-column="column">
+        <div class="text-thumb">{{value}}</div>
+      </ng-template>
       <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
         <div layout="row" layout-align="end end">
           <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
