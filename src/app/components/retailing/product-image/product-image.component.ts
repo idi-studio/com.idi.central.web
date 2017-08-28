@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
-import { TdDialogService, TdLoadingService } from '@covalent/core';
+import { TdDialogService, TdLoadingService, TdFileService, IUploadOptions } from '@covalent/core';
 import { ProductService, ProductImageService, IProduct, IProductImage } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
 import 'rxjs/add/operator/toPromise';
@@ -16,7 +16,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     header: PageHeader;
     mode: Command;
     pid: string;
-    files: any;
+    files: FileList;
     current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
 
     constructor(private product: ProductService, private productImage: ProductImageService, private snackBar: MdSnackBar,
@@ -36,11 +36,6 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         try {
             this.current = await this.product.single(this.pid).toPromise()
             this.header.title = `Product - ${this.current.name}`
-
-            for (var index = 0; index < 6; index++) {
-                this.current.images.push({ id: `${index + 1}`, name: `${index + 1}`, filename: `${index + 1}.jpg`, pid: this.current.id })
-            }
-
         }
         catch (error) {
             this.handleError(error)
@@ -50,42 +45,71 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         }
     }
 
-    async delete(id: string): Promise<void> {
+    delete(id: string): void {
+        this.confirm("Are you confirm to delete this record?", (accepted) => {
+            if (accepted) {
+                this.handleDelete(id)
+            }
+        })
+    }
+
+    async handleDelete(id: string): Promise<void> {
+        this.load();
+        try {
+            let result = await this.productImage.remove(id).toPromise()
+
+            if (result.status == Status.Success) {
+                let index = this.current.images.findIndex(image => image.id == id)
+                this.current.images.splice(index, 1)
+                this.snackBar.open("Product image(s) uploaded.", "", { duration: 2000, });
+            }
+            else {
+                this.alert(result.message)
+            }
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    async upload(): Promise<void> {
+        this.load();
+        try {
+            let result = await this.productImage.add(this.current.id, this.files).toPromise()
+
+            if (result.status == Status.Success) {
+                this.snackBar.open("Product image(s) uploaded.", "", { duration: 2000, });
+                this.filter();
+            }
+            else {
+                this.alert(result.message)
+            }
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.files = null
+            this.unload()
+        }
     }
 
     back(): void {
         this.navigate("central/product/list")
     }
 
-    // fileSelectMultipleMsg: string = 'No file(s) selected yet.';
-    // fileUploadMultipleMsg: string = 'No file(s) uploaded yet.';
-
-    // selectMultipleEvent(files: FileList | File): void {
-    //     if (files instanceof FileList) {
-    //         let names: string[] = [];
-    //         for (let i: number = 0; i < files.length; i++) {
-    //             names.push(files[i].name);
-    //         }
-    //         this.fileSelectMultipleMsg = names.join(',');
-    //     } else {
-    //         this.fileSelectMultipleMsg = files.name;
-    //     }
-    // }
-
-    // uploadMultipleEvent(files: FileList | File): void {
-    //     if (files instanceof FileList) {
-    //         let names: string[] = [];
-    //         for (let i: number = 0; i < files.length; i++) {
-    //             names.push(files[i].name);
-    //         }
-    //         this.fileUploadMultipleMsg = names.join(',');
-    //     } else {
-    //         this.fileUploadMultipleMsg = files.name;
-    //     }
-    // }
-
-    // cancelMultipleEvent(): void {
-    //     this.fileSelectMultipleMsg = 'No file(s) selected yet.';
-    //     this.fileUploadMultipleMsg = 'No file(s) uploaded yet.';
-    // }
+    selectEvent(files: FileList | File): void {
+        if (files instanceof FileList) {
+            for (var index = 0; index < files.length; index++) {
+                var file = files[index];
+                console.log(`filename:${file.name} ${file.size} ${file.type}`)
+            }
+        }
+        else {
+            console.log(`filename:${files.name} ${files.size} ${files.type}`)
+        }
+    };
 }

@@ -15,7 +15,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Prices"]);
 
-    current: IProduct = { id: "", name: "", code: "", tags: [], active: false, onshelf: false }
+    current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
     data: IProductPrice[] = [];
 
     columns: ITdDataTableColumn[] = [
