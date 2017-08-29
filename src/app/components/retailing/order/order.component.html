@@ -25,12 +25,12 @@
           </md-input-container>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <textarea mdInput name="remark" [(ngModel)]="current.remark" placeholder="Remark" maxlength="200"></textarea>
-            <md-icon (click)="save()" mdSuffix>save</md-icon>
-            <md-hint align="end">{{current.remark.length}} / 200</md-hint>
-          </md-input-container>
-        </div>
+            <md-input-container class="md-input-full-width">
+              <textarea mdInput name="remark" [(ngModel)]="current.remark" placeholder="Remark" rows="1" maxlength="200"></textarea>
+              <md-icon (click)="save()" mdSuffix>save</md-icon>
+              <md-hint align="end">{{current.remark.length}} / 200</md-hint>
+            </md-input-container>
+          </div>
       </div>
     </div>
     <div class="card-box" *ngIf="!editable">

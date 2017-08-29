@@ -29,7 +29,6 @@ import { OrderListComponent } from './components/retailing/order-list/order-list
 import { OrderComponent } from './components/retailing/order/order.component';
 
 const routes: Route[] = [
-    { path: '', redirectTo: "/login", pathMatch: "full" },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
