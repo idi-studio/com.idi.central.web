@@ -77,10 +77,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         }
     }
 
-    // add(): void {
-    //     this.handleCreate();
-    // }
-
     async add(): Promise<any> {
         try {
             let order = { cid: null, remark: "N/A" }
@@ -136,7 +132,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     async handleDelete(id: string): Promise<void> {
         try {
             let result = await this.order.remove(id).toPromise()
-            // this.show(result);
             this.alert(result.message)
             this.filter();
         }
@@ -147,6 +142,4 @@ export class OrderListComponent extends BaseComponent implements OnInit {
             this.unload()
         }
     }
-
-
 }

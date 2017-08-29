@@ -112,6 +112,21 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/product/images/${id}`)
     }
 
+    async shelf(product: IProduct): Promise<void> {
+        product.onshelf = !product.onshelf;
+        try {
+            let result = await this.product.update(product).toPromise()
+            this.alert(result.message)
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+            this.filter();
+        }
+    }
+
     delete(id: string): void {
 
         this.confirm("Are you confirm to delete this record?", (accepted) => {
