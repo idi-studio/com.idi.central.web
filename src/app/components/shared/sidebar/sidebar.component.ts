@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit {
     OnMenuItemClick(e: any): void {
         let sender = e.target.tagName == "A" ? e.target : $(e.target).parent();
 
-        console.log(sender);
+        // console.log(sender);
 
         if (!$("#wrapper").hasClass("enlarged")) {
             //one level

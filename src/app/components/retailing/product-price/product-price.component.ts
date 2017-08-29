@@ -135,9 +135,6 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     async submit(): Promise<void> {
-
-        console.log(this.current)
-
         if (!this.valid)
             return
 
