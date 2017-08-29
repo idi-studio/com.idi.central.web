@@ -5,39 +5,61 @@
     <div layout="row" layout-align="end end">
       <md-icon (click)="back()" class="tc-grey-800">cancel</md-icon>
     </div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width" tdFileDrop [disabled]="disabled" (fileDrop)="files = $event" (click)="fileInput.inputElement.click()"
-          (keyup.enter)="fileInput.inputElement.click()" (keyup.delete)="fileInput.clear()" (keyup.backspace)="fileInput.clear()"
-          flex>
-          <input mdInput placeholder="Please select or drop images" [value]="files?.length ? (files?.length + ' files') : files?.name"
-            [disabled]="disabled" readonly/>
-          <md-icon mdPrefix>image</md-icon>
-          <md-icon *ngIf="files" (click)="fileInput.clear()" (keyup.enter)="fileInput.clear()" mdSuffix>cancel</md-icon>
-        </md-input-container>
+    <div *ngIf="files.length>0" class="row">
+      <div class="col-xs-10">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Size <span class="md-caption">(KB) (800KB)</span></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let file of files;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{file.name}}</td>
+                <td>{{file.type}}</td>
+                <td>
+                  <span>{{file.size/1024 | number:'1.2-2'}}</span>
+                  <span *ngIf="file.size/1024>800" class="tc-orange-400"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                </td>
+                <td class="text-right">
+                  <span class="tc-red-800" (click)="drop(i)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+    </div>
+    <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10" layout="row" layout-align="start center">
         <span class="push-right-xs">
-        <td-file-input #fileInput [(ngModel)]="files" multiple [disabled]="disabled" accept=".png,.jpg,.jpge" (select)="selectEvent($event)">
+        <td-file-input #fileInput [(ngModel)]="files" multiple [disabled]="disabled" accept=".png,.jpg,.jpge">
           <md-icon>folder</md-icon>&nbsp;<span class="text-upper">Browse</span>
         </td-file-input>
         </span>
         &nbsp;&nbsp;&nbsp;
         <span class="push-right-xs">
-          <button md-raised-button color="accent" [disabled]="!files" (click)="upload()">
+          <button md-raised-button color="accent" [disabled]="!valid()" (click)="upload()">
               <md-icon>file_upload</md-icon>&nbsp;<span class="text-upper">Upload</span>
         </button>
         </span>
       </div>
     </div>
     <div *ngIf="current.images.length==0" class="row" class="md-padding" layout="row" layout-align="center center">
-      <h3>No results to display.</h3>
+      <h3>No image(s) to display.</h3>
     </div>
     <div *ngIf="current.images.length>0" class="row">
       <md-card *ngFor="let image of current.images" class="col-md-3 col-sm-3 col-xs-10">
         <md-card-header>
           <md-card-title class="md-card-title-pad-left-none">
-            <md-icon>image</md-icon>&nbsp;<span>{{image.name}}</span>
+            <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
+            &nbsp;<span>{{image.name}}</span>
           </md-card-title>
         </md-card-header>
         <div layout="row" layout-align="center center">

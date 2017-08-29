@@ -17,7 +17,7 @@ export class ProductImageService extends RESTService {
 
     constructor(http: Http, file: TdFileService) { super(http, file) }
 
-    add(pid: string, files: File | FileList): Observable<any> {
+    add(pid: string, files: File[]): Observable<any> {
         let formData = new FormData()
         formData.append("pid", pid)
         return this.upload("/api/product/picture", files, formData)

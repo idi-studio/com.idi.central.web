@@ -13,10 +13,10 @@ import 'rxjs/add/operator/toPromise';
 })
 export class ProductImageComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader;
-    mode: Command;
-    pid: string;
-    files: FileList;
+    header: PageHeader
+    mode: Command
+    pid: string
+    files: Array<File>=[]
     current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
 
     constructor(private product: ProductService, private productImage: ProductImageService, private snackBar: MdSnackBar,
@@ -53,6 +53,17 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         })
     }
 
+    drop(index: number): void {
+        let files: Array<File> = []
+        for (var i = 0; i < this.files.length; i++) {
+            if (index != i) {
+                files.push(this.files[i])
+            }
+
+        }
+        this.files = files
+    }
+
     async handleDelete(id: string): Promise<void> {
         this.load();
         try {
@@ -75,8 +86,26 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         }
     }
 
+    valid(): boolean {
+        if(this.files.length==0)
+            return false
+
+        for (var index = 0; index < this.files.length; index++) {
+            var file = this.files[index]
+            if(file.size / 1024 > 800)
+                return false
+        }
+
+        return true;
+    }
+
     async upload(): Promise<void> {
+
+        if (!this.valid())
+            return;
+
         this.load();
+
         try {
             let result = await this.productImage.add(this.current.id, this.files).toPromise()
 
@@ -92,7 +121,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             this.handleError(error)
         }
         finally {
-            this.files = null
+            this.files = []
             this.unload()
         }
     }
@@ -101,15 +130,19 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         this.navigate("central/product/list")
     }
 
-    selectEvent(files: FileList | File): void {
-        if (files instanceof FileList) {
-            for (var index = 0; index < files.length; index++) {
-                var file = files[index];
-                console.log(`filename:${file.name} ${file.size} ${file.type}`)
-            }
-        }
-        else {
-            console.log(`filename:${files.name} ${files.size} ${files.type}`)
-        }
-    };
+    // selectEvent(files: FileList | File): void {
+    //     if (files instanceof FileList) {
+    //         for (var index = 0; index < files.length; index++) {
+    //             var file = files[index]
+    //             // let size = file.size / 1024
+    //             // if (size > 800) {
+    //             //     this.snackBar.open(`'${file.name}' size exceeds 800KB`, "", { duration: 2000, });
+    //             // }
+    //             console.log(`filename:${file.name} ${file.size} ${file.type}`)
+    //         }
+    //     }
+    //     else {
+    //         console.log(`filename:${files.name} ${files.size} ${files.type}`)
+    //     }
+    // };
 }

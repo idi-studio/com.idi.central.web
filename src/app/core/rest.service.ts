@@ -24,7 +24,7 @@ export class RESTService {
         return this.http.get(Runtime.instance.baseUrl + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
     }
 
-    protected upload(url: string, files: File | FileList, formData?: FormData): Observable<any> {
+    protected upload(url: string, files: File[], formData?: FormData): Observable<any> {
         let headers = {
             "Access-Control-Allow-Origin": "*",
             "Authorization": "Bearer " + Runtime.instance.get("token")
@@ -32,17 +32,22 @@ export class RESTService {
 
         formData = formData || new FormData()
 
-        if (files instanceof FileList) {
-            for (var index = 0; index < files.length; index++) {
-                var file = files[index];
-                formData.append(file.name, files[index])
-                // console.log(`filename:${file.name} ${file.size} ${file.type}`)
-            }
+        for (var index = 0; index < files.length; index++) {
+            var file = files[index]
+            formData.append(file.name, file)
         }
-        else {
-            formData.append(files.name, files)
-            // console.log(`filename:${files.name} ${files.size} ${files.type}`)
-        }
+
+        // if (files instanceof FileList) {
+        //     for (var index = 0; index < files.length; index++) {
+        //         var file = files[index];
+        //         formData.append(file.name, files[index])
+        //         // console.log(`filename:${file.name} ${file.size} ${file.type}`)
+        //     }
+        // }
+        // else {
+        //     formData.append(files.name, files)
+        //     // console.log(`filename:${files.name} ${files.size} ${files.type}`)
+        // }
 
         let options: IUploadOptions = { url: Runtime.instance.baseUrl + url, method: 'post', headers: headers, formData: formData };
 
