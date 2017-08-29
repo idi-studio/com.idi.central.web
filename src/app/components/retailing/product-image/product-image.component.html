@@ -58,12 +58,12 @@
       <md-card *ngFor="let image of current.images" class="col-md-3 col-sm-3 col-xs-10">
         <md-card-header>
           <md-card-title class="md-card-title-pad-left-none">
-            <span><i class="fa fa-picture-o" aria-hidden="true"></i></span>
-            &nbsp;<span>{{image.name}}</span>
+            <span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;
+            <span>{{image.name}}</span>
           </md-card-title>
         </md-card-header>
-        <div layout="row" layout-align="center center">
-          <img md-card-image [src]="image.data" class="img-auto-size">
+        <div class="md-card-image-box" layout="row" layout-align="center center">
+            <img md-card-image [src]="image.data" class="md-card-image">
         </div>
         <md-card-actions>
           <div layout="row" layout-align="end end">

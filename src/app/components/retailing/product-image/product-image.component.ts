@@ -129,20 +129,4 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     back(): void {
         this.navigate("central/product/list")
     }
-
-    // selectEvent(files: FileList | File): void {
-    //     if (files instanceof FileList) {
-    //         for (var index = 0; index < files.length; index++) {
-    //             var file = files[index]
-    //             // let size = file.size / 1024
-    //             // if (size > 800) {
-    //             //     this.snackBar.open(`'${file.name}' size exceeds 800KB`, "", { duration: 2000, });
-    //             // }
-    //             console.log(`filename:${file.name} ${file.size} ${file.type}`)
-    //         }
-    //     }
-    //     else {
-    //         console.log(`filename:${files.name} ${files.size} ${files.type}`)
-    //     }
-    // };
 }
