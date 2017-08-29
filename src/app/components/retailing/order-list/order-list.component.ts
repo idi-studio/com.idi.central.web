@@ -77,11 +77,11 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         }
     }
 
-    add(): void {
-        this.handleCreate();
-    }
+    // add(): void {
+    //     this.handleCreate();
+    // }
 
-    async handleCreate(): Promise<any> {
+    async add(): Promise<any> {
         try {
             let order = { cid: null, remark: "N/A" }
 
@@ -123,11 +123,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.pageSize = pagingEvent.pageSize;
         this.filter();
     }
-
-    // showPrices(id: string): void {
-    //     this.navigate(`/central/product/prices/${id}`)
-    // }
-
 
     delete(id: string): void {
 

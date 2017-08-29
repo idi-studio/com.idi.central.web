@@ -7,11 +7,9 @@ import { Command } from './enums';
 export abstract class BaseComponent {
 
     constructor(protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        console.log(`router.url:${router.url}`)
-
         if (this.checkIdentity()) {
             dialog.openConfirm({ message: "Please sign-in your account first.", acceptButton: "OK" }).afterClosed().subscribe(() => {
-                router.navigate(["/login"])
+                this.navigate("/login")
             })
         }
     }
