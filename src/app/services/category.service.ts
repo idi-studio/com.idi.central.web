@@ -3,13 +3,9 @@ import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
 
-// export interface ICategory {
-//     key: string;
-//     value: string;
-// }
-
 export const TypeNames = {
-    PriceCategory: "PriceCategory"
+    PriceCategory: "PriceCategory",
+    PictureCategory: "PictureCategory"
 }
 
 @Injectable()

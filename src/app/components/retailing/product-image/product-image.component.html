@@ -63,12 +63,19 @@
           </md-card-title>
         </md-card-header>
         <div class="md-card-image-box" layout="row" layout-align="center center">
-            <img md-card-image [src]="image.data" class="md-card-image">
+          <img md-card-image [src]="image.data" class="md-card-image">
         </div>
         <md-card-actions>
-          <div layout="row" layout-align="end end">
-            <span class="md-caption tc-grey-400">{{image.date}}</span>
-            <md-icon (click)="delete(image.id)">delete</md-icon>
+          <div layout="row">
+            <div flex="30">
+              <span class="label bgc-blue-grey-700">{{categorydesc(image.category)}}</span>
+            </div>
+            <div flex="60">
+              <span class="md-caption tc-grey-400">{{image.date}}</span>
+            </div>
+            <div flex="10">
+              <md-icon (click)="delete(image.id)">delete</md-icon>
+            </div>
           </div>
         </md-card-actions>
       </md-card>

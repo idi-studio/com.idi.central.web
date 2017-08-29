@@ -8,6 +8,7 @@ export interface IProductImage {
     id: string
     pid: string
     name: string
+    category: number
     filename: string
     date: string
 }
@@ -21,6 +22,12 @@ export class ProductImageService extends RESTService {
         let formData = new FormData()
         formData.append("pid", pid)
         return this.upload("/api/product/picture", files, formData)
+    }
+
+    update(value:IProductImage): Observable<any> {
+        return super.put(`/api/product/picture/${value.id}`, value).map((res: Response) => {
+            return res.json();
+        });
     }
 
     remove(id: string): Observable<any> {

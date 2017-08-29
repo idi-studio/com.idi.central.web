@@ -19,3 +19,10 @@ export enum PriceCategory {
     Discount = 32,
     VIP = 64
 }
+
+export enum PictureCategory
+{
+    Cover = 2,
+    Picture = 4,
+    Advertisement = 8
+}

@@ -15,7 +15,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
     header: PageHeader
     mode: Command
-    priceCategory: any[]
+    categorys: any[]
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
@@ -56,7 +56,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
         try {
             let id = this.getParam('id');
 
-            this.priceCategory = await this.category.all(TypeNames.PriceCategory).toPromise()
+            this.categorys = await this.category.all(TypeNames.PriceCategory).toPromise()
 
             if (this.mode == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()

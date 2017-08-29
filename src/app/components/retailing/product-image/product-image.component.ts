@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdFileService, IUploadOptions } from '@covalent/core';
-import { ProductService, ProductImageService, IProduct, IProductImage } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
+import { ProductService, ProductImageService, CategoryService, IProduct, IProductImage, TypeNames } from '../../../services';
+import { BaseComponent, PageHeader, Command, Status, Regex, PictureCategory } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -16,10 +16,11 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     header: PageHeader
     mode: Command
     pid: string
-    files: Array<File>=[]
+    files: Array<File> = []
+    categorys: any[]
     current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
 
-    constructor(private product: ProductService, private productImage: ProductImageService, private snackBar: MdSnackBar,
+    constructor(private product: ProductService, private productImage: ProductImageService, private category: CategoryService, private snackBar: MdSnackBar,
         protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, loading, dialog)
     }
@@ -35,6 +36,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
 
         try {
             this.current = await this.product.single(this.pid).toPromise()
+            this.categorys = await this.category.all(TypeNames.PictureCategory).toPromise()
             this.header.title = `Product - ${this.current.name}`
         }
         catch (error) {
@@ -87,12 +89,12 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     }
 
     valid(): boolean {
-        if(this.files.length==0)
+        if (this.files.length == 0)
             return false
 
         for (var index = 0; index < this.files.length; index++) {
             var file = this.files[index]
-            if(file.size / 1024 > 800)
+            if (file.size / 1024 > 800)
                 return false
         }
 
@@ -128,5 +130,18 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
 
     back(): void {
         this.navigate("central/product/list")
+    }
+
+    categorydesc(category: PictureCategory): string {
+        switch (category) {
+            case PictureCategory.Cover:
+                return "COVER"
+            case PictureCategory.Picture:
+                return "PIC"
+            case PictureCategory.Advertisement:
+                return "AD"
+            default:
+                return ""
+        }
     }
 }
