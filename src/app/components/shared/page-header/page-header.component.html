@@ -1,11 +1,11 @@
 <div *ngIf="header" class="row">
   <div class="col-xs-12">
     <div class="page-title-box">
-      <h4 class="page-title"><i class="fa fa-angle-right" aria-hidden="true"></i> {{header.title}}</h4>
+      <h4 class="page-title"><i class="fa fa-caret-right" aria-hidden="true"></i> {{header.title}}</h4>
       <ol class="breadcrumb p-0">
-        <li><a routeLink="/">Central</a></li>
+        <li><span class="tc-light-blue-400">Central</span></li>
         <li class="active" *ngFor="let item of header.path,let index=index">
-          <a *ngIf="index<header.path.length-1" routeLink="/">{{item}}</a>
+          <span *ngIf="index<header.path.length-1" class="tc-light-blue-400">{{item}}</span>
           <span *ngIf="index==header.path.length-1">{{item}}</span>
         </li>
       </ol>
