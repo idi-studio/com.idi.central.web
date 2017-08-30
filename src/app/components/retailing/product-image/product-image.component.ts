@@ -16,6 +16,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     header: PageHeader
     mode: Command
     pid: string
+    editable: boolean = false
     files: Array<File> = []
     categorys: any[]
     current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
@@ -28,16 +29,16 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     ngOnInit(): void {
         this.header = new PageHeader("Product", ["Retailing", "Product", "Image"])
         this.pid = this.getParam("id")
+
+        this.initUI();
         this.filter();
     }
 
-    async filter(): Promise<void> {
+    async initUI(): Promise<void> {
         this.load();
 
         try {
-            this.current = await this.product.single(this.pid).toPromise()
-            this.categorys = await this.category.all(TypeNames.PictureCategory).toPromise()
-            this.header.title = `Product - ${this.current.name}`
+            this.categorys = await this.category.all(TypeNames.ImageCategory).toPromise()
         }
         catch (error) {
             this.handleError(error)
@@ -47,12 +48,32 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         }
     }
 
-    delete(id: string): void {
-        this.confirm("Are you confirm to delete this record?", (accepted) => {
-            if (accepted) {
-                this.handleDelete(id)
-            }
-        })
+    async filter(): Promise<void> {
+        this.load();
+
+        try {
+            this.current = await this.product.single(this.pid).toPromise()
+            this.header.title = this.current.name
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    edit(): void {
+        this.files = []
+        this.editable = true
+    }
+
+    cancel(): void {
+        this.editable = false
+    }
+
+    hasImages(): boolean {
+        return this.current.images.length > 0
     }
 
     drop(index: number): void {
@@ -64,6 +85,14 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
 
         }
         this.files = files
+    }
+
+    delete(id: string): void {
+        this.confirm("Are you confirm to delete this record?", (accepted) => {
+            if (accepted) {
+                this.handleDelete(id)
+            }
+        })
     }
 
     async handleDelete(id: string): Promise<void> {
@@ -85,6 +114,28 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         }
         finally {
             this.unload()
+        }
+    }
+
+    async save(): Promise<void> {
+        this.load();
+        try {
+            let result = await this.productImage.batch(this.current.id, this.current.images).toPromise()
+
+            if (result.status == Status.Success) {
+                this.editable = false
+                this.snackBar.open("Product image(s) updated.", "", { duration: 2000, });
+            }
+            else {
+                this.alert(result.message)
+            }
+        }
+        catch (error) {
+            this.handleError(error)
+        }
+        finally {
+            this.unload()
+            this.filter();
         }
     }
 

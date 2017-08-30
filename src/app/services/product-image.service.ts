@@ -7,6 +7,7 @@ import { RESTService, Status } from '../core';
 export interface IProductImage {
     id: string
     pid: string
+    sn: number
     name: string
     category: number
     filename: string
@@ -24,8 +25,8 @@ export class ProductImageService extends RESTService {
         return this.upload("/api/product/picture", files, formData)
     }
 
-    update(value:IProductImage): Observable<any> {
-        return super.put(`/api/product/picture/${value.id}`, value).map((res: Response) => {
+    batch(pid: string, images: IProductImage[]): Observable<any> {
+        return super.put(`/api/product/picture/${pid}`, { images: images }).map((res: Response) => {
             return res.json();
         });
     }

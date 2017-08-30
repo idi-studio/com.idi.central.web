@@ -2,8 +2,16 @@
 
 <div class="row">
   <div class="card-box">
-    <div layout="row" layout-align="end end">
-      <md-icon (click)="back()" class="tc-grey-800">cancel</md-icon>
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <td-file-input class="hidden" #fileInput [(ngModel)]="files" multiple [disabled]="disabled" accept=".png,.jpg,.jpge"></td-file-input>
+        <span class="toolbar-spacer"></span>
+        <md-icon *ngIf="!editable" class="toolbar-icon" (click)="fileInput.inputElement.click()">folder</md-icon>
+        <md-icon *ngIf="!editable" class="toolbar-icon" (click)="edit()">edit</md-icon>
+        <md-icon *ngIf="editable" class="toolbar-icon" (click)="save()">save</md-icon>
+        <md-icon *ngIf="editable" class="toolbar-icon" (click)="cancel()">cancel</md-icon>
+      </md-toolbar>
     </div>
     <div *ngIf="files.length>0" class="row">
       <div class="col-xs-10">
@@ -32,29 +40,23 @@
                 </td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <th class="text-right" colspan="5">
+                  <button md-raised-button color="accent" [disabled]="!valid()" (click)="upload()">
+                        <md-icon>file_upload</md-icon>&nbsp;<span class="text-upper">Upload</span>
+                  </button>
+                </th>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-xs-10" layout="row" layout-align="start center">
-        <span class="push-right-xs">
-        <td-file-input #fileInput [(ngModel)]="files" multiple [disabled]="disabled" accept=".png,.jpg,.jpge">
-          <md-icon>folder</md-icon>&nbsp;<span class="text-upper">Browse</span>
-        </td-file-input>
-        </span>
-        &nbsp;&nbsp;&nbsp;
-        <span class="push-right-xs">
-          <button md-raised-button color="accent" [disabled]="!valid()" (click)="upload()">
-              <md-icon>file_upload</md-icon>&nbsp;<span class="text-upper">Upload</span>
-        </button>
-        </span>
-      </div>
-    </div>
-    <div *ngIf="current.images.length==0" class="row" class="md-padding" layout="row" layout-align="center center">
+    <div *ngIf="!hasImages()" class="row" class="md-padding" layout="row" layout-align="center center">
       <h3>No image(s) to display.</h3>
     </div>
-    <div *ngIf="current.images.length>0" class="row">
+    <div *ngIf="hasImages()" class="row">
       <md-card *ngFor="let image of current.images" class="col-md-3 col-sm-3 col-xs-10">
         <md-card-header>
           <md-card-title class="md-card-title-pad-left-none">
@@ -66,15 +68,33 @@
           <img md-card-image [src]="image.data" class="md-card-image">
         </div>
         <md-card-actions>
-          <div layout="row">
+          <div *ngIf="!editable" layout="row">
             <div flex="30">
               <span class="label bgc-blue-grey-700">{{categorydesc(image.category)}}</span>
             </div>
-            <div flex="60">
+            <div flex="70" class="text-right">
               <span class="md-caption tc-grey-400">{{image.date}}</span>
             </div>
-            <div flex="10">
-              <md-icon (click)="delete(image.id)">delete</md-icon>
+          </div>
+          <div *ngIf="editable" layout="row">
+            <div flex="30">
+              <md-input-container>
+                <input mdInput type="number" name="amount" [(ngModel)]="image.sn" placeholder="SN" autocomplete="off">
+              </md-input-container>
+            </div>
+            <div flex="50">
+              <div class="mat-input-infix mat-select-flex">
+                <md-select placeholder="Category" [(ngModel)]="image.category">
+                  <md-option *ngFor="let category of categorys" [value]="category.key">
+                    {{ category.value }}
+                  </md-option>
+                </md-select>
+              </div>
+            </div>
+            <div flex="20">
+              <div class="mat-input-infix mat-select-flex">
+                <md-icon class="pull-right" (click)="delete(image.id)">delete</md-icon>
+              </div>
             </div>
           </div>
         </md-card-actions>
