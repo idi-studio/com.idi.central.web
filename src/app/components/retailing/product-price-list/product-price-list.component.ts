@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './product-price-list.component.html',
+    styleUrls: ['product-price-list.component.css']
 })
 export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
@@ -57,8 +58,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
             let id = this.getParam("id")
             this.current = await this.product.single(id).toPromise()
             this.data = await this.price.all(id).toPromise()
-
-            this.header.title = `Product - ${this.current.name}`
+            this.header.title = this.current.name
         }
         catch (error) {
             this.data = [];
@@ -145,7 +145,6 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     async handleDelete(id: string): Promise<void> {
         try {
             let result = await this.price.remove(id).toPromise()
-            // this.show(result);
             this.alert(result.message)
             this.filter();
         }

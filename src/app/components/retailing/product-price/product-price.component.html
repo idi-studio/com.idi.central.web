@@ -2,20 +2,22 @@
 
 <div class="row">
   <div class="card-box">
-    
-    <div layout="row" layout-align="end end" class="pad-left-sm pad-right-sm">
-      <a (click)="back()" routerLink="/">
-        <md-icon class="tc-grey-800">cancel</md-icon>
-      </a>
+
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="toolbar-spacer"></span>
+        <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
+      </md-toolbar>
     </div>
 
-    <div class="form-group row">
+    <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
         <div class="mat-input-container md-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
               <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category" (change)="onCategoryChanged($event)">
-                <md-option *ngFor="let category of priceCategory" [value]="category.key">
+                <md-option *ngFor="let category of categorys" [value]="category.key">
                   {{ category.value }}
                 </md-option>
               </md-select>
@@ -36,7 +38,8 @@
         </md-input-container>
       </div>
     </div>
-    <div class="form-group row" *ngIf="hasTerm(current.category)">
+
+    <div class="row" *ngIf="hasTerm(current.category)">
       <div class="col-md-4 col-sm-6 col-xs-10">
         <md-input-container class="md-input-full-width">
           <input mdInput name="startdate" [(ngModel)]="current.startdate" [min]="minDate" [max]="maxDate" [formControl]="formControlStart"
@@ -69,7 +72,7 @@
       </div>
     </div>
 
-    <div class="form-group row" *ngIf="hasGrade(current.category)">
+    <div class="row" *ngIf="hasGrade(current.category)">
       <div class="col-md-4 col-sm-6 col-xs-10">
         <md-input-container class="md-input-full-width">
           <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
@@ -87,16 +90,9 @@
       </div>
     </div>
 
-    <div class="form-group row">
+    <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
         <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
-      </div>
-    </div>
-
-    <div class="form-group row text-center">
-      <div class="col-md-6 col-sm-6"></div>
-      <div class="col-xs-10 col-sm-6 col-md-2">
-        <button (click)="submit()" [disabled]="!valid()" class="btn btn-success btn-block waves-effect waves-light" type="submit">Submit</button>
       </div>
     </div>
 
