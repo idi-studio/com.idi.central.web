@@ -27,6 +27,10 @@
   background-color: white;
 }
 
+.toolbar-title {
+  padding: 0 14px 0 0;
+}
+
 .toolbar-icon-back {
   padding: 0 14px 0 0;
 }

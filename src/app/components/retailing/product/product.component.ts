@@ -83,6 +83,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
         this.navigate("central/product/list")
     }
 
+    setPrice():void{
+        this.navigate(`central/product/prices/${this.current.id}`)
+    }
+
     remove(key: string): void {
         let index = this.chips.findIndex(chip => chip.key == key)
         this.chips.splice(index, 1)

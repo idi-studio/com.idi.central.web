@@ -6,6 +6,7 @@
       <md-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
+        <md-icon class="toolbar-icon" (click)="setPrice()">attach_money</md-icon>
         <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
       </md-toolbar>
     </div>
@@ -37,6 +38,22 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
+      </div>
+      <div *ngIf="editable()" class="col-md-4 col-sm-6 col-xs-10">
+        <md-checkbox [checked]="current.onshelf" [(ngModel)]="current.onshelf" [indeterminate]="indeterminate"> {{current.onshelf?"On Shelf":"Off Shelf"}} </md-checkbox>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-box">
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span class="toolbar-title"><i class="fa fa-tags" aria-hidden="true"></i> Tags</span>
+      </md-toolbar>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
         <div class="mat-input-container md-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
@@ -50,32 +67,16 @@
         </div>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <div layout="row" layout-align="start end" class="pad-left-sm pad-right-sm">
-          <md-input-container>
-            <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
-            <md-error *ngIf="formControlProdTag.hasError('pattern')">
-              Only Support case letters, Chinese and numbers.
-            </md-error>
-            <md-error *ngIf="formControlProdTag.hasError('required')">
-              product tag is <strong>required</strong>
-            </md-error>
-          </md-input-container>
-          <div class="mat-input-container md-input-full-width">
-            <div class="mat-input-wrapper">
-              <button md-button (click)="add(category.selected.value, tag.value)">
-                    <md-icon class="tc-grey-800">add</md-icon>
-                  </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
-      </div>
-      <div *ngIf="editable()" class="col-md-4 col-sm-6 col-xs-10">
-        <md-checkbox [checked]="current.onshelf" [(ngModel)]="current.onshelf" [indeterminate]="indeterminate"> {{current.onshelf?"On Shelf":"Off Shelf"}} </md-checkbox>
+        <md-input-container class="md-input-full-width">
+          <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
+          <md-icon (click)="add(category.selected.value, tag.value)" mdSuffix>add</md-icon>
+          <md-error *ngIf="formControlProdTag.hasError('pattern')">
+            Only Support case letters, Chinese and numbers.
+          </md-error>
+          <md-error *ngIf="formControlProdTag.hasError('required')">
+            product tag is <strong>required</strong>
+          </md-error>
+        </md-input-container>
       </div>
     </div>
     <div class="row">
