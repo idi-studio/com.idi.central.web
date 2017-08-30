@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { Runtime } from './runtime';
 import { Command } from './enums';
 
 export abstract class BaseComponent {
 
-    constructor(protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
+    constructor(protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
         if (this.checkIdentity()) {
             dialog.openConfirm({ message: "Please sign-in your account first.", acceptButton: "OK" }).afterClosed().subscribe(() => {
                 this.navigate("/login")
@@ -79,6 +81,10 @@ export abstract class BaseComponent {
 
     protected alert(message: string) {
         this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
+    }
+
+    protected show(message: string, duration: number = 2000) {
+        this.snack.open(message, "", { duration: duration, });
     }
 
     // protected show(result: any) {

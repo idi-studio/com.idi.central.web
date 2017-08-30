@@ -26,8 +26,9 @@ export class ProductComponent extends BaseComponent implements OnInit {
     chips: ITag[] = []
 
     constructor(private product: ProductService, private tag: TagService, private snackBar: MdSnackBar,
-        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(route, router, loading, dialog)
+        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {
@@ -126,11 +127,12 @@ export class ProductComponent extends BaseComponent implements OnInit {
                     return;
             }
 
-            this.alert(result.message)
+            this.snackBar.open(result.message, "", { duration: 2000, });
+            // this.alert(result.message)
 
-            if (result.status == Status.Success) {
-                this.back()
-            }
+            // if (result.status == Status.Success) {
+            //     this.back()
+            // }
         }
         catch (error) {
             this.tags = [];

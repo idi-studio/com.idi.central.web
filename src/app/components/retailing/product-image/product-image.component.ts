@@ -21,9 +21,10 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     categorys: any[]
     current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
 
-    constructor(private product: ProductService, private productImage: ProductImageService, private category: CategoryService, private snackBar: MdSnackBar,
-        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(route, router, loading, dialog)
+    constructor(private product: ProductService, private productImage: ProductImageService, private category: CategoryService,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {
@@ -103,7 +104,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             if (result.status == Status.Success) {
                 let index = this.current.images.findIndex(image => image.id == id)
                 this.current.images.splice(index, 1)
-                this.snackBar.open("Product image(s) uploaded.", "", { duration: 2000, });
+                this.show("Product image(s) uploaded.")
             }
             else {
                 this.alert(result.message)
@@ -124,7 +125,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
 
             if (result.status == Status.Success) {
                 this.editable = false
-                this.snackBar.open("Product image(s) updated.", "", { duration: 2000, });
+                this.show("Product image(s) updated.")
             }
             else {
                 this.alert(result.message)
@@ -163,7 +164,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             let result = await this.productImage.add(this.current.id, this.files).toPromise()
 
             if (result.status == Status.Success) {
-                this.snackBar.open("Product image(s) uploaded.", "", { duration: 2000, });
+                this.show("Product image(s) uploaded.");
                 this.filter();
             }
             else {

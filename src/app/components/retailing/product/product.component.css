@@ -17,3 +17,25 @@
 .md-chip {
   margin: 5px !important;
 }
+
+.card-box {
+  padding-top: 10px;
+}
+
+.toolbar {
+  padding-left: 8px;
+  background-color: white;
+}
+
+.toolbar-icon-back {
+  padding: 0 14px 0 0;
+}
+
+.toolbar-icon {
+  padding: 0 16px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+

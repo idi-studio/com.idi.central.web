@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
@@ -43,10 +42,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private order: OrderService, private orderItem: OrderItemService, private product: ProductService,
-        private dataTable: TdDataTableService, private snackBar: MdSnackBar,
-        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(route, router, loading, dialog)
+    constructor(private order: OrderService, private orderItem: OrderItemService, private product: ProductService,  private dataTable: TdDataTableService,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {
@@ -147,7 +146,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let result = await this.order.update(this.current).toPromise()
 
             if (result.status == Status.Success) {
-                this.snackBar.open("Order remark updated.", "", { duration: 2000, });
+                this.show("Order remark updated.")
             }
             else {
                 this.alert(result.message)
@@ -167,7 +166,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let result = await this.orderItem.add(item).toPromise()
 
             if (result.status == Status.Success) {
-                this.snackBar.open("Order updated.", "", { duration: 2000, });
+                this.show("Order updated.")
             }
             else {
                 this.alert(result.message)

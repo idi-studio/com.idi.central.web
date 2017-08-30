@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { BaseComponent, Status, Regex } from '../../../core';
 import { TokenService } from '../../../services';
@@ -15,9 +16,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
     formControlUsername = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)]);
     formControlPassword = new FormControl('', [Validators.required]);
 
-    constructor(private token: TokenService, protected router: Router,
-        protected route: ActivatedRoute, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(route, router, loading, dialog)
+    constructor(private token: TokenService,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {

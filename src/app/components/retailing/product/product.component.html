@@ -2,95 +2,89 @@
 
 <div class="row">
   <div class="card-box">
-    <div layout="row" layout-align="end end">
-      <a (click)="back()" routerLink="/">
-        <md-icon class="tc-grey-800">cancel</md-icon>
-      </a>
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="toolbar-spacer"></span>
+        <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
+      </md-toolbar>
     </div>
-    <div class="m-t-20">
-      <div class="form-group row">
-        <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <input mdInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlProdName" autocomplete="off"
-              maxlength="50">
-            <md-error *ngIf="formControlProdName.hasError('pattern')">
-              Only Support case letters, Chinese, numbers and spaces.
-            </md-error>
-            <md-error *ngIf="formControlProdName.hasError('required')">
-              product name is <strong>required</strong>
-            </md-error>
-          </md-input-container>
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <input mdInput name="code" [(ngModel)]="current.code" placeholder="Code" [formControl]="formControlProdCode" autocomplete="off"
-              maxlength="50">
-            <md-error *ngIf="formControlProdCode.hasError('pattern')">
-              Only Support case letters and numbers.
-            </md-error>
-            <md-error *ngIf="formControlProdCode.hasError('required')">
-              product code is <strong>required</strong>
-            </md-error>
-          </md-input-container>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlProdName" autocomplete="off"
+            maxlength="50">
+          <md-error *ngIf="formControlProdName.hasError('pattern')">
+            Only Support case letters, Chinese, numbers and spaces.
+          </md-error>
+          <md-error *ngIf="formControlProdName.hasError('required')">
+            product name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="code" [(ngModel)]="current.code" placeholder="Code" [formControl]="formControlProdCode" autocomplete="off"
+            maxlength="50">
+          <md-error *ngIf="formControlProdCode.hasError('pattern')">
+            Only Support case letters and numbers.
+          </md-error>
+          <md-error *ngIf="formControlProdCode.hasError('required')">
+            product code is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <div class="mat-input-container md-input-full-width">
+          <div class="mat-input-wrapper">
+            <div class="mat-input-infix mat-select-flex">
+              <md-select name="category" placeholder="Category" [(ngModel)]="selectedCategory" #category>
+                <md-option *ngFor="let tag of tags" [value]="tag.key">
+                  {{ tag.name }}
+                </md-option>
+              </md-select>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-md-4 col-sm-6 col-xs-10">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <div layout="row" layout-align="start end" class="pad-left-sm pad-right-sm">
+          <md-input-container>
+            <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
+            <md-error *ngIf="formControlProdTag.hasError('pattern')">
+              Only Support case letters, Chinese and numbers.
+            </md-error>
+            <md-error *ngIf="formControlProdTag.hasError('required')">
+              product tag is <strong>required</strong>
+            </md-error>
+          </md-input-container>
           <div class="mat-input-container md-input-full-width">
             <div class="mat-input-wrapper">
-              <div class="mat-input-infix mat-select-flex">
-                <md-select name="category" placeholder="Category" [(ngModel)]="selectedCategory" #category>
-                  <md-option *ngFor="let tag of tags" [value]="tag.key">
-                    {{ tag.name }}
-                  </md-option>
-                </md-select>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-10">
-          <div layout="row" layout-align="start end" class="pad-left-sm pad-right-sm">
-            <md-input-container>
-              <input mdInput placeholder="Tag" [formControl]="formControlProdTag" autocomplete="off" maxlength="20" #tag>
-              <md-error *ngIf="formControlProdTag.hasError('pattern')">
-                Only Support case letters, Chinese and numbers.
-              </md-error>
-              <md-error *ngIf="formControlProdTag.hasError('required')">
-                product tag is <strong>required</strong>
-              </md-error>
-            </md-input-container>
-            <div class="mat-input-container md-input-full-width">
-              <div class="mat-input-wrapper">
-                <button md-button (click)="add(category.selected.value, tag.value)">
+              <button md-button (click)="add(category.selected.value, tag.value)">
                     <md-icon class="tc-grey-800">add</md-icon>
                   </button>
-              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
-        </div>
-        <div *ngIf="editable()" class="col-md-4 col-sm-6 col-xs-10">
-          <md-checkbox [checked]="current.onshelf" [(ngModel)]="current.onshelf" [indeterminate]="indeterminate"> {{current.onshelf?"On Shelf":"Off Shelf"}} </md-checkbox>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
       </div>
-      <div class="form-group row">
-        <div class="col-xs-8">
-          <md-chip-list>
-            <md-chip *ngFor="let chip of chips" class="md-chip">
-              {{chip.value}} <a (click)="remove(chip.key)" href="javascript:void(0)" class="tc-grey-800"><i class="fa fa-times" aria-hidden="true"></i></a>
-            </md-chip>
-          </md-chip-list>
-        </div>
+      <div *ngIf="editable()" class="col-md-4 col-sm-6 col-xs-10">
+        <md-checkbox [checked]="current.onshelf" [(ngModel)]="current.onshelf" [indeterminate]="indeterminate"> {{current.onshelf?"On Shelf":"Off Shelf"}} </md-checkbox>
       </div>
-      <div class="form-group text-center row m-t-10">
-        <div class="col-md-6 col-sm-6"></div>
-        <div class="col-xs-10 col-sm-6 col-md-2">
-          <button (click)="submit()" [disabled]="!valid()" class="btn btn-success btn-block waves-effect waves-light" type="submit">Submit</button>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-8">
+        <md-chip-list>
+          <md-chip *ngFor="let chip of chips" class="md-chip">
+            {{chip.value}} <a (click)="remove(chip.key)" href="javascript:void(0)" class="tc-grey-800"><i class="fa fa-times" aria-hidden="true"></i></a>
+          </md-chip>
+        </md-chip-list>
       </div>
     </div>
   </div>

@@ -28,8 +28,9 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     formControlDue = new FormControl('', [Validators.required])
 
     constructor(private product: ProductService, private price: ProductPriceService, private category: CategoryService, private snackBar: MdSnackBar,
-        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(route, router, loading, dialog)
+        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {

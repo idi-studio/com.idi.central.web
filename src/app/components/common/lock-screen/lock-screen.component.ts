@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { TokenService, IUserProfile } from '../../../services';
 import { Runtime, BaseComponent, Status } from '../../../core';
@@ -15,8 +16,9 @@ export class LockScreenComponent extends BaseComponent {
     formControlPassword = new FormControl('', [Validators.required]);
 
     constructor(private token: TokenService,
-        protected route: ActivatedRoute, protected router: Router, protected loading: TdLoadingService, protected dialog: TdDialogService) {
-        super(route, router, loading, dialog)
+        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected loading: TdLoadingService, protected dialog: TdDialogService) {
+        super(route, router, snack, loading, dialog)
 
         Runtime.instance.unauthorize()
         this.profile = JSON.parse(Runtime.instance.get("profile")) as IUserProfile
