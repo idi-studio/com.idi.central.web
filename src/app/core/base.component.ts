@@ -87,20 +87,6 @@ export abstract class BaseComponent {
         this.snack.open(message, "", { duration: duration, });
     }
 
-    protected request(action: () => void): void {
-        this.load();
-
-        try {
-            action();
-        }
-        catch (error) {
-            this.handle(error)
-        }
-        finally {
-            this.unload()
-        }
-    }
-
     protected confirm(message: string, callback?: (accepted: boolean) => void): void {
         this.dialog.openConfirm({
             message: message,
