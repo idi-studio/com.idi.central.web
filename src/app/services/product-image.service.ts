@@ -11,6 +11,7 @@ export interface IProductImage {
     name: string
     category: number
     filename: string
+    url:string
     date: string
 }
 

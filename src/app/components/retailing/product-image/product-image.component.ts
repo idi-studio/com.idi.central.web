@@ -104,7 +104,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             if (result.status == Status.Success) {
                 let index = this.current.images.findIndex(image => image.id == id)
                 this.current.images.splice(index, 1)
-                this.show("Product image(s) uploaded.")
+                this.show("Product image(s) updated.")
             }
             else {
                 this.alert(result.message)
