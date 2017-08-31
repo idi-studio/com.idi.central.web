@@ -75,7 +75,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
             this.initUI()
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -161,7 +161,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()

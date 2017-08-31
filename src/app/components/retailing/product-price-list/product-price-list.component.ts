@@ -62,7 +62,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.data = [];
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -149,7 +149,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
             this.filter();
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()

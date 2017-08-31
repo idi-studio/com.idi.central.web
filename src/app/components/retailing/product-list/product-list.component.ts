@@ -58,7 +58,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.data = [];
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -121,7 +121,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
             this.alert(result.message)
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -146,7 +146,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
             this.filter();
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()

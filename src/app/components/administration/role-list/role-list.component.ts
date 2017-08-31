@@ -49,7 +49,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.data = [];
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()

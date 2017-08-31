@@ -36,13 +36,14 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     }
 
     async initUI(): Promise<void> {
+
         this.load();
 
         try {
             this.categorys = await this.category.all(TypeNames.ImageCategory).toPromise()
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -57,7 +58,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             this.header.title = this.current.name
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -111,7 +112,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -132,7 +133,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -172,7 +173,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.files = []

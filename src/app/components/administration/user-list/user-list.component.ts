@@ -53,7 +53,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.data = [];
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()

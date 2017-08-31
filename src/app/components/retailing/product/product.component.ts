@@ -64,7 +64,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.tags = [];
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -140,7 +140,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.tags = [];
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()

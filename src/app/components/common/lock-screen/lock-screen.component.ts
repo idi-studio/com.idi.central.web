@@ -39,7 +39,7 @@ export class LockScreenComponent extends BaseComponent {
             }
             this.unload();
         }, error => {
-            this.handleError(error);
+            this.handle(error);
             this.unload();
         });
     }

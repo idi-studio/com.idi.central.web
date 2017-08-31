@@ -51,7 +51,7 @@ export abstract class BaseComponent {
         return this.route.snapshot.paramMap.get(name)
     }
 
-    protected handleError(error: Response) {
+    protected handle(error: Response) {
 
         let errMsg: string;
 
@@ -87,15 +87,19 @@ export abstract class BaseComponent {
         this.snack.open(message, "", { duration: duration, });
     }
 
-    // protected show(result: any) {
-    //     let message = result.message
+    protected request(action: () => void): void {
+        this.load();
 
-    //     for (let item of result.details.info) {
-    //         message += `${item}`
-    //     }
-
-    //     this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
-    // }
+        try {
+            action();
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
 
     protected confirm(message: string, callback?: (accepted: boolean) => void): void {
         this.dialog.openConfirm({

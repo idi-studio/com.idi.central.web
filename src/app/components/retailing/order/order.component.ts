@@ -71,7 +71,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -89,7 +89,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.data = []
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -153,7 +153,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -173,7 +173,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
@@ -201,7 +201,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.bindTable();
         }
         catch (error) {
-            this.handleError(error)
+            this.handle(error)
         }
         finally {
             this.unload()
