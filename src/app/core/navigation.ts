@@ -43,7 +43,8 @@ export class Navigation {
             ]),
             new MenuItem("Retailing", null, "zmdi zmdi-labels", null, [
                 new MenuItem("Products", "product/list"),
-                new MenuItem("Orders", "order/list")
+                new MenuItem("Orders", "order/list"),
+                new MenuItem("Customers", "cust/list")
             ]),
             new MenuItem("Purchase", null, "zmdi zmdi-truck", null, [
                 new MenuItem("Come soon...")

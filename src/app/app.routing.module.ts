@@ -28,6 +28,8 @@ import { ProductPriceListComponent } from './components/retailing/product-price-
 import { OrderListComponent } from './components/retailing/order-list/order-list.component';
 import { OrderComponent } from './components/retailing/order/order.component';
 
+import { CustomerListComponent } from './components/retailing/cust-list/cust-list.component';
+
 const routes: Route[] = [
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
@@ -46,6 +48,7 @@ const routes: Route[] = [
             { path: 'product/images/:id', component: ProductImageComponent },
             { path: 'order/list', component: OrderListComponent },
             { path: 'order/:mode/:id', component: OrderComponent },
+            { path: 'cust/list', component: CustomerListComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -66,4 +69,5 @@ export const CentralComponents: any[] = [
     RoleListComponent, UserListComponent,
     ProductListComponent, ProductComponent, ProductPriceComponent, ProductPriceListComponent, ProductImageComponent,
     OrderListComponent, OrderComponent,
+    CustomerListComponent,
 ];
