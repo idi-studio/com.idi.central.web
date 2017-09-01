@@ -9,54 +9,39 @@
       </td-search-box>
       <span (click)="add()" class="toolbar-icon"><i class="fa fa-plus-circle" aria-hidden="true"></i></span>
     </md-toolbar>
-    <!-- <div layout="row" layout-align="start center">
-      <span *ngIf="!searchBox.searchVisible">
-        <span *ngIf="(selectable && !selectedRows.length) || !selectable" class="md-title"><md-icon>list</md-icon></span>
-      <span *ngIf="selectedRows.length && selectable" class="md-body-1">0 item(s) selected</span>
-      </span>
-      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
-        flex>
-      </td-search-box>
-      <a (click)="add()" routerLink="/">
-        <md-icon class="tc-grey-800">add</md-icon>
-      </a>
+    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
+      [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+      <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
+        <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
+        <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
+      </ng-template>
+      <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
+        <div layout="row">
+          <md-chip-list>
+            <md-chip *ngFor="let item of value">
+              <span mdTooltip="{{item.name}}">{{ item.value }}</span>
+            </md-chip>
+          </md-chip-list>
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="remark" let-value="value" let-row="row" let-column="column">
+        <div class="text-thumb">{{value}}</div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+        <div layout="row" layout-align="end end">
+          <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
+          <md-menu #menu="mdMenu">
+            <button md-menu-item (click)="edit(value)"><md-icon>edit</md-icon><span>Edit</span></button>
+            <button md-menu-item (click)="delete(value)"><md-icon class="tc-red-800">delete</md-icon><span>Remove</span></button>
+          </md-menu>
+        </div>
+      </ng-template>
+    </td-data-table>
+    <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+      <h3>No results to display.</h3>
     </div>
-    <md-divider></md-divider> -->
-    <div class="row">
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
-        [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
-        <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
-          <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
-          <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
-        </ng-template>
-        <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
-          <div layout="row">
-            <md-chip-list>
-              <md-chip *ngFor="let item of value">
-                <span mdTooltip="{{item.name}}">{{ item.value }}</span>
-              </md-chip>
-            </md-chip-list>
-          </div>
-        </ng-template>
-        <ng-template tdDataTableTemplate="remark" let-value="value" let-row="row" let-column="column">
-          <div class="text-thumb">{{value}}</div>
-        </ng-template>
-        <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
-          <div layout="row" layout-align="end end">
-            <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
-            <md-menu #menu="mdMenu">
-              <button md-menu-item (click)="edit(value)"><md-icon>edit</md-icon><span>Edit</span></button>
-              <button md-menu-item (click)="delete(value)"><md-icon class="tc-red-800">delete</md-icon><span>Remove</span></button>
-            </md-menu>
-          </div>
-        </ng-template>
-      </td-data-table>
-      <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-        <h3>No results to display.</h3>
-      </div>
-      <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
-        <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
-      </td-paging-bar>
-    </div>
+    <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+      <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
+    </td-paging-bar>
   </div>
 </div>

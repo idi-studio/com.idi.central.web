@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './user-list.component.html',
+    styleUrls: ['user-list.component.css']
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 
