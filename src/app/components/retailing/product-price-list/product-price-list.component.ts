@@ -113,7 +113,6 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     hasTerm(category: number): boolean {
         switch (category) {
             case PriceCategory.Discount:
-            case PriceCategory.VIP:
                 return true
             default:
                 return false
@@ -122,7 +121,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
     hasGrade(category: number): boolean {
         switch (category) {
-            case PriceCategory.VIP:
+            case PriceCategory.Discount:
                 return true
             default:
                 return false

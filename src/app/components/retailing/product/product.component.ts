@@ -131,12 +131,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
                     return;
             }
 
-            this.snackBar.open(result.message, "", { duration: 2000, });
-            // this.alert(result.message)
-
-            // if (result.status == Status.Success) {
-            //     this.back()
-            // }
+            this.show(result.message)
         }
         catch (error) {
             this.tags = [];

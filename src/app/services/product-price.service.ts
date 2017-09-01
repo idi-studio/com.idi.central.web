@@ -9,10 +9,17 @@ export interface IProductPrice {
     categoryname: string;
     amount: number;
     grade: number;
+    gradeto: number;
     startdate: Date;
     duedate: Date;
     pid: string;
     active: boolean;
+}
+
+export interface IPrice {
+    category: number;
+    amount: number;
+    grade: number;
 }
 
 @Injectable()

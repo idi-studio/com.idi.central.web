@@ -19,11 +19,12 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
     currentProduct: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
-    current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, startdate: null, duedate: null, pid: "", active: false }
+    current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, gradeto: 0, startdate: null, duedate: null, pid: "", active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
     formControlGrade = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
+    formControlGradeTo = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
     formControlStart = new FormControl('', [Validators.required])
     formControlDue = new FormControl('', [Validators.required])
 
@@ -86,7 +87,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
         let valid: boolean = true
 
         if (this.hasGrade(this.current.category)) {
-            valid = this.formControlGrade.valid
+            valid = this.formControlGrade.valid && this.formControlGradeTo.valid && this.current.grade <= this.current.gradeto
         }
 
         if (this.hasTerm(this.current.category)) {
@@ -107,7 +108,6 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     hasTerm(category: number): boolean {
         switch (category) {
             case PriceCategory.Discount:
-            case PriceCategory.VIP:
                 return true
             default:
                 return false
@@ -116,7 +116,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
     hasGrade(category: number): boolean {
         switch (category) {
-            case PriceCategory.VIP:
+            case PriceCategory.Discount:
                 return true
             default:
                 return false

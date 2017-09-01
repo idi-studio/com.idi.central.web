@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
-import { ITag, IProductImage } from '../services';
+import { ITag, IProductImage, IPrice } from '../services';
 
 export interface IProduct {
     id: string
@@ -19,7 +19,7 @@ export interface IProductSell {
     name: string
     code: string
     tags: Array<ITag>
-    prices: any
+    prices: Array<IPrice>
 }
 
 @Injectable()

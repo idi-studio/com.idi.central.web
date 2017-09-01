@@ -46,9 +46,6 @@
             [mdDatepicker]="startpicker" placeholder="Start Date">
           <span mdSuffix>00:00:00 &nbsp;</span>
           <button mdSuffix [mdDatepickerToggle]="startpicker"></button>
-          <!-- <md-error *ngIf="formControlStart.hasError('pattern')">
-                The date format should be as 'yyyy/MM/dd'
-              </md-error> -->
           <md-error *ngIf="formControlStart.hasError('required')">
             Start date is <strong>required</strong>
           </md-error>
@@ -61,9 +58,6 @@
             [mdDatepicker]="duepicker" placeholder="Due Date">
           <span mdSuffix>23:59:59 &nbsp;</span>
           <button mdSuffix [mdDatepickerToggle]="duepicker"></button>
-          <!-- <md-error *ngIf="formControlDue.hasError('pattern')">
-                The date format should be as 'yyyy/MM/dd'
-              </md-error> -->
           <md-error *ngIf="formControlDue.hasError('required')">
             Due date is <strong>required</strong>
           </md-error>
@@ -73,20 +67,37 @@
     </div>
 
     <div class="row" *ngIf="hasGrade(current.category)">
-      <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
-            autocomplete="off">
-          <md-error *ngIf="formControlGrade.hasError('max')">
-            Grade should be less than or equal to 100.
-          </md-error>
-          <md-error *ngIf="formControlGrade.hasError('min')">
-            Grade should be greater than or equal to 0.
-          </md-error>
-          <md-error *ngIf="formControlGrade.hasError('required')">
-            Grade is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+      <div layout="row" class="col-md-4 col-sm-6 col-xs-10">
+        <div flex="40">
+          <md-input-container class="md-input-full-width">
+            <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
+              autocomplete="off">
+            <md-error *ngIf="formControlGrade.hasError('max')">
+              Grade should be less than or equal to 100.
+            </md-error>
+            <md-error *ngIf="formControlGrade.hasError('min')">
+              Grade should be greater than or equal to 0.
+            </md-error>
+            <md-error *ngIf="formControlGrade.hasError('required')">
+              Grade is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+        </div>
+        <div flex="10"></div>
+        <div flex="40">
+          <md-input-container class="md-input-full-width">
+            <input mdInput type="number" name="grade" [(ngModel)]="current.gradeto" placeholder="To" [formControl]="formControlGradeTo" autocomplete="off">
+            <md-error *ngIf="formControlGradeTo.hasError('max')">
+              Grade should be less than or equal to 100.
+            </md-error>
+            <md-error *ngIf="formControlGradeTo.hasError('min')">
+              Grade should be greater than or equal to 0.
+            </md-error>
+            <md-error *ngIf="formControlGradeTo.hasError('required')">
+              Grade is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+        </div>
       </div>
     </div>
 
