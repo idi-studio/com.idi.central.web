@@ -117,11 +117,10 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
     async handleDelete(id: string): Promise<void> {
         try {
             let result = await this.cust.remove(id).toPromise()
-            
+
             this.show(result.message)
 
-            if (result.Status == Status.Success)
-                this.filter();
+            this.filter();
         }
         catch (error) {
             this.handle(error)
