@@ -90,7 +90,7 @@
     <div class="card-box" *ngIf="editable">
       <div class="row">
         <md-toolbar class="toolbar">
-          <span *ngIf="!searchBox.searchVisible" (click)="cancel()"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+          <span *ngIf="!searchBox.searchVisible" (click)="cancel()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
           <td-search-box #searchBox backIcon="arrow_back" placeholder="Search here" (searchDebounce)="search($event)" flex>
           </td-search-box>
         </md-toolbar>
@@ -110,11 +110,11 @@
                 </div>
               </ng-template>
               <ng-template tdDataTableTemplate="prices" let-value="value" let-row="row" let-column="column">
-                {{value.Selling | number:'1.2-2'}}
+                {{price(value) | number:'1.2-2'}}
               </ng-template>
               <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
                 <div layout="row" layout-align="end end">
-                  <button md-icon-button (click)="add(value)"><md-icon>add_shopping_cart</md-icon></button>
+                  <button md-icon-button (click)="add(value,price(row.prices))"><md-icon>add_shopping_cart</md-icon></button>
                 </div>
               </ng-template>
             </td-data-table>
