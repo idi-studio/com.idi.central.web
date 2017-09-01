@@ -123,7 +123,6 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     }
 
     delete(id: string): void {
-
         this.confirm("Are you confirm to delete this record?", (accepted) => {
             if (accepted) {
                 this.handleDelete(id)

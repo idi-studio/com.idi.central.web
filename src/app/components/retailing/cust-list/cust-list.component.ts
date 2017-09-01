@@ -97,4 +97,37 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
         this.pageSize = pagingEvent.pageSize;
         this.filter();
     }
+
+    add(): void {
+        this.navigate("/central/cust/info/add")
+    }
+
+    edit(id: string): void {
+        this.navigate(`/central/cust/info/edit/${id}`)
+    }
+
+    delete(id: string): void {
+        this.confirm("Are you confirm to delete this record?", (accepted) => {
+            if (accepted) {
+                this.handleDelete(id)
+            }
+        })
+    }
+
+    async handleDelete(id: string): Promise<void> {
+        try {
+            let result = await this.cust.remove(id).toPromise()
+            
+            this.show(result.message)
+
+            if (result.Status == Status.Success)
+                this.filter();
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
 }

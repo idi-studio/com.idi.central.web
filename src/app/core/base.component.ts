@@ -83,7 +83,7 @@ export abstract class BaseComponent {
         this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
     }
 
-    protected show(message: string, duration: number = 2000) {
+    protected show(message: string, duration: number = 5000) {
         this.snack.open(message, "", { duration: duration, });
     }
 

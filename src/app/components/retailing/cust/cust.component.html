@@ -1,0 +1,69 @@
+<page-header [header]="header"></page-header>
+
+<div class="row">
+  <div class="card-box">
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="toolbar-spacer"></span>
+        <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
+      </md-toolbar>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlCustName" autocomplete="off"
+            maxlength="20">
+          <md-error *ngIf="formControlCustName.hasError('pattern')">
+            Only Support case letters and Chinese.
+          </md-error>
+          <md-error *ngIf="formControlCustName.hasError('required')">
+            Name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <div class="mat-input-container md-input-full-width">
+          <div class="mat-input-wrapper">
+            <div class="mat-input-infix mat-select-flex">
+              <md-radio-group [(ngModel)]="current.gender">
+                <md-radio-button value="0">Female</md-radio-button>
+                <md-radio-button value="1">Male</md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <span class="md-caption" mdPrefix>+86 &nbsp;</span>
+          <input mdInput name="phone" [(ngModel)]="current.phone" placeholder="Phone No." [formControl]="formControlPhone" autocomplete="off"
+            maxlength="20">
+          <md-error *ngIf="formControlPhone.hasError('pattern')">
+            Phone No. is invalid.
+          </md-error>
+          <md-error *ngIf="formControlPhone.hasError('required')">
+            Phone No. is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
+            autocomplete="off">
+          <md-error *ngIf="formControlGrade.hasError('max')">
+            Grade should be less than or equal to 100.
+          </md-error>
+          <md-error *ngIf="formControlGrade.hasError('min')">
+            Grade should be greater than or equal to 0.
+          </md-error>
+          <md-error *ngIf="formControlGrade.hasError('required')">
+            Grade is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+  </div>
+</div>

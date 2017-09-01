@@ -8,14 +8,26 @@ export interface ICustomer {
     name: string
     grade: number
     phone: string
-    gender: string
+    gender: number
     date: string
+    verified: boolean
 }
 
 @Injectable()
 export class CustomerService extends RESTService {
 
     constructor(http: Http) { super(http) }
+
+    single(id: string): Observable<ICustomer> {
+        return super.get(`/api/cust/${id}`).map((res: Response) => {
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return null;
+        });
+    }
 
     all(): Observable<Array<ICustomer>> {
 
@@ -27,6 +39,24 @@ export class CustomerService extends RESTService {
                 return result.data
 
             return new Array<ICustomer>()
+        });
+    }
+
+    add(value: any): Observable<any> {
+        return super.post('/api/cust', value).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    update(value: ICustomer): Observable<any> {
+        return super.put(`/api/cust/${value.id}`, value).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    remove(id: string): Observable<any> {
+        return super.delete(`/api/cust/${id}`).map((res: Response) => {
+            return res.json();
         });
     }
 }

@@ -23,7 +23,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
-    formControlGrade = new FormControl({ value: "0", disabled: true }, [Validators.required, Validators.min(0), Validators.max(100)])
+    formControlGrade = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
     formControlStart = new FormControl('', [Validators.required])
     formControlDue = new FormControl('', [Validators.required])
 

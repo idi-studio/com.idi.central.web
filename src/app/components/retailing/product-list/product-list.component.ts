@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Component({
     templateUrl: './product-list.component.html',
+    styleUrls: ['product-list.component.css']
 })
 export class ProductListComponent extends BaseComponent implements OnInit {
 
