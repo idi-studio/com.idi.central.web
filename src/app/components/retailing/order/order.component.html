@@ -29,6 +29,19 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
           <md-input-container class="md-input-full-width">
+            <input mdInput name="customer" placeholder="Customer" [mdAutocomplete]="auto">
+            <!-- <input mdInput type="hidden" name="customerid" [(ngModel)]="current.customerid" [mdAutocomplete]="auto"> -->
+          </md-input-container>
+          <md-autocomplete #auto="mdAutocomplete">
+            <md-option *ngFor="let cust of custs" [value]="cust.id">
+              {{ cust.name }}
+            </md-option>
+          </md-autocomplete>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-10">
+          <md-input-container class="md-input-full-width">
             <textarea mdInput name="remark" [(ngModel)]="current.remark" placeholder="Remark" rows="1" maxlength="200"></textarea>
             <md-icon (click)="save()" mdSuffix>save</md-icon>
             <md-hint align="end">{{current.remark.length}} / 200</md-hint>

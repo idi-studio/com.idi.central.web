@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
-import { OrderService, OrderItemService, ProductService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice } from '../../../services';
+import { OrderService, OrderItemService, ProductService, CustomerService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice, ICustomer } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from '../../../core';
 import { List } from 'linqts'
 import 'rxjs/add/operator/toPromise';
@@ -18,6 +18,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     mode: Command;
     current: IOrder = { id: "", customerid: "", sn: "", status: "", statusdesc: "", date: "", remark: "", items: [] }
     orderId: string;
+    custs: ICustomer[] = []
     data: IProductSell[] = [];
 
     columns: ITdDataTableColumn[] = [
@@ -42,7 +43,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private order: OrderService, private orderItem: OrderItemService, private product: ProductService, private dataTable: TdDataTableService,
+    constructor(private order: OrderService, private orderItem: OrderItemService,
+        private product: ProductService, private customer: CustomerService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -60,6 +62,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.mode = this.getMode()
             this.orderId = this.getParam("id");
             this.current = await this.order.single(this.orderId).toPromise()
+            this.custs = await this.customer.all().toPromise()
 
             switch (this.mode) {
                 case Command.Update:
