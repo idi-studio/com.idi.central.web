@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { CustomerService, ICustomer } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
+import { BaseComponent, PageHeader, Command, Status, Regex, Grade } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -18,7 +18,8 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     formControlPhone = new FormControl('', [Validators.required, Validators.pattern(Regex.PHONE_NUM)])
     formControlGrade = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
 
-    mode: Command;
+    mode: Command
+    grade = Grade
     current: ICustomer = { id: "", name: "", gender: 0, grade: 0, phone: "", date: "", verified: false }
 
     constructor(private customer: CustomerService,

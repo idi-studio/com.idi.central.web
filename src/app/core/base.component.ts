@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { Runtime } from './runtime';
-import { Command } from './enums';
+import { Command } from './contants';
 
 export abstract class BaseComponent {
 

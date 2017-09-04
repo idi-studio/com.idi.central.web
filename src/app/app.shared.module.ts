@@ -12,7 +12,7 @@ import {
 import {
     MdButtonModule, MdCardModule, MdIconModule,
     MdListModule, MdMenuModule, MdTooltipModule,
-    MdSlideToggleModule, MdInputModule, MdCheckboxModule,
+    MdSlideToggleModule, MdInputModule, MdCheckboxModule, MdSliderModule,
     MdToolbarModule, MdSnackBarModule, MdSidenavModule, MdRadioModule, MdAutocompleteModule,
     MdTabsModule, MdSelectModule, MdChipsModule, MdDatepickerModule, MdNativeDateModule,
 } from '@angular/material';
@@ -30,7 +30,7 @@ const ANGULAR_MODULES: any[] = [
 const MATERIAL_MODULES: any[] = [
     MdButtonModule, MdCardModule, MdIconModule,
     MdListModule, MdMenuModule, MdTooltipModule,
-    MdSlideToggleModule, MdInputModule, MdCheckboxModule,
+    MdSlideToggleModule, MdInputModule, MdCheckboxModule, MdSliderModule,
     MdToolbarModule, MdSnackBarModule, MdSidenavModule, MdRadioModule, MdAutocompleteModule,
     MdTabsModule, MdSelectModule, MdChipsModule, MdDatepickerModule, MdNativeDateModule
 ];
