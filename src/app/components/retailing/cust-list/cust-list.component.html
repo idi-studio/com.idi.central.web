@@ -16,6 +16,9 @@
           <span *ngIf="value==0" class="tc-pink-700"><i class="fa fa-female" aria-hidden="true"></i></span>
           <span *ngIf="value==1" class="tc-light-blue-700"><i class="fa fa-male" aria-hidden="true"></i></span>
         </ng-template>
+        <ng-template tdDataTableTemplate="grade" let-value="value" let-row="row" let-column="column">
+          {{gradedesc(value)}}
+        </ng-template>
         <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
           <div layout="row" layout-align="end end">
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>

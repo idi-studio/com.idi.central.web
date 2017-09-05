@@ -6,7 +6,7 @@ import { IOrderItem } from '../services';
 
 export interface IOrder {
     id: string
-    customerid: string
+    custid: string
     sn: string
     date: string
     status: string

@@ -6,7 +6,8 @@ import {
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
 import { CustomerService, ICustomer } from '../../../services';
-import { BaseComponent, PageHeader, Status } from '../../../core';
+import { BaseComponent, PageHeader, Status, Grade } from '../../../core';
+import { List } from 'linqts'
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -112,6 +113,10 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
                 this.handleDelete(id)
             }
         })
+    }
+
+    gradedesc(key: number): string {
+        return new List(Grade).FirstOrDefault(e => e.key == key).name || '';
     }
 
     async handleDelete(id: string): Promise<void> {

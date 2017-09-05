@@ -26,8 +26,8 @@ export enum PictureCategory {
     Advertisement = 8
 }
 
-export const Grade: any = [
-    { key: 0, name: "Customer" }, 
+export const Grade: [any] = [
+    { key: 0, name: "Ordinary" },
     { key: 1, name: "VIP1" },
     { key: 2, name: "VIP2" },
     { key: 3, name: "VIP3" },

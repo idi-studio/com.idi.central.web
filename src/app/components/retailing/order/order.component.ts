@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
@@ -6,7 +6,10 @@ import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService
 import { OrderService, OrderItemService, ProductService, CustomerService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice, ICustomer } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from '../../../core';
 import { List } from 'linqts'
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
 
 @Component({
     templateUrl: './order.component.html',
@@ -16,10 +19,13 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     mode: Command;
-    current: IOrder = { id: "", customerid: "", sn: "", status: "", statusdesc: "", date: "", remark: "", items: [] }
+    current: IOrder = { id: "", custid: "", sn: "", status: "", statusdesc: "", date: "", remark: "", items: [] }
     orderId: string;
-    custs: ICustomer[] = []
-    data: IProductSell[] = [];
+    options: ICustomer[] = []
+    filteredOptions: Observable<ICustomer[]>
+    customerControl = new FormControl()
+
+    data: IProductSell[] = []
 
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Name', filter: true },
@@ -53,6 +59,19 @@ export class OrderComponent extends BaseComponent implements OnInit {
     ngOnInit(): void {
         this.bindView();
         this.bindTable();
+
+        this.filteredOptions = this.customerControl.valueChanges.startWith(null)
+            .map(cust => cust && typeof cust === 'object' ? cust.name : cust)
+            .map(name => name ? this.filter(name) : this.options.slice());
+    }
+
+    filter(name: string): ICustomer[] {
+        return this.options.filter(option =>
+            option.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    }
+
+    display(cust: ICustomer): string {
+        return cust ? cust.name : '';
     }
 
     async bindView(): Promise<void> {
@@ -62,7 +81,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.mode = this.getMode()
             this.orderId = this.getParam("id");
             this.current = await this.order.single(this.orderId).toPromise()
-            this.custs = await this.customer.all().toPromise()
+            this.options = await this.customer.all().toPromise()
 
             switch (this.mode) {
                 case Command.Update:
@@ -153,7 +172,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let result = await this.order.update(this.current).toPromise()
 
             if (result.status == Status.Success) {
-                this.show("Order remark updated.")
+                this.show("Order updated.")
             }
             else {
                 this.alert(result.message)
