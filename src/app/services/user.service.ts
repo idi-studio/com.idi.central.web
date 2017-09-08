@@ -28,14 +28,14 @@ export class UserService extends RESTService {
     constructor(http: Http) { super(http) }
 
     profile(): Observable<IUserProfile> {
-        let username = Runtime.instance.get("username");
+        let username = Runtime.instance.get('username');
 
         return super.get('/api/user/profile/' + username, ).map((res: Response) => {
 
             var result = res.json();
 
             if (result.status == Status.Success) {
-                Runtime.instance.set("profile", JSON.stringify(result.data))
+                Runtime.instance.set('profile', JSON.stringify(result.data))
                 return result.data
             }
 

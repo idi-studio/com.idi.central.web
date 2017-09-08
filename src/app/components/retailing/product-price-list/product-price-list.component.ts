@@ -15,9 +15,9 @@ import 'rxjs/add/operator/toPromise';
 })
 export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Product", ["Retailing", "Product", "Prices"]);
+    header: PageHeader = new PageHeader('Product', ['Retailing', 'Product', 'Prices']);
 
-    current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
     data: IProductPrice[] = [];
 
     columns: ITdDataTableColumn[] = [
@@ -55,7 +55,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let id = this.getParam("id")
+            let id = this.getParam('id')
             this.current = await this.product.single(id).toPromise()
             this.data = await this.price.all(id).toPromise()
             this.header.title = this.current.name
@@ -85,7 +85,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     }
 
     back(): void {
-        this.navigate("/central/product/list")
+        this.navigate('/central/product/list')
     }
 
     add(): void {
@@ -134,7 +134,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
     delete(id: string): void {
 
-        this.confirm("Are you confirm to delete this record?", (accepted) => {
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
                 this.handleDelete(id)
             }

@@ -19,7 +19,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     editable: boolean = false
     files: Array<File> = []
     categorys: any[]
-    current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
 
     constructor(private product: ProductService, private productImage: ProductImageService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
@@ -28,8 +28,8 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.header = new PageHeader("Product", ["Retailing", "Product", "Image"])
-        this.pid = this.getParam("id")
+        this.header = new PageHeader('Product', ['Retailing', 'Product', 'Image'])
+        this.pid = this.getParam('id')
 
         this.initUI();
         this.filter();
@@ -90,7 +90,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     }
 
     delete(id: string): void {
-        this.confirm("Are you confirm to delete this record?", (accepted) => {
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
                 this.handleDelete(id)
             }
@@ -105,7 +105,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             if (result.status == Status.Success) {
                 let index = this.current.images.findIndex(image => image.id == id)
                 this.current.images.splice(index, 1)
-                this.show("Product image(s) updated.")
+                this.show('Product image(s) updated.')
             }
             else {
                 this.alert(result.message)
@@ -126,7 +126,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
 
             if (result.status == Status.Success) {
                 this.editable = false
-                this.show("Product image(s) updated.")
+                this.show('Product image(s) updated.')
             }
             else {
                 this.alert(result.message)
@@ -165,7 +165,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             let result = await this.productImage.add(this.current.id, this.files).toPromise()
 
             if (result.status == Status.Success) {
-                this.show("Product image(s) uploaded.");
+                this.show('Product image(s) uploaded.');
                 this.filter();
             }
             else {
@@ -182,19 +182,19 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     }
 
     back(): void {
-        this.navigate("central/product/list")
+        this.navigate('central/product/list')
     }
 
     categorydesc(category: PictureCategory): string {
         switch (category) {
             case PictureCategory.Cover:
-                return "COVER"
+                return 'COVER'
             case PictureCategory.Picture:
-                return "PIC"
+                return 'PIC'
             case PictureCategory.Advertisement:
-                return "AD"
+                return 'AD'
             default:
-                return ""
+                return ''
         }
     }
 }

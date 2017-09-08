@@ -19,7 +19,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     mode: Command;
-    current: IOrder = { id: "", custid: "", sn: "", status: "", statusdesc: "", date: "", remark: "", items: [] }
+    current: IOrder = { id: '', custid: '', sn: '', status: '', statusdesc: '', date: '', remark: '', items: [] }
     orderId: string;
     options: ICustomer[] = []
     filteredOptions: Observable<ICustomer[]>
@@ -66,8 +66,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     filter(name: string): ICustomer[] {
-        return this.options.filter(option =>
-            option.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+        return this.options.filter(option => option.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
     }
 
     display(cust: ICustomer): string {
@@ -79,7 +78,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
         try {
             this.mode = this.getMode()
-            this.orderId = this.getParam("id");
+            this.orderId = this.getParam('id');
             this.current = await this.order.single(this.orderId).toPromise()
             this.options = await this.customer.all().toPromise()
 
@@ -88,7 +87,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
             switch (this.mode) {
                 case Command.Update:
-                    this.header = new PageHeader("Order", ["Retailing", "Order", "Edit"])
+                    this.header = new PageHeader('Order', ['Retailing', 'Order', 'Edit'])
                     break;
                 default:
                     this.back();
@@ -108,7 +107,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
         try {
             this.mode = this.getMode()
-            this.orderId = this.getParam("id");
+            this.orderId = this.getParam('id');
             this.current = await this.order.single(this.orderId).toPromise()
             this.data = await this.product.selling().toPromise()
         }
@@ -159,7 +158,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     back(): void {
-        this.navigate("central/order/list")
+        this.navigate('central/order/list')
     }
 
     shopping(): void {
@@ -197,7 +196,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let result = await this.order.update(this.current).toPromise()
 
             if (result.status == Status.Success) {
-                this.show("Order updated.")
+                this.show('Order updated.')
             }
             else {
                 this.alert(result.message)
@@ -217,7 +216,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let result = await this.orderItem.add(item).toPromise()
 
             if (result.status == Status.Success) {
-                this.show("Order updated.")
+                this.show('Order updated.')
             }
             else {
                 this.alert(result.message)
@@ -238,7 +237,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
     delete(id: string): void {
 
-        this.confirm("Are you confirm to delete this record?", (accepted) => {
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
                 this.handleDelete(id)
             }

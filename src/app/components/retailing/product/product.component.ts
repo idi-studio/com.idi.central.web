@@ -21,7 +21,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
     mode: Command;
     selectedCategory: string
-    current: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
     tags: ITag[]
     chips: ITag[] = []
 
@@ -36,10 +36,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
         switch (this.mode) {
             case Command.Create:
-                this.header = new PageHeader("Product", ["Retailing", "Product", "Add"])
+                this.header = new PageHeader('Product', ['Retailing', 'Product', 'Add'])
                 break;
             case Command.Update:
-                this.header = new PageHeader("Product", ["Retailing", "Product", "Edit"])
+                this.header = new PageHeader('Product', ['Retailing', 'Product', 'Edit'])
                 break;
             default:
                 this.back();
@@ -54,7 +54,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
         try {
             this.tags = await this.tag.all().toPromise()
-            this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ""
+            this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ''
 
             if (this.mode == Command.Update) {
                 let id = this.getParam('id');
@@ -80,7 +80,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     }
 
     back(): void {
-        this.navigate("central/product/list")
+        this.navigate('central/product/list')
     }
 
     setPrice():void{
@@ -107,7 +107,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
         let item = this.tags.filter(e => e.key == category)[0];
 
         this.chips.push({ key: item.key, name: item.name, value: tag });
-        this.formControlProdTag.setValue("");
+        this.formControlProdTag.setValue('');
         this.formControlProdTag.reset();
     }
 

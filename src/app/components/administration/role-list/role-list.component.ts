@@ -12,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Roles", ["Administration", "Roles"]);
+    header: PageHeader = new PageHeader('Roles', ['Administration', 'Roles']);
 
     data: IRole[] = [];
 

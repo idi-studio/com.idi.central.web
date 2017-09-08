@@ -22,8 +22,8 @@ export class ProductImageService extends RESTService {
 
     add(pid: string, files: File[]): Observable<any> {
         let formData = new FormData()
-        formData.append("pid", pid)
-        return this.upload("/api/product/picture", files, formData)
+        formData.append('pid', pid)
+        return this.upload('/api/product/picture', files, formData)
     }
 
     batch(pid: string, images: IProductImage[]): Observable<any> {

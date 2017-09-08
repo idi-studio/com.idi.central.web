@@ -6,5 +6,5 @@ import { PageHeader } from '../../core';
     styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-    header: PageHeader = new PageHeader("Dashboard", ["Dashboard"]);
+    header: PageHeader = new PageHeader('Dashboard', ['Dashboard']);
 }

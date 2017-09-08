@@ -52,26 +52,26 @@ export class MainComponent extends BaseComponent implements OnInit {
             dh = $(document).height();
 
             if (jQuery.browser.mobile === true) {
-                $("body").addClass("mobile").removeClass("fixed-left");
+                $('body').addClass('mobile').removeClass('fixed-left');
             }
 
-            if (!$("#wrapper").hasClass("forced")) {
+            if (!$('#wrapper').hasClass('forced')) {
                 if (w > 1024) {
-                    $("body").removeClass("smallscreen").addClass("widescreen");
-                    $("#wrapper").removeClass("enlarged");
+                    $('body').removeClass('smallscreen').addClass('widescreen');
+                    $('#wrapper').removeClass('enlarged');
                 } else {
-                    $("body").removeClass("widescreen").addClass("smallscreen");
-                    $("#wrapper").addClass("enlarged");
-                    $(".left ul").removeAttr("style");
+                    $('body').removeClass('widescreen').addClass('smallscreen');
+                    $('#wrapper').addClass('enlarged');
+                    $('.left ul').removeAttr('style');
                 }
-                if ($("#wrapper").hasClass("enlarged") && $("body").hasClass("fixed-left")) {
-                    $("body").removeClass("fixed-left").addClass("fixed-left-void");
-                } else if (!$("#wrapper").hasClass("enlarged") && $("body").hasClass("fixed-left-void")) {
-                    $("body").removeClass("fixed-left-void").addClass("fixed-left");
+                if ($('#wrapper').hasClass('enlarged') && $('body').hasClass('fixed-left')) {
+                    $('body').removeClass('fixed-left').addClass('fixed-left-void');
+                } else if (!$('#wrapper').hasClass('enlarged') && $('body').hasClass('fixed-left-void')) {
+                    $('body').removeClass('fixed-left-void').addClass('fixed-left');
                 }
 
             }
-            toggle_slimscroll(".slimscrollleft");
+            toggle_slimscroll('.slimscrollleft');
         }
 
         function resizeitems() {
@@ -87,13 +87,13 @@ export class MainComponent extends BaseComponent implements OnInit {
                 //SLIM SCROLL
                 $('.slimscroller').slimscroll({
                     height: 'auto',
-                    size: "5px"
+                    size: '5px'
                 });
 
                 $('.slimscrollleft').slimScroll({
                     height: 'auto',
                     position: 'right',
-                    size: "5px",
+                    size: '5px',
                     color: '#dcdcdc',
                     wheelStep: 5
                 });
@@ -101,30 +101,30 @@ export class MainComponent extends BaseComponent implements OnInit {
         }
 
         function toggle_slimscroll(item) {
-            if ($("#wrapper").hasClass("enlarged")) {
-                $(item).css("overflow", "inherit").parent().css("overflow", "inherit");
-                $(item).siblings(".slimScrollBar").css("visibility", "hidden");
+            if ($('#wrapper').hasClass('enlarged')) {
+                $(item).css('overflow', 'inherit').parent().css('overflow', 'inherit');
+                $(item).siblings('.slimScrollBar').css('visibility', 'hidden');
             } else {
-                $(item).css("overflow", "hidden").parent().css("overflow", "hidden");
-                $(item).siblings(".slimScrollBar").css("visibility", "visible");
+                $(item).css('overflow', 'hidden').parent().css('overflow', 'hidden');
+                $(item).siblings('.slimScrollBar').css('visibility', 'visible');
             }
         }
 
         $(function () {
             // FastClick.attach(document.body);
-            resizefunc.push("initscrolls");
-            resizefunc.push("changeptype");
+            resizefunc.push('initscrolls');
+            resizefunc.push('changeptype');
 
-            window["initscrolls"] = initscrolls;
-            window["changeptype"] = changeptype;
+            window['initscrolls'] = initscrolls;
+            window['changeptype'] = changeptype;
 
             $('.animate-number').each(function () {
-                $(this).animateNumbers($(this).attr("data-value"), true, parseInt($(this).attr("data-duration")));
+                $(this).animateNumbers($(this).attr('data-value'), true, parseInt($(this).attr('data-duration')));
             });
 
             //RUN RESIZE ITEMS
             $(window).resize(debounce(resizeitems, 100, false));
-            $("body").trigger("resize");
+            $('body').trigger('resize');
 
             // right side-bar toggle
             $('.right-bar-toggle').on('click', function (e) {

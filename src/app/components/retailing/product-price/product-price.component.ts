@@ -18,13 +18,13 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     categorys: any[]
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
-    currentProduct: IProduct = { id: "", name: "", code: "", tags: [], images: [], active: false, onshelf: false }
-    current: IProductPrice = { id: "", category: PriceCategory.Cost, categoryname: "", amount: 0.00, grade: 0, gradeto: 0, startdate: null, duedate: null, pid: "", active: false }
+    currentProduct: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
+    current: IProductPrice = { id: '', category: PriceCategory.Cost, categoryname: '', amount: 0.00, grade: 0, gradeto: 0, startdate: null, duedate: null, pid: '', active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
     formControlAmount = new FormControl('', [Validators.required])
-    formControlGrade = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
-    formControlGradeTo = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
+    formControlGrade = new FormControl({ value: '0' }, [Validators.required, Validators.min(0), Validators.max(100)])
+    formControlGradeTo = new FormControl({ value: '0' }, [Validators.required, Validators.min(0), Validators.max(100)])
     formControlStart = new FormControl('', [Validators.required])
     formControlDue = new FormControl('', [Validators.required])
 
@@ -39,10 +39,10 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
         switch (this.mode) {
             case Command.Create:
-                this.header = new PageHeader("Product", ["Retailing", "Product", "Price", "Add"])
+                this.header = new PageHeader('Product', ['Retailing', 'Product', 'Price', 'Add'])
                 break;
             case Command.Update:
-                this.header = new PageHeader("Product", ["Retailing", "Product", "Price", "Edit"])
+                this.header = new PageHeader('Product', ['Retailing', 'Product', 'Price', 'Edit'])
                 break;
             default:
                 this.back()

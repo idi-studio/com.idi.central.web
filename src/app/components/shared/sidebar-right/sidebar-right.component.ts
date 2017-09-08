@@ -9,7 +9,7 @@ declare var $: any;
 export class SidebarRightComponent implements OnInit {
     ngOnInit(): void {
         $(function () {
-            $(".nicescroll").niceScroll({ cursorcolor: '#98a6ad', cursorwidth: '6px', cursorborderradius: '5px' });
+            $('.nicescroll').niceScroll({ cursorcolor: '#98a6ad', cursorwidth: '6px', cursorborderradius: '5px' });
         });
     }
 }

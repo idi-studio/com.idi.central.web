@@ -9,6 +9,6 @@ export class LogoutComponent implements OnInit {
 
     ngOnInit(): void {
         this.token.clear();
-        this.router.navigate(["/login"]);
+        this.router.navigate(['/login']);
     }
 }

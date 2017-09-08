@@ -7,8 +7,8 @@ export class MenuItem {
 
     constructor(name: string, action?: string, icon?: string, actived?: boolean, sub?: MenuItem[]) {
         this.name = name;
-        this.action = action && action || "";
-        this.icon = icon && icon || "";
+        this.action = action && action || '';
+        this.icon = icon && icon || '';
         this.actived = actived && actived || false;
         this.sub = sub && sub || [];
     }
@@ -36,27 +36,27 @@ export class Navigation {
 
     private init() {
         this.main = [
-            new MenuItem("Dashboard", "dashboard", "zmdi zmdi-view-dashboard", true),
-            new MenuItem("Administration", null, "zmdi zmdi-accounts-list-alt", false, [
-                new MenuItem("Roles", "role/list"),
-                new MenuItem("Users", "user/list")
+            new MenuItem('Dashboard', 'dashboard', 'zmdi zmdi-view-dashboard', true),
+            new MenuItem('Administration', null, 'zmdi zmdi-accounts-list-alt', false, [
+                new MenuItem('Roles', 'role/list'),
+                new MenuItem('Users', 'user/list')
             ]),
-            new MenuItem("Retailing", null, "zmdi zmdi-labels", null, [
-                new MenuItem("Products", "product/list"),
-                new MenuItem("Orders", "order/list"),
-                new MenuItem("Customers", "cust/list")
+            new MenuItem('Retailing', null, 'zmdi zmdi-labels', null, [
+                new MenuItem('Products', 'product/list'),
+                new MenuItem('Orders', 'order/list'),
+                new MenuItem('Customers', 'cust/list')
             ]),
-            new MenuItem("Purchase", null, "zmdi zmdi-truck", null, [
-                new MenuItem("Come soon...")
+            new MenuItem('Purchase', null, 'zmdi zmdi-truck', null, [
+                new MenuItem('Come soon...')
             ]),
-            new MenuItem("Inventory ", null, "zmdi zmdi-store", null, [
-                new MenuItem("Come soon...")
+            new MenuItem('Inventory ', null, 'zmdi zmdi-store', null, [
+                new MenuItem('Come soon...')
             ])
         ];
 
         this.help = [
-            new MenuItem("User Guide", null, "fa fa-book", null, [
-                new MenuItem("Come soon...")
+            new MenuItem('User Guide', null, 'fa fa-book', null, [
+                new MenuItem('Come soon...')
             ])];
     }
 }

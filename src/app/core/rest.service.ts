@@ -26,8 +26,8 @@ export class RESTService {
 
     protected upload(url: string, files: File[], formData?: FormData): Observable<any> {
         let headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Authorization": "Bearer " + Runtime.instance.get("token")
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': 'Bearer ' + Runtime.instance.get('token')
         }
 
         formData = formData || new FormData()
@@ -46,14 +46,14 @@ export class RESTService {
 
         let headers = new Headers();
 
-        if (url == "/api/token") {
+        if (url == '/api/token') {
             headers.append('Content-Type', 'application/x-www-form-urlencoded');
             headers.append('Access-Control-Allow-Origin', '*');
-            headers.append('Authorization', "Basic " + Runtime.instance.clientKey);
+            headers.append('Authorization', 'Basic ' + Runtime.instance.clientKey);
         } else {
             headers.append('Content-Type', 'application/json');
             headers.append('Access-Control-Allow-Origin', '*');
-            headers.append('Authorization', "Bearer " + Runtime.instance.get("token"));
+            headers.append('Authorization', 'Bearer ' + Runtime.instance.get('token'));
         }
 
         return headers;

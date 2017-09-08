@@ -27,14 +27,14 @@ export enum PictureCategory {
 }
 
 export const Grade: [any] = [
-    { key: 0, name: "Ordinary" },
-    { key: 1, name: "VIP1" },
-    { key: 2, name: "VIP2" },
-    { key: 3, name: "VIP3" },
-    { key: 4, name: "VIP4" },
-    { key: 5, name: "VIP5" },
-    { key: 6, name: "VIP6" },
-    { key: 7, name: "VIP7" },
-    { key: 8, name: "VIP8" },
-    { key: 9, name: "VIP9" },
+    { key: 0, name: 'Ordinary' },
+    { key: 1, name: 'VIP1' },
+    { key: 2, name: 'VIP2' },
+    { key: 3, name: 'VIP3' },
+    { key: 4, name: 'VIP4' },
+    { key: 5, name: 'VIP5' },
+    { key: 6, name: 'VIP6' },
+    { key: 7, name: 'VIP7' },
+    { key: 8, name: 'VIP8' },
+    { key: 9, name: 'VIP9' },
 ]

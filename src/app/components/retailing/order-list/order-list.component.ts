@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class OrderListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Orders", ["Retailing", "Orders"]);
+    header: PageHeader = new PageHeader('Orders', ['Retailing', 'Orders']);
 
     data: IOrder[] = [];
 
@@ -81,7 +81,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
 
     async add(): Promise<any> {
         try {
-            let order = { cid: null, remark: "N/A" }
+            let order = { cid: null, remark: 'N/A' }
 
             let result = await this.order.add(order).toPromise()
 
@@ -123,7 +123,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     }
 
     delete(id: string): void {
-        this.confirm("Are you confirm to delete this record?", (accepted) => {
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
                 this.handleDelete(id)
             }

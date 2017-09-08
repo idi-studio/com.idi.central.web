@@ -12,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Users", ["Administration", "Users"]);
+    header: PageHeader = new PageHeader('Users', ['Administration', 'Users']);
 
     data: IUser[] = [];
 

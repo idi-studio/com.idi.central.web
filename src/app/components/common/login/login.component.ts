@@ -23,8 +23,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formControlUsername.setValue("administrator");
-        this.formControlPassword.setValue("p@55w0rd");
+        this.formControlUsername.setValue('administrator');
+        this.formControlPassword.setValue('p@55w0rd');
     }
 
     async signIn(): Promise<void> {
@@ -38,7 +38,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             let result = await this.token.apply(username, password).toPromise();
 
             if (result.status == Status.Success) {
-                this.navigate("/central")
+                this.navigate('/central')
             }
             else {
                 this.alert(result.message);

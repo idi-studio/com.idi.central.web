@@ -4,8 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
 
 export const TypeNames = {
-    PriceCategory: "PriceCategory",
-    ImageCategory: "ImageCategory"
+    PriceCategory: 'PriceCategory',
+    ImageCategory: 'ImageCategory'
 }
 
 @Injectable()

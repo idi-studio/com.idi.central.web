@@ -21,7 +21,7 @@ export class LockScreenComponent extends BaseComponent {
         super(route, router, snack, loading, dialog)
 
         Runtime.instance.unauthorize()
-        this.profile = JSON.parse(Runtime.instance.get("profile")) as IUserProfile
+        this.profile = JSON.parse(Runtime.instance.get('profile')) as IUserProfile
     }
 
     async unlock(): Promise<void> {
@@ -32,7 +32,7 @@ export class LockScreenComponent extends BaseComponent {
 
         this.token.apply(username, password).subscribe(result => {
             if (result.status == Status.Success) {
-                this.navigate("/central")
+                this.navigate('/central')
             }
             else {
                 this.alert(result.message)

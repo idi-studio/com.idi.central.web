@@ -16,11 +16,11 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     header: PageHeader;
     formControlCustName = new FormControl('', [Validators.required, Validators.pattern(Regex.CUST_NAME)])
     formControlPhone = new FormControl('', [Validators.required, Validators.pattern(Regex.PHONE_NUM)])
-    formControlGrade = new FormControl({ value: "0" }, [Validators.required, Validators.min(0), Validators.max(100)])
+    formControlGrade = new FormControl({ value: '0' }, [Validators.required, Validators.min(0), Validators.max(100)])
 
     mode: Command
     grade = Grade
-    current: ICustomer = { id: "", name: "", gender: 0, grade: 0, phone: "", date: "", verified: false }
+    current: ICustomer = { id: '', name: '', gender: 0, grade: 0, phone: '', date: '', verified: false }
 
     constructor(private customer: CustomerService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
@@ -33,10 +33,10 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
         switch (this.mode) {
             case Command.Create:
-                this.header = new PageHeader("Customer", ["Retailing", "Customer", "Add"])
+                this.header = new PageHeader('Customer', ['Retailing', 'Customer', 'Add'])
                 break;
             case Command.Update:
-                this.header = new PageHeader("Customer", ["Retailing", "Customer", "Edit"])
+                this.header = new PageHeader('Customer', ['Retailing', 'Customer', 'Edit'])
                 break;
             default:
                 this.back();
@@ -68,7 +68,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     }
 
     back(): void {
-        this.navigate("central/cust/list")
+        this.navigate('central/cust/list')
     }
 
     async submit(): Promise<void> {

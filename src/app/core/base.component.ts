@@ -10,8 +10,8 @@ export abstract class BaseComponent {
     constructor(protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         if (this.checkIdentity()) {
-            dialog.openConfirm({ message: "Please sign-in your account first.", acceptButton: "OK" }).afterClosed().subscribe(() => {
-                this.navigate("/login")
+            dialog.openConfirm({ message: 'Please sign-in your account first.', acceptButton: 'OK' }).afterClosed().subscribe(() => {
+                this.navigate('/login')
             })
         }
     }
@@ -20,10 +20,10 @@ export abstract class BaseComponent {
         if (Runtime.instance.authorized())
             return false;
 
-        if (this.router.url == "/login")
+        if (this.router.url == '/login')
             return false;
 
-        if (this.router.url == "/lock-screen")
+        if (this.router.url == '/lock-screen')
             return false;
 
         return true
@@ -57,16 +57,16 @@ export abstract class BaseComponent {
 
         switch (error.status) {
             case 0:
-                errMsg = "Cannot connect to server."
+                errMsg = 'Cannot connect to server.'
                 break;
             case 400:
-                errMsg = "Bad Request."
+                errMsg = 'Bad Request.'
                 break;
             case 401:
-                errMsg = "Unauthorized."
+                errMsg = 'Unauthorized.'
                 break;
             case 500:
-                errMsg = "Internal server error."
+                errMsg = 'Internal server error.'
                 break;
             default:
                 errMsg = `Error status - ${error.status}.`
@@ -76,15 +76,15 @@ export abstract class BaseComponent {
         this.alert(errMsg);
 
         if (error.status == 401)
-            this.router.navigate(["/central"])
+            this.router.navigate(['/central'])
     }
 
     protected alert(message: string) {
-        this.dialog.openAlert({ title: "CENTRAL MESSAGE", message: message })
+        this.dialog.openAlert({ title: 'CENTRAL MESSAGE', message: message })
     }
 
     protected show(message: string, duration: number = 5000) {
-        this.snack.open(message, "", { duration: duration, });
+        this.snack.open(message, '', { duration: duration, });
     }
 
     protected confirm(message: string, callback?: (accepted: boolean) => void): void {

@@ -10,9 +10,9 @@ export class TokenService extends RESTService {
     apply(username: string, password: string): any {
 
         var params = new URLSearchParams();
-        params.set("username", username);
-        params.set("password", password);
-        params.set("grant_type", "password");
+        params.set('username', username);
+        params.set('password', password);
+        params.set('grant_type', 'password');
 
         return this.post('/api/token', params.toString()).map((res: Response) => {
             var result = res.json();

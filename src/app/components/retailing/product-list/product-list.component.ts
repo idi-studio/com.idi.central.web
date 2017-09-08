@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class ProductListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader("Products", ["Retailing", "Products"]);
+    header: PageHeader = new PageHeader('Products', ['Retailing', 'Products']);
 
     data: IProduct[] = [];
 
@@ -82,7 +82,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
     }
 
     add(): void {
-        this.navigate("/central/product/info/add")
+        this.navigate('/central/product/info/add')
     }
 
     edit(id: string): void {
@@ -132,7 +132,7 @@ export class ProductListComponent extends BaseComponent implements OnInit {
 
     delete(id: string): void {
 
-        this.confirm("Are you confirm to delete this record?", (accepted) => {
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
                 this.handleDelete(id)
             }
