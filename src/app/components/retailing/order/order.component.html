@@ -30,7 +30,10 @@
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
           <md-input-container class="md-input-full-width">
-            <input mdInput name="customer" placeholder="Customer" [formControl]="customerControl" [mdAutocomplete]="auto">
+            <input mdInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [mdAutocomplete]="auto">
+            <md-error *ngIf="formControlCustomer.hasError('required')">
+              Customer is <strong>required</strong>
+            </md-error>
           </md-input-container>
           <md-autocomplete #auto="mdAutocomplete" [displayWith]="display">
             <md-option *ngFor="let option of filteredOptions | async" [value]="option">

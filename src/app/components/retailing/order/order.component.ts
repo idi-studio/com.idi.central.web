@@ -23,7 +23,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     orderId: string;
     options: ICustomer[] = []
     filteredOptions: Observable<ICustomer[]>
-    customerControl = new FormControl()
+    formControlCustomer = new FormControl('', [Validators.required])
 
     data: IProductSell[] = []
 
@@ -60,7 +60,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.bindView();
         this.bindTable();
 
-        this.filteredOptions = this.customerControl.valueChanges.startWith(null)
+        this.filteredOptions = this.formControlCustomer.valueChanges.startWith(null)
             .map(cust => cust && typeof cust === 'object' ? cust.name : cust)
             .map(name => name ? this.filter(name) : this.options.slice());
     }
@@ -82,6 +82,9 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.orderId = this.getParam("id");
             this.current = await this.order.single(this.orderId).toPromise()
             this.options = await this.customer.all().toPromise()
+
+            let cust = new List(this.options).FirstOrDefault(e => e.id == this.current.custid)
+            this.formControlCustomer.setValue(cust)
 
             switch (this.mode) {
                 case Command.Update:
@@ -167,7 +170,29 @@ export class OrderComponent extends BaseComponent implements OnInit {
         return new List(prices).FirstOrDefault(e => e.category == PriceCategory.Selling).amount
     }
 
+    valid(): boolean {
+        var valid = this.formControlCustomer.valid
+
+        if (valid) {
+            var cust = this.formControlCustomer.value as ICustomer
+
+            if (typeof cust === 'object') {
+                this.current.custid = cust.id
+            }
+            else {
+                this.current.custid = ''
+                valid = false
+            }
+        }
+
+        return valid;
+    }
+
     async save(): Promise<void> {
+
+        if (!this.valid())
+            return
+
         try {
             let result = await this.order.update(this.current).toPromise()
 
