@@ -11,6 +11,16 @@ export const Regex = {
 
 export function ObjectValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
+        console.log(`typeof control.value is ${typeof control.value}`)
+
+        if (typeof control.value === 'undefined') {
+            return null
+        }
+
+        if (typeof control.value === 'string' && control.value === '') {
+            return null
+        }
+
         if (typeof control.value === 'object') {
             return null
         }

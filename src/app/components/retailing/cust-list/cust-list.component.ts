@@ -11,8 +11,7 @@ import { List } from 'linqts'
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './cust-list.component.html',
-    styleUrls: ['cust-list.component.css']
+    templateUrl: './cust-list.component.html'
 })
 export class CustomerListComponent extends BaseComponent implements OnInit {
 

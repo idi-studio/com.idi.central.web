@@ -8,8 +8,7 @@ import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './product-price.component.html',
-    styleUrls: ['product-price.component.css'],
+    templateUrl: './product-price.component.html'
 })
 export class ProductPriceComponent extends BaseComponent implements OnInit {
 

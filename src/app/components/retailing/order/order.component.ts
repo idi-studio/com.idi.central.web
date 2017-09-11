@@ -12,8 +12,7 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
 @Component({
-    templateUrl: './order.component.html',
-    styleUrls: ['order.component.css']
+    templateUrl: './order.component.html'
 })
 export class OrderComponent extends BaseComponent implements OnInit {
 

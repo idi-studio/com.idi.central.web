@@ -10,8 +10,7 @@ import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './product-list.component.html',
-    styleUrls: ['product-list.component.css']
+    templateUrl: './product-list.component.html'
 })
 export class ProductListComponent extends BaseComponent implements OnInit {
 

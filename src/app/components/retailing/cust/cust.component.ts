@@ -8,8 +8,7 @@ import { BaseComponent, PageHeader, Command, Status, Regex, Grade } from '../../
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './cust.component.html',
-    styleUrls: ['cust.component.css']
+    templateUrl: './cust.component.html'
 })
 export class CustomerComponent extends BaseComponent implements OnInit {
 
