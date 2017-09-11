@@ -26,6 +26,16 @@ export enum PictureCategory {
     Advertisement = 8
 }
 
+export enum OrderStatus {
+    Invalid = 1,
+    Pending = 2,
+    Confirmed = 4,
+    Paid = 8,
+    Shipped = 16,
+    Received = 32,
+    Traded = 64
+}
+
 export const Grade: [any] = [
     { key: 0, name: 'Ordinary' },
     { key: 1, name: 'VIP1' },

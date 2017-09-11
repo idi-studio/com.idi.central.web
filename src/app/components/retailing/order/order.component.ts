@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { OrderService, OrderItemService, ProductService, CustomerService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice, ICustomer } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory, ObjectValidator } from '../../../core';
+import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory, OrderStatus, ObjectValidator } from '../../../core';
 import { List } from 'linqts'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
@@ -18,11 +18,12 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
     mode: Command;
-    current: IOrder = { id: '', custid: '', sn: '', status: '', statusdesc: '', date: '', remark: '', items: [] }
+    current: IOrder = { id: '', custid: '', sn: '', status: 0, statusdesc: '', date: '', remark: '', items: [] }
     orderId: string;
     options: ICustomer[] = []
     filteredOptions: Observable<ICustomer[]>
     formControlCustomer = new FormControl('', [Validators.required, ObjectValidator()])
+    formControlRemark = new FormControl({ value: 'N/A' }, [Validators.required, ObjectValidator()])
 
     data: IProductSell[] = []
 
@@ -83,6 +84,11 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
             let cust = new List(this.options).FirstOrDefault(e => e.id == this.current.custid)
             this.formControlCustomer.setValue(cust)
+            
+            if(!this.pending()){
+                this.formControlRemark.disable()
+                this.formControlCustomer.disable()
+            }
 
             switch (this.mode) {
                 case Command.Update:
@@ -156,6 +162,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.bindTable();
     }
 
+    pending(): boolean {
+        return this.current.status === OrderStatus.Pending
+    }
+
     back(): void {
         this.navigate('central/order/list')
     }
@@ -188,6 +198,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
             if (result.status == Status.Success) {
                 this.show('Order updated.')
+                this.bindTable()
             }
             else {
                 this.alert(result.message)

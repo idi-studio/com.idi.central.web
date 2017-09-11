@@ -9,7 +9,7 @@ export interface IOrder {
     custid: string
     sn: string
     date: string
-    status: string
+    status: number
     statusdesc: string
     remark: string
     items: Array<IOrderItem>

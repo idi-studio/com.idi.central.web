@@ -7,8 +7,8 @@
         <md-toolbar class="toolbar">
           <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
           <span class="toolbar-spacer"></span>
-          <span class="toolbar-icon"><md-icon (click)="save()" mdSuffix>save</md-icon></span>
-          <span class="toolbar-icon"><md-icon (click)="delete()" mdSuffix>delete</md-icon></span>
+          <span *ngIf="pending()" class="toolbar-icon"><md-icon (click)="save()" mdSuffix>save</md-icon></span>
+          <span *ngIf="pending()" class="toolbar-icon tc-red-800"><md-icon (click)="delete()" mdSuffix>delete</md-icon></span>
         </md-toolbar>
       </div>
       <div class="row">
@@ -50,8 +50,7 @@
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
           <md-input-container class="md-input-full-width">
-            <textarea mdInput name="remark" [(ngModel)]="current.remark" placeholder="Remark" rows="1" maxlength="200"></textarea>
-            <!-- <md-icon (click)="save()" mdSuffix>save</md-icon> -->
+            <textarea mdInput name="remark" [(ngModel)]="current.remark" [formControl]="formControlRemark" placeholder="Remark" rows="1" maxlength="200"></textarea>
             <md-hint align="end">{{current.remark.length}} / 200</md-hint>
           </md-input-container>
         </div>
@@ -61,7 +60,7 @@
       <div class="row">
         <md-toolbar class="toolbar">
           <span class="toolbar-spacer"></span>
-          <md-icon (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</md-icon>
+          <md-icon *ngIf="pending()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</md-icon>
         </md-toolbar>
       </div>
       <div class="row">
@@ -89,7 +88,7 @@
                   <td>{{item.qty | number:'1.2-2'}}</td>
                   <td>{{item.unitprice*item.qty | number:'1.2-2'}}</td>
                   <td class="text-right">
-                    <span class="tc-red-800" (click)="deleteItem(item.id)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                    <span *ngIf="pending()" class="tc-red-800" (click)="deleteItem(item.id)"><i class="fa fa-times" aria-hidden="true"></i></span>
                   </td>
                 </tr>
               </tbody>
