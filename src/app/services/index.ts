@@ -9,3 +9,4 @@ export { OrderItemService, IOrderItem, INewOrderItem } from './order-item.servic
 export { TagService, ITag } from './tag.service'
 export { CategoryService, TypeNames } from './category.service'
 export { CustomerService, ICustomer } from './cust.service'
+export { VoucherService, IVoucher } from './voucher.service'

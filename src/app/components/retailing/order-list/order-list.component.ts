@@ -5,7 +5,7 @@ import {
     TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
-import { OrderService, IOrder } from '../../../services';
+import { OrderService, IOrder, VoucherService, IVoucher } from '../../../services';
 import { BaseComponent, PageHeader, Status } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
@@ -38,7 +38,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private order: OrderService, private dataTable: TdDataTableService,
+    constructor(private order: OrderService, private voucher: VoucherService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -119,6 +119,20 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
         this.filter();
+    }
+
+    async govoucher(id: string): Promise<void> {
+        try {
+            const vchr: IVoucher = { id: '', tn: '', date: '', paymethod: 0, amount: 0, remark: '', oid: id }
+            let result = await this.voucher.add(vchr).toPromise()
+            this.show(result.message)
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 
     delete(id: string): void {

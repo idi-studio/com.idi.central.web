@@ -15,13 +15,15 @@ import { AppComponent } from './app.component';
 import {
   TokenService, RoleService, UserService,
   ProductService, ProductPriceService, ProductImageService,
-  TagService, CategoryService, OrderService, OrderItemService, CustomerService
+  TagService, CategoryService, OrderService, OrderItemService, CustomerService,
+  VoucherService,
 } from './services';
 
 export const CentralServices: any[] = [
   TokenService, RoleService, UserService, CategoryService,
   ProductService, ProductPriceService, ProductImageService,
   TagService, OrderService, OrderItemService, CustomerService,
+  VoucherService,
 ];
 
 @NgModule({
