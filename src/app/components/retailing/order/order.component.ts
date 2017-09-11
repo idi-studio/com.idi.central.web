@@ -226,16 +226,41 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.bindTable();
     }
 
-    delete(id: string): void {
+    delete(): void {
 
         this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
-                this.handleDelete(id)
+                this.deleteHandle()
             }
         })
     }
 
-    async handleDelete(id: string): Promise<void> {
+    async deleteHandle(): Promise<void> {
+        try {
+            let result = await this.order.remove(this.current.id).toPromise()
+            this.show(result.message)
+            if (result.status == Status.Success) {
+                this.back()
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    deleteItem(id: string): void {
+
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
+            if (accepted) {
+                this.deleteItemHandle(id)
+            }
+        })
+    }
+
+    async deleteItemHandle(id: string): Promise<void> {
         try {
             let result = await this.orderItem.remove(id).toPromise()
             this.alert(result.message)
