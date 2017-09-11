@@ -129,12 +129,12 @@
                   </md-chip-list>
                 </div>
               </ng-template>
-              <ng-template tdDataTableTemplate="prices" let-value="value" let-row="row" let-column="column">
-                {{price(value) | number:'1.2-2'}}
+              <ng-template tdDataTableTemplate="price" let-value="value" let-row="row" let-column="column">
+                {{ value.amount | number:'1.2-2'}}
               </ng-template>
               <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
-                <div layout="row" layout-align="end end">
-                  <button md-icon-button (click)="add(value,price(row.prices))"><md-icon>add_shopping_cart</md-icon></button>
+                <div *ngIf="row.price" layout="row" layout-align="end end">
+                  <button md-icon-button (click)="add(value,row.price.id)"><md-icon>add_shopping_cart</md-icon></button>
                 </div>
               </ng-template>
             </td-data-table>

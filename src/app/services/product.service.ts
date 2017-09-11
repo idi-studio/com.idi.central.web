@@ -19,7 +19,7 @@ export interface IProductSell {
     name: string
     code: string
     tags: Array<ITag>
-    prices: Array<IPrice>
+    price: IPrice
 }
 
 @Injectable()
@@ -69,8 +69,8 @@ export class ProductService extends RESTService {
         });
     }
 
-    selling(): Observable<Array<IProductSell>> {
-        return super.get('/api/product/selling').map((res: Response) => {
+    selling(custid): Observable<Array<IProductSell>> {
+        return super.get(`/api/product/selling/${custid}`).map((res: Response) => {
 
             var result = res.json();
 

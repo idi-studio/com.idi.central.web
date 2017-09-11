@@ -32,7 +32,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         { name: 'code', label: 'Code', filter: true, hidden: true },
         { name: 'desc', label: 'Description', filter: true, hidden: true },
         { name: 'tags', label: 'Tags', filter: false },
-        { name: 'prices', label: 'Price', filter: false },
+        { name: 'price', label: 'Price', filter: false },
         { name: 'id', label: '', filter: false, hidden: false },
     ];
 
@@ -109,7 +109,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.mode = this.getMode()
             this.orderId = this.getParam('id');
             this.current = await this.order.single(this.orderId).toPromise()
-            this.data = await this.product.selling().toPromise()
+            this.data = await this.product.selling(this.current.custid).toPromise()
         }
         catch (error) {
             this.data = []
@@ -165,10 +165,6 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.editable = true;
     }
 
-    price(prices: Array<IPrice>): number {
-        return new List(prices).FirstOrDefault(e => e.category == PriceCategory.Selling).amount
-    }
-
     valid(): boolean {
         var valid = this.formControlCustomer.valid
 
@@ -206,9 +202,9 @@ export class OrderComponent extends BaseComponent implements OnInit {
         }
     }
 
-    async add(pid: string, price: number): Promise<void> {
+    async add(pid: string, priceid: string): Promise<void> {
         try {
-            let item: INewOrderItem = { oid: this.orderId, pid: pid, unitprice: price, qty: 1 }
+            let item: INewOrderItem = { oid: this.orderId, pid: pid, priceid: priceid, qty: 1 }
             let result = await this.orderItem.add(item).toPromise()
 
             if (result.status == Status.Success) {

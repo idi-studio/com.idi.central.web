@@ -4,22 +4,23 @@ import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
 
 export interface IProductPrice {
-    id: string;
-    category: number;
-    categoryname: string;
-    amount: number;
-    grade: number;
-    gradeto: number;
-    startdate: Date;
-    duedate: Date;
-    pid: string;
-    active: boolean;
+    id: string
+    category: number
+    categoryname: string
+    amount: number
+    grade: number
+    gradeto: number
+    startdate: Date
+    duedate: Date
+    pid: string
+    active: boolean
 }
 
 export interface IPrice {
-    category: number;
-    amount: number;
-    grade: number;
+    id: string
+    category: number
+    amount: number
+    grade: number
 }
 
 @Injectable()

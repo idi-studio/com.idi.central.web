@@ -16,7 +16,7 @@ export interface IOrderItem {
 export interface INewOrderItem {
     oid: string
     pid: string
-    unitprice: number
+    priceid: string
     qty: number
 }
 
