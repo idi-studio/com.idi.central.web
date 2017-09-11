@@ -34,6 +34,9 @@
             <md-error *ngIf="formControlCustomer.hasError('required')">
               Customer is <strong>required</strong>
             </md-error>
+            <md-error *ngIf="formControlCustomer.hasError('object')">
+              Invalid customer
+            </md-error>
           </md-input-container>
           <md-autocomplete #auto="mdAutocomplete" [displayWith]="display">
             <md-option *ngFor="let option of filteredOptions | async" [value]="option">

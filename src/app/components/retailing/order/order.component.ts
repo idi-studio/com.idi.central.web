@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { OrderService, OrderItemService, ProductService, CustomerService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice, ICustomer } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from '../../../core';
+import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory, ObjectValidator } from '../../../core';
 import { List } from 'linqts'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
@@ -23,7 +23,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     orderId: string;
     options: ICustomer[] = []
     filteredOptions: Observable<ICustomer[]>
-    formControlCustomer = new FormControl('', [Validators.required])
+    formControlCustomer = new FormControl('', [Validators.required, ObjectValidator()])
 
     data: IProductSell[] = []
 
@@ -174,14 +174,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
         if (valid) {
             var cust = this.formControlCustomer.value as ICustomer
-
-            if (typeof cust === 'object') {
-                this.current.custid = cust.id
-            }
-            else {
-                this.current.custid = ''
-                valid = false
-            }
+            this.current.custid = cust.id
+        }
+        else {
+            this.current.custid = ''
         }
 
         return valid;
@@ -258,3 +254,4 @@ export class OrderComponent extends BaseComponent implements OnInit {
         }
     }
 }
+

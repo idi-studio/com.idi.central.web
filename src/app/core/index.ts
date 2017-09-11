@@ -4,4 +4,4 @@ export { BaseComponent } from './base.component';
 export { PageHeader } from './page-header';
 export { MenuItem, Navigation } from './navigation';
 export { Command, Status, PriceCategory, PictureCategory, Grade } from './contants';
-export { Regex } from './regex';
+export { Regex, ObjectValidator } from './verification';
