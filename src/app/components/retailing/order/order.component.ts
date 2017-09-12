@@ -84,8 +84,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
             let cust = new List(this.options).FirstOrDefault(e => e.id == this.current.custid)
             this.formControlCustomer.setValue(cust)
-            
-            if(!this.pending()){
+
+            if (!this.pending()) {
                 this.formControlRemark.disable()
                 this.formControlCustomer.disable()
             }
@@ -188,6 +188,20 @@ export class OrderComponent extends BaseComponent implements OnInit {
         return valid;
     }
 
+    async done(): Promise<void> {
+
+        if (!this.valid() || this.current.items.length === 0) {
+            this.show("Invalid order.")
+            return
+        }
+
+        this.confirm('Are you sure to confirm this order?', (accepted) => {
+            if (accepted) {
+
+            }
+        })
+    }
+
     async save(): Promise<void> {
 
         if (!this.valid())
@@ -239,7 +253,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
     delete(): void {
 
-        this.confirm('Are you confirm to delete this record?', (accepted) => {
+        this.confirm('Are you confirm to delete this order?', (accepted) => {
             if (accepted) {
                 this.deleteHandle()
             }

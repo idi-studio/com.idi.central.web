@@ -28,6 +28,9 @@ export class TopbarComponent implements OnInit {
         }
         catch (error) {
             this.profile = null;
+            if (error.status === 401) {
+                this.router.navigate(['/login'])
+            }
         }
     }
 

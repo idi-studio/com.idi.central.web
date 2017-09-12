@@ -38,6 +38,9 @@ export class UserService extends RESTService {
                 Runtime.instance.set('profile', JSON.stringify(result.data))
                 return result.data
             }
+            else {
+                console.log(result)
+            }
 
             return null;
         });

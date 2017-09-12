@@ -90,6 +90,10 @@ export class CustomerComponent extends BaseComponent implements OnInit {
             }
 
             this.show(result.message)
+
+            if (result.status === Status.Success) {
+                this.back()
+            }
         }
         catch (error) {
             this.handle(error)
