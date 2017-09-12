@@ -191,7 +191,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     async done(): Promise<void> {
 
         if (!this.valid() || this.current.items.length === 0) {
-            this.show("Invalid order.")
+            this.show("Incompleted order.")
             return
         }
 
