@@ -1,0 +1,28 @@
+<svg width="440" height="200" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="202" width="442" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg-content">
+   <g id="svg_1" transform="matrix(0.7,0,0,0.7,30,40) ">
+    <g id="svg_2">
+     <path id="svg_3" d="m71.3,-0.085712c31.6,0 57.2,25.6 57.2,57.2l-57.5,0l0,-57.2l0.3,0z" fill="#90C419"/>
+     <g id="svg_4">
+      <path id="svg_5" d="m57.4,114.314288l0,57.2l-0.2,0c-31.6,0 -57.2,-25.6 -57.2,-57.2l57.4,0z" fill="#2BABE6"/>
+      <rect id="svg_6" height="57.2" width="57.4" fill="#007FC5" y="57.114288"/>
+      <path id="svg_7" d="m57.4,-0.085712l0,57.2l-57.4,0c0,-31.6 25.6,-57.2 57.2,-57.2l0.2,0z" fill="#043A54"/>
+      <path id="svg_8" d="m128.5,114.314288l0,57.2l-0.2,0c-31.6,0 -57.3,-25.6 -57.3,-57.2l57.5,0z" fill="#FFE600"/>
+      <rect id="svg_9" height="57.2" width="57.4" fill="#32AE35" y="57.114288" x="71"/>
+      <path id="svg_10" d="m200,114.314288c0,31.6 -25.6,57.2 -57.2,57.2l-0.2,0l0,-57.2l57.4,0z" fill="#FFB800"/>
+      <rect id="svg_11" height="57.2" width="57.4" fill="#F35E17" y="57.114288" x="142.6"/>
+      <path id="svg_12" d="m142.8,-0.085712c31.6,0 57.2,25.6 57.2,57.2l-57.4,0l0,-57.2l0.2,0z" fill="#E80022"/>
+     </g>
+    </g>
+   </g>
+  </g>
+  <text stroke="#3e3a39" xml:space="preserve" text-anchor="start" font-family="Lucida Grande, Microsoft Yahei" font-size="50" id="svg_13" y="119.539063" x="191.902933" fill="#3e3a39">iStudio™</text>
+ </g>
+</svg>
