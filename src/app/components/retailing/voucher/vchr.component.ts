@@ -76,6 +76,10 @@ export class VoucherComponent extends BaseComponent implements OnInit {
         this.navigate('central/order/list')
     }
 
+    equalamount(): boolean {
+        return this.current.payamount === this.current.orderamount
+    }
+
     async submit(): Promise<void> {
         if (!this.valid())
             return;

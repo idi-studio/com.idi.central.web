@@ -50,6 +50,7 @@
       <div class="col-md-4 col-sm-6 col-xs-10">
         <md-input-container class="md-input-full-width">
           <input mdInput type="number" name="payamount" [(ngModel)]="current.payamount" placeholder="Payment Amount" [formControl]="formControlPayAmount">
+          <span *ngIf="!equalamount()" class="tc-amber-800" mdSuffix><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>
         </md-input-container>
         <md-error *ngIf="formControlPayAmount.hasError('required')">
           Payment amount is <strong>required</strong>
