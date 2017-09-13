@@ -12,7 +12,7 @@ export class RESTService {
         return this.http.post(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 
-    protected put(url: string, params: any): Observable<any> {
+    protected put(url: string, params: any = {}): Observable<any> {
         return this.http.put(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 

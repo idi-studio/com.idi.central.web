@@ -197,9 +197,32 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
         this.confirm('Are you sure to confirm this order?', (accepted) => {
             if (accepted) {
-
+                this.doneHandle()
             }
         })
+    }
+
+    async doneHandle(): Promise<void> {
+
+        if (!this.valid())
+            return
+
+        try {
+            let result = await this.order.confirm(this.current.id).toPromise()
+
+            this.show(result.message)
+
+            if (result.status == Status.Success) {
+                this.bindView()
+                this.bindTable()
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 
     async save(): Promise<void> {
@@ -210,12 +233,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
         try {
             let result = await this.order.update(this.current).toPromise()
 
+            this.show(result.message)
+
             if (result.status == Status.Success) {
-                this.show('Order updated.')
                 this.bindTable()
-            }
-            else {
-                this.alert(result.message)
             }
         }
         catch (error) {
