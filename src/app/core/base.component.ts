@@ -31,7 +31,7 @@ export abstract class BaseComponent {
 
     protected getMode(): Command {
         if (!this.route.snapshot.paramMap.has('mode'))
-            return Command.None
+            return Command.View
 
         let mode = this.route.snapshot.paramMap.get('mode')
 
@@ -43,7 +43,7 @@ export abstract class BaseComponent {
             case 'delete':
                 return Command.Delete;
             default:
-                return Command.None;
+                return Command.View;
         }
     }
 

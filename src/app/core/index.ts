@@ -3,5 +3,5 @@ export { Runtime } from './runtime';
 export { BaseComponent } from './base.component';
 export { PageHeader } from './page-header';
 export { MenuItem, Navigation } from './navigation';
-export { Command, Status, PriceCategory, PictureCategory, OrderStatus, Grade } from './contants';
+export { Command, Status, PriceCategory, PictureCategory, OrderStatus, Grade, PayMethod } from './contants';
 export { Regex, ObjectValidator } from './verification';

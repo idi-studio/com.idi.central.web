@@ -1,5 +1,5 @@
 export enum Command {
-    None = 1,
+    View = 1,
     Create = 2,
     Update = 4,
     Delete = 8
@@ -35,6 +35,22 @@ export enum OrderStatus {
     Received = 32,
     Traded = 64
 }
+
+export enum PayMethod {
+    Other = 1,
+    Wechat = 2,
+    Alipay = 3,
+    CreditCard = 4,
+    Cash = 8
+}
+
+export const PayMethods: [any] = [
+    { key: PayMethod.Other, name: 'Other' },
+    { key: PayMethod.Wechat, name: 'Wechat' },
+    { key: PayMethod.Alipay, name: 'Alipay' },
+    { key: PayMethod.CreditCard, name: 'CreditCard' },
+    { key: PayMethod.Cash, name: 'Cash' },
+]
 
 export const Grade: [any] = [
     { key: 0, name: 'Ordinary' },

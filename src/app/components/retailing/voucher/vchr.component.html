@@ -1,0 +1,60 @@
+<page-header [header]="header"></page-header>
+
+<div class="row">
+  <div class="card-box">
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="toolbar-spacer"></span>
+        <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
+      </md-toolbar>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="tn" [(ngModel)]="current.tn" placeholder="Transaction No." disabled>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="sn" [(ngModel)]="current.sn" placeholder="Order No." disabled>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="date" [(ngModel)]="current.date" placeholder="Transaction Time" disabled>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <div class="mat-input-container md-input-full-width">
+          <div class="mat-input-wrapper">
+            <div class="mat-input-infix mat-select-flex">
+              <md-select name="paymethod" placeholder="Payment Method" [(ngModel)]="current.paymethod" #paymethod>
+                <md-option *ngFor="let paymethod of paymethods" [value]="paymethod.key">
+                  {{ paymethod.value }}
+                </md-option>
+              </md-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput type="number" name="orderamount" [(ngModel)]="current.orderamount" placeholder="Order Amount" disabled>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput type="number" name="payamount" [(ngModel)]="current.payamount" placeholder="Payment Amount" [formControl]="formControlPayAmount">
+        </md-input-container>
+        <md-error *ngIf="formControlPayAmount.hasError('required')">
+          Payment amount is <strong>required</strong>
+        </md-error>
+      </div>
+    </div>
+  </div>
+</div>

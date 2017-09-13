@@ -31,6 +31,7 @@ import { OrderComponent } from './components/retailing/order/order.component';
 import { CustomerListComponent } from './components/retailing/cust-list/cust-list.component';
 import { CustomerComponent } from './components/retailing/cust/cust.component';
 
+import { VoucherComponent } from './components/retailing/voucher/vchr.component';
 
 const routes: Route[] = [
     { path: 'login', component: LoginComponent },
@@ -53,6 +54,7 @@ const routes: Route[] = [
             { path: 'cust/list', component: CustomerListComponent },
             { path: 'cust/info/:mode', component: CustomerComponent },
             { path: 'cust/info/:mode/:id', component: CustomerComponent },
+            { path: 'vchr/info/:mode/:id', component: VoucherComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -69,9 +71,7 @@ export class AppRoutingModule {
 export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
-    DashboardComponent,
-    RoleListComponent, UserListComponent,
-    ProductListComponent, ProductComponent, ProductPriceComponent, ProductPriceListComponent, ProductImageComponent,
-    OrderListComponent, OrderComponent,
-    CustomerListComponent, CustomerComponent,
+    DashboardComponent, RoleListComponent, UserListComponent, ProductListComponent, ProductComponent,
+    ProductPriceComponent, ProductPriceListComponent, ProductImageComponent, OrderListComponent,
+    OrderComponent, CustomerListComponent, CustomerComponent, VoucherComponent,
 ];

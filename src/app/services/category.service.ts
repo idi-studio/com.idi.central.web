@@ -5,7 +5,8 @@ import { RESTService, Status } from '../core';
 
 export const TypeNames = {
     PriceCategory: 'PriceCategory',
-    ImageCategory: 'ImageCategory'
+    ImageCategory: 'ImageCategory',
+    PayMethod: 'PayMethod',
 }
 
 @Injectable()

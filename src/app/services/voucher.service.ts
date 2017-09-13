@@ -6,9 +6,11 @@ import { RESTService, Status } from '../core';
 export interface IVoucher {
     id: string
     tn: string
+    sn: string
     date: string
     paymethod: number
-    amount: number
+    payamount: number
+    orderamount: number
     remark: string
     oid: string
 }
@@ -29,18 +31,18 @@ export class VoucherService extends RESTService {
         });
     }
 
-    all(): Observable<Array<IVoucher>> {
+    // all(): Observable<Array<IVoucher>> {
 
-        return super.get('/api/vchr/list').map((res: Response) => {
+    //     return super.get('/api/vchr/list').map((res: Response) => {
 
-            var result = res.json();
+    //         var result = res.json();
 
-            if (result.status == Status.Success)
-                return result.data
+    //         if (result.status == Status.Success)
+    //             return result.data
 
-            return new Array<IVoucher>()
-        });
-    }
+    //         return new Array<IVoucher>()
+    //     });
+    // }
 
     add(value: any): Observable<any> {
         return super.post('/api/vchr', value).map((res: Response) => {
