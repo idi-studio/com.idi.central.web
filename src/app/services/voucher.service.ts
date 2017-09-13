@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
+import { TdFileService, IUploadOptions } from '@covalent/core';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
 
@@ -18,7 +19,7 @@ export interface IVoucher {
 @Injectable()
 export class VoucherService extends RESTService {
 
-    constructor(http: Http) { super(http) }
+    constructor(http: Http, file: TdFileService) { super(http, file) }
 
     single(id: string): Observable<IVoucher> {
         return super.get(`/api/vchr/${id}`).map((res: Response) => {
@@ -43,6 +44,12 @@ export class VoucherService extends RESTService {
     //         return new Array<IVoucher>()
     //     });
     // }
+
+    attach(id: string, files: File[]): Observable<any> {
+        let formData = new FormData()
+        formData.append('vchrid', id)
+        return this.upload('/api/vchr/attach', files, formData)
+    }
 
     add(value: any): Observable<any> {
         return super.post('/api/vchr', value).map((res: Response) => {

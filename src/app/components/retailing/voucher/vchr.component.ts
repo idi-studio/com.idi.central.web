@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
-import { TdDialogService, TdLoadingService } from '@covalent/core';
+import { TdDialogService, TdLoadingService, TdFileService, IUploadOptions, } from '@covalent/core';
 import { VoucherService, CategoryService, IVoucher, TypeNames } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
 import 'rxjs/add/operator/toPromise';
@@ -15,10 +15,9 @@ export class VoucherComponent extends BaseComponent implements OnInit {
     header: PageHeader
     mode: Command
     paymethods: any[]
+    files: Array<File> = []
     current: IVoucher = { id: '', tn: '', sn: '', date: '', paymethod: 0, payamount: 0, orderamount: 0, remark: '', oid: '' }
     formControlPayAmount = new FormControl('', [Validators.required])
-    // formControlPhone = new FormControl('', [Validators.required, Validators.pattern(Regex.PHONE_NUM)])
-    // formControlGrade = new FormControl({ value: '0' }, [Validators.required, Validators.min(0), Validators.max(100)])
 
     constructor(private voucher: VoucherService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
@@ -100,6 +99,38 @@ export class VoucherComponent extends BaseComponent implements OnInit {
             this.handle(error)
         }
         finally {
+            this.unload()
+        }
+    }
+
+    selectEvent(files: FileList | File): void {
+        if (files instanceof File) {
+            this.attach([files]);
+        } else {
+            this.show("Please select a voucher image.")
+        }
+    };
+
+    async attach(files: Array<File>): Promise<void> {
+
+        this.load();
+
+        try {
+            console.log(files);
+
+            let result = await this.voucher.attach(this.current.id, files).toPromise()
+
+            this.show(result.message);
+
+            if (result.status === Status.Success) {
+                this.init();
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.files = []
             this.unload()
         }
     }

@@ -5,7 +5,9 @@
     <div class="row">
       <md-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <td-file-input class="hidden" #fileInput [(ngModel)]="files" [disabled]="disabled" accept=".png,.jpg,.jpge" (select)="selectEvent($event)"></td-file-input>
         <span class="toolbar-spacer"></span>
+        <md-icon class="toolbar-icon" (click)="fileInput.inputElement.click()">folder</md-icon>
         <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
       </md-toolbar>
     </div>
@@ -55,6 +57,11 @@
         <md-error *ngIf="formControlPayAmount.hasError('required')">
           Payment amount is <strong>required</strong>
         </md-error>
+      </div>
+    </div>
+    <div *ngIf="current.doc" class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <img [src]="current.doc" alt="doc" class="img-thumbnail">
       </div>
     </div>
   </div>
