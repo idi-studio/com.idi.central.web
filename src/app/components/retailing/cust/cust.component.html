@@ -23,20 +23,6 @@
         </md-input-container>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <div class="mat-input-container md-input-full-width">
-          <div class="mat-input-wrapper">
-            <div class="mat-input-infix mat-select-flex">
-              <md-radio-group [(ngModel)]="current.gender">
-                <md-radio-button value="0">Female</md-radio-button>
-                <md-radio-button value="1">Male</md-radio-button>
-              </md-radio-group>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 col-sm-6 col-xs-10">
         <md-input-container class="md-input-full-width">
           <span mdPrefix><strong>+86</strong>&nbsp;</span>
           <input mdInput name="phone" [(ngModel)]="current.phone" placeholder="Phone No." [formControl]="formControlPhone" autocomplete="off"
@@ -48,6 +34,20 @@
             Phone No. is <strong>required</strong>
           </md-error>
         </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <div class="mat-input-container md-input-full-width">
+          <div class="mat-input-wrapper">
+            <div class="mat-input-infix mat-select-flex">
+              <md-radio-group [(ngModel)]="current.gender">
+                <md-radio-button value="0">Female</md-radio-button>
+                <md-radio-button value="1">Male</md-radio-button>
+              </md-radio-group>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
         <div class="mat-input-container md-input-full-width">
@@ -62,6 +62,15 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="card-box">
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span><i class="fa fa-address-book" aria-hidden="true"></i> Shipping</span>
+        <span class="toolbar-spacer"></span>
+      </md-toolbar>
     </div>
   </div>
 </div>
