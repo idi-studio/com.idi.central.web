@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { CustomerService, ICustomer } from '../../../services';
+import { CustomerService, AddressService, ICustomer, IAddress } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, Grade } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
@@ -17,11 +17,21 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     formControlPhone = new FormControl('', [Validators.required, Validators.pattern(Regex.PHONE_NUM)])
     formControlGrade = new FormControl({ value: '0' }, [Validators.required, Validators.min(0), Validators.max(100)])
 
+    formControlReceiver = new FormControl('', [Validators.required, Validators.pattern(Regex.CUST_NAME)])
+    formControlContactNo = new FormControl('', [Validators.required, Validators.pattern(Regex.PHONE_NUM)])
+    formControlProvince = new FormControl('', [Validators.required])
+    formControlCity = new FormControl('', [Validators.required])
+    formControlArea = new FormControl('', [Validators.required])
+    formControlStreet = new FormControl('', [Validators.required])
+    formControlDetail = new FormControl('', [Validators.required])
+    formControlPostcode = new FormControl('', [Validators.required])
+
     mode: Command
     grade = Grade
     current: ICustomer = { id: '', name: '', gender: 0, grade: 0, phone: '', date: '', verified: false }
+    shipping: IAddress = { id: '', receiver: '', contactno: '', primary: false, province: '', city: '', area: '', street: '', detail: '', postcode: '' }
 
-    constructor(private customer: CustomerService,
+    constructor(private customer: CustomerService, private address: AddressService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -51,6 +61,8 @@ export class CustomerComponent extends BaseComponent implements OnInit {
             if (this.mode == Command.Update) {
                 let id = this.getParam('id');
                 this.current = await this.customer.single(id).toPromise()
+                this.shipping.receiver = this.current.name
+                this.shipping.contactno = this.current.phone
             }
         }
         catch (error) {
@@ -70,7 +82,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
         this.navigate('central/cust/list')
     }
 
-    async submit(): Promise<void> {
+    async save(): Promise<void> {
         if (!this.valid())
             return;
 
@@ -103,4 +115,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
         }
     }
 
+    async add(): Promise<void> {
+
+    }
 }

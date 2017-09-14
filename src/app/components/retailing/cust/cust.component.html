@@ -6,7 +6,7 @@
       <md-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="submit()">save</md-icon></span>
+        <span class="toolbar-icon"><md-icon (click)="save()">save</md-icon></span>
       </md-toolbar>
     </div>
     <div class="row">
@@ -68,10 +68,97 @@
   <div class="card-box">
     <div class="row">
       <md-toolbar class="toolbar">
-        <span><i class="fa fa-address-book" aria-hidden="true"></i> Shipping</span>
+        <span><i class="fa fa-address-book" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
         <span class="toolbar-icon"><md-icon (click)="add()">add</md-icon></span>
       </md-toolbar>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="receiver" [(ngModel)]="shipping.receiver" [formControl]="formControlReceiver" placeholder="Receiver"
+            autocomplete="off" maxlength="20">
+          <md-error *ngIf="formControlReceiver.hasError('pattern')">
+            Only Support case letters and Chinese.
+          </md-error>
+          <md-error *ngIf="formControlReceiver.hasError('required')">
+            Receiver is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <span mdPrefix><strong>+86</strong>&nbsp;</span>
+          <input mdInput name="contactno" [(ngModel)]="shipping.contactno" [formControl]="formControlContactNo" placeholder="Contact No."
+            autocomplete="off" maxlength="20">
+          <md-error *ngIf="formControlContactNo.hasError('pattern')">
+            Contact No. is invalid.
+          </md-error>
+          <md-error *ngIf="formControlContactNo.hasError('required')">
+            Contact No. is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="province" [(ngModel)]="shipping.province" [formControl]="formControlProvince" placeholder="Province"
+            autocomplete="off" maxlength="20">
+          <md-error *ngIf="formControlProvince.hasError('required')">
+            Province is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="city" [(ngModel)]="shipping.city" [formControl]="formControlCity" placeholder="City" autocomplete="off"
+            maxlength="20">
+          <md-error *ngIf="formControlCity.hasError('required')">
+            City is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="area" [(ngModel)]="shipping.area" [formControl]="formControlArea" placeholder="Area" autocomplete="off"
+            maxlength="20">
+          <md-error *ngIf="formControlArea.hasError('required')">
+            Area is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="street" [(ngModel)]="shipping.street" [formControl]="formControlStreet" placeholder="Street" autocomplete="off"
+            maxlength="20">
+          <md-error *ngIf="formControlStreet.hasError('required')">
+            Street is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="detail" [(ngModel)]="shipping.detail" [formControl]="formControlDetail" placeholder="Detail" autocomplete="off"
+            maxlength="100">
+          <md-error *ngIf="formControlDetail.hasError('required')">
+            Detail is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="postcode" [(ngModel)]="shipping.postcode" [formControl]="formControlPostcode" placeholder="Postcode"
+            autocomplete="off" maxlength="20">
+          <md-error *ngIf="formControlPostcode.hasError('required')">
+            Postcode is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
     </div>
   </div>
 </div>
