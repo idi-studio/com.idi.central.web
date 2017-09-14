@@ -105,7 +105,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
             this.show(result.message)
 
             if (result.status == Status.Success) {
-                this.init()
+                this.navigate(`/central/vchr/info/view/${this.current.id}`)
             }
         }
         catch (error) {
