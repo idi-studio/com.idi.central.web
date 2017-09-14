@@ -6,8 +6,8 @@
       <md-toolbar class="toolbar">
         <span (click)="back()" class="toolbar-icon-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <md-icon *ngIf="editable()" class="toolbar-icon" (click)="setPrice()">attach_money</md-icon>
-        <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
+        <span class="toolbar-icon" *ngIf="editable()"><md-icon (click)="setPrice()">attach_money</md-icon></span>
+        <span class="toolbar-icon"><md-icon (click)="submit()">save</md-icon></span>
       </md-toolbar>
     </div>
     <div class="row">

@@ -7,10 +7,10 @@
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <td-file-input class="hidden" #fileInput [(ngModel)]="files" multiple [disabled]="disabled" accept=".png,.jpg,.jpge"></td-file-input>
         <span class="toolbar-spacer"></span>
-        <md-icon *ngIf="!editable" class="toolbar-icon" (click)="fileInput.inputElement.click()">folder</md-icon>
-        <md-icon *ngIf="!editable" class="toolbar-icon" (click)="edit()">edit</md-icon>
-        <md-icon *ngIf="editable" class="toolbar-icon" (click)="save()">save</md-icon>
-        <md-icon *ngIf="editable" class="toolbar-icon" (click)="cancel()">cancel</md-icon>
+        <span *ngIf="!editable" class="toolbar-icon"><md-icon (click)="fileInput.inputElement.click()">folder</md-icon></span>
+        <span *ngIf="!editable" class="toolbar-icon"><md-icon (click)="edit()">edit</md-icon></span>
+        <span *ngIf="editable" class="toolbar-icon"><md-icon  (click)="save()">save</md-icon></span>
+        <span *ngIf="editable" class="toolbar-icon"><md-icon *ngIf="editable" (click)="cancel()">cancel</md-icon></span>
       </md-toolbar>
     </div>
     <div *ngIf="files.length>0" class="row">
