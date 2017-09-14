@@ -123,7 +123,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
 
     async govoucher(id: string): Promise<void> {
         try {
-            const vchr: IVoucher = { id: '', tn: '', sn: '', date: '', paymethod: 0, payamount: 0, orderamount: 0, remark: '', oid: id }
+            const vchr: IVoucher = { id: '', tn: '', status: 0, sn: '', date: '', paymethod: 0, payment: 0, payable: 0, remark: '', oid: id }
             let result = await this.voucher.add(vchr).toPromise()
             this.show(result.message)
 

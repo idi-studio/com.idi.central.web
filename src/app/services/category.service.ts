@@ -7,6 +7,7 @@ export const TypeNames = {
     PriceCategory: 'PriceCategory',
     ImageCategory: 'ImageCategory',
     PayMethod: 'PayMethod',
+    TradeStatus: 'TradeStatus',
 }
 
 @Injectable()

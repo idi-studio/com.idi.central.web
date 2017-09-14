@@ -44,13 +44,12 @@ export enum PayMethod {
     Cash = 8
 }
 
-export const PayMethods: [any] = [
-    { key: PayMethod.Other, name: 'Other' },
-    { key: PayMethod.Wechat, name: 'Wechat' },
-    { key: PayMethod.Alipay, name: 'Alipay' },
-    { key: PayMethod.CreditCard, name: 'CreditCard' },
-    { key: PayMethod.Cash, name: 'Cash' },
-]
+export enum TradeStatus
+{
+    InProcess = 1,
+    Fail = 2,
+    Success = 4
+}
 
 export const Grade: [any] = [
     { key: 0, name: 'Ordinary' },

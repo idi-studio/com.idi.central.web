@@ -9,9 +9,10 @@ export interface IVoucher {
     tn: string
     sn: string
     date: string
+    status: number
     paymethod: number
-    payamount: number
-    orderamount: number
+    payment: number
+    payable: number
     remark: string
     oid: string
 }
@@ -59,6 +60,12 @@ export class VoucherService extends RESTService {
 
     update(value: IVoucher): Observable<any> {
         return super.put(`/api/vchr/${value.id}`, value).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    paid(id: string): Observable<any> {
+        return super.put(`/api/vchr/paid/${id}`).map((res: Response) => {
             return res.json();
         });
     }

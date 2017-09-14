@@ -7,8 +7,9 @@
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <td-file-input class="hidden" #fileInput [(ngModel)]="files" [disabled]="disabled" accept=".png,.jpg,.jpge" (select)="selectEvent($event)"></td-file-input>
         <span class="toolbar-spacer"></span>
-        <md-icon class="toolbar-icon" (click)="fileInput.inputElement.click()">folder</md-icon>
-        <md-icon class="toolbar-icon" (click)="submit()">save</md-icon>
+        <span *ngIf="editable()" class="toolbar-icon"><md-icon class="toolbar-icon" (click)="fileInput.inputElement.click()">attachment</md-icon></span>
+        <span *ngIf="editable()" class="toolbar-icon"><md-icon class="toolbar-icon" (click)="save()">save</md-icon></span>
+        <span *ngIf="editable()" class="toolbar-icon"><md-icon class="toolbar-icon" (click)="done()">done</md-icon></span>
       </md-toolbar>
     </div>
     <div class="row">
@@ -25,15 +26,30 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
+        <div class="mat-input-container md-input-full-width">
+            <div class="mat-input-wrapper">
+              <div class="mat-input-infix mat-select-flex">
+                <md-select name="status" placeholder="Status" [(ngModel)]="current.status" disabled>
+                  <md-option *ngFor="let status of statuses" [value]="status.key">
+                    {{ status.value }}
+                  </md-option>
+                </md-select>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
         <md-input-container class="md-input-full-width">
           <input mdInput name="date" [(ngModel)]="current.date" placeholder="Transaction Time" disabled>
         </md-input-container>
       </div>
+    </div>
+    <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
         <div class="mat-input-container md-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
-              <md-select name="paymethod" placeholder="Payment Method" [(ngModel)]="current.paymethod" #paymethod>
+              <md-select name="paymethod" placeholder="Payment Method" [(ngModel)]="current.paymethod" [formControl]="formControlPaymethod">
                 <md-option *ngFor="let paymethod of paymethods" [value]="paymethod.key">
                   {{ paymethod.value }}
                 </md-option>
@@ -42,27 +58,27 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
         <md-input-container class="md-input-full-width">
-          <input mdInput type="number" name="orderamount" [(ngModel)]="current.orderamount" placeholder="Order Amount" disabled>
+          <input mdInput type="number" name="payment" [(ngModel)]="current.payment" placeholder="Payment Amount" [formControl]="formControlPayment">
+          <span *ngIf="!equalamount()" class="tc-amber-800" mdSuffix>
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Payable {{ current.payable | number:'1.2-2' }}
+          </span>
         </md-input-container>
-      </div>
-      <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput type="number" name="payamount" [(ngModel)]="current.payamount" placeholder="Payment Amount" [formControl]="formControlPayAmount">
-          <span *ngIf="!equalamount()" class="tc-amber-800" mdSuffix><i class="fa fa-exclamation-circle" aria-hidden="true"></i></span>
-        </md-input-container>
-        <md-error *ngIf="formControlPayAmount.hasError('required')">
+        <md-error *ngIf="formControlPayment.hasError('required')">
           Payment amount is <strong>required</strong>
         </md-error>
+        <md-error *ngIf="formControlPayment.hasError('min')">
+            Payment amount should be greater than 0
+          </md-error>
       </div>
     </div>
     <div *ngIf="current.doc" class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <div><span><i class="fa fa-paperclip" aria-hidden="true"></i></span></div>
-        <img [src]="current.doc" alt="doc" class="img-thumbnail">
+        <div>
+          <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+          <img [src]="current.doc" alt="doc" class="img-thumbnail">
+        </div>
       </div>
     </div>
   </div>
