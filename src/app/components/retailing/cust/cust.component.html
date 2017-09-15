@@ -6,7 +6,7 @@
       <md-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="save()">save</md-icon></span>
+        <span class="toolbar-icon"><md-icon (click)="submit()">save</md-icon></span>
       </md-toolbar>
     </div>
     <div class="row">
@@ -65,12 +65,64 @@
     </div>
   </div>
 
-  <div class="card-box">
+  <div *ngIf="!enabled" class="card-box">
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span><i class="fa fa-th-list" aria-hidden="true"></i></span>
+        <span class="toolbar-spacer"></span>
+        <span class="toolbar-icon"><md-icon (click)="create()">add</md-icon></span>
+      </md-toolbar>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Receiver</th>
+                <th>Contact No.</th>
+                <th>Address</th>
+                <th>Postcode</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="current.shippings.length==0">
+                <td class="text-center md-caption tc-grey-400" colspan="6">No Shipping Address(s)</td>
+              </tr>
+              <tr *ngFor="let item of current.shippings;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{item.receiver}}</td>
+                <td>{{item.contactno}}</td>
+                <td>
+                  <span *ngIf="!item.default"><i class="fa fa-circle-o" aria-hidden="true"></i></span>
+                  <span *ngIf="item.default"><i class="fa fa-dot-circle-o" aria-hidden="true"></i></span>
+                  <span>{{item.province + item.city + item.area + item.street + item.detail }}</span>
+                </td>
+                <td>{{item.postcode}}</td>
+                <td class="text-center">
+                  <span (click)="edit(item)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                </td>
+                <td class="text-center">
+                  <span class="tc-red-800" (click)="delete(item.id)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="enabled" class="card-box">
     <div class="row">
       <md-toolbar class="toolbar">
         <span><i class="fa fa-address-book" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="add()">add</md-icon></span>
+        <span class="toolbar-icon"><md-icon (click)="save()">save</md-icon></span>
+        <span class="toolbar-icon"><md-icon (click)="close()">close</md-icon></span>
       </md-toolbar>
     </div>
     <div class="row">
@@ -158,6 +210,11 @@
             Postcode is <strong>required</strong>
           </md-error>
         </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-checkbox [checked]="shipping.default" [(ngModel)]="shipping.default" [indeterminate]="indeterminate"> Default Shipping Address? </md-checkbox>
       </div>
     </div>
   </div>

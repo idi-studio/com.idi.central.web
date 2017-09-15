@@ -5,15 +5,16 @@ import { RESTService, Status } from '../core';
 
 export interface IAddress {
     id: string
+    cid: string
     receiver: string
     contactno: string
-    primary: boolean
     province: string
     city: string
     area: string
     street: string
     detail: string
     postcode: string
+    default: boolean
 }
 
 @Injectable()
@@ -21,7 +22,7 @@ export class AddressService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    add(value: IAddress): Observable<any> {
+    add(value: any): Observable<any> {
         return super.post('/api/addr', value).map((res: Response) => {
             return res.json();
         });

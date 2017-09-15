@@ -27,9 +27,11 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     formControlPostcode = new FormControl('', [Validators.required])
 
     mode: Command
+    cmd: Command = Command.Create
     grade = Grade
-    current: ICustomer = { id: '', name: '', gender: 0, grade: 0, phone: '', date: '', verified: false }
-    shipping: IAddress = { id: '', receiver: '', contactno: '', primary: false, province: '', city: '', area: '', street: '', detail: '', postcode: '' }
+    enabled: boolean = false
+    current: ICustomer = { id: '', name: '', gender: 0, grade: 0, phone: '', date: '', verified: false, shippings: [] }
+    shipping: IAddress = { id: '', cid: '', receiver: '', contactno: '', province: '', city: '', area: '', street: '', detail: '', postcode: '', default: false, }
 
     constructor(private customer: CustomerService, private address: AddressService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
@@ -48,14 +50,14 @@ export class CustomerComponent extends BaseComponent implements OnInit {
                 this.header = new PageHeader('Customer', ['Retailing', 'Customer', 'Edit'])
                 break;
             default:
-                this.back();
+                this.back()
                 break;
         }
 
-        this.filter();
+        this.bind()
     }
 
-    async filter(): Promise<void> {
+    async bind(): Promise<void> {
         try {
 
             if (this.mode == Command.Update) {
@@ -78,11 +80,16 @@ export class CustomerComponent extends BaseComponent implements OnInit {
         return this.formControlCustName.valid && this.formControlPhone.valid && this.formControlGrade.valid
     }
 
+    check(): boolean {
+        return this.formControlReceiver.valid && this.formControlContactNo.valid && this.formControlProvince.valid && this.formControlCity.valid &&
+            this.formControlArea.valid && this.formControlStreet.valid && this.formControlDetail.valid && this.formControlPostcode.valid
+    }
+
     back(): void {
         this.navigate('central/cust/list')
     }
 
-    async save(): Promise<void> {
+    async submit(): Promise<void> {
         if (!this.valid())
             return;
 
@@ -115,7 +122,84 @@ export class CustomerComponent extends BaseComponent implements OnInit {
         }
     }
 
-    async add(): Promise<void> {
+    async save(): Promise<void> {
+        if (!this.check())
+            return
 
+        try {
+
+            let result: any;
+
+            switch (this.cmd) {
+                case Command.Create:
+                    result = await this.address.add(this.shipping).toPromise()
+                    break;
+                case Command.Update:
+                    result = await this.address.update(this.shipping).toPromise()
+                    break;
+                default:
+                    return;
+            }
+
+            this.show(result.message)
+
+            if (result.status === Status.Success) {
+                this.bind()
+                this.close()
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    delete(id: string): void {
+        this.confirm('Are you sure to delete this record?', (accepted) => {
+            if (accepted) {
+                this.deleteHandle(id)
+            }
+        })
+    }
+
+    async deleteHandle(id: string): Promise<void> {
+        try {
+            let result = await this.address.remove(id).toPromise()
+
+            this.show(result.message)
+
+            if (result.status == Status.Success) {
+                this.bind()
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    create(): void {
+        this.cmd = Command.Create
+        this.shipping = { id: '', cid: '', receiver: '', contactno: '', province: '', city: '', area: '', street: '', detail: '', postcode: '', default: false, }
+        if (this.mode == Command.Update) {
+            this.shipping.cid = this.current.id
+            this.shipping.receiver = this.current.name
+            this.shipping.contactno = this.current.phone
+        }
+        this.enabled = true
+    }
+
+    edit(value: IAddress): void {
+        this.cmd = Command.Update
+        this.shipping = value
+        this.enabled = true
+    }
+
+    close(): void {
+        this.enabled = false
     }
 }

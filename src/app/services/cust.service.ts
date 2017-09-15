@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
+import { IAddress } from '../services';
 
 export interface ICustomer {
     id: string
@@ -11,6 +12,7 @@ export interface ICustomer {
     gender: number
     date: string
     verified: boolean
+    shippings: Array<IAddress>
 }
 
 @Injectable()
