@@ -32,6 +32,8 @@ import { CustomerListComponent } from './components/retailing/cust-list/cust-lis
 import { CustomerComponent } from './components/retailing/cust/cust.component';
 
 import { VoucherComponent } from './components/retailing/voucher/vchr.component';
+import { DeliverComponent } from './components/retailing/deliver/deliver.component';
+
 
 const routes: Route[] = [
     { path: 'login', component: LoginComponent },
@@ -51,6 +53,7 @@ const routes: Route[] = [
             { path: 'product/images/:id', component: ProductImageComponent },
             { path: 'order/list', component: OrderListComponent },
             { path: 'order/:mode/:id', component: OrderComponent },
+            { path: 'deliver/:id', component: DeliverComponent },
             { path: 'cust/list', component: CustomerListComponent },
             { path: 'cust/info/:mode', component: CustomerComponent },
             { path: 'cust/info/:mode/:id', component: CustomerComponent },
@@ -73,5 +76,5 @@ export const CentralComponents: any[] = [
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
     DashboardComponent, RoleListComponent, UserListComponent, ProductListComponent, ProductComponent,
     ProductPriceComponent, ProductPriceListComponent, ProductImageComponent, OrderListComponent,
-    OrderComponent, CustomerListComponent, CustomerComponent, VoucherComponent,
+    OrderComponent, CustomerListComponent, CustomerComponent, VoucherComponent, DeliverComponent
 ];

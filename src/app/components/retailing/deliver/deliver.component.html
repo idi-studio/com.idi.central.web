@@ -1,0 +1,37 @@
+<page-header [header]="header"></page-header>
+
+<div class="row">
+  <div class="card-box">
+    <div class="row">
+      <md-toolbar class="toolbar">
+        <span (click)="back()" class="toolbar-icon-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span class="toolbar-spacer"></span>
+        <span class="toolbar-icon"><md-icon (click)="search()">search</md-icon></span>
+      </md-toolbar>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="sn" [(ngModel)]="current.sn" placeholder="Order No." disabled>
+        </md-input-container>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <md-input-container class="md-input-full-width">
+          <input mdInput name="cn" [(ngModel)]="current.cn" placeholder="Courier No." [formControl]="formControlCourierNo" autocomplete="off"
+            maxlength="20">
+          <md-error *ngIf="formControlCourierNo.hasError('pattern')">
+            Only Support case letters and number.
+          </md-error>
+          <md-error *ngIf="formControlCourierNo.hasError('required')">
+            Courier No. is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10">
+        <!-- <iframe name="kuaidi100" src="https://www.kuaidi100.com/frame/app/index2.html" width="800" height="400" marginwidth="0" marginheight="0"
+          hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe> -->
+      </div>
+    </div>
+  </div>

@@ -34,6 +34,7 @@
             <button *ngIf="display('view',row.status)" md-menu-item (click)="view(value)"><md-icon>description</md-icon><span>Details</span></button>
             <button *ngIf="display('edit',row.status)" md-menu-item (click)="edit(value)"><md-icon>edit</md-icon><span>Edit</span></button>
             <button *ngIf="display('voucher',row.status)" md-menu-item (click)="govoucher(value)"><md-icon>receipt</md-icon><span>Voucher</span></button>
+            <button *ngIf="display('deliver',row.status)" md-menu-item (click)="deliver(value)"><md-icon>local_shipping</md-icon><span>Deliver</span></button>
             <button *ngIf="display('remove',row.status)" md-menu-item (click)="delete(value)"><md-icon class="tc-red-800">delete</md-icon><span>Remove</span></button>
           </md-menu>
         </div>

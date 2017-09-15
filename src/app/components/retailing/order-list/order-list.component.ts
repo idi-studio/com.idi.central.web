@@ -107,6 +107,10 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/order/view/${id}`)
     }
 
+    deliver(id: string): void {
+        this.navigate(`/central/deliver/${id}`)
+    }
+
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
         this.sortOrder = sortEvent.order;
@@ -174,6 +178,9 @@ export class OrderListComponent extends BaseComponent implements OnInit {
             return true
 
         if (menu === "remove" && status == OrderStatus.Pending)
+            return true
+
+        if (menu === "deliver" && (status == OrderStatus.Paid || status == OrderStatus.Shipped || status == OrderStatus.Received || status == OrderStatus.Traded))
             return true
 
         return false

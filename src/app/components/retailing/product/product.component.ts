@@ -24,7 +24,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     tags: ITag[]
     chips: ITag[] = []
 
-    constructor(private product: ProductService, private tag: TagService, private snackBar: MdSnackBar,
+    constructor(private product: ProductService, private tag: TagService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -82,7 +82,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
         this.navigate('central/product/list')
     }
 
-    setPrice():void{
+    setPrice(): void {
         this.navigate(`central/product/prices/${this.current.id}`)
     }
 
