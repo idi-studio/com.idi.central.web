@@ -31,9 +31,10 @@
         <div layout="row" layout-align="end end">
           <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
           <md-menu #menu="mdMenu">
-            <button md-menu-item (click)="edit(value)"><md-icon>edit</md-icon><span>Edit</span></button>
-            <button md-menu-item (click)="govoucher(value)"><md-icon>attach_money</md-icon><span>Voucher</span></button>
-            <button md-menu-item (click)="delete(value)"><md-icon class="tc-red-800">delete</md-icon><span>Remove</span></button>
+            <button *ngIf="display('view',row.status)" md-menu-item (click)="view(value)"><md-icon>description</md-icon><span>Details</span></button>
+            <button *ngIf="display('edit',row.status)" md-menu-item (click)="edit(value)"><md-icon>edit</md-icon><span>Edit</span></button>
+            <button *ngIf="display('voucher',row.status)" md-menu-item (click)="govoucher(value)"><md-icon>receipt</md-icon><span>Voucher</span></button>
+            <button *ngIf="display('remove',row.status)" md-menu-item (click)="delete(value)"><md-icon class="tc-red-800">delete</md-icon><span>Remove</span></button>
           </md-menu>
         </div>
       </ng-template>

@@ -36,7 +36,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         { name: 'id', label: '', filter: false, hidden: false },
     ];
 
-    editable: boolean = false;
+    showlist: boolean = false;
     clickable: boolean = true;
     selectable: boolean = false;
     filteredData: any[] = this.data;
@@ -85,12 +85,15 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let cust = new List(this.options).FirstOrDefault(e => e.id == this.current.custid)
             this.formControlCustomer.setValue(cust)
 
-            if (!this.pending()) {
+            if (!this.editable()) {
                 this.formControlRemark.disable()
                 this.formControlCustomer.disable()
             }
 
             switch (this.mode) {
+                case Command.View:
+                    this.header = new PageHeader('Order', ['Retailing', 'Order', 'View'])
+                    break;
                 case Command.Update:
                     this.header = new PageHeader('Order', ['Retailing', 'Order', 'Edit'])
                     break;
@@ -162,7 +165,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.bindTable();
     }
 
-    pending(): boolean {
+    editable(): boolean {
+        if (this.mode == Command.View)
+            return false
+
         return this.current.status === OrderStatus.Pending
     }
 
@@ -171,7 +177,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     shopping(): void {
-        this.editable = true;
+        this.showlist = true;
     }
 
     valid(): boolean {
@@ -268,7 +274,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     cancel(): void {
-        this.editable = false;
+        this.showlist = false;
         this.bindTable();
     }
 

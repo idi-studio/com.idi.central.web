@@ -6,7 +6,7 @@ import {
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
 import { OrderService, IOrder, VoucherService, IVoucher } from '../../../services';
-import { BaseComponent, PageHeader, Status } from '../../../core';
+import { BaseComponent, PageHeader, Status, OrderStatus } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -103,6 +103,10 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/order/edit/${id}`)
     }
 
+    view(id: string): void {
+        this.navigate(`/central/order/view/${id}`)
+    }
+
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
         this.sortBy = sortEvent.name;
         this.sortOrder = sortEvent.order;
@@ -160,4 +164,20 @@ export class OrderListComponent extends BaseComponent implements OnInit {
             this.unload()
         }
     }
+
+    display(menu: string, status: OrderStatus): boolean {
+
+        if (menu === "view" || menu === "voucher")
+            return true
+
+        if (menu === "edit" && status == OrderStatus.Pending)
+            return true
+
+        if (menu === "remove" && status == OrderStatus.Pending)
+            return true
+
+        return false
+    }
+
+
 }
