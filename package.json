@@ -1,6 +1,6 @@
 {
   "name": "com.idi.central.web",
-  "version": "0.0.1",
+  "version": "1.0.0.alpha",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
