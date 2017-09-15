@@ -15,9 +15,9 @@ export class CategoryService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    all(typeName: string): Observable<Array<any>> {
+    all(name: string): Observable<Array<any>> {
 
-        return super.get(`/api/category/${typeName}`).map((res: Response) => {
+        return super.post(`/api/catg`, { name: name }).map((res: Response) => {
 
             var result = res.json();
 

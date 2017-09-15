@@ -8,7 +8,7 @@ export class RESTService {
 
     constructor(private http: Http, private file?: TdFileService) { }
 
-    protected post(url: string, params: any): Observable<any> {
+    protected post(url: string, params: any = {}): Observable<any> {
         return this.http.post(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 
