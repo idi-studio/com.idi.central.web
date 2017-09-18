@@ -15,7 +15,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class CustomerListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader('Customers', ['Retailing', 'Customers']);
+    header: PageHeader = new PageHeader('Customers', ['Sales', 'Customers']);
 
     data: ICustomer[] = [];
 

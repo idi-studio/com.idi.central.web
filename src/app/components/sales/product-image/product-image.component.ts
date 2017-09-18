@@ -28,7 +28,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.header = new PageHeader('Product', ['Retailing', 'Product', 'Image'])
+        this.header = new PageHeader('Product', ['Sales', 'Product', 'Image'])
         this.pid = this.getParam('id')
 
         this.initUI();

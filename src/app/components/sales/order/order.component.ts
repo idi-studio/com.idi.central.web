@@ -92,10 +92,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
             switch (this.mode) {
                 case Command.View:
-                    this.header = new PageHeader('Order', ['Retailing', 'Order', 'View'])
+                    this.header = new PageHeader('Order', ['Sales', 'Order', 'View'])
                     break;
                 case Command.Update:
-                    this.header = new PageHeader('Order', ['Retailing', 'Order', 'Edit'])
+                    this.header = new PageHeader('Order', ['Sales', 'Order', 'Edit'])
                     break;
                 default:
                     this.back();

@@ -18,8 +18,8 @@ export class VoucherComponent extends BaseComponent implements OnInit {
     statuses: any[]
     files: Array<File> = []
     current: IVoucher = { id: '', tn: '', status: 0, sn: '', date: '', paymethod: 0, payment: 0, payable: 0, remark: '', oid: '' }
-    formControlPayment = new FormControl({value: '', disabled: true}, [Validators.required,Validators.min(0.01)])
-    formControlPaymethod = new FormControl({value: '', disabled: true}, [Validators.required])
+    formControlPayment = new FormControl({ value: '', disabled: true }, [Validators.required, Validators.min(0.01)])
+    formControlPaymethod = new FormControl({ value: '', disabled: true }, [Validators.required])
 
     constructor(private voucher: VoucherService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
@@ -28,21 +28,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.getMode()
-
         this.init()
-
-        switch (this.mode) {
-            case Command.View:
-                this.header = new PageHeader('Voucher', ['Retailing', 'Customer', 'View'])
-                break;
-            case Command.Update:
-                this.header = new PageHeader('Voucher', ['Retailing', 'Voucher', 'Edit'])
-                break;
-            default:
-                this.back();
-                break;
-        }
     }
 
     async init(): Promise<void> {
@@ -58,6 +44,11 @@ export class VoucherComponent extends BaseComponent implements OnInit {
             if (this.editable()) {
                 this.formControlPayment.enable()
                 this.formControlPaymethod.enable()
+                this.header = new PageHeader('Voucher', ['Sales', 'Voucher', 'Edit'])
+            } else {
+                this.formControlPayment.disable()
+                this.formControlPaymethod.disable()
+                this.header = new PageHeader('Voucher', ['Sales', 'Voucher', 'View'])
             }
         }
         catch (error) {
@@ -78,6 +69,37 @@ export class VoucherComponent extends BaseComponent implements OnInit {
 
     equalamount(): boolean {
         return this.current.payment === this.current.payable
+    }
+
+
+    async delete(): Promise<void> {
+
+        if (this.current.status === TradeStatus.Success)
+            return
+
+        this.confirm('Are you sure to delete this voucher?', (accepted) => {
+            if (accepted) {
+                this.deleteHandle()
+            }
+        })
+    }
+
+    async deleteHandle(): Promise<void> {
+        try {
+            let result = await this.voucher.remove(this.current.id).toPromise()
+
+            this.show(result.message)
+
+            if (result.status == Status.Success) {
+                this.back()
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 
     async done(): Promise<void> {
@@ -105,7 +127,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
             this.show(result.message)
 
             if (result.status == Status.Success) {
-                this.navigate(`/central/vchr/info/view/${this.current.id}`)
+                this.init();
             }
         }
         catch (error) {
@@ -137,9 +159,6 @@ export class VoucherComponent extends BaseComponent implements OnInit {
     }
 
     editable(): boolean {
-        if (this.mode != Command.Update)
-            return false
-
         return this.current.status === TradeStatus.InProcess
     }
 

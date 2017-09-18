@@ -41,7 +41,7 @@ export class Navigation {
                 new MenuItem('Roles', 'role/list'),
                 new MenuItem('Users', 'user/list')
             ]),
-            new MenuItem('Retailing', null, 'zmdi zmdi-labels', null, [
+            new MenuItem('Sales', null, 'zmdi zmdi-labels', null, [
                 new MenuItem('Products', 'product/list'),
                 new MenuItem('Orders', 'order/list'),
                 new MenuItem('Customers', 'cust/list')

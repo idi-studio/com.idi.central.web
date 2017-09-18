@@ -24,7 +24,7 @@ export class DeliverComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.header = new PageHeader('Order', ['Retailing', 'Order', 'Deliver'])
+        this.header = new PageHeader('Order', ['Sales', 'Order', 'Deliver'])
 
         this.bind();
     }

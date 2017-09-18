@@ -5,25 +5,27 @@ import {
     TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
-import { OrderService, IOrder, VoucherService, IVoucher } from '../../../services';
-import { BaseComponent, PageHeader, Status, OrderStatus } from '../../../core';
+import { ProductService, IProduct } from '../../../services';
+import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './order-list.component.html'
+    templateUrl: './product-list.component.html'
 })
-export class OrderListComponent extends BaseComponent implements OnInit {
+export class ProductListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader('Orders', ['Retailing', 'Orders']);
+    header: PageHeader = new PageHeader('Products', ['Sales', 'Products']);
 
-    data: IOrder[] = [];
+    data: IProduct[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'sn', label: 'SN', filter: true },
-        { name: 'statusdesc', label: 'Status', filter: true },
-        { name: 'date', label: 'Date', filter: true },
-        { name: 'remark', label: 'Remark', filter: true },
-        { name: 'id', label: '', filter: false }
+        { name: 'name', label: 'Name', filter: true },
+        { name: 'code', label: 'Code', filter: true, hidden: true },
+        { name: 'description', label: 'Description', filter: true, hidden: true },
+        { name: 'tags', label: 'Tags', filter: false },
+        { name: 'active', label: 'Active?', filter: false, hidden: true },
+        { name: 'onshelf', label: 'OnShelf?', filter: false, hidden: false },
+        { name: 'id', label: '', filter: false, hidden: false },
     ];
 
     clickable: boolean = true;
@@ -34,11 +36,11 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     fromRow: number = 1;
     currentPage: number = 1;
     pageSize: number = 5;
-    sortBy: string = 'sn';
+    sortBy: string = 'name';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private order: OrderService, private voucher: VoucherService, private dataTable: TdDataTableService,
+    constructor(private product: ProductService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -52,7 +54,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.data = await this.order.all().toPromise()
+            this.data = await this.product.all().toPromise()
         }
         catch (error) {
             this.data = [];
@@ -61,7 +63,7 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
 
-            let newData: IOrder[] = this.data;
+            let newData: IProduct[] = this.data;
 
             let excludedColumns: string[] = this.columns
                 .filter((column: ITdDataTableColumn) => {
@@ -78,37 +80,12 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         }
     }
 
-    async add(): Promise<any> {
-        try {
-            let order = { cid: null, remark: 'N/A' }
-
-            let result = await this.order.add(order).toPromise()
-
-            if (result.status == Status.Success) {
-                this.navigate(`/central/order/edit/${result.details.oid}`)
-            }
-            else {
-                this.alert(result.message)
-            }
-        }
-        catch (error) {
-            this.handle(error)
-        }
-        finally {
-            this.unload()
-        }
+    add(): void {
+        this.navigate('/central/product/info/add')
     }
 
     edit(id: string): void {
-        this.navigate(`/central/order/edit/${id}`)
-    }
-
-    view(id: string): void {
-        this.navigate(`/central/order/view/${id}`)
-    }
-
-    deliver(id: string): void {
-        this.navigate(`/central/deliver/${id}`)
+        this.navigate(`/central/product/info/edit/${id}`)
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -129,25 +106,31 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
-    async govoucher(id: string): Promise<void> {
-        try {
-            const vchr: IVoucher = { id: '', tn: '', status: 0, sn: '', date: '', paymethod: 0, payment: 0, payable: 0, remark: '', oid: id }
-            let result = await this.voucher.add(vchr).toPromise()
-            this.show(result.message)
+    showPrices(id: string): void {
+        this.navigate(`/central/product/prices/${id}`)
+    }
 
-            if (result.status === Status.Success) {
-                this.navigate(`/central/vchr/info/edit/${result.details.vchrid}`)
-            }
+    showImages(id: string): void {
+        this.navigate(`/central/product/images/${id}`)
+    }
+
+    async shelf(product: IProduct): Promise<void> {
+        product.onshelf = !product.onshelf;
+        try {
+            let result = await this.product.update(product).toPromise()
+            this.alert(result.message)
         }
         catch (error) {
             this.handle(error)
         }
         finally {
             this.unload()
+            this.filter();
         }
     }
 
     delete(id: string): void {
+
         this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
                 this.handleDelete(id)
@@ -157,7 +140,8 @@ export class OrderListComponent extends BaseComponent implements OnInit {
 
     async handleDelete(id: string): Promise<void> {
         try {
-            let result = await this.order.remove(id).toPromise()
+            let result = await this.product.remove(id).toPromise()
+            // this.show(result);
             this.alert(result.message)
             this.filter();
         }
@@ -168,23 +152,4 @@ export class OrderListComponent extends BaseComponent implements OnInit {
             this.unload()
         }
     }
-
-    display(menu: string, status: OrderStatus): boolean {
-
-        if (menu === "view" || menu === "voucher")
-            return true
-
-        if (menu === "edit" && status == OrderStatus.Pending)
-            return true
-
-        if (menu === "remove" && status == OrderStatus.Pending)
-            return true
-
-        if (menu === "deliver" && (status == OrderStatus.Paid || status == OrderStatus.Shipped || status == OrderStatus.Received || status == OrderStatus.Traded))
-            return true
-
-        return false
-    }
-
-
 }

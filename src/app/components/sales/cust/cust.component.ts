@@ -44,10 +44,10 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
         switch (this.mode) {
             case Command.Create:
-                this.header = new PageHeader('Customer', ['Retailing', 'Customer', 'Add'])
+                this.header = new PageHeader('Customer', ['Sales', 'Customer', 'Add'])
                 break;
             case Command.Update:
-                this.header = new PageHeader('Customer', ['Retailing', 'Customer', 'Edit'])
+                this.header = new PageHeader('Customer', ['Sales', 'Customer', 'Edit'])
                 break;
             default:
                 this.back()

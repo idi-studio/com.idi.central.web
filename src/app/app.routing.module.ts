@@ -19,20 +19,20 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RoleListComponent } from './components/administration/role-list/role-list.component';
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
-import { ProductListComponent } from './components/retailing/product-list/product-list.component';
-import { ProductComponent } from './components/retailing/product/product.component';
-import { ProductImageComponent } from './components/retailing/product-image/product-image.component';
-import { ProductPriceComponent } from './components/retailing/product-price/product-price.component';
-import { ProductPriceListComponent } from './components/retailing/product-price-list/product-price-list.component';
+import { ProductListComponent } from './components/sales/product-list/product-list.component';
+import { ProductComponent } from './components/sales/product/product.component';
+import { ProductImageComponent } from './components/sales/product-image/product-image.component';
+import { ProductPriceComponent } from './components/sales/product-price/product-price.component';
+import { ProductPriceListComponent } from './components/sales/product-price-list/product-price-list.component';
 
-import { OrderListComponent } from './components/retailing/order-list/order-list.component';
-import { OrderComponent } from './components/retailing/order/order.component';
+import { OrderListComponent } from './components/sales/order-list/order-list.component';
+import { OrderComponent } from './components/sales/order/order.component';
 
-import { CustomerListComponent } from './components/retailing/cust-list/cust-list.component';
-import { CustomerComponent } from './components/retailing/cust/cust.component';
+import { CustomerListComponent } from './components/sales/cust-list/cust-list.component';
+import { CustomerComponent } from './components/sales/cust/cust.component';
 
-import { VoucherComponent } from './components/retailing/voucher/vchr.component';
-import { DeliverComponent } from './components/retailing/deliver/deliver.component';
+import { VoucherComponent } from './components/sales/voucher/vchr.component';
+import { DeliverComponent } from './components/sales/deliver/deliver.component';
 
 
 const routes: Route[] = [
@@ -57,7 +57,7 @@ const routes: Route[] = [
             { path: 'cust/list', component: CustomerListComponent },
             { path: 'cust/info/:mode', component: CustomerComponent },
             { path: 'cust/info/:mode/:id', component: CustomerComponent },
-            { path: 'vchr/info/:mode/:id', component: VoucherComponent },
+            { path: 'vchr/:id', component: VoucherComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
