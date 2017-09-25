@@ -35,10 +35,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
         switch (this.mode) {
             case Command.Create:
-                this.header = new PageHeader('Product', ['Sales', 'Product', 'Add'])
+                this.header = new PageHeader('Product', ['Basic Info', 'Product', 'Add'])
                 break;
             case Command.Update:
-                this.header = new PageHeader('Product', ['Sales', 'Product', 'Edit'])
+                this.header = new PageHeader('Product', ['Basic Info', 'Product', 'Edit'])
                 break;
             default:
                 this.back();

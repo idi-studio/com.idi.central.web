@@ -19,11 +19,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RoleListComponent } from './components/administration/role-list/role-list.component';
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
-import { ProductListComponent } from './components/sales/product-list/product-list.component';
-import { ProductComponent } from './components/sales/product/product.component';
-import { ProductImageComponent } from './components/sales/product-image/product-image.component';
-import { ProductPriceComponent } from './components/sales/product-price/product-price.component';
-import { ProductPriceListComponent } from './components/sales/product-price-list/product-price-list.component';
+import { ProductListComponent } from './components/basicinfo/product-list/product-list.component';
+import { ProductComponent } from './components/basicinfo/product/product.component';
+import { ProductImageComponent } from './components/basicinfo/product-image/product-image.component';
+import { ProductPriceComponent } from './components/basicinfo/product-price/product-price.component';
+import { ProductPriceListComponent } from './components/basicinfo/product-price-list/product-price-list.component';
 
 import { OrderListComponent } from './components/sales/order-list/order-list.component';
 import { OrderComponent } from './components/sales/order/order.component';

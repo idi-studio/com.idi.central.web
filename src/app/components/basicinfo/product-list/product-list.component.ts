@@ -5,26 +5,26 @@ import {
     TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
-import { ProductService, ProductPriceService, IProduct, IProductPrice } from '../../../services';
-import { BaseComponent, PageHeader, PriceCategory } from '../../../core';
+import { ProductService, IProduct } from '../../../services';
+import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './product-price-list.component.html'
+    templateUrl: './product-list.component.html'
 })
-export class ProductPriceListComponent extends BaseComponent implements OnInit {
+export class ProductListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader('Product', ['Sales', 'Product', 'Prices']);
+    header: PageHeader = new PageHeader('Products', ['Basic Info', 'Products']);
 
-    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
-    data: IProductPrice[] = [];
+    data: IProduct[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'category', label: 'Category', filter: true, hidden: true },
-        { name: 'categoryname', label: 'Category', filter: true },
-        { name: 'amount', label: 'Amount', numeric: true, format: v => v.toFixed(2), filter: true },
-        { name: 'grade', label: 'Grade', filter: true },
-        { name: 'startdate', label: 'Expiration Date', filter: false },
+        { name: 'name', label: 'Name', filter: true },
+        { name: 'code', label: 'Code', filter: true, hidden: true },
+        { name: 'description', label: 'Description', filter: true, hidden: true },
+        { name: 'tags', label: 'Tags', filter: false },
+        { name: 'active', label: 'Active?', filter: false, hidden: true },
+        { name: 'onshelf', label: 'OnShelf?', filter: false, hidden: false },
         { name: 'id', label: '', filter: false, hidden: false },
     ];
 
@@ -36,11 +36,11 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     fromRow: number = 1;
     currentPage: number = 1;
     pageSize: number = 5;
-    sortBy: string = 'category';
+    sortBy: string = 'name';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService,
+    constructor(private product: ProductService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -54,10 +54,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let id = this.getParam('id')
-            this.current = await this.product.single(id).toPromise()
-            this.data = await this.price.all(id).toPromise()
-            this.header.title = this.current.name
+            this.data = await this.product.all().toPromise()
         }
         catch (error) {
             this.data = [];
@@ -66,7 +63,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
 
-            let newData: IProductPrice[] = this.data;
+            let newData: IProduct[] = this.data;
 
             let excludedColumns: string[] = this.columns
                 .filter((column: ITdDataTableColumn) => {
@@ -83,12 +80,12 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         }
     }
 
-    back(): void {
-        this.navigate('/central/product/list')
+    add(): void {
+        this.navigate('/central/product/info/add')
     }
 
-    add(): void {
-        this.navigate(`/central/product/price/add/${this.current.id}`)
+    edit(id: string): void {
+        this.navigate(`/central/product/info/edit/${id}`)
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -109,26 +106,27 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
-    hasTerm(category: number): boolean {
-        switch (category) {
-            case PriceCategory.Discount:
-                return true
-            default:
-                return false
-        }
+    showPrices(id: string): void {
+        this.navigate(`/central/product/prices/${id}`)
     }
 
-    hasGrade(category: number): boolean {
-        switch (category) {
-            case PriceCategory.Discount:
-                return true
-            default:
-                return false
-        }
+    showImages(id: string): void {
+        this.navigate(`/central/product/images/${id}`)
     }
 
-    edit(id: string): void {
-        this.navigate(`/central/product/price/edit/${id}`)
+    async shelf(product: IProduct): Promise<void> {
+        product.onshelf = !product.onshelf;
+        try {
+            let result = await this.product.update(product).toPromise()
+            this.alert(result.message)
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+            this.filter();
+        }
     }
 
     delete(id: string): void {
@@ -142,7 +140,8 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
     async handleDelete(id: string): Promise<void> {
         try {
-            let result = await this.price.remove(id).toPromise()
+            let result = await this.product.remove(id).toPromise()
+            // this.show(result);
             this.alert(result.message)
             this.filter();
         }

@@ -41,15 +41,17 @@ export class Navigation {
                 new MenuItem('Roles', 'role/list'),
                 new MenuItem('Users', 'user/list')
             ]),
+            new MenuItem('Basic Info', null, 'zmdi zmdi-apps zmdi-hc-fw', null, [
+                new MenuItem('Products', 'product/list')
+            ]),
             new MenuItem('Sales', null, 'zmdi zmdi-labels', null, [
-                new MenuItem('Products', 'product/list'),
                 new MenuItem('Orders', 'order/list'),
                 new MenuItem('Customers', 'cust/list')
             ]),
             new MenuItem('Purchase', null, 'zmdi zmdi-truck', null, [
                 new MenuItem('Come soon...')
             ]),
-            new MenuItem('Inventory ', null, 'zmdi zmdi-store', null, [
+            new MenuItem('Inventory', null, 'zmdi zmdi-store', null, [
                 new MenuItem('Come soon...')
             ])
         ];
