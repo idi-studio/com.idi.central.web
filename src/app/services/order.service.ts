@@ -50,7 +50,7 @@ export class OrderService extends RESTService {
     }
 
     confirm(id: string): Observable<any> {
-        return super.put(`/api/order/confirm/${id}`).map((res: Response) => {
+        return super.put(`/api/order/verify/${id}`).map((res: Response) => {
             return res.json();
         });
     }
