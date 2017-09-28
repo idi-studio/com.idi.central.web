@@ -27,4 +27,23 @@ export class RoleService extends RESTService {
             return new Array<IRole>()
         });
     }
+
+    permission(name: string): Observable<Array<any>> {
+
+        return super.get(`/api/role/permission/${name}`).map((res: Response) => {
+
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return new Array<any>()
+        });
+    }
+
+    authorize(value: any): Observable<any> {
+        return super.put(`/api/role/authorize`, value).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

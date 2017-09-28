@@ -1,39 +1,42 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Route } from '@angular/router';
 
-//Components
+//Common
 import { LoginComponent } from './components/common/login/login.component';
 import { LogoutComponent } from './components/common/logout/logout.component';
 import { ForgotPasswordComponent } from './components/common/forgot-password/forgot-password.component';
 import { LockScreenComponent } from './components/common/lock-screen/lock-screen.component';
 import { MainComponent } from './components/common/main/main.component';
 
+//Shared
 import { TopbarComponent } from './components/shared/topbar/topbar.component';
 import { SidebarComponent } from './components/shared/sidebar/sidebar.component';
 import { SidebarRightComponent } from './components/shared/sidebar-right/sidebar-right.component';
 import { FootbarComponent } from './components/shared/footbar/footbar.component';
 import { PageHeaderComponent } from './components/shared/page-header/page-header.component';
 
+//Dashboard
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
+//Administration
 import { RoleListComponent } from './components/administration/role-list/role-list.component';
+import { RolePermissionComponent } from './components/administration/role-permission/role-permission.component';
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 
+//Basicinfo
 import { ProductListComponent } from './components/basicinfo/product-list/product-list.component';
 import { ProductComponent } from './components/basicinfo/product/product.component';
 import { ProductImageComponent } from './components/basicinfo/product-image/product-image.component';
 import { ProductPriceComponent } from './components/basicinfo/product-price/product-price.component';
 import { ProductPriceListComponent } from './components/basicinfo/product-price-list/product-price-list.component';
 
+//Sales
 import { OrderListComponent } from './components/sales/order-list/order-list.component';
 import { OrderComponent } from './components/sales/order/order.component';
-
 import { CustomerListComponent } from './components/sales/cust-list/cust-list.component';
 import { CustomerComponent } from './components/sales/cust/cust.component';
-
 import { VoucherComponent } from './components/sales/voucher/vchr.component';
 import { DeliverComponent } from './components/sales/deliver/deliver.component';
-
 
 const routes: Route[] = [
     { path: 'login', component: LoginComponent },
@@ -44,6 +47,7 @@ const routes: Route[] = [
         path: 'central', component: MainComponent, children: [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'role/list', component: RoleListComponent },
+            { path: 'role/permission/:name', component: RolePermissionComponent },
             { path: 'user/list', component: UserListComponent },
             { path: 'product/list', component: ProductListComponent },
             { path: 'product/info/:mode', component: ProductComponent },
@@ -74,7 +78,7 @@ export class AppRoutingModule {
 export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
-    DashboardComponent, RoleListComponent, UserListComponent, ProductListComponent, ProductComponent,
+    DashboardComponent, RoleListComponent, RolePermissionComponent, UserListComponent, ProductListComponent, ProductComponent,
     ProductPriceComponent, ProductPriceListComponent, ProductImageComponent, OrderListComponent,
     OrderComponent, CustomerListComponent, CustomerComponent, VoucherComponent, DeliverComponent
 ];

@@ -7,8 +7,7 @@ import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './role-list.component.html',
-    styleUrls: ['role-list.component.css']
+    templateUrl: './role-list.component.html'
 })
 export class RoleListComponent extends BaseComponent implements OnInit {
 
@@ -20,6 +19,7 @@ export class RoleListComponent extends BaseComponent implements OnInit {
         { name: 'name', label: 'Name', filter: true },
         { name: 'descrition', label: 'Descrition' },
         { name: 'active', label: 'Active?', filter: true },
+        { name: 'id', label: '', filter: false },
     ];
 
     filteredData: any[] = this.data;
@@ -88,5 +88,9 @@ export class RoleListComponent extends BaseComponent implements OnInit {
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
         this.filter();
+    }
+
+    permission(name: string): void {
+        this.navigate(`/central/role/permission/${name.toLowerCase()}`)
     }
 }
