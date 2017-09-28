@@ -13,8 +13,8 @@
       [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
         <div layout="row">
-          <md-icon *ngIf="value" class="tc-light-green-800">check_box</md-icon>
-          <md-icon *ngIf="!value" class="tc-light-green-800">check_box_outline_blank</md-icon>
+          <i *ngIf="value"  class="fa fa-check-square-o" aria-hidden="true"></i>
+          <i *ngIf="!value" class="fa fa-square-o" aria-hidden="true"></i>
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
@@ -30,6 +30,14 @@
       <ng-template tdDataTableTemplate="photo" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <img alt="photo" class="img-circle" src="assets/images/users/{{value}}" height="24" width="24">
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+        <div layout="row" layout-align="end end">
+          <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
+          <md-menu #menu="mdMenu">
+            <button md-menu-item (click)="role(row.username)"><md-icon>group</md-icon><span>Role</span></button>
+          </md-menu>
         </div>
       </ng-template>
     </td-data-table>

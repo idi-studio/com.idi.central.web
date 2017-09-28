@@ -7,8 +7,7 @@ import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './user-list.component.html',
-    styleUrls: ['user-list.component.css']
+    templateUrl: './user-list.component.html'
 })
 export class UserListComponent extends BaseComponent implements OnInit {
 
@@ -23,6 +22,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
         { name: 'gender', label: 'Gender' },
         { name: 'birthday', label: 'Birthday', filter: true },
         { name: 'active', label: 'Active?', filter: true },
+        { name: 'id', label: '', filter: false },
     ];
 
     filteredData: any[] = this.data;
@@ -92,5 +92,9 @@ export class UserListComponent extends BaseComponent implements OnInit {
         this.currentPage = pagingEvent.page;
         this.pageSize = pagingEvent.pageSize;
         this.filter();
+    }
+
+    role(username: string): void {
+        this.navigate(`/central/user/role/${username}`)
     }
 }

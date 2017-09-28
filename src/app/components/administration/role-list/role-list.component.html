@@ -13,8 +13,8 @@
       [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
         <div layout="row">
-          <md-icon *ngIf="value" class="tc-light-green-800">check_box</md-icon>
-          <md-icon *ngIf="!value" class="tc-light-green-800">check_box_outline_blank</md-icon>
+          <i *ngIf="value" class="fa fa-check-square-o" aria-hidden="true"></i>
+          <i *ngIf="!value" class="fa fa-square-o" aria-hidden="true"></i>
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">

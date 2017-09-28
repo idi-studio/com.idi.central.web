@@ -58,4 +58,23 @@ export class UserService extends RESTService {
             return new Array<IUser>()
         });
     }
+
+    role(username: string): Observable<any> {
+
+        return super.get(`/api/user/role/${username}`).map((res: Response) => {
+
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return new Array<IUser>()
+        });
+    }
+
+    authorize(value: any): Observable<any> {
+        return super.put('/api/user/authorize', value).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

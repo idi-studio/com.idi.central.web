@@ -22,6 +22,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RoleListComponent } from './components/administration/role-list/role-list.component';
 import { RolePermissionComponent } from './components/administration/role-permission/role-permission.component';
 import { UserListComponent } from './components/administration/user-list/user-list.component';
+import { UserRoleComponent } from './components/administration/user-role/user-role.component';
 
 //Basicinfo
 import { ProductListComponent } from './components/basicinfo/product-list/product-list.component';
@@ -49,6 +50,7 @@ const routes: Route[] = [
             { path: 'role/list', component: RoleListComponent },
             { path: 'role/permission/:name', component: RolePermissionComponent },
             { path: 'user/list', component: UserListComponent },
+            { path: 'user/role/:username', component: UserRoleComponent },
             { path: 'product/list', component: ProductListComponent },
             { path: 'product/info/:mode', component: ProductComponent },
             { path: 'product/info/:mode/:id', component: ProductComponent },
@@ -78,7 +80,12 @@ export class AppRoutingModule {
 export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
-    DashboardComponent, RoleListComponent, RolePermissionComponent, UserListComponent, ProductListComponent, ProductComponent,
-    ProductPriceComponent, ProductPriceListComponent, ProductImageComponent, OrderListComponent,
-    OrderComponent, CustomerListComponent, CustomerComponent, VoucherComponent, DeliverComponent
+    DashboardComponent,
+    RoleListComponent, RolePermissionComponent,
+    UserListComponent, UserRoleComponent,
+    ProductListComponent, ProductComponent, ProductPriceComponent, ProductPriceListComponent, ProductImageComponent,
+    OrderListComponent, OrderComponent,
+    CustomerListComponent, CustomerComponent,
+    VoucherComponent,
+    DeliverComponent
 ];
