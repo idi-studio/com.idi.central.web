@@ -4,6 +4,7 @@ import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { RoleService, IRole } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
+import { List } from 'linqts'
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -44,27 +45,22 @@ export class RolePermissionComponent extends BaseComponent implements OnInit {
         }
     }
 
-    async save(): Promise<void> {
+    back(): void {
+        this.navigate('/central/role/list')
+    }
+
+    async submit(): Promise<void> {
         try {
 
-            // let result: any;
+            var list: any[] = []
 
-            // switch (this.mode) {
-            //     case Command.Create:
-            //         result = await this.price.add(this.current).toPromise()
-            //         break;
-            //     case Command.Update:
-            //         result = await this.price.update(this.current).toPromise()
-            //         break;
-            //     default:
-            //         return;
-            // }
+            this.modules.forEach(module => { list = list.concat(module.permissions) });
 
-            // this.alert(result.message)
+            let permissions = new List(list).Where(p => p.checked).Select(p => p.code).ToArray();
 
-            // if (result.status == Status.Success) {
-            //     this.back()
-            // }
+            let result = await this.role.authorize({ role: this.name, permissions: permissions }).toPromise()
+
+            this.show(result.message)
         }
         catch (error) {
             this.handle(error)

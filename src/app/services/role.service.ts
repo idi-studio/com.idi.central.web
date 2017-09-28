@@ -42,7 +42,7 @@ export class RoleService extends RESTService {
     }
 
     authorize(value: any): Observable<any> {
-        return super.put(`/api/role/authorize`, value).map((res: Response) => {
+        return super.put('/api/role/authorize', value).map((res: Response) => {
             return res.json();
         });
     }
