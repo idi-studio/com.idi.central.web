@@ -40,7 +40,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.getMode()
+        this.mode = this.command()
 
         switch (this.mode) {
             case Command.Create:
@@ -61,7 +61,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
         try {
 
             if (this.mode == Command.Update) {
-                let id = this.getParam('id');
+                let id = this.routeParams('id');
                 this.current = await this.customer.single(id).toPromise()
                 this.shipping.receiver = this.current.name
                 this.shipping.contactno = this.current.phone

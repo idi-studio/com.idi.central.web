@@ -32,7 +32,7 @@ export class RolePermissionComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let name = this.getParam("name")
+            let name = this.routeParams("name")
             this.data = await this.role.permission(name).toPromise()
             this.name = this.data.role;
             this.modules = this.data.modules;

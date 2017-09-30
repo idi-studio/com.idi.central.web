@@ -6,6 +6,7 @@ import { LoginComponent } from './components/common/login/login.component';
 import { LogoutComponent } from './components/common/logout/logout.component';
 import { ForgotPasswordComponent } from './components/common/forgot-password/forgot-password.component';
 import { LockScreenComponent } from './components/common/lock-screen/lock-screen.component';
+import { OAuthComponent } from './components/common/oauth/oauth.component';
 import { MainComponent } from './components/common/main/main.component';
 
 //Shared
@@ -44,6 +45,7 @@ const routes: Route[] = [
     { path: 'logout', component: LogoutComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'lock-screen', component: LockScreenComponent },
+    { path: 'oauth/login', component: OAuthComponent },
     {
         path: 'central', component: MainComponent, children: [
             { path: 'dashboard', component: DashboardComponent },
@@ -52,17 +54,17 @@ const routes: Route[] = [
             { path: 'user/list', component: UserListComponent },
             { path: 'user/role/:username', component: UserRoleComponent },
             { path: 'product/list', component: ProductListComponent },
-            { path: 'product/info/:mode', component: ProductComponent },
-            { path: 'product/info/:mode/:id', component: ProductComponent },
+            { path: 'product/info/:cmd', component: ProductComponent },
+            { path: 'product/info/:cmd/:id', component: ProductComponent },
             { path: 'product/prices/:id', component: ProductPriceListComponent },
-            { path: 'product/price/:mode/:id', component: ProductPriceComponent },
+            { path: 'product/price/:cmd/:id', component: ProductPriceComponent },
             { path: 'product/images/:id', component: ProductImageComponent },
             { path: 'order/list', component: OrderListComponent },
-            { path: 'order/:mode/:id', component: OrderComponent },
+            { path: 'order/:cmd/:id', component: OrderComponent },
             { path: 'deliver/:id', component: DeliverComponent },
             { path: 'cust/list', component: CustomerListComponent },
-            { path: 'cust/info/:mode', component: CustomerComponent },
-            { path: 'cust/info/:mode/:id', component: CustomerComponent },
+            { path: 'cust/info/:cmd', component: CustomerComponent },
+            { path: 'cust/info/:cmd/:id', component: CustomerComponent },
             { path: 'vchr/:id', component: VoucherComponent },
         ]
     },
@@ -79,7 +81,7 @@ export class AppRoutingModule {
 
 export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
-    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent,
+    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent, OAuthComponent,
     DashboardComponent,
     RoleListComponent, RolePermissionComponent,
     UserListComponent, UserRoleComponent,

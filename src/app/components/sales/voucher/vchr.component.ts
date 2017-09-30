@@ -36,7 +36,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let id = this.getParam('id');
+            let id = this.routeParams('id');
             this.paymethods = await this.category.all(TypeNames.PayMethod).toPromise()
             this.statuses = await this.category.all(TypeNames.TradeStatus).toPromise()
             this.current = await this.voucher.single(id).toPromise()

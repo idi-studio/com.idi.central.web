@@ -31,7 +31,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.getMode()
+        this.mode = this.command()
 
         switch (this.mode) {
             case Command.Create:
@@ -56,7 +56,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
             this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ''
 
             if (this.mode == Command.Update) {
-                let id = this.getParam('id');
+                let id = this.routeParams('id');
                 this.current = await this.product.single(id).toPromise()
                 this.chips = this.current.tags
             }

@@ -51,6 +51,13 @@ export enum TradeStatus
     Success = 4
 }
 
+export enum OAuthType
+{
+    GitHub = 2,
+    Wechat = 4,
+    Alipay = 8
+}
+
 export const Grade: [any] = [
     { key: 0, name: 'Ordinary' },
     { key: 1, name: 'VIP1' },

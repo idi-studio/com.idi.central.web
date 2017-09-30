@@ -8,13 +8,9 @@ import { TokenService, OAuthService } from '../../../services';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './login.component.html',
-    styleUrls: ['login.component.css']
+    template: ''
 })
-export class LoginComponent extends BaseComponent implements OnInit {
-
-    formControlUsername = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)]);
-    formControlPassword = new FormControl('', [Validators.required]);
+export class OAuthComponent extends BaseComponent implements OnInit {
 
     constructor(private token: TokenService, private oauth: OAuthService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
@@ -23,26 +19,34 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formControlUsername.setValue('administrator');
-        this.formControlPassword.setValue('p@55w0rd');
+        let type = this.queryParams('type')
+
+        if (type === 'github') {
+            this.github()
+        }
     }
 
-    async signIn(): Promise<void> {
+    async github(): Promise<void> {
 
-        let username: string = this.formControlUsername.value;
-        let password: string = this.formControlPassword.value;
+        let params = {
+            code: this.queryParams('code'),
+            state: this.queryParams('state'),
+            redirect_uri: 'http://localhost:4200/oauth/login',
+            type: OAuthType.GitHub
+        }
 
         this.load()
 
         try {
-            let result = await this.token.apply(username, password).toPromise();
+
+            let result = await this.oauth.token(params).toPromise();
+
+            console.log(result)
 
             if (result.status == Status.Success) {
-                this.navigate('/central')
+
             }
-            else {
-                this.alert(result.message);
-            }
+
         }
         catch (error) {
             this.handle(error);
@@ -52,7 +56,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
         }
     }
 
-    async github(): Promise<void> {
-        window.location.href = this.oauth.authorize(OAuthType.GitHub)
+    async login(): Promise<void> {
+
     }
 }

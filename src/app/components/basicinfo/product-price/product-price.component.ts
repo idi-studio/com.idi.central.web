@@ -34,7 +34,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.getMode();
+        this.mode = this.command();
 
         switch (this.mode) {
             case Command.Create:
@@ -55,7 +55,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
         this.load()
 
         try {
-            let id = this.getParam('id');
+            let id = this.routeParams('id');
 
             this.categorys = await this.category.all(TypeNames.PriceCategory).toPromise()
 

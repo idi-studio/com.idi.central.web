@@ -20,22 +20,25 @@ export abstract class BaseComponent {
         if (Runtime.instance.authorized())
             return false;
 
-        if (this.router.url == '/login')
+        if (this.router.url.startsWith('/login'))
             return false;
 
-        if (this.router.url == '/lock-screen')
+        if (this.router.url.startsWith('/oauth/token'))
+            return false;
+
+        if (this.router.url.startsWith('/lock-screen'))
             return false;
 
         return true
     }
 
-    protected getMode(): Command {
-        if (!this.route.snapshot.paramMap.has('mode'))
+    protected command(): Command {
+        if (!this.route.snapshot.paramMap.has('cmd'))
             return Command.View
 
-        let mode = this.route.snapshot.paramMap.get('mode')
+        let cmd = this.route.snapshot.paramMap.get('cmd')
 
-        switch (mode) {
+        switch (cmd) {
             case 'add':
                 return Command.Create;
             case 'edit':
@@ -47,8 +50,12 @@ export abstract class BaseComponent {
         }
     }
 
-    protected getParam(name: string): string {
+    protected routeParams(name: string): string {
         return this.route.snapshot.paramMap.get(name)
+    }
+
+    protected queryParams(name: string): string {
+        return this.route.snapshot.queryParamMap.get(name)
     }
 
     protected handle(error: Response) {

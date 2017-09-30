@@ -32,7 +32,7 @@ export class UserRoleComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let username = this.getParam("username")
+            let username = this.routeParams("username")
             this.data = await this.user.role(username).toPromise()
             this.username = this.data.username;
             this.roles = this.data.roles;

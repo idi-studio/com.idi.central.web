@@ -77,8 +77,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.mode = this.getMode()
-            this.orderId = this.getParam('id');
+            this.mode = this.command()
+            this.orderId = this.routeParams('id');
             this.current = await this.order.single(this.orderId).toPromise()
             this.options = await this.customer.all().toPromise()
 
@@ -114,8 +114,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.mode = this.getMode()
-            this.orderId = this.getParam('id');
+            this.mode = this.command()
+            this.orderId = this.routeParams('id');
             this.current = await this.order.single(this.orderId).toPromise()
             this.data = await this.product.selling(this.current.custid).toPromise()
         }

@@ -54,7 +54,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let id = this.getParam('id')
+            let id = this.routeParams('id')
             this.current = await this.product.single(id).toPromise()
             this.data = await this.price.all(id).toPromise()
             this.header.title = this.current.name
