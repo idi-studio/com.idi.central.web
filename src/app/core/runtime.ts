@@ -2,6 +2,7 @@ export class Runtime {
     public static readonly instance: Runtime = new Runtime();
 
     public baseUrl: string = 'http://localhost:50963'
+    public clientId: string = 'com.idi.central.web'
     public clientKey: string = 'Y29tLmlkaS5jZW50cmFsLndlYjo2RUQ1QzQ3OC0xRjNBLTRDODItQjY2OC05OTkxN0Q2Nzc4NEU='
 
     set(key: string, value: string) {

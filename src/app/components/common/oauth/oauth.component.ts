@@ -27,6 +27,7 @@ export class OAuthComponent extends BaseComponent implements OnInit {
     }
 
     async github(): Promise<void> {
+        console.log('auth github')
 
         let params = {
             code: this.queryParams('code'),
@@ -35,21 +36,27 @@ export class OAuthComponent extends BaseComponent implements OnInit {
             type: OAuthType.GitHub
         }
 
-        this.load()
-
         try {
+            let result = await this.oauth.token().toPromise()
 
-            let result = await this.oauth.login(params).toPromise();
+            console.log(result)
+
+            if (result.status != Status.Success)
+                return
+
+            result = await this.oauth.login(params).toPromise()
 
             console.log(result)
 
             if (result.status == Status.Success) {
-
+                this.navigate('/central')
             }
-
+            else {
+                this.alert(result.message);
+            }
         }
         catch (error) {
-            this.handle(error);
+            this.handle(error)
         }
         finally {
             this.unload()

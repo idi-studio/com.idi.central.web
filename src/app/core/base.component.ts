@@ -23,7 +23,7 @@ export abstract class BaseComponent {
         if (this.router.url.startsWith('/login'))
             return false;
 
-        if (this.router.url.startsWith('/oauth/token'))
+        if (this.router.url.startsWith('/oauth/login'))
             return false;
 
         if (this.router.url.startsWith('/lock-screen'))

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { RESTService, Status, OAuthType } from '../core';
+import { RESTService, Status, OAuthType, Runtime } from '../core';
 
 @Injectable()
 export class OAuthService extends RESTService {
@@ -19,7 +19,22 @@ export class OAuthService extends RESTService {
         return null
     }
 
-    login(param:any): Observable<any> {
-        return this.post("/api/oauth/login",param);
+    token(): Observable<any> {
+        var params = new URLSearchParams();
+        params.set('grant_type', 'client_credentials');
+
+        return super.post('/api/token', params.toString()).map((res: Response) => {
+            var result = res.json();
+
+            if (result.status == Status.Success) {
+                Runtime.instance.authorize(Runtime.instance.clientId, result.data.access_token)
+            }
+
+            return result;
+        });
+    }
+
+    login(param: any): Observable<any> {
+        return super.post("/api/oauth/login", param).map((res: Response) => { return res.json(); });
     }
 }
