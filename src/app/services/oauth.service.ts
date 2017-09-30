@@ -19,7 +19,7 @@ export class OAuthService extends RESTService {
         return null
     }
 
-    token(param:any): Observable<any> {
-        return this.post("/api/oauth/token",param);
+    login(param:any): Observable<any> {
+        return this.post("/api/oauth/login",param);
     }
 }

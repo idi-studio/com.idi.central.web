@@ -39,7 +39,7 @@ export class OAuthComponent extends BaseComponent implements OnInit {
 
         try {
 
-            let result = await this.oauth.token(params).toPromise();
+            let result = await this.oauth.login(params).toPromise();
 
             console.log(result)
 
