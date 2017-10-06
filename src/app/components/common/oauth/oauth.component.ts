@@ -39,14 +39,27 @@ export class OAuthComponent extends BaseComponent implements OnInit {
         try {
             let result = await this.oauth.token().toPromise()
 
-            console.log(result)
-
             if (result.status != Status.Success)
                 return
 
             result = await this.oauth.login(params).toPromise()
 
-            console.log(result)
+            if (result.status == Status.Success) {
+                this.login(result.details.username, result.details.pin)
+            }
+            else {
+                this.alert(result.message);
+                this.navigate('/login')
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+    }
+
+    async login(username: string, password: string): Promise<void> {
+        try {
+            let result = await this.token.apply(username, password).toPromise();
 
             if (result.status == Status.Success) {
                 this.navigate('/central')
@@ -56,14 +69,7 @@ export class OAuthComponent extends BaseComponent implements OnInit {
             }
         }
         catch (error) {
-            this.handle(error)
+            this.handle(error);
         }
-        finally {
-            this.unload()
-        }
-    }
-
-    async login(): Promise<void> {
-
     }
 }
