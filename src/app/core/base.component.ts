@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { Runtime } from './runtime';
 import { Command } from './contants';
 
 export abstract class BaseComponent {
 
-    constructor(protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+    constructor(protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         if (this.checkIdentity()) {
             dialog.openConfirm({ message: 'Please sign-in your account first.', acceptButton: 'OK' }).afterClosed().subscribe(() => {

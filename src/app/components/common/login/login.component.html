@@ -16,32 +16,32 @@
         <form class="m-t-20">
           <div class="form-group row">
             <div class="col-xs-12">
-              <md-input-container class="md-input-full-width">
-                <input mdInput placeholder="Username" [formControl]="formControlUsername" autocomplete="off" maxlength="20">
-                <md-error *ngIf="formControlUsername.hasError('pattern')">
+              <mat-form-field class="md-input-full-width">
+                <input matInput placeholder="Username" [formControl]="formControlUsername" autocomplete="off" maxlength="20">
+                <mat-error *ngIf="formControlUsername.hasError('pattern')">
                   Please enter a valid username
-                </md-error>
-                <md-error *ngIf="formControlUsername.hasError('required')">
+                </mat-error>
+                <mat-error *ngIf="formControlUsername.hasError('required')">
                   Username is <strong>required</strong>
-                </md-error>
-              </md-input-container>
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-xs-12">
-              <md-input-container class="md-input-full-width">
-                <input mdInput placeholder="Password" type="password" [formControl]="formControlPassword" maxlength="20">
-                <md-error *ngIf="formControlPassword.hasError('required')">
+              <mat-form-field class="md-input-full-width">
+                <input matInput placeholder="Password" type="password" [formControl]="formControlPassword" maxlength="20">
+                <mat-error *ngIf="formControlPassword.hasError('required')">
                   Password is <strong>required</strong>
-                </md-error>
-              </md-input-container>
+                </mat-error>
+              </mat-form-field>
             </div>
           </div>
 
           <div class="form-group row">
             <div class="col-xs-12">
-              <md-checkbox>Remember me?</md-checkbox>
+              <mat-checkbox>Remember me?</mat-checkbox>
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import {
     TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
@@ -41,7 +41,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
     constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService,
-        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }

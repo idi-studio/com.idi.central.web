@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
 import { UserService, IUser } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
@@ -36,7 +36,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
     constructor(private user: UserService, private dataTable: TdDataTableService,
-        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }

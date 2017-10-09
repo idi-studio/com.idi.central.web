@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { CustomerService, AddressService, ICustomer, IAddress } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, Grade } from '../../../core';
@@ -34,7 +34,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     shipping: IAddress = { id: '', cid: '', receiver: '', contactno: '', province: '', city: '', area: '', street: '', detail: '', postcode: '', default: false, }
 
     constructor(private customer: CustomerService, private address: AddressService,
-        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }

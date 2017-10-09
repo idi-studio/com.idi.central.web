@@ -10,11 +10,11 @@ import {
     CovalentFileModule
 } from '@covalent/core';
 import {
-    MdButtonModule, MdCardModule, MdIconModule,
-    MdListModule, MdMenuModule, MdTooltipModule,
-    MdSlideToggleModule, MdInputModule, MdCheckboxModule, MdSliderModule,
-    MdToolbarModule, MdSnackBarModule, MdSidenavModule, MdRadioModule, MdAutocompleteModule,
-    MdTabsModule, MdSelectModule, MdChipsModule, MdDatepickerModule, MdNativeDateModule,
+    MatButtonModule, MatCardModule, MatIconModule,
+    MatListModule, MatMenuModule, MatTooltipModule,
+    MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule,
+    MatToolbarModule, MatSnackBarModule, MatSidenavModule, MatRadioModule, MatAutocompleteModule,
+    MatTabsModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule,
 } from '@angular/material';
 
 // import { NgxChartsModule, } from '@swimlane/ngx-charts';
@@ -28,11 +28,11 @@ const ANGULAR_MODULES: any[] = [
 ];
 
 const MATERIAL_MODULES: any[] = [
-    MdButtonModule, MdCardModule, MdIconModule,
-    MdListModule, MdMenuModule, MdTooltipModule,
-    MdSlideToggleModule, MdInputModule, MdCheckboxModule, MdSliderModule,
-    MdToolbarModule, MdSnackBarModule, MdSidenavModule, MdRadioModule, MdAutocompleteModule,
-    MdTabsModule, MdSelectModule, MdChipsModule, MdDatepickerModule, MdNativeDateModule
+    MatButtonModule, MatCardModule, MatIconModule,
+    MatListModule, MatMenuModule, MatTooltipModule,
+    MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule,
+    MatToolbarModule, MatSnackBarModule, MatSidenavModule, MatRadioModule, MatAutocompleteModule,
+    MatTabsModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule
 ];
 
 const COVALENT_MODULES: any[] = [

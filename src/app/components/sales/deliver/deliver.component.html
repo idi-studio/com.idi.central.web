@@ -3,29 +3,29 @@
 <div class="row">
   <div class="card-box">
     <div class="row">
-      <md-toolbar class="toolbar">
+      <mat-toolbar class="toolbar">
         <span (click)="back()" class="toolbar-icon-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="search()">search</md-icon></span>
-      </md-toolbar>
+        <span class="toolbar-icon"><mat-icon (click)="search()">search</mat-icon></span>
+      </mat-toolbar>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="sn" [(ngModel)]="current.sn" placeholder="Order No." disabled>
-        </md-input-container>
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="sn" [(ngModel)]="current.sn" placeholder="Order No." disabled>
+        </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="cn" [(ngModel)]="current.cn" placeholder="Courier No." [formControl]="formControlCourierNo" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="cn" [(ngModel)]="current.cn" placeholder="Courier No." [formControl]="formControlCourierNo" autocomplete="off"
             maxlength="20">
-          <md-error *ngIf="formControlCourierNo.hasError('pattern')">
+          <mat-error *ngIf="formControlCourierNo.hasError('pattern')">
             Only Support case letters and number.
-          </md-error>
-          <md-error *ngIf="formControlCourierNo.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="formControlCourierNo.hasError('required')">
             Courier No. is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">

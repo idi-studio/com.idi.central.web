@@ -2,13 +2,13 @@
 
 <div class="row">
   <div class="card-box">
-    <md-toolbar class="toolbar">
+    <mat-toolbar class="toolbar">
       <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible"><i class="fa fa-th-list" aria-hidden="true"></i></span>
       <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
         flex>
       </td-search-box>
       <span class="toolbar-icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
-    </md-toolbar>
+    </mat-toolbar>
     <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [clickable]="clickable" [multiple]="multiple"
       [sortable]="true" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
@@ -19,17 +19,17 @@
       </ng-template>
       <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
         <div layout="row" layout-align="end end">
-          <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
-          <md-menu #menu="mdMenu">
-            <button md-menu-item (click)="permission(row.name)"><md-icon>settings_applications</md-icon><span>Permission</span></button>
-          </md-menu>
+          <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="permission(row.name)"><mat-icon>settings_applications</mat-icon><span>Permission</span></button>
+          </mat-menu>
         </div>
       </ng-template>
     </td-data-table>
     <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
       <h3>No results to display.</h3>
     </div>
-    <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+    <td-paging-bar #pagingBar [pageSize]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
       <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
     </td-paging-bar>
   </div>

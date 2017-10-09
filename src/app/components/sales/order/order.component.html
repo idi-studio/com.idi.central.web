@@ -4,67 +4,67 @@
   <div class="col-xs-12">
     <div class="card-box">
       <div class="row">
-        <md-toolbar class="toolbar">
+        <mat-toolbar class="toolbar">
           <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
           <span class="toolbar-spacer"></span>
-          <span *ngIf="editable()" class="toolbar-icon"><md-icon (click)="save()">save</md-icon></span>
-          <span *ngIf="editable()" class="toolbar-icon"><md-icon (click)="done()">done</md-icon></span>
-          <span *ngIf="editable()" class="toolbar-icon tc-red-800"><md-icon (click)="delete()">delete</md-icon></span>
-        </md-toolbar>
+          <span *ngIf="editable()" class="toolbar-icon"><mat-icon (click)="save()">save</mat-icon></span>
+          <span *ngIf="editable()" class="toolbar-icon"><mat-icon (click)="done()">done</mat-icon></span>
+          <span *ngIf="editable()" class="toolbar-icon tc-red-800"><mat-icon (click)="delete()">delete</mat-icon></span>
+        </mat-toolbar>
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <input mdInput name="name" [(ngModel)]="current.sn" placeholder="SN" disabled>
-          </md-input-container>
+          <mat-form-field class="md-input-full-width">
+            <input matInput name="name" [(ngModel)]="current.sn" placeholder="SN" disabled>
+          </mat-form-field>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <input mdInput name="date" [(ngModel)]="current.date" placeholder="Date" disabled>
-          </md-input-container>
+          <mat-form-field class="md-input-full-width">
+            <input matInput name="date" [(ngModel)]="current.date" placeholder="Date" disabled>
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <input mdInput name="status" [(ngModel)]="current.statusdesc" placeholder="Status" disabled>
-          </md-input-container>
+          <mat-form-field class="md-input-full-width">
+            <input matInput name="status" [(ngModel)]="current.statusdesc" placeholder="Status" disabled>
+          </mat-form-field>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <input mdInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [mdAutocomplete]="auto">
-            <md-error *ngIf="formControlCustomer.hasError('required')">
+          <mat-form-field class="md-input-full-width">
+            <input matInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [matAutocomplete]="auto">
+            <mat-error *ngIf="formControlCustomer.hasError('required')">
               Customer is <strong>required</strong>
-            </md-error>
-            <md-error *ngIf="formControlCustomer.hasError('object')">
+            </mat-error>
+            <mat-error *ngIf="formControlCustomer.hasError('object')">
               Invalid customer
-            </md-error>
-          </md-input-container>
-          <md-autocomplete #auto="mdAutocomplete" [displayWith]="display">
-            <md-option *ngFor="let option of filteredOptions | async" [value]="option">
+            </mat-error>
+          </mat-form-field>
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="display">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
               {{ option.name }}
-            </md-option>
-          </md-autocomplete>
+            </mat-option>
+          </mat-autocomplete>
           <input type="hidden">
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <md-input-container class="md-input-full-width">
-            <textarea mdInput name="remark" [(ngModel)]="current.remark" [formControl]="formControlRemark" placeholder="Remark" rows="1"
+          <mat-form-field class="md-input-full-width">
+            <textarea matInput name="remark" [(ngModel)]="current.remark" [formControl]="formControlRemark" placeholder="Remark" rows="1"
               maxlength="200"></textarea>
             <md-hint align="end">{{current.remark.length}} / 200</md-hint>
-          </md-input-container>
+          </mat-form-field>
         </div>
       </div>
     </div>
     <div class="card-box" *ngIf="!showlist">
       <div class="row">
-        <md-toolbar class="toolbar">
+        <mat-toolbar class="toolbar">
           <span><i class="fa fa-th-list" aria-hidden="true"></i></span>
           <span class="toolbar-spacer"></span>
-          <span class="toolbar-icon"><md-icon *ngIf="editable()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</md-icon></span>
-        </md-toolbar>
+          <span class="toolbar-icon"><mat-icon *ngIf="editable()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon></span>
+        </mat-toolbar>
       </div>
       <div class="row">
         <div class="col-xs-10">
@@ -112,11 +112,11 @@
     </div>
     <div class="card-box" *ngIf="showlist">
       <div class="row">
-        <md-toolbar class="toolbar">
+        <mat-toolbar class="toolbar">
           <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="cancel()"><i class="fa fa-times" aria-hidden="true"></i></span>
           <td-search-box #searchBox backIcon="arrow_back" placeholder="Search here" (searchDebounce)="search($event)" flex>
           </td-search-box>
-        </md-toolbar>
+        </mat-toolbar>
       </div>
       <div class="row">
         <div class="row">
@@ -125,11 +125,11 @@
               [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
               <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
                 <div layout="row">
-                  <md-chip-list>
-                    <md-chip *ngFor="let item of value">
-                      <span mdTooltip="{{item.name}}">{{ item.value }}</span>
-                    </md-chip>
-                  </md-chip-list>
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let item of value">
+                      <span matTooltip="{{item.name}}">{{ item.value }}</span>
+                    </mat-chip>
+                  </mat-chip-list>
                 </div>
               </ng-template>
               <ng-template tdDataTableTemplate="price" let-value="value" let-row="row" let-column="column">
@@ -137,14 +137,14 @@
               </ng-template>
               <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
                 <div *ngIf="row.price" layout="row" layout-align="end end">
-                  <button md-icon-button (click)="add(value,row.price.id)"><md-icon>add_shopping_cart</md-icon></button>
+                  <button mat-icon-button (click)="add(value,row.price.id)"><mat-icon>add_shopping_cart</mat-icon></button>
                 </div>
               </ng-template>
             </td-data-table>
             <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
               <span class="md-caption tc-grey-400">No Product(s) for Sale.</span>
             </div>
-            <td-paging-bar #pagingBar [pageSizes]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
+            <td-paging-bar #pagingBar [pageSize]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
               <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
             </td-paging-bar>
           </div>

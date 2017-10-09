@@ -2,11 +2,11 @@
 
 <div class="row">
   <div class="card-box">
-    <md-toolbar class="toolbar">
+    <mat-toolbar class="toolbar">
       <span class="toolbar-icon-back" (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i>  {{name}}</span>
       <span class="toolbar-spacer"></span>
-      <span class="toolbar-icon"><md-icon class="toolbar-icon" (click)="submit()">save</md-icon></span>
-    </md-toolbar>
+      <span class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="submit()">save</mat-icon></span>
+    </mat-toolbar>
 
     <div *ngFor="let module of modules">
       <div class="row">
@@ -18,7 +18,7 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12" *ngFor="let item of module.permissions;">
-          <md-checkbox [checked]="item.checked" [(ngModel)]="item.checked" [indeterminate]="indeterminate">{{item.code}}</md-checkbox>
+          <mat-checkbox [checked]="item.checked" [(ngModel)]="item.checked" [indeterminate]="indeterminate">{{item.code}}</mat-checkbox>
         </div>
       </div>
     </div>

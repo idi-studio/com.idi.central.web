@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MdSnackBar, MdSelect, MdSelectChange } from '@angular/material';
+import { MatSnackBar, MatSelect, MatSelectChange } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, ProductPriceService, CategoryService, IProduct, IProductPrice, TypeNames } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory } from '../../../core';
@@ -27,8 +27,8 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     formControlStart = new FormControl('', [Validators.required])
     formControlDue = new FormControl('', [Validators.required])
 
-    constructor(private product: ProductService, private price: ProductPriceService, private category: CategoryService, private snackBar: MdSnackBar,
-        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+    constructor(private product: ProductService, private price: ProductPriceService, private category: CategoryService, private snackBar: MatSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }
@@ -100,7 +100,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
         this.navigate(`central/product/prices/${this.currentProduct.id}`)
     }
 
-    onCategoryChanged(event: MdSelectChange): void {
+    onCategoryChanged(event: MatSelectChange): void {
         this.initUI();
     }
 

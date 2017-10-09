@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdFileService, IUploadOptions, } from '@covalent/core';
 import { VoucherService, CategoryService, IVoucher, TypeNames } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, TradeStatus } from '../../../core';
@@ -22,7 +22,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
     formControlPaymethod = new FormControl({ value: '', disabled: true }, [Validators.required])
 
     constructor(private voucher: VoucherService, private category: CategoryService,
-        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }

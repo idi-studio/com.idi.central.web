@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { ProductService, TagService, IProduct, ITag } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
@@ -25,7 +25,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     chips: ITag[] = []
 
     constructor(private product: ProductService, private tag: TagService,
-        protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
+        protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }

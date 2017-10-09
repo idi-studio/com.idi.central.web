@@ -4,11 +4,11 @@
   <div class="card-box">
 
     <div class="row">
-      <md-toolbar class="toolbar">
+      <mat-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon class="toolbar-icon" (click)="submit()">save</md-icon></span>
-      </md-toolbar>
+        <span class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="submit()">save</mat-icon></span>
+      </mat-toolbar>
     </div>
 
     <div class="row">
@@ -16,94 +16,97 @@
         <div class="mat-input-container md-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
-              <md-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category" (change)="onCategoryChanged($event)">
-                <md-option *ngFor="let category of categorys" [value]="category.key">
+              <mat-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category" (change)="onCategoryChanged($event)">
+                <mat-option *ngFor="let category of categorys" [value]="category.key">
                   {{ category.value }}
-                </md-option>
-              </md-select>
-              <md-error *ngIf="formControlCategory.hasError('required')">
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="formControlCategory.hasError('required')">
                 Category is <strong>required</strong>
-              </md-error>
+              </mat-error>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput type="number" name="amount" [(ngModel)]="current.amount" placeholder="Amount" [formControl]="formControlAmount"
+        <mat-form-field class="md-input-full-width">
+          <input matInput type="number" name="amount" [(ngModel)]="current.amount" placeholder="Amount" [formControl]="formControlAmount"
             autocomplete="off">
-          <md-error *ngIf="formControlAmount.hasError('required')">
+          <mat-error *ngIf="formControlAmount.hasError('required')">
             Amount is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
 
     <div class="row" *ngIf="hasTerm(current.category)">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="startdate" [(ngModel)]="current.startdate" [min]="minDate" [max]="maxDate" [formControl]="formControlStart"
-            [mdDatepicker]="startpicker" placeholder="Start Date">
-          <span mdSuffix>00:00:00 &nbsp;</span>
-          <button mdSuffix [mdDatepickerToggle]="startpicker"></button>
-          <md-error *ngIf="formControlStart.hasError('required')">
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="startdate" [(ngModel)]="current.startdate" [min]="minDate" [max]="maxDate" [formControl]="formControlStart"
+            [matDatepicker]="startpicker" placeholder="Start Date">
+          <span matSuffix>00:00:00 &nbsp;</span>
+          <!-- <button matSuffix [mdDatepickerToggle]="startpicker"></button> -->
+          <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+          <mat-error *ngIf="formControlStart.hasError('required')">
             Start date is <strong>required</strong>
-          </md-error>
-        </md-input-container>
-        <md-datepicker #startpicker></md-datepicker>
+          </mat-error>
+        </mat-form-field>
+       
+        <mat-datepicker #startpicker></mat-datepicker>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="duedate" [(ngModel)]="current.duedate" [min]="minDate" [max]="maxDate" [formControl]="formControlDue"
-            [mdDatepicker]="duepicker" placeholder="Due Date">
-          <span mdSuffix>23:59:59 &nbsp;</span>
-          <button mdSuffix [mdDatepickerToggle]="duepicker"></button>
-          <md-error *ngIf="formControlDue.hasError('required')">
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="duedate" [(ngModel)]="current.duedate" [min]="minDate" [max]="maxDate" [formControl]="formControlDue"
+            [matDatepicker]="duepicker" placeholder="Due Date">
+          <span matSuffix>23:59:59 &nbsp;</span>
+          <!-- <button matSuffix [mdDatepickerToggle]="duepicker"></button> -->
+          <mat-datepicker-toggle matSuffix [for]="duepicker"></mat-datepicker-toggle>
+          <mat-error *ngIf="formControlDue.hasError('required')">
             Due date is <strong>required</strong>
-          </md-error>
-        </md-input-container>
-        <md-datepicker #duepicker></md-datepicker>
+          </mat-error>
+        </mat-form-field>
+        <mat-datepicker #duepicker></mat-datepicker>
       </div>
     </div>
 
     <div class="row" *ngIf="hasGrade(current.category)">
       <div layout="row" class="col-md-4 col-sm-6 col-xs-10">
         <div flex="40">
-          <md-input-container class="md-input-full-width">
-            <input mdInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
+          <mat-form-field class="md-input-full-width">
+            <input matInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
               autocomplete="off">
-            <md-error *ngIf="formControlGrade.hasError('max')">
+            <mat-error *ngIf="formControlGrade.hasError('max')">
               Grade should be less than or equal to 100.
-            </md-error>
-            <md-error *ngIf="formControlGrade.hasError('min')">
+            </mat-error>
+            <mat-error *ngIf="formControlGrade.hasError('min')">
               Grade should be greater than or equal to 0.
-            </md-error>
-            <md-error *ngIf="formControlGrade.hasError('required')">
+            </mat-error>
+            <mat-error *ngIf="formControlGrade.hasError('required')">
               Grade is <strong>required</strong>
-            </md-error>
-          </md-input-container>
+            </mat-error>
+          </mat-form-field>
         </div>
         <div flex="10"></div>
         <div flex="40">
-          <md-input-container class="md-input-full-width">
-            <input mdInput type="number" name="grade" [(ngModel)]="current.gradeto" placeholder="To" [formControl]="formControlGradeTo" autocomplete="off">
-            <md-error *ngIf="formControlGradeTo.hasError('max')">
+          <mat-form-field class="md-input-full-width">
+            <input matInput type="number" name="grade" [(ngModel)]="current.gradeto" placeholder="To" [formControl]="formControlGradeTo" autocomplete="off">
+            <mat-error *ngIf="formControlGradeTo.hasError('max')">
               Grade should be less than or equal to 100.
-            </md-error>
-            <md-error *ngIf="formControlGradeTo.hasError('min')">
+            </mat-error>
+            <mat-error *ngIf="formControlGradeTo.hasError('min')">
               Grade should be greater than or equal to 0.
-            </md-error>
-            <md-error *ngIf="formControlGradeTo.hasError('required')">
+            </mat-error>
+            <mat-error *ngIf="formControlGradeTo.hasError('required')">
               Grade is <strong>required</strong>
-            </md-error>
-          </md-input-container>
+            </mat-error>
+          </mat-form-field>
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </md-checkbox>
+        <mat-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </mat-checkbox>
       </div>
     </div>
 

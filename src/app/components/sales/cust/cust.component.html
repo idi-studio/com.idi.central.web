@@ -3,37 +3,37 @@
 <div class="row">
   <div class="card-box">
     <div class="row">
-      <md-toolbar class="toolbar">
+      <mat-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="submit()">save</md-icon></span>
-      </md-toolbar>
+        <span class="toolbar-icon"><mat-icon (click)="submit()">save</mat-icon></span>
+      </mat-toolbar>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlCustName" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlCustName" autocomplete="off"
             maxlength="20">
-          <md-error *ngIf="formControlCustName.hasError('pattern')">
+          <mat-error *ngIf="formControlCustName.hasError('pattern')">
             Only Support case letters and Chinese.
-          </md-error>
-          <md-error *ngIf="formControlCustName.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="formControlCustName.hasError('required')">
             Name is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <span mdPrefix><strong>+86</strong>&nbsp;</span>
-          <input mdInput name="phone" [(ngModel)]="current.phone" placeholder="Phone No." [formControl]="formControlPhone" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <span matPrefix><strong>+86</strong>&nbsp;</span>
+          <input matInput name="phone" [(ngModel)]="current.phone" placeholder="Phone No." [formControl]="formControlPhone" autocomplete="off"
             maxlength="20">
-          <md-error *ngIf="formControlPhone.hasError('pattern')">
+          <mat-error *ngIf="formControlPhone.hasError('pattern')">
             Phone No. is invalid.
-          </md-error>
-          <md-error *ngIf="formControlPhone.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="formControlPhone.hasError('required')">
             Phone No. is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
@@ -53,11 +53,11 @@
         <div class="mat-input-container md-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
-              <md-select name="grade" placeholder="Grade" [(ngModel)]="current.grade" #category>
-                <md-option *ngFor="let level of grade" [value]="level.key">
+              <mat-select name="grade" placeholder="Grade" [(ngModel)]="current.grade" #category>
+                <mat-option *ngFor="let level of grade" [value]="level.key">
                   {{ level.name }}
-                </md-option>
-              </md-select>
+                </mat-option>
+              </mat-select>
             </div>
           </div>
         </div>
@@ -67,11 +67,11 @@
 
   <div *ngIf="!enabled" class="card-box">
     <div class="row">
-      <md-toolbar class="toolbar">
+      <mat-toolbar class="toolbar">
         <span><i class="fa fa-th-list" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="create()">add</md-icon></span>
-      </md-toolbar>
+        <span class="toolbar-icon"><mat-icon (click)="create()">add</mat-icon></span>
+      </mat-toolbar>
     </div>
     <div class="row">
       <div class="col-xs-12">
@@ -118,103 +118,103 @@
 
   <div *ngIf="enabled" class="card-box">
     <div class="row">
-      <md-toolbar class="toolbar">
+      <mat-toolbar class="toolbar">
         <span><i class="fa fa-address-book" aria-hidden="true"></i></span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon"><md-icon (click)="save()">save</md-icon></span>
-        <span class="toolbar-icon"><md-icon (click)="close()">close</md-icon></span>
-      </md-toolbar>
+        <span class="toolbar-icon"><mat-icon (click)="save()">save</mat-icon></span>
+        <span class="toolbar-icon"><mat-icon (click)="close()">close</mat-icon></span>
+      </mat-toolbar>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="receiver" [(ngModel)]="shipping.receiver" [formControl]="formControlReceiver" placeholder="Receiver"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="receiver" [(ngModel)]="shipping.receiver" [formControl]="formControlReceiver" placeholder="Receiver"
             autocomplete="off" maxlength="20">
-          <md-error *ngIf="formControlReceiver.hasError('pattern')">
+          <mat-error *ngIf="formControlReceiver.hasError('pattern')">
             Only Support case letters and Chinese.
-          </md-error>
-          <md-error *ngIf="formControlReceiver.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="formControlReceiver.hasError('required')">
             Receiver is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <span mdPrefix><strong>+86</strong>&nbsp;</span>
-          <input mdInput name="contactno" [(ngModel)]="shipping.contactno" [formControl]="formControlContactNo" placeholder="Contact No."
+        <mat-form-field class="md-input-full-width">
+          <span matPrefix><strong>+86</strong>&nbsp;</span>
+          <input matInput name="contactno" [(ngModel)]="shipping.contactno" [formControl]="formControlContactNo" placeholder="Contact No."
             autocomplete="off" maxlength="20">
-          <md-error *ngIf="formControlContactNo.hasError('pattern')">
+          <mat-error *ngIf="formControlContactNo.hasError('pattern')">
             Contact No. is invalid.
-          </md-error>
-          <md-error *ngIf="formControlContactNo.hasError('required')">
+          </mat-error>
+          <mat-error *ngIf="formControlContactNo.hasError('required')">
             Contact No. is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="province" [(ngModel)]="shipping.province" [formControl]="formControlProvince" placeholder="Province"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="province" [(ngModel)]="shipping.province" [formControl]="formControlProvince" placeholder="Province"
             autocomplete="off" maxlength="20">
-          <md-error *ngIf="formControlProvince.hasError('required')">
+          <mat-error *ngIf="formControlProvince.hasError('required')">
             Province is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="city" [(ngModel)]="shipping.city" [formControl]="formControlCity" placeholder="City" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="city" [(ngModel)]="shipping.city" [formControl]="formControlCity" placeholder="City" autocomplete="off"
             maxlength="20">
-          <md-error *ngIf="formControlCity.hasError('required')">
+          <mat-error *ngIf="formControlCity.hasError('required')">
             City is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="area" [(ngModel)]="shipping.area" [formControl]="formControlArea" placeholder="Area" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="area" [(ngModel)]="shipping.area" [formControl]="formControlArea" placeholder="Area" autocomplete="off"
             maxlength="20">
-          <md-error *ngIf="formControlArea.hasError('required')">
+          <mat-error *ngIf="formControlArea.hasError('required')">
             Area is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="street" [(ngModel)]="shipping.street" [formControl]="formControlStreet" placeholder="Street" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="street" [(ngModel)]="shipping.street" [formControl]="formControlStreet" placeholder="Street" autocomplete="off"
             maxlength="20">
-          <md-error *ngIf="formControlStreet.hasError('required')">
+          <mat-error *ngIf="formControlStreet.hasError('required')">
             Street is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="detail" [(ngModel)]="shipping.detail" [formControl]="formControlDetail" placeholder="Detail" autocomplete="off"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="detail" [(ngModel)]="shipping.detail" [formControl]="formControlDetail" placeholder="Detail" autocomplete="off"
             maxlength="100">
-          <md-error *ngIf="formControlDetail.hasError('required')">
+          <mat-error *ngIf="formControlDetail.hasError('required')">
             Detail is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-input-container class="md-input-full-width">
-          <input mdInput name="postcode" [(ngModel)]="shipping.postcode" [formControl]="formControlPostcode" placeholder="Postcode"
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="postcode" [(ngModel)]="shipping.postcode" [formControl]="formControlPostcode" placeholder="Postcode"
             autocomplete="off" maxlength="20">
-          <md-error *ngIf="formControlPostcode.hasError('required')">
+          <mat-error *ngIf="formControlPostcode.hasError('required')">
             Postcode is <strong>required</strong>
-          </md-error>
-        </md-input-container>
+          </mat-error>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <md-checkbox [checked]="shipping.default" [(ngModel)]="shipping.default" [indeterminate]="indeterminate"> Default Shipping Address? </md-checkbox>
+        <mat-checkbox [checked]="shipping.default" [(ngModel)]="shipping.default" [indeterminate]="indeterminate"> Default Shipping Address? </mat-checkbox>
       </div>
     </div>
   </div>
