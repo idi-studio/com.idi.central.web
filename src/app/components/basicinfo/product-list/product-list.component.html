@@ -12,16 +12,14 @@
     <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
       [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
       <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
-        <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
-        <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
-      </ng-template>
-      <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
-        <div layout="row">
-          <mat-chip-list>
-            <mat-chip *ngFor="let item of value">
-              <span matTooltip="{{item.name}}">{{ item.value }}</span>
-            </mat-chip>
-          </mat-chip-list>
+        <div class="row">
+          <div class="col-xs-12">
+            <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
+            <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
+          </div>
+          <div class="col-xs-12">
+            <span *ngFor="let tag of row.tags" class="label label-default" matTooltip="{{tag.name}}" style="margin-left:.48em;">{{ tag.value }}</span>
+          </div>
         </div>
       </ng-template>
       <ng-template tdDataTableTemplate="onshelf" let-value="value" let-row="row" let-column="column">
