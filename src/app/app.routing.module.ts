@@ -5,7 +5,6 @@ import { RouterModule, Route } from '@angular/router';
 import { LoginComponent } from './components/common/login/login.component';
 import { LogoutComponent } from './components/common/logout/logout.component';
 import { ForgotPasswordComponent } from './components/common/forgot-password/forgot-password.component';
-import { LockScreenComponent } from './components/common/lock-screen/lock-screen.component';
 import { OAuthComponent } from './components/common/oauth/oauth.component';
 import { MainComponent } from './components/common/main/main.component';
 
@@ -44,7 +43,6 @@ const routes: Route[] = [
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'lock-screen', component: LockScreenComponent },
     { path: 'oauth/login', component: OAuthComponent },
     {
         path: 'central', component: MainComponent, children: [
@@ -81,7 +79,7 @@ export class AppRoutingModule {
 
 export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
-    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, LockScreenComponent, OAuthComponent,
+    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, OAuthComponent,
     DashboardComponent,
     RoleListComponent, RolePermissionComponent,
     UserListComponent, UserRoleComponent,

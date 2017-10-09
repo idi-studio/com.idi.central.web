@@ -56,19 +56,17 @@
 
           <!-- All-->
           <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
-                                    View All
-                                </a>
+            View All
+          </a>
 
         </div>
       </li>
 
 
       <li class="nav-item dropdown notification-list">
-        <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
-          aria-expanded="false">
-                                <i class="zmdi zmdi-email noti-icon"></i>
-                                <span class="noti-icon-badge"></span>
-                            </a>
+        <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+          <i class="zmdi zmdi-email noti-icon"></i><span class="noti-icon-badge"></span>
+        </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-arrow-success dropdown-lg" aria-labelledby="Preview">
           <!-- item-->
           <div class="dropdown-item noti-title bg-success">
@@ -78,7 +76,7 @@
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item">
             <div class="notify-icon bg-faded">
-              <img src="assets/images/users/avatar-2.jpg" alt="img" class="img-circle img-fluid">
+              <img src="assets/images/users/user.png" alt="img" class="img-circle img-fluid">
             </div>
             <p class="notify-details">
               <b>Robert Taylor</b>
@@ -90,7 +88,7 @@
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item">
             <div class="notify-icon bg-faded">
-              <img src="assets/images/users/avatar-3.jpg" alt="img" class="img-circle img-fluid">
+              <img src="assets/images/users/user.png" alt="img" class="img-circle img-fluid">
             </div>
             <p class="notify-details">
               <b>Carlos Crouch</b>
@@ -102,7 +100,7 @@
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item">
             <div class="notify-icon bg-faded">
-              <img src="assets/images/users/avatar-4.jpg" alt="img" class="img-circle img-fluid">
+              <img src="assets/images/users/user.png" alt="img" class="img-circle img-fluid">
             </div>
             <p class="notify-details">
               <b>Robert Taylor</b>
@@ -112,17 +110,15 @@
           </a>
 
           <!-- All-->
-          <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
-                                    View All
-                                </a>
+          <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">View All</a>
 
         </div>
       </li>
 
       <li class="nav-item dropdown notification-list">
         <a class="nav-link waves-effect waves-light right-bar-toggle" href="javascript:void(0);">
-                                <i class="zmdi zmdi-format-subject noti-icon"></i>
-                            </a>
+          <i class="zmdi zmdi-format-subject noti-icon"></i>
+        </a>
       </li>
 
       <li *ngIf="profile!=null" class="nav-item dropdown notification-list">
@@ -142,10 +138,6 @@
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item">
             <i class="zmdi zmdi-settings"></i> <span>Settings</span>
-          </a>
-          <!-- item-->
-          <a href="javascript:void(0);" class="dropdown-item notify-item" (click)="lock()">
-            <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
           </a>
           <!-- item-->
           <a href="javascript:void(0);" class="dropdown-item notify-item" (click)="logout()">

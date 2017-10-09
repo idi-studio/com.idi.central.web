@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
 import { BaseComponent, Status, Regex, OAuthType } from '../../../core';
-import { TokenService, OAuthService } from '../../../services';
+import { TokenService, OAuthService, UserService } from '../../../services';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 })
 export class OAuthComponent extends BaseComponent implements OnInit {
 
-    constructor(private token: TokenService, private oauth: OAuthService,
+    constructor(private token: TokenService, private oauth: OAuthService, private user: UserService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -62,7 +62,7 @@ export class OAuthComponent extends BaseComponent implements OnInit {
             let result = await this.token.apply(username, password).toPromise();
 
             if (result.status == Status.Success) {
-                this.navigate('/central')
+                await this.profile()
             }
             else {
                 this.alert(result.message);
@@ -70,6 +70,17 @@ export class OAuthComponent extends BaseComponent implements OnInit {
         }
         catch (error) {
             this.handle(error);
+        }
+    }
+
+    async profile(): Promise<void> {
+        let result = await this.user.profile().toPromise()
+        if (result.status == Status.Success) {
+            this.navigate('/central')
+        }
+        else {
+            console.log(result.message)
+            this.alert('Login failed, Please try again later.')
         }
     }
 }

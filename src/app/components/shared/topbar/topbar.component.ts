@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TdDialogService } from '@covalent/core';
-import { UserService, IUserProfile } from '../../../services';
 import { Runtime } from '../../../core';
 
 declare var $: any;
@@ -13,9 +11,9 @@ declare var $: any;
 export class TopbarComponent implements OnInit {
 
     title: string = 'Central';
-    profile: IUserProfile;
+    profile: any;
 
-    constructor(private user: UserService, private router: Router) { }
+    constructor(private router: Router) { }
 
     ngOnInit(): void {
         this.init();
@@ -24,7 +22,7 @@ export class TopbarComponent implements OnInit {
 
     async load(): Promise<void> {
         try {
-            this.profile = await this.user.profile().toPromise()
+            this.profile = JSON.parse(Runtime.instance.get('profile'))
         }
         catch (error) {
             this.profile = null;

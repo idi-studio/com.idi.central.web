@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { BaseComponent, Status, Regex, OAuthType } from '../../../core';
-import { TokenService, OAuthService } from '../../../services';
+import { BaseComponent, Status, Regex, OAuthType, Runtime } from '../../../core';
+import { TokenService, OAuthService, UserService } from '../../../services';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -16,7 +16,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     formControlUsername = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)]);
     formControlPassword = new FormControl('', [Validators.required]);
 
-    constructor(private token: TokenService, private oauth: OAuthService,
+    constructor(private token: TokenService, private oauth: OAuthService, private user: UserService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MdSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -25,6 +25,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     ngOnInit(): void {
         this.formControlUsername.setValue('administrator');
         this.formControlPassword.setValue('p@55w0rd');
+        if (Runtime.instance.authorized()) {
+            this.navigate("/central")
+        }
     }
 
     async signIn(): Promise<void> {
@@ -38,7 +41,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             let result = await this.token.apply(username, password).toPromise();
 
             if (result.status == Status.Success) {
-                this.navigate('/central')
+                await this.profile()
             }
             else {
                 this.alert(result.message);
@@ -49,6 +52,17 @@ export class LoginComponent extends BaseComponent implements OnInit {
         }
         finally {
             this.unload()
+        }
+    }
+
+    async profile(): Promise<void> {
+        let result = await this.user.profile().toPromise()
+        if (result.status == Status.Success) {
+            this.navigate('/central')
+        }
+        else {
+            console.log(result.message)
+            this.alert('Login failed, Please try again later.')
         }
     }
 

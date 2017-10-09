@@ -4,6 +4,7 @@ export class Runtime {
     public baseUrl: string = 'http://localhost:50963'
     public clientId: string = 'com.idi.central.web'
     public clientKey: string = 'Y29tLmlkaS5jZW50cmFsLndlYjo2RUQ1QzQ3OC0xRjNBLTRDODItQjY2OC05OTkxN0Q2Nzc4NEU='
+    public user: any = null
 
     set(key: string, value: string) {
         localStorage.setItem(key, value)
@@ -16,6 +17,10 @@ export class Runtime {
 
     remove(key: string) {
         localStorage.removeItem(key)
+    }
+
+    profile(): any {
+        return localStorage.getItem('profile') || null
     }
 
     authorized(): boolean {

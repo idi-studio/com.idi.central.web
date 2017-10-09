@@ -1,6 +1,6 @@
 export { TokenService } from './token.service';
 export { RoleService, IRole } from './role.service';
-export { UserService, IUserProfile, IUser } from './user.service';
+export { UserService, IUser } from './user.service';
 export { ProductService, IProduct, IProductSell } from './product.service'
 export { ProductPriceService, IProductPrice, IPrice } from './product-price.service'
 export { ProductImageService, IProductImage } from './product-image.service'
