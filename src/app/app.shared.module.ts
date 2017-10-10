@@ -12,7 +12,7 @@ import {
 import {
     MatButtonModule, MatCardModule, MatIconModule,
     MatListModule, MatMenuModule, MatTooltipModule,
-    MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule,
+    MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule, MatPaginatorModule,
     MatToolbarModule, MatSnackBarModule, MatSidenavModule, MatRadioModule, MatAutocompleteModule,
     MatTabsModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule,
 } from '@angular/material';
@@ -30,7 +30,7 @@ const ANGULAR_MODULES: any[] = [
 const MATERIAL_MODULES: any[] = [
     MatButtonModule, MatCardModule, MatIconModule,
     MatListModule, MatMenuModule, MatTooltipModule,
-    MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule,
+    MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule, MatPaginatorModule,
     MatToolbarModule, MatSnackBarModule, MatSidenavModule, MatRadioModule, MatAutocompleteModule,
     MatTabsModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule
 ];

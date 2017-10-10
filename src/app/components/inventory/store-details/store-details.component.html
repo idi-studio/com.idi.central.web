@@ -1,0 +1,21 @@
+<page-header [header]="header"></page-header>
+
+<div class="row">
+  <div class="card-box">
+    <mat-toolbar class="toolbar">
+      <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible"><i class="fa fa-th-list" aria-hidden="true"></i></span>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+        flex>
+      </td-search-box>
+      <span class="toolbar-icon" (click)="add()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+    </mat-toolbar>
+    <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
+      [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+    </td-data-table>
+    <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+      <h3>No results to display.</h3>
+    </div>
+    <mat-paginator [length]="filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="page($event)">
+    </mat-paginator>
+  </div>
+</div>

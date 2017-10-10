@@ -39,6 +39,10 @@ import { CustomerComponent } from './components/sales/cust/cust.component';
 import { VoucherComponent } from './components/sales/voucher/vchr.component';
 import { DeliverComponent } from './components/sales/deliver/deliver.component';
 
+//Inventory
+import { StoreListComponent } from './components/inventory/store-list/store-list.component';
+import { StoreDetailsComponent } from './components/inventory/store-details/store-details.component';
+
 const routes: Route[] = [
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
@@ -64,6 +68,8 @@ const routes: Route[] = [
             { path: 'cust/info/:cmd', component: CustomerComponent },
             { path: 'cust/info/:cmd/:id', component: CustomerComponent },
             { path: 'vchr/:id', component: VoucherComponent },
+            { path: 'store/list', component: StoreListComponent },
+            { path: 'store/details/:id', component: StoreDetailsComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -87,5 +93,6 @@ export const CentralComponents: any[] = [
     OrderListComponent, OrderComponent,
     CustomerListComponent, CustomerComponent,
     VoucherComponent,
-    DeliverComponent
+    DeliverComponent,
+    StoreListComponent, StoreDetailsComponent,
 ];

@@ -16,7 +16,7 @@ import {
   TokenService, RoleService, UserService,
   ProductService, ProductPriceService, ProductImageService, AddressService,
   TagService, CategoryService, OrderService, OrderItemService, CustomerService,
-  VoucherService, DeliverService, OAuthService,
+  VoucherService, DeliverService, OAuthService, StoreService,
 } from './services';
 
 export const CentralServices: any[] = [
@@ -24,6 +24,7 @@ export const CentralServices: any[] = [
   ProductService, ProductPriceService, ProductImageService,
   TagService, OrderService, OrderItemService, CustomerService,
   VoucherService, AddressService, DeliverService, OAuthService,
+  StoreService,
 ];
 
 @NgModule({

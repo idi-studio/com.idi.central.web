@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
+import { MatSnackBar, PageEvent } from '@angular/material';
+import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
 import { UserService, IUser } from '../../../services';
 import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
@@ -87,10 +87,10 @@ export class UserListComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
-    page(pagingEvent: IPageChangeEvent): void {
-        this.fromRow = pagingEvent.fromRow;
-        this.currentPage = pagingEvent.page;
-        this.pageSize = pagingEvent.pageSize;
+    page(e: PageEvent): void {
+        this.currentPage = e.pageIndex + 1;
+        this.pageSize = e.pageSize;
+        this.fromRow = e.pageIndex * e.pageSize + 1
         this.filter();
     }
 

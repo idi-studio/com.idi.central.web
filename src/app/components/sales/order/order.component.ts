@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
-import { TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
+import { MatSnackBar, PageEvent } from '@angular/material';
+import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { OrderService, OrderItemService, ProductService, CustomerService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice, ICustomer } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory, OrderStatus, ObjectValidator } from '../../../core';
 import { List } from 'linqts'
@@ -158,10 +158,10 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.bindTable();
     }
 
-    page(pagingEvent: IPageChangeEvent): void {
-        this.fromRow = pagingEvent.fromRow;
-        this.currentPage = pagingEvent.page;
-        this.pageSize = pagingEvent.pageSize;
+    page(e: PageEvent): void {
+        this.currentPage = e.pageIndex + 1;
+        this.pageSize = e.pageSize;
+        this.fromRow = e.pageIndex * e.pageSize + 1
         this.bindTable();
     }
 

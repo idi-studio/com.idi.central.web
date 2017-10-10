@@ -48,11 +48,11 @@ export class Navigation {
                 new MenuItem('Orders', 'order/list'),
                 new MenuItem('Customers', 'cust/list')
             ]),
-            new MenuItem('Purchase', null, 'zmdi zmdi-truck', null, [
-                new MenuItem('Come soon...')
-            ]),
+            // new MenuItem('Purchase', null, 'zmdi zmdi-truck', null, [
+            //     new MenuItem('Come soon...')
+            // ]),
             new MenuItem('Inventory', null, 'zmdi zmdi-store', null, [
-                new MenuItem('Come soon...')
+                new MenuItem('Stores', 'store/list'),
             ])
         ];
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, PageEvent } from '@angular/material';
 import {
-    TdDialogService, TdLoadingService, IPageChangeEvent, TdDataTableService, TdDataTableSortingOrder,
+    TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
 import { OrderService, IOrder, VoucherService, IVoucher } from '../../../services';
@@ -122,10 +122,10 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
-    page(pagingEvent: IPageChangeEvent): void {
-        this.fromRow = pagingEvent.fromRow;
-        this.currentPage = pagingEvent.page;
-        this.pageSize = pagingEvent.pageSize;
+    page(e: PageEvent): void {
+        this.currentPage = e.pageIndex + 1;
+        this.pageSize = e.pageSize;
+        this.fromRow = e.pageIndex * e.pageSize + 1
         this.filter();
     }
 

@@ -43,8 +43,7 @@
     <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
       <h3>No results to display.</h3>
     </div>
-    <td-paging-bar #pagingBar [pageSize]="[5, 10, 15, 20]" [total]="filteredTotal" (change)="page($event)">
-      <span td-paging-bar-label hide-xs>Page</span> {{pagingBar.range}} <span hide-xs>of {{pagingBar.total}}</span>
-    </td-paging-bar>
+    <mat-paginator [length]="filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="page($event)">
+    </mat-paginator>
   </div>
 </div>

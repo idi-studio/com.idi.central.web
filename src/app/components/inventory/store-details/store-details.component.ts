@@ -5,27 +5,28 @@ import {
     TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder,
     ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
 } from '@covalent/core';
-import { ProductService, ProductPriceService, IProduct, IProductPrice } from '../../../services';
-import { BaseComponent, PageHeader, PriceCategory } from '../../../core';
+import { StoreService } from '../../../services';
+import { BaseComponent, PageHeader } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
-    templateUrl: './product-price-list.component.html'
+    templateUrl: './store-details.component.html'
 })
-export class ProductPriceListComponent extends BaseComponent implements OnInit {
+export class StoreDetailsComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader('Product', ['Basic Info', 'Product', 'Prices']);
+    header: PageHeader = new PageHeader('Details', ['Inventory', 'Store']);
 
-    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
-    data: IProductPrice[] = [];
+    current: any;
+    data: any[] = [];
 
     columns: ITdDataTableColumn[] = [
-        { name: 'category', label: 'Category', filter: true, hidden: true },
-        { name: 'categoryname', label: 'Category', filter: true },
-        { name: 'amount', label: 'Amount', numeric: true, format: v => v.toFixed(2), filter: true },
-        { name: 'grade', label: 'Grade', filter: true },
-        { name: 'startdate', label: 'Expiration Date', filter: false },
-        { name: 'id', label: '', filter: false, hidden: false },
+        { name: 'product', label: 'Product', filter: true },
+        { name: 'store', label: 'Store', filter: true },
+        { name: 'bin', label: 'Bin', filter: true },
+        { name: 'qty', label: 'Qty.', numeric: true, format: v => v.toFixed(2), filter: true },
+        { name: 'frz', label: 'Frozen', numeric: true, format: v => v.toFixed(2), filter: true },
+        { name: 'avl', label: 'Available', numeric: true, format: v => v.toFixed(2), filter: true },
+        // { name: 'id', label: '', filter: false },
     ];
 
     clickable: boolean = true;
@@ -36,11 +37,11 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
     fromRow: number = 1;
     currentPage: number = 1;
     pageSize: number = 5;
-    sortBy: string = 'category';
+    sortBy: string = 'product';
     selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
-    constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService,
+    constructor(private store: StoreService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -55,9 +56,8 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
         try {
             let id = this.routeParams('id')
-            this.current = await this.product.single(id).toPromise()
-            this.data = await this.price.all(id).toPromise()
-            this.header.title = this.current.name
+            this.current = await this.store.single(id).toPromise()
+            this.data = this.current.stocks
         }
         catch (error) {
             this.data = [];
@@ -66,7 +66,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         finally {
             this.unload()
 
-            let newData: IProductPrice[] = this.data;
+            let newData = this.data;
 
             let excludedColumns: string[] = this.columns
                 .filter((column: ITdDataTableColumn) => {
@@ -81,14 +81,6 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
             newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
             this.filteredData = newData;
         }
-    }
-
-    back(): void {
-        this.navigate('/central/product/list')
-    }
-
-    add(): void {
-        this.navigate(`/central/product/price/add/${this.current.id}`)
     }
 
     sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -109,48 +101,46 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
-    hasTerm(category: number): boolean {
-        switch (category) {
-            case PriceCategory.Discount:
-                return true
-            default:
-                return false
-        }
-    }
+    // details(id: string): void {
+    //     this.navigate(`/central/store/details/${id}`)
+    // }
 
-    hasGrade(category: number): boolean {
-        switch (category) {
-            case PriceCategory.Discount:
-                return true
-            default:
-                return false
-        }
-    }
+    // async shelf(product: IProduct): Promise<void> {
+    //     product.onshelf = !product.onshelf;
+    //     try {
+    //         let result = await this.product.update(product).toPromise()
+    //         this.alert(result.message)
+    //     }
+    //     catch (error) {
+    //         this.handle(error)
+    //     }
+    //     finally {
+    //         this.unload()
+    //         this.filter();
+    //     }
+    // }
 
-    edit(id: string): void {
-        this.navigate(`/central/product/price/edit/${id}`)
-    }
+    // delete(id: string): void {
 
-    delete(id: string): void {
+    //     this.confirm('Are you confirm to delete this record?', (accepted) => {
+    //         if (accepted) {
+    //             this.handleDelete(id)
+    //         }
+    //     })
+    // }
 
-        this.confirm('Are you confirm to delete this record?', (accepted) => {
-            if (accepted) {
-                this.handleDelete(id)
-            }
-        })
-    }
-
-    async handleDelete(id: string): Promise<void> {
-        try {
-            let result = await this.price.remove(id).toPromise()
-            this.alert(result.message)
-            this.filter();
-        }
-        catch (error) {
-            this.handle(error)
-        }
-        finally {
-            this.unload()
-        }
-    }
+    // async handleDelete(id: string): Promise<void> {
+    //     try {
+    //         let result = await this.product.remove(id).toPromise()
+    //         // this.show(result);
+    //         this.alert(result.message)
+    //         this.filter();
+    //     }
+    //     catch (error) {
+    //         this.handle(error)
+    //     }
+    //     finally {
+    //         this.unload()
+    //     }
+    // }
 }
