@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, PageEvent } from '@angular/material';
+import { FormControl, Validators } from '@angular/forms';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { StoreService } from '../../../services';
-import { BaseComponent, PageHeader } from '../../../core';
+import { BaseComponent, PageHeader, Regex, Status } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -12,12 +13,15 @@ import 'rxjs/add/operator/toPromise';
 export class StoreListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader('Stores', ['Inventory', 'Stores']);
+    formControlStoreName = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER_CHINESE_SPACES)])
+    editable: boolean = false
+    current: any = { id: '', name: '', active: true }
 
     data: any[] = [];
 
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Name', filter: true },
-        { name: 'inactive', label: '', filter: true, hidden: true },
+        { name: 'active', label: 'Active?', filter: true, width: 100 },
         { name: 'id', label: '', filter: false, width: 50, sortable: false },
     ];
 
@@ -94,45 +98,62 @@ export class StoreListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/store/details/${id}`)
     }
 
-    submit(): void { }
-    
-    cancel(): void { }
-    // async shelf(product: IProduct): Promise<void> {
-    //     product.onshelf = !product.onshelf;
-    //     try {
-    //         let result = await this.product.update(product).toPromise()
-    //         this.alert(result.message)
-    //     }
-    //     catch (error) {
-    //         this.handle(error)
-    //     }
-    //     finally {
-    //         this.unload()
-    //         this.filter();
-    //     }
-    // }
+    add(): void {
+        this.editable = true
+    }
 
-    // delete(id: string): void {
+    cancel(): void {
+        this.current = { id: '', name: '', active: true }
+        this.editable = false
+    }
 
-    //     this.confirm('Are you confirm to delete this record?', (accepted) => {
-    //         if (accepted) {
-    //             this.handleDelete(id)
-    //         }
-    //     })
-    // }
+    valid(): boolean {
+        return this.formControlStoreName.valid
+    }
 
-    // async handleDelete(id: string): Promise<void> {
-    //     try {
-    //         let result = await this.product.remove(id).toPromise()
-    //         // this.show(result);
-    //         this.alert(result.message)
-    //         this.filter();
-    //     }
-    //     catch (error) {
-    //         this.handle(error)
-    //     }
-    //     finally {
-    //         this.unload()
-    //     }
-    // }
+    async submit(): Promise<void> {
+        if (!this.valid())
+            return;
+
+        try {
+            let result = await this.store.add(this.current).toPromise()
+
+            if (result.status == Status.Success) {
+                this.cancel()
+                this.filter()
+            }
+            else {
+                this.show(result.message)
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    delete(id: string): void {
+
+        this.confirm('Are you confirm to delete this record?', (accepted) => {
+            if (accepted) {
+                this.handleDelete(id)
+            }
+        })
+    }
+
+    async handleDelete(id: string): Promise<void> {
+        try {
+            let result = await this.store.remove(id).toPromise()
+            this.show(result.message)
+            this.filter()
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
 }
