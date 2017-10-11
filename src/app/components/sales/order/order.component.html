@@ -61,7 +61,7 @@
     <div class="card-box" *ngIf="!showlist">
       <div class="row">
         <mat-toolbar class="toolbar">
-          <span><i class="fa fa-th-list" aria-hidden="true"></i></span>
+          <span class="toolbar-icon-back"><mat-icon>reorder</mat-icon></span>
           <span class="toolbar-spacer"></span>
           <span class="toolbar-icon"><mat-icon *ngIf="editable()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon></span>
         </mat-toolbar>

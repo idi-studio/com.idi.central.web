@@ -3,7 +3,7 @@
 <div class="row">
   <div class="card-box">
     <mat-toolbar class="toolbar">
-      <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible"><i class="fa fa-th-list" aria-hidden="true"></i></span>
+      <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible"><mat-icon>reorder</mat-icon></span>
       <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
         flex>
       </td-search-box>

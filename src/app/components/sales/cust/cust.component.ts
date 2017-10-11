@@ -26,8 +26,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     formControlDetail = new FormControl('', [Validators.required])
     formControlPostcode = new FormControl('', [Validators.required])
 
-    mode: Command
-    cmd: Command = Command.Create
+    cmd: Command
     grade = Grade
     enabled: boolean = false
     current: ICustomer = { id: '', name: '', gender: 0, grade: 0, phone: '', date: '', verified: false, shippings: [] }
@@ -40,9 +39,9 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.command()
+        this.cmd = this.command()
 
-        switch (this.mode) {
+        switch (this.cmd) {
             case Command.Create:
                 this.header = new PageHeader('Customer', ['Sales', 'Customer', 'Add'])
                 break;
@@ -60,7 +59,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     async bind(): Promise<void> {
         try {
 
-            if (this.mode == Command.Update) {
+            if (this.cmd == Command.Update) {
                 let id = this.routeParams('id');
                 this.current = await this.customer.single(id).toPromise()
                 this.shipping.receiver = this.current.name
@@ -73,7 +72,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     }
 
     editable(): boolean {
-        return this.mode == Command.Update
+        return this.cmd == Command.Update
     }
 
     valid(): boolean {
@@ -97,7 +96,7 @@ export class CustomerComponent extends BaseComponent implements OnInit {
 
             let result: any;
 
-            switch (this.mode) {
+            switch (this.cmd) {
                 case Command.Create:
                     result = await this.customer.add(this.current).toPromise()
                     break;
@@ -183,13 +182,13 @@ export class CustomerComponent extends BaseComponent implements OnInit {
     }
 
     create(): void {
-        this.cmd = Command.Create
         this.shipping = { id: '', cid: '', receiver: '', contactno: '', province: '', city: '', area: '', street: '', detail: '', postcode: '', default: false, }
-        if (this.mode == Command.Update) {
+        if (this.cmd == Command.Update) {
             this.shipping.cid = this.current.id
             this.shipping.receiver = this.current.name
             this.shipping.contactno = this.current.phone
         }
+        this.cmd = Command.Create
         this.enabled = true
     }
 

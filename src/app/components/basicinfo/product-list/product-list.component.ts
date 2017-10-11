@@ -24,8 +24,8 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         { name: 'description', label: 'Description', filter: true, hidden: true },
         { name: 'tags', label: 'Tags', hidden: true },
         { name: 'active', label: 'Active?', filter: false, hidden: true },
-        { name: 'onshelf', label: 'OnShelf?', filter: false, hidden: false },
-        { name: 'id', label: '', filter: false, hidden: false },
+        { name: 'onshelf', label: 'OnShelf?', filter: false, hidden: false, width: 100 },
+        { name: 'id', label: '', filter: false, hidden: false, width: 20 },
     ];
 
     clickable: boolean = true;

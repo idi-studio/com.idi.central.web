@@ -17,7 +17,7 @@ import 'rxjs/add/operator/map';
 export class OrderComponent extends BaseComponent implements OnInit {
 
     header: PageHeader;
-    mode: Command;
+    cmd: Command;
     current: IOrder = { id: '', custid: '', sn: '', status: 0, statusdesc: '', date: '', remark: '', items: [] }
     orderId: string;
     options: ICustomer[] = []
@@ -77,7 +77,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.mode = this.command()
+            this.cmd = this.command()
             this.orderId = this.routeParams('id');
             this.current = await this.order.single(this.orderId).toPromise()
             this.options = await this.customer.all().toPromise()
@@ -90,7 +90,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
                 this.formControlCustomer.disable()
             }
 
-            switch (this.mode) {
+            switch (this.cmd) {
                 case Command.View:
                     this.header = new PageHeader('Order', ['Sales', 'Order', 'View'])
                     break;
@@ -114,7 +114,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.mode = this.command()
+            this.cmd = this.command()
             this.orderId = this.routeParams('id');
             this.current = await this.order.single(this.orderId).toPromise()
             this.data = await this.product.selling(this.current.custid).toPromise()
@@ -166,7 +166,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     editable(): boolean {
-        if (this.mode == Command.View)
+        if (this.cmd == Command.View)
             return false
 
         return this.current.status === OrderStatus.Pending

@@ -13,7 +13,7 @@ import 'rxjs/add/operator/toPromise';
 export class ProductPriceComponent extends BaseComponent implements OnInit {
 
     header: PageHeader
-    mode: Command
+    cmd: Command
     categorys: any[]
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
@@ -34,9 +34,9 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.command();
+        this.cmd = this.command();
 
-        switch (this.mode) {
+        switch (this.cmd) {
             case Command.Create:
                 this.header = new PageHeader('Product', ['Basic Info', 'Product', 'Price', 'Add'])
                 break;
@@ -59,12 +59,12 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
             this.categorys = await this.category.all(TypeNames.PriceCategory).toPromise()
 
-            if (this.mode == Command.Create) {
+            if (this.cmd == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()
                 this.current.pid = this.currentProduct.id
             }
 
-            if (this.mode == Command.Update) {
+            if (this.cmd == Command.Update) {
                 let data = await this.price.single(id).toPromise()
                 this.current = data
                 this.current.startdate = new Date(data.startdate)
@@ -142,7 +142,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
 
             let result: any;
 
-            switch (this.mode) {
+            switch (this.cmd) {
                 case Command.Create:
                     result = await this.price.add(this.current).toPromise()
                     break;

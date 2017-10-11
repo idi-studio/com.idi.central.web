@@ -44,18 +44,21 @@ export enum PayMethod {
     Cash = 8
 }
 
-export enum TradeStatus
-{
+export enum TradeStatus {
     InProcess = 1,
     Fail = 2,
     Success = 4
 }
 
-export enum OAuthType
-{
+export enum OAuthType {
     GitHub = 2,
     Wechat = 4,
     Alipay = 8
+}
+
+export enum PageMode {
+    Normal = 2,
+    Editable = 4
 }
 
 export const Grade: [any] = [

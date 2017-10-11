@@ -14,7 +14,6 @@ import 'rxjs/add/operator/toPromise';
 export class ProductImageComponent extends BaseComponent implements OnInit {
 
     header: PageHeader
-    mode: Command
     pid: string
     editable: boolean = false
     files: Array<File> = []

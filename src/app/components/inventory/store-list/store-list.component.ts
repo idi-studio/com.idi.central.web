@@ -18,7 +18,7 @@ export class StoreListComponent extends BaseComponent implements OnInit {
     columns: ITdDataTableColumn[] = [
         { name: 'name', label: 'Name', filter: true },
         { name: 'inactive', label: '', filter: true, hidden: true },
-        { name: 'id', label: '', filter: false },
+        { name: 'id', label: '', filter: false, width: 50, sortable: false },
     ];
 
     clickable: boolean = true;
@@ -30,7 +30,6 @@ export class StoreListComponent extends BaseComponent implements OnInit {
     currentPage: number = 1;
     pageSize: number = 5;
     sortBy: string = 'name';
-    selectedRows: any[] = [];
     sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
     constructor(private store: StoreService, private dataTable: TdDataTableService,
@@ -95,6 +94,9 @@ export class StoreListComponent extends BaseComponent implements OnInit {
         this.navigate(`/central/store/details/${id}`)
     }
 
+    submit(): void { }
+    
+    cancel(): void { }
     // async shelf(product: IProduct): Promise<void> {
     //     product.onshelf = !product.onshelf;
     //     try {

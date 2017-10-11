@@ -101,6 +101,10 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
         this.filter();
     }
 
+    back(): void {
+        this.navigate('/central/store/list')
+    }
+
     // details(id: string): void {
     //     this.navigate(`/central/store/details/${id}`)
     // }

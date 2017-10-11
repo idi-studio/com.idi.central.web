@@ -18,7 +18,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
     formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_TAG)])
 
-    mode: Command;
+    cmd: Command;
     selectedCategory: string
     current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
     tags: ITag[]
@@ -31,9 +31,9 @@ export class ProductComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.mode = this.command()
+        this.cmd = this.command()
 
-        switch (this.mode) {
+        switch (this.cmd) {
             case Command.Create:
                 this.header = new PageHeader('Product', ['Basic Info', 'Product', 'Add'])
                 break;
@@ -55,7 +55,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
             this.tags = await this.tag.all().toPromise()
             this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ''
 
-            if (this.mode == Command.Update) {
+            if (this.cmd == Command.Update) {
                 let id = this.routeParams('id');
                 this.current = await this.product.single(id).toPromise()
                 this.chips = this.current.tags
@@ -71,7 +71,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     }
 
     editable(): boolean {
-        return this.mode == Command.Update
+        return this.cmd == Command.Update
     }
 
     valid(): boolean {
@@ -119,7 +119,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
             let result: any;
             this.current.tags = this.chips
 
-            switch (this.mode) {
+            switch (this.cmd) {
                 case Command.Create:
                     result = await this.product.add(this.current).toPromise()
                     break;
