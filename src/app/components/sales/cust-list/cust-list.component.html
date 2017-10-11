@@ -4,14 +4,14 @@
   <div class="card-box">
     <mat-toolbar class="toolbar">
       <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible"><mat-icon>reorder</mat-icon></span>
-      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="search($event)"
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="gridview.search($event)"
         flex>
       </td-search-box>
       <span class="toolbar-icon" (click)="add()"><i class="fa fa-plus" aria-hidden="true"></i></span>
     </mat-toolbar>
     <div class="row">
-      <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
-        [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+      <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
+        [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
         <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
           <span *ngIf="value==0" class="tc-pink-700"><i class="fa fa-female" aria-hidden="true"></i></span>
           <span *ngIf="value==1" class="tc-light-blue-700"><i class="fa fa-male" aria-hidden="true"></i></span>
@@ -32,7 +32,7 @@
       <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
         <h3>No results to display.</h3>
       </div>
-      <mat-paginator [length]="filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="page($event)">
+      <mat-paginator [length]="gridview.filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="gridview.page($event)">
       </mat-paginator>
     </div>
   </div>

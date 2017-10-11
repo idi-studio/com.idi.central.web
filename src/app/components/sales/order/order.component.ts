@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, PageEvent } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { OrderService, OrderItemService, ProductService, CustomerService, IOrder, IOrderItem, IProductSell, INewOrderItem, IPrice, ICustomer } from '../../../services';
-import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory, OrderStatus, ObjectValidator } from '../../../core';
+import { BaseComponent, PageHeader, Command, Status, Regex, PriceCategory, OrderStatus, ObjectValidator, GirdView } from '../../../core';
 import { List } from 'linqts'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
@@ -16,7 +16,8 @@ import 'rxjs/add/operator/map';
 })
 export class OrderComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader;
+    header: PageHeader
+    gridview: GirdView
     cmd: Command;
     current: IOrder = { id: '', custid: '', sn: '', status: 0, statusdesc: '', date: '', remark: '', items: [] }
     orderId: string;
@@ -24,30 +25,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     filteredOptions: Observable<ICustomer[]>
     formControlCustomer = new FormControl('', [Validators.required, ObjectValidator()])
     formControlRemark = new FormControl({ value: 'N/A' }, [Validators.required, ObjectValidator()])
-
-    data: IProductSell[] = []
-
-    columns: ITdDataTableColumn[] = [
-        { name: 'name', label: 'Name', filter: true },
-        { name: 'code', label: 'Code', filter: true, hidden: true },
-        { name: 'desc', label: 'Description', filter: true, hidden: true },
-        { name: 'tags', label: 'Tags', filter: false },
-        { name: 'price', label: 'Price', filter: false },
-        { name: 'id', label: '', filter: false, hidden: false },
-    ];
-
     showlist: boolean = false;
-    clickable: boolean = true;
-    selectable: boolean = false;
-    filteredData: any[] = this.data;
-    filteredTotal: number = this.data.length;
-    searchTerm: string = '';
-    fromRow: number = 1;
-    currentPage: number = 1;
-    pageSize: number = 5;
-    sortBy: string = 'name';
-    selectedRows: any[] = [];
-    sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 
     constructor(private order: OrderService, private orderItem: OrderItemService,
         private product: ProductService, private customer: CustomerService, private dataTable: TdDataTableService,
@@ -57,6 +35,16 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.gridview = new GirdView(this.dataTable)
+        this.gridview.sortBy = 'name'
+        this.gridview.columns = [
+            { name: 'name', label: 'Name', filter: true },
+            { name: 'code', label: 'Code', filter: true, hidden: true },
+            { name: 'desc', label: 'Description', filter: true, hidden: true },
+            { name: 'tags', label: 'Tags', filter: false },
+            { name: 'price', label: 'Price', filter: false },
+            { name: 'id', label: '', filter: false, hidden: false },
+        ]
         this.bindView();
         this.bindTable();
 
@@ -117,52 +105,20 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.cmd = this.command()
             this.orderId = this.routeParams('id');
             this.current = await this.order.single(this.orderId).toPromise()
-            this.data = await this.product.selling(this.current.custid).toPromise()
+            let source = await this.product.selling(this.current.custid).toPromise()
+            this.gridview.bind(source)
         }
         catch (error) {
-            this.data = []
+            this.gridview.bind()
             this.handle(error)
         }
         finally {
             this.unload()
-
-            let newData: IProductSell[] = this.data;
-
-            let excludedColumns: string[] = this.columns
-                .filter((column: ITdDataTableColumn) => {
-                    return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
-                }).map((column: ITdDataTableColumn) => {
-                    return column.name;
-                });
-
-            newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
-            this.filteredTotal = newData.length;
-            newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
-            newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-            this.filteredData = newData;
         }
     }
 
     total(): number {
         return new List(this.current.items).Sum(e => e.unitprice * e.qty);
-    }
-
-    sort(sortEvent: ITdDataTableSortChangeEvent): void {
-        this.sortBy = sortEvent.name;
-        this.sortOrder = sortEvent.order;
-        this.bindTable();
-    }
-
-    search(searchTerm: string): void {
-        this.searchTerm = searchTerm;
-        this.bindTable();
-    }
-
-    page(e: PageEvent): void {
-        this.currentPage = e.pageIndex + 1;
-        this.pageSize = e.pageSize;
-        this.fromRow = e.pageIndex * e.pageSize + 1
-        this.bindTable();
     }
 
     editable(): boolean {

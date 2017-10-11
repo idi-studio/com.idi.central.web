@@ -114,15 +114,15 @@
       <div class="row">
         <mat-toolbar class="toolbar">
           <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="cancel()"><i class="fa fa-times" aria-hidden="true"></i></span>
-          <td-search-box #searchBox backIcon="arrow_back" placeholder="Search here" (searchDebounce)="search($event)" flex>
+          <td-search-box #searchBox backIcon="arrow_back" placeholder="Search here" (searchDebounce)="gridview.search($event)" flex>
           </td-search-box>
         </mat-toolbar>
       </div>
       <div class="row">
         <div class="row">
           <div class="col-xs-10">
-            <td-data-table #dataTable [data]="filteredData" [columns]="columns" [selectable]="selectable" [multiple]="multiple" [sortable]="true"
-              [clickable]="clickable" [sortBy]="sortBy" [(ngModel)]="selectedRows" [sortOrder]="sortOrder" (sortChange)="sort($event)">
+            <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
+              [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
               <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
                 <div layout="row">
                   <mat-chip-list>
@@ -144,7 +144,7 @@
             <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
               <span class="md-caption tc-grey-400">No Product(s) for Sale.</span>
             </div>
-            <mat-paginator [length]="filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="page($event)">
+            <mat-paginator [length]="gridview.filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="gridview.page($event)">
             </mat-paginator>
           </div>
         </div>

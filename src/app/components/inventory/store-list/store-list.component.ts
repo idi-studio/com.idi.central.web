@@ -4,7 +4,7 @@ import { MatSnackBar, PageEvent } from '@angular/material';
 import { FormControl, Validators } from '@angular/forms';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { StoreService } from '../../../services';
-import { BaseComponent, PageHeader, Regex, Status } from '../../../core';
+import { BaseComponent, PageHeader, Regex, Status, GirdView } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -12,29 +12,11 @@ import 'rxjs/add/operator/toPromise';
 })
 export class StoreListComponent extends BaseComponent implements OnInit {
 
-    header: PageHeader = new PageHeader('Stores', ['Inventory', 'Stores']);
-    formControlStoreName = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER_CHINESE_SPACES)])
+    header: PageHeader = new PageHeader('Stores', ['Inventory', 'Stores'])
+    gridview: GirdView
     editable: boolean = false
     current: any = { id: '', name: '', active: true }
-
-    data: any[] = [];
-
-    columns: ITdDataTableColumn[] = [
-        { name: 'name', label: 'Name', filter: true },
-        { name: 'active', label: 'Active?', filter: true, width: 100 },
-        { name: 'id', label: '', filter: false, width: 50, sortable: false },
-    ];
-
-    clickable: boolean = true;
-    selectable: boolean = false;
-    filteredData: any[] = this.data;
-    filteredTotal: number = this.data.length;
-    searchTerm: string = '';
-    fromRow: number = 1;
-    currentPage: number = 1;
-    pageSize: number = 5;
-    sortBy: string = 'name';
-    sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+    formControlStoreName = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER_CHINESE_SPACES)])
 
     constructor(private store: StoreService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
@@ -43,55 +25,30 @@ export class StoreListComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.filter();
+        this.gridview = new GirdView(this.dataTable)
+        this.gridview.sortBy = 'name'
+        this.gridview.columns = [
+            { name: 'name', label: 'Name', filter: true },
+            { name: 'active', label: 'Active?', filter: true, width: 100 },
+            { name: 'id', label: '', filter: false, width: 50, sortable: false },
+        ]
+        this.bind();
     }
 
-    async filter(): Promise<void> {
+    async bind(): Promise<void> {
         this.load();
 
         try {
-            this.data = await this.store.all().toPromise()
+            let source = await this.store.all().toPromise()
+            this.gridview.bind(source)
         }
         catch (error) {
-            this.data = [];
+            this.gridview.bind()
             this.handle(error)
         }
         finally {
             this.unload()
-
-            let newData = this.data;
-
-            let excludedColumns: string[] = this.columns
-                .filter((column: ITdDataTableColumn) => {
-                    return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
-                }).map((column: ITdDataTableColumn) => {
-                    return column.name;
-                });
-
-            newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
-            this.filteredTotal = newData.length;
-            newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
-            newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-            this.filteredData = newData;
         }
-    }
-
-    sort(sortEvent: ITdDataTableSortChangeEvent): void {
-        this.sortBy = sortEvent.name;
-        this.sortOrder = sortEvent.order;
-        this.filter();
-    }
-
-    search(searchTerm: string): void {
-        this.searchTerm = searchTerm;
-        this.filter();
-    }
-
-    page(e: PageEvent): void {
-        this.currentPage = e.pageIndex + 1;
-        this.pageSize = e.pageSize;
-        this.fromRow = e.pageIndex * e.pageSize + 1
-        this.filter();
     }
 
     details(id: string): void {
@@ -130,7 +87,7 @@ export class StoreListComponent extends BaseComponent implements OnInit {
 
             if (result.status == Status.Success) {
                 this.cancel()
-                this.filter()
+                this.bind()
             }
             else {
                 this.show(result.message)
@@ -157,7 +114,7 @@ export class StoreListComponent extends BaseComponent implements OnInit {
         try {
             let result = await this.store.remove(id).toPromise()
             this.show(result.message)
-            this.filter()
+            this.bind()
         }
         catch (error) {
             this.handle(error)

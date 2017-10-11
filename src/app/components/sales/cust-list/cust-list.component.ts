@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, PageEvent } from '@angular/material';
-import {
-    TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder,
-    ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent
-} from '@covalent/core';
+import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { CustomerService, ICustomer } from '../../../services';
-import { BaseComponent, PageHeader, Status, Grade } from '../../../core';
+import { BaseComponent, PageHeader, Status, Grade, GirdView } from '../../../core';
 import { List } from 'linqts'
 import 'rxjs/add/operator/toPromise';
 
@@ -16,29 +13,7 @@ import 'rxjs/add/operator/toPromise';
 export class CustomerListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader('Customers', ['Sales', 'Customers']);
-
-    data: ICustomer[] = [];
-
-    columns: ITdDataTableColumn[] = [
-        { name: 'name', label: 'Name', filter: true },
-        { name: 'gender', label: 'Gender', filter: true },
-        { name: 'grade', label: 'Grade', filter: true },
-        { name: 'phone', label: 'Phone', filter: true },
-        { name: 'date', label: 'Date', filter: true },
-        { name: 'id', label: '', filter: false }
-    ];
-
-    clickable: boolean = true;
-    selectable: boolean = false;
-    filteredData: any[] = this.data;
-    filteredTotal: number = this.data.length;
-    searchTerm: string = '';
-    fromRow: number = 1;
-    currentPage: number = 1;
-    pageSize: number = 5;
-    sortBy: string = 'name';
-    selectedRows: any[] = [];
-    sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+    gridview: GirdView
 
     constructor(private cust: CustomerService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
@@ -47,55 +22,33 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.filter();
+        this.gridview = new GirdView(this.dataTable)
+        this.gridview.sortBy = 'name'
+        this.gridview.columns = [
+            { name: 'name', label: 'Name', filter: true },
+            { name: 'gender', label: 'Gender', filter: true, width: 100 },
+            { name: 'grade', label: 'Grade', filter: true, width: 100 },
+            { name: 'phone', label: 'Phone', filter: true },
+            { name: 'date', label: 'Date', filter: true, width: 120 },
+            { name: 'id', label: '', filter: false, width: 20 }
+        ]
+        this.bind();
     }
 
-    async filter(): Promise<void> {
+    async bind(): Promise<void> {
         this.load();
 
         try {
-            this.data = await this.cust.all().toPromise()
+            let source = await this.cust.all().toPromise()
+            this.gridview.bind(source)
         }
         catch (error) {
-            this.data = [];
+            this.gridview.bind()
             this.handle(error)
         }
         finally {
             this.unload()
-
-            let newData: ICustomer[] = this.data;
-
-            let excludedColumns: string[] = this.columns
-                .filter((column: ITdDataTableColumn) => {
-                    return ((column.filter === undefined && column.hidden === true) || (column.filter !== undefined && column.filter === false));
-                }).map((column: ITdDataTableColumn) => {
-                    return column.name;
-                });
-
-            newData = this.dataTable.filterData(newData, this.searchTerm, true, excludedColumns);
-            this.filteredTotal = newData.length;
-            newData = this.dataTable.sortData(newData, this.sortBy, this.sortOrder);
-            newData = this.dataTable.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
-            this.filteredData = newData;
         }
-    }
-
-    sort(sortEvent: ITdDataTableSortChangeEvent): void {
-        this.sortBy = sortEvent.name;
-        this.sortOrder = sortEvent.order;
-        this.filter();
-    }
-
-    search(searchTerm: string): void {
-        this.searchTerm = searchTerm;
-        this.filter();
-    }
-
-    page(e: PageEvent): void {
-        this.currentPage = e.pageIndex + 1;
-        this.pageSize = e.pageSize;
-        this.fromRow = e.pageIndex * e.pageSize + 1
-        this.filter();
     }
 
     add(): void {
@@ -124,7 +77,7 @@ export class CustomerListComponent extends BaseComponent implements OnInit {
 
             this.show(result.message)
 
-            this.filter();
+            this.bind();
         }
         catch (error) {
             this.handle(error)
