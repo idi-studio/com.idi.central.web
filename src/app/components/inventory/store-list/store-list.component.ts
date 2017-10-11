@@ -102,6 +102,11 @@ export class StoreListComponent extends BaseComponent implements OnInit {
         this.editable = true
     }
 
+    edit(value: any): void {
+        this.current = value
+        this.editable = true
+    }
+
     cancel(): void {
         this.current = { id: '', name: '', active: true }
         this.editable = false
@@ -116,7 +121,12 @@ export class StoreListComponent extends BaseComponent implements OnInit {
             return;
 
         try {
-            let result = await this.store.add(this.current).toPromise()
+            var result
+
+            if (this.current.id == "")
+                result = await this.store.add(this.current).toPromise()
+            else
+                result = await this.store.update(this.current).toPromise()
 
             if (result.status == Status.Success) {
                 this.cancel()
