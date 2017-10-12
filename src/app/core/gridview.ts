@@ -6,7 +6,6 @@ export class GirdView {
     table: TdDataTableService
     fromRow: number = 1
     pageNumber: number = 1
-    pageSize: number = 5
 
     public source: any[]
     public columns: ITdDataTableColumn[]
@@ -15,6 +14,8 @@ export class GirdView {
     public clickable: boolean = true
     public selectable: boolean = false
     public searchTerm: string = ''
+    public pageSize: number = 5
+    public pageSizeOptions: number[] = [5, 10, 15, 20]
     public sortBy: string = 'id'
     public sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
 

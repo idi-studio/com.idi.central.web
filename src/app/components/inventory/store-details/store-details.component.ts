@@ -27,10 +27,10 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
         this.gridview.columns = [
             { name: 'product', label: 'Product', filter: true },
             { name: 'store', label: 'Store', filter: true },
-            { name: 'bin', label: 'Bin', filter: true },
-            { name: 'qty', label: 'Qty.', numeric: true, format: v => v.toFixed(2), filter: true },
-            { name: 'frz', label: 'Frozen', numeric: true, format: v => v.toFixed(2), filter: true },
-            { name: 'avl', label: 'Available', numeric: true, format: v => v.toFixed(2), filter: true },
+            { name: 'bin', label: 'Bin', filter: true, width: 100 },
+            { name: 'qty', label: 'Qty.', numeric: true, format: v => v.toFixed(2), filter: true, width: 100 },
+            { name: 'frz', label: 'Frozen', numeric: true, format: v => v.toFixed(2), filter: true, width: 100 },
+            { name: 'avl', label: 'Available', numeric: true, format: v => v.toFixed(2), filter: true, width: 100 },
             // { name: 'id', label: '', filter: false },
         ]
         this.bind();

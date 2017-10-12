@@ -39,11 +39,11 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.gridview.sortBy = 'name'
         this.gridview.columns = [
             { name: 'name', label: 'Name', filter: true },
-            { name: 'code', label: 'Code', filter: true, hidden: true },
-            { name: 'desc', label: 'Description', filter: true, hidden: true },
-            { name: 'tags', label: 'Tags', filter: false },
-            { name: 'price', label: 'Price', filter: false },
-            { name: 'id', label: '', filter: false, hidden: false },
+            // { name: 'code', label: 'Code', filter: true, hidden: true },
+            // { name: 'desc', label: 'Description', filter: true, hidden: true },
+            // { name: 'tags', label: 'Tags', filter: false, hidden: true },
+            { name: 'price', label: 'Price', filter: false, width: 120 },
+            { name: 'id', label: '', filter: false, hidden: false, width: 100 },
         ]
         this.bindView();
         this.bindTable();

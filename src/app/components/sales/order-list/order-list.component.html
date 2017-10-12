@@ -9,41 +9,44 @@
       </td-search-box>
       <span (click)="add()" class="toolbar-icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
     </mat-toolbar>
-    <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
-      [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
-      <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
-        <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
-        <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
-      </ng-template>
-      <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
-        <div layout="row">
-          <mat-chip-list>
-            <mat-chip *ngFor="let item of value">
-              <span matTooltip="{{item.name}}">{{ item.value }}</span>
-            </mat-chip>
-          </mat-chip-list>
-        </div>
-      </ng-template>
-      <ng-template tdDataTableTemplate="remark" let-value="value" let-row="row" let-column="column">
-        <div class="text-thumb">{{value}}</div>
-      </ng-template>
-      <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
-        <div layout="row" layout-align="end end">
-          <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-          <mat-menu #menu="matMenu">
-            <button *ngIf="display('view',row.status)" mat-menu-item (click)="view(value)"><mat-icon>description</mat-icon><span>Details</span></button>
-            <button *ngIf="display('edit',row.status)" mat-menu-item (click)="edit(value)"><mat-icon>edit</mat-icon><span>Edit</span></button>
-            <button *ngIf="display('voucher',row.status)" mat-menu-item (click)="govoucher(value)"><mat-icon>receipt</mat-icon><span>Voucher</span></button>
-            <button *ngIf="display('deliver',row.status)" mat-menu-item (click)="deliver(value)"><mat-icon>local_shipping</mat-icon><span>Deliver</span></button>
-            <button *ngIf="display('remove',row.status)" mat-menu-item (click)="delete(value)"><mat-icon class="tc-red-800">delete</mat-icon><span>Remove</span></button>
-          </mat-menu>
-        </div>
-      </ng-template>
-    </td-data-table>
-    <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-      <h3>No results to display.</h3>
+    <div class="row">
+      <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable"
+        [multiple]="multiple" [sortable]="true" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows"
+        [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
+        <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
+          <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
+          <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
+        </ng-template>
+        <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <mat-chip-list>
+              <mat-chip *ngFor="let item of value">
+                <span matTooltip="{{item.name}}">{{ item.value }}</span>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="remark" let-value="value" let-row="row" let-column="column">
+          <div class="text-thumb">{{value}}</div>
+        </ng-template>
+        <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
+          <div layout="row" layout-align="end end">
+            <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #menu="matMenu">
+              <button *ngIf="display('view',row.status)" mat-menu-item (click)="view(value)"><mat-icon>description</mat-icon><span>Details</span></button>
+              <button *ngIf="display('edit',row.status)" mat-menu-item (click)="edit(value)"><mat-icon>edit</mat-icon><span>Edit</span></button>
+              <button *ngIf="display('voucher',row.status)" mat-menu-item (click)="govoucher(value)"><mat-icon>receipt</mat-icon><span>Voucher</span></button>
+              <button *ngIf="display('deliver',row.status)" mat-menu-item (click)="deliver(value)"><mat-icon>local_shipping</mat-icon><span>Deliver</span></button>
+              <button *ngIf="display('remove',row.status)" mat-menu-item (click)="delete(value)"><mat-icon class="tc-red-800">delete</mat-icon><span>Remove</span></button>
+            </mat-menu>
+          </div>
+        </ng-template>
+      </td-data-table>
+      <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+        <h3>No results to display.</h3>
+      </div>
+      <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions" (page)="gridview.page($event)">
+      </mat-paginator>
     </div>
-    <mat-paginator [length]="gridview.filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="gridview.page($event)">
-    </mat-paginator>
   </div>
 </div>

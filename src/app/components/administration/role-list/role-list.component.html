@@ -29,7 +29,7 @@
     <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
       <h3>No results to display.</h3>
     </div>
-    <mat-paginator [length]="gridview.filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="gridview.page($event)">
+    <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions" (page)="gridview.page($event)">
     </mat-paginator>
   </div>
 </div>

@@ -53,7 +53,7 @@
           <mat-form-field class="md-input-full-width">
             <textarea matInput name="remark" [(ngModel)]="current.remark" [formControl]="formControlRemark" placeholder="Remark" rows="1"
               maxlength="200"></textarea>
-            <md-hint align="end">{{current.remark.length}} / 200</md-hint>
+            <mat-hint align="end">{{current.remark.length}} / 200</mat-hint>
           </mat-form-field>
         </div>
       </div>
@@ -121,15 +121,26 @@
       <div class="row">
         <div class="row">
           <div class="col-xs-10">
-            <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
-              [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
-              <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
+            <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable"
+              [multiple]="multiple" [sortable]="true" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows"
+              [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
+              <!-- <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
                 <div layout="row">
                   <mat-chip-list>
                     <mat-chip *ngFor="let item of value">
                       <span matTooltip="{{item.name}}">{{ item.value }}</span>
                     </mat-chip>
                   </mat-chip-list>
+                </div>
+              </ng-template> -->
+              <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
+                <div class="row">
+                  <div class="col-xs-12">
+                    {{value}}
+                  </div>
+                  <div class="col-xs-12">
+                    <span *ngFor="let tag of row.tags" class="label label-default" matTooltip="{{tag.name}}">{{ tag.value }}</span>
+                  </div>
                 </div>
               </ng-template>
               <ng-template tdDataTableTemplate="price" let-value="value" let-row="row" let-column="column">
@@ -144,7 +155,7 @@
             <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
               <span class="md-caption tc-grey-400">No Product(s) for Sale.</span>
             </div>
-            <mat-paginator [length]="gridview.filteredTotal" [pageSize]="5" [pageSizeOptions]="[5, 10, 15, 20]" (page)="gridview.page($event)">
+            <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions" (page)="gridview.page($event)">
             </mat-paginator>
           </div>
         </div>
