@@ -1,21 +1,76 @@
 <page-header [header]="header"></page-header>
 
 <div class="row">
-  <div class="card-box">
+  <div class="card-box" *ngIf="!editable">
     <mat-toolbar class="toolbar">
-      <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+      <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="back()">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i> {{current.name}}
+      </span>
       <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="gridview.search($event)"
         flex>
       </td-search-box>
-      <span class="toolbar-icon" (click)="add()"><i class="fa fa-plus" aria-hidden="true"></i></span>
+      <span class="toolbar-icon" (click)="add()">
+        <mat-icon>playlist_add</mat-icon>
+      </span>
     </mat-toolbar>
-    <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
-      [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
-    </td-data-table>
-    <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
-      <h3>No results to display.</h3>
+    <div class="row">
+      <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable"
+        [multiple]="multiple" [sortable]="true" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows"
+        [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
+      </td-data-table>
+      <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
+        <h3>No results to display.</h3>
+      </div>
+      <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions"
+        (page)="gridview.page($event)">
+      </mat-paginator>
     </div>
-    <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions" (page)="gridview.page($event)">
-    </mat-paginator>
+  </div>
+  <div class="card-box" *ngIf="editable">
+    <mat-toolbar class="toolbar">
+      <span class="toolbar-icon-back">
+        <mat-icon>mode_edit</mat-icon> {{current.name}}
+      </span>
+      <span class="toolbar-spacer"></span>
+      <span class="toolbar-icon" *ngIf="valid()">
+        <mat-icon (click)="submit()">save</mat-icon>
+      </span>
+      <span class="toolbar-icon">
+        <mat-icon (click)="cancel()">cancel</mat-icon>
+      </span>
+    </mat-toolbar>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="product" placeholder="Product" [formControl]="formControlProduct" [matAutocomplete]="auto">
+          <mat-error *ngIf="formControlProduct.hasError('required')">
+            Product is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="formControlProduct.hasError('object')">
+            Invalid product
+          </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="display">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <!-- <div class="col-md-4 col-sm-6 col-xs-10">
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="name" [(ngModel)]="current.name" placeholder="Store Name" [formControl]="formControlStoreName" autocomplete="off"
+            maxlength="50">
+          <mat-error *ngIf="formControlStoreName.hasError('pattern')">
+            Only Support case letters, Chinese, numbers and spaces.
+          </mat-error>
+          <mat-error *ngIf="formControlStoreName.hasError('required')">
+            store name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <mat-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Active":"Inactive"}} </mat-checkbox>
+      </div> -->
+    </div>
   </div>
 </div>
