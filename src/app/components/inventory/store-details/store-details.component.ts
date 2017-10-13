@@ -56,7 +56,7 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
 
             this.options = await this.store.stockOptions().toPromise()
             this.filteredOptions = this.formControlProduct.valueChanges.startWith(null)
-                .map(prod => prod && typeof prod === 'object' ? prod.name : prod)
+                .map(option => option && typeof option === 'object' ? option.name : option)
                 .map(name => name ? this.filter(name) : this.options.slice());
         }
         catch (error) {
@@ -69,6 +69,10 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
 
     filter(name: string): IStockOption[] {
         return this.options.filter(option => option.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
+    }
+
+    display(option: IStockOption): string {
+        return option ? option.name : '';
     }
 
     add(): void {
