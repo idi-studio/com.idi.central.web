@@ -32,8 +32,8 @@
         <mat-icon>mode_edit</mat-icon> {{current.name}}
       </span>
       <span class="toolbar-spacer"></span>
-      <span class="toolbar-icon" *ngIf="valid()">
-        <mat-icon (click)="submit()">save</mat-icon>
+      <span class="toolbar-icon" (click)="addstock()" *ngIf="valid()">
+        <mat-icon>add_box</mat-icon>
       </span>
       <span class="toolbar-icon">
         <mat-icon (click)="cancel()">cancel</mat-icon>
@@ -44,7 +44,8 @@
         <mat-form-field class="md-input-full-width">
           <input matInput name="product" placeholder="Product" [formControl]="formControlProduct" [matAutocomplete]="auto">
           <mat-error *ngIf="formControlProduct.hasError('required')">
-            Product is <strong>required</strong>
+            Product is
+            <strong>required</strong>
           </mat-error>
           <mat-error *ngIf="formControlProduct.hasError('object')">
             Invalid product
@@ -56,21 +57,87 @@
           </mat-option>
         </mat-autocomplete>
       </div>
-      <!-- <div class="col-md-4 col-sm-6 col-xs-10">
+      <div class="col-md-4 col-sm-6 col-xs-10">
         <mat-form-field class="md-input-full-width">
-          <input matInput name="name" [(ngModel)]="current.name" placeholder="Store Name" [formControl]="formControlStoreName" autocomplete="off"
-            maxlength="50">
-          <mat-error *ngIf="formControlStoreName.hasError('pattern')">
-            Only Support case letters, Chinese, numbers and spaces.
-          </mat-error>
-          <mat-error *ngIf="formControlStoreName.hasError('required')">
-            store name is <strong>required</strong>
-          </mat-error>
+          <input matInput type="text" name="bin" [(ngModel)]="stock.bin" placeholder="Bin Code" [formControl]="formControlBin">
         </mat-form-field>
+        <mat-error *ngIf="formControlBin.hasError('required')">
+          Bin code is
+          <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="formControlBin.hasError('pattern')">
+          Only Support case letters and numbers.
+        </mat-error>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Active":"Inactive"}} </mat-checkbox>
-      </div> -->
+        <mat-form-field class="md-input-full-width">
+          <input matInput type="number" name="qty" [(ngModel)]="stock.qty" placeholder="Quantity" [formControl]="formControlQuantity">
+          <!-- <span class="mat-icon-button" matSuffix>
+            <mat-icon (click)="addstock()">add</mat-icon>
+          </span> -->
+        </mat-form-field>
+        <mat-error *ngIf="formControlQuantity.hasError('required')">
+          Quantity is
+          <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="formControlQuantity.hasError('min')">
+          Quantity should be greater than 0
+        </mat-error>
+      </div>
+    </div>
+  </div>
+  <div class="card-box" *ngIf="editable">
+    <mat-toolbar class="toolbar">
+      <span class="toolbar-icon-back">
+        <mat-icon>reorder</mat-icon>
+      </span>
+      <span class="toolbar-spacer"></span>
+      <span class="toolbar-icon" *ngIf="stocks.length>0">
+        <mat-icon (click)="submit()">save</mat-icon>
+      </span>
+    </mat-toolbar>
+    <div class="row">
+      <div class="col-xs-10">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Bin Code</th>
+                <th>Name</th>
+                <th>Qty.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="stocks.length==0">
+                <td class="text-center md-caption tc-grey-400" colspan="6">No Record(s)</td>
+              </tr>
+              <tr *ngFor="let item of stocks;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{item.bin}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.qty | number:'1.2-2'}}</td>
+                <td class="text-right">
+                  <span class="tc-red-800" (click)="removestock(item.id)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+            <!-- <tfoot>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="text-right">Total:</th>
+                <th>{{ total() | number:'1.2-2'}}</th>
+                <th></th>
+              </tr>
+            </tfoot> -->
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>

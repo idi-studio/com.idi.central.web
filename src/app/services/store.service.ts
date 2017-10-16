@@ -25,6 +25,18 @@ export class StoreService extends RESTService {
         });
     }
 
+    instore(id: string, items: any[]): Observable<any> {
+        return super.put(`/api/store/in/${id}`, { items: items }).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    outstore(id: string, items: any[]): Observable<any> {
+        return super.put(`/api/store/out/${id}`, { items: items }).map((res: Response) => {
+            return res.json();
+        });
+    }
+
     remove(id: string): Observable<any> {
         return super.delete(`/api/store/${id}`).map((res: Response) => {
             return res.json();

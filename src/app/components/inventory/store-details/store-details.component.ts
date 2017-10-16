@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, PageEvent } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { StoreService, IStockOption } from '../../../services';
-import { BaseComponent, PageHeader, GirdView, ObjectValidator } from '../../../core';
+import { BaseComponent, PageHeader, GirdView, ObjectValidator, Status, Regex } from '../../../core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/startWith';
@@ -18,12 +18,14 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
     header: PageHeader = new PageHeader('Stocks', ['Inventory', 'Store'])
     gridview: GirdView
     editable: boolean = false
-    products: any[] = []
     current: any = { name: '', stocks: {} }
-    stock: any = { pid: '', bin: '', qty: 0 }
+    stock: any = { pid: '', name: '', bin: '', qty: 0 }
+    stocks: any[] = []
     options: IStockOption[] = []
     filteredOptions: Observable<IStockOption[]>
     formControlProduct = new FormControl('', [Validators.required, ObjectValidator()])
+    formControlBin = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER)])
+    formControlQuantity = new FormControl('', [Validators.required, Validators.min(0.01)])
 
     constructor(private store: StoreService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
@@ -80,14 +82,70 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
     }
 
     cancel(): void {
+        this.formControlProduct.reset()
+        this.stock = { pid: '', name: '', bin: '', qty: 0 }
+        this.stocks = []
         this.editable = false
     }
 
     valid(): boolean {
-        return this.formControlProduct.valid
+
+        if (this.formControlProduct.valid) {
+            var option = this.formControlProduct.value as IStockOption
+            this.stock.pid = option.id
+            this.stock.name = option.name
+        }
+        else {
+            this.stock.id = ''
+            this.stock.name = ''
+        }
+
+        return this.formControlProduct.valid && this.formControlQuantity.valid && this.formControlBin.valid
     }
 
     back(): void {
         this.navigate('/central/store/list')
+    }
+
+    addstock(): void {
+        if (!this.valid())
+            return
+
+        let index = this.stocks.findIndex(e => e.pid === this.stock.pid && e.bin === this.stock.bin)
+
+        if (index >= 0) {
+            this.stocks[index].qty += this.stock.qty
+        }
+        else {
+            this.stocks.push(this.stock)
+            this.stock = { pid: '', name: '', bin: '', qty: 0 }
+            this.formControlProduct.reset()
+        }
+
+    }
+
+    removestock(id: string): void {
+        let index = this.stocks.findIndex(e => e.pid == id)
+        this.stocks.splice(index, 1)
+    }
+
+    async submit(): Promise<void> {
+        this.load();
+
+        try {
+            let result = await this.store.instore(this.current.id, this.stocks).toPromise()
+
+            if (result.status == Status.Success) {
+                this.cancel()
+            }
+
+            this.show(result.message)
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 }
