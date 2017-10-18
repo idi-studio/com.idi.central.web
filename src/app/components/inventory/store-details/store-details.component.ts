@@ -137,6 +137,7 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
 
             if (result.status == Status.Success) {
                 this.cancel()
+                this.bind()
             }
 
             this.show(result.message)

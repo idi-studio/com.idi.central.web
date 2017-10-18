@@ -72,9 +72,6 @@
       <div class="col-md-4 col-sm-6 col-xs-10">
         <mat-form-field class="md-input-full-width">
           <input matInput type="number" name="qty" [(ngModel)]="stock.qty" placeholder="Quantity" [formControl]="formControlQuantity">
-          <!-- <span class="mat-icon-button" matSuffix>
-            <mat-icon (click)="addstock()">add</mat-icon>
-          </span> -->
         </mat-form-field>
         <mat-error *ngIf="formControlQuantity.hasError('required')">
           Quantity is
