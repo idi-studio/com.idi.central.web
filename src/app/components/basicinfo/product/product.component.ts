@@ -17,14 +17,13 @@ export class ProductComponent extends BaseComponent implements OnInit {
     formControlProdName = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_NAME)])
     formControlUnit = new FormControl({ value: 'PCS' }, [Validators.required, Validators.pattern(Regex.LETTERS)])
     formControlBin = new FormControl({ value: 'P001' }, [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER)])
-    formControlSKU = new FormControl({ value: '1.00' }, [Validators.required, Validators.min(0.01), Validators.max(999999999)])
-    formControlSS = new FormControl({ value: '0.00' }, [Validators.required, Validators.min(0), Validators.max(999999999)])
+    formControlSKU = new FormControl('', [Validators.required, Validators.min(0.01), Validators.max(999999999)])
+    formControlSS = new FormControl('', [Validators.required, Validators.min(0), Validators.max(999999999)])
     formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_TAG)])
 
     cmd: Command;
     selectedCategory: string
-    // selectedOption: string
-    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1.00, ss: 0.00, unit: 'PCS', bin: 'P001' }
     options: IOption[] = []
     tags: ITag[]
     chips: ITag[] = []
