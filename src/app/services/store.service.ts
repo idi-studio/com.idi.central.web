@@ -3,11 +3,6 @@ import { Response, Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { RESTService, Status } from '../core';
 
-export interface IStockOption {
-    id: string
-    name: string
-}
-
 @Injectable()
 export class StoreService extends RESTService {
 
@@ -64,19 +59,6 @@ export class StoreService extends RESTService {
                 return result.data
 
             return new Array<any>()
-        });
-    }
-
-    stockOptions(): Observable<Array<IStockOption>> {
-
-        return super.get('/api/store/stock-options').map((res: Response) => {
-
-            var result = res.json();
-
-            if (result.status == Status.Success)
-                return result.data
-
-            return new Array<IStockOption>()
         });
     }
 }

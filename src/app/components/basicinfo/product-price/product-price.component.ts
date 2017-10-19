@@ -17,7 +17,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     categorys: any[]
     minDate = new Date(2010, 0, 1)
     maxDate = new Date(2030, 11, 31)
-    currentProduct: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
+    currentProduct: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
     current: IProductPrice = { id: '', category: PriceCategory.Cost, categoryname: '', amount: 0.00, grade: 0, gradeto: 0, startdate: null, duedate: null, pid: '', active: false }
 
     formControlCategory = new FormControl('', [Validators.required])
@@ -57,7 +57,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
         try {
             let id = this.routeParams('id');
 
-            this.categorys = await this.category.all(TypeNames.PriceCategory).toPromise()
+            this.categorys = await this.category.enums(TypeNames.PriceCategory).toPromise()
 
             if (this.cmd == Command.Create) {
                 this.currentProduct = await this.product.single(id).toPromise()

@@ -17,6 +17,13 @@
             <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>
             <i *ngIf="row.active" class="fa fa-check-square-o" aria-hidden="true"></i> {{value}}
           </div>
+          <!-- <div class="col-xs-12">
+            <span *ngFor="let tag of row.tags" class="label label-default" matTooltip="{{tag.name}}">{{ tag.value }}</span>
+          </div> -->
+        </div>
+      </ng-template>
+      <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
+        <div class="row">
           <div class="col-xs-12">
             <span *ngFor="let tag of row.tags" class="label label-default" matTooltip="{{tag.name}}">{{ tag.value }}</span>
           </div>

@@ -13,7 +13,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
     header: PageHeader = new PageHeader('Product', ['Basic Info', 'Product', 'Prices']);
     gridview: GirdView
-    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
 
     constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,

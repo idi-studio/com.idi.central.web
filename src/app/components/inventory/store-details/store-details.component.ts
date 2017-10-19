@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar, PageEvent } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
-import { StoreService, IStockOption } from '../../../services';
+import { StoreService, CategoryService, IOption } from '../../../services';
 import { BaseComponent, PageHeader, GirdView, ObjectValidator, Status, Regex } from '../../../core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
@@ -21,13 +21,13 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
     current: any = { name: '', stocks: {} }
     stock: any = { pid: '', name: '', bin: '', qty: 0 }
     stocks: any[] = []
-    options: IStockOption[] = []
-    filteredOptions: Observable<IStockOption[]>
+    options: IOption[] = []
+    filteredOptions: Observable<IOption[]>
     formControlProduct = new FormControl('', [Validators.required, ObjectValidator()])
     formControlBin = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER)])
     formControlQuantity = new FormControl('', [Validators.required, Validators.min(0.01)])
 
-    constructor(private store: StoreService, private dataTable: TdDataTableService,
+    constructor(private store: StoreService, private category: CategoryService, private dataTable: TdDataTableService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -56,7 +56,7 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
             this.current = await this.store.single(id).toPromise()
             this.gridview.bind(this.current.stocks)
 
-            this.options = await this.store.stockOptions().toPromise()
+            this.options = await this.category.options("product").toPromise()
             this.filteredOptions = this.formControlProduct.valueChanges.startWith(null)
                 .map(option => option && typeof option === 'object' ? option.name : option)
                 .map(name => name ? this.filter(name) : this.options.slice());
@@ -69,11 +69,11 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
         }
     }
 
-    filter(name: string): IStockOption[] {
+    filter(name: string): IOption[] {
         return this.options.filter(option => option.name.toLowerCase().indexOf(name.toLowerCase()) === 0);
     }
 
-    display(option: IStockOption): string {
+    display(option: IOption): string {
         return option ? option.name : '';
     }
 
@@ -91,7 +91,7 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
     valid(): boolean {
 
         if (this.formControlProduct.valid) {
-            var option = this.formControlProduct.value as IStockOption
+            var option = this.formControlProduct.value as IOption
             this.stock.pid = option.id
             this.stock.name = option.name
         }

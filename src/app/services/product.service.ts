@@ -12,6 +12,11 @@ export interface IProduct {
     images: Array<IProductImage>
     active: boolean
     onshelf: boolean
+    skid: string
+    sku: number
+    ss: number
+    unit: string
+    bin: string
 }
 
 export interface IProductSell {

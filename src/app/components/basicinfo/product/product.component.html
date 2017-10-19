@@ -4,10 +4,16 @@
   <div class="card-box">
     <div class="row">
       <mat-toolbar class="toolbar">
-        <span (click)="back()" class="toolbar-icon-back"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span (click)="back()" class="toolbar-icon-back">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </span>
         <span class="toolbar-spacer"></span>
-        <span class="toolbar-icon" *ngIf="editable()"><mat-icon (click)="setPrice()">attach_money</mat-icon></span>
-        <span class="toolbar-icon"><mat-icon (click)="submit()">save</mat-icon></span>
+        <span class="toolbar-icon" *ngIf="editable()">
+          <mat-icon (click)="setPrice()">attach_money</mat-icon>
+        </span>
+        <span class="toolbar-icon">
+          <mat-icon (click)="submit()">save</mat-icon>
+        </span>
       </mat-toolbar>
     </div>
     <div class="row">
@@ -19,19 +25,80 @@
             Only Support case letters, Chinese, numbers and spaces.
           </mat-error>
           <mat-error *ngIf="formControlProdName.hasError('required')">
-            product name is <strong>required</strong>
+            product name is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+          <mat-form-field class="md-input-full-width">
+              <input matInput name="unit" [(ngModel)]="current.unit" placeholder="Unit" [formControl]="formControlUnit" autocomplete="off"
+                maxlength="10">
+              <mat-error *ngIf="formControlUnit.hasError('pattern')">
+                Only Support case letters.
+              </mat-error>
+              <mat-error *ngIf="formControlUnit.hasError('required')">
+                Unit is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+          <div class="mat-input-container md-input-full-width">
+              <div class="mat-input-wrapper">
+                <div class="mat-input-infix mat-select-flex">
+                  <mat-select name="store" placeholder="Store" [(ngModel)]="current.skid">
+                    <mat-option *ngFor="let option of options" [value]="option.id">
+                      {{ option.name }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <mat-form-field class="md-input-full-width">
+          <input matInput name="bin" [(ngModel)]="current.bin" placeholder="Bin Code" [formControl]="formControlBin" autocomplete="off"
+            maxlength="10">
+          <mat-error *ngIf="formControlBin.hasError('pattern')">
+            Only Support case letters and numbers.
+          </mat-error>
+          <mat-error *ngIf="formControlBin.hasError('required')">
+            Bin code is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-10">
+        <mat-form-field class="md-input-full-width">
+          <input matInput type="number" name="sku" [(ngModel)]="current.sku" placeholder="SKU" [formControl]="formControlSKU" autocomplete="off">
+          <mat-error *ngIf="formControlSKU.hasError('max')">
+            SKU should be less than or equal to 999999999.
+          </mat-error>
+          <mat-error *ngIf="formControlSKU.hasError('min')">
+            SKU should be greater than 0.
+          </mat-error>
+          <mat-error *ngIf="formControlSKU.hasError('required')">
+            SKU is
+            <strong>required</strong>
           </mat-error>
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
         <mat-form-field class="md-input-full-width">
-          <input matInput name="code" [(ngModel)]="current.code" placeholder="Code" [formControl]="formControlProdCode" autocomplete="off"
-            maxlength="50">
-          <mat-error *ngIf="formControlProdCode.hasError('pattern')">
-            Only Support case letters and numbers.
+          <input matInput type="number" name="ss" [(ngModel)]="current.ss" placeholder="Safety Stock" [formControl]="formControlSS"
+            autocomplete="off">
+          <mat-error *ngIf="formControlSS.hasError('max')">
+            Safety Stock should be less than or equal to 999999999.
           </mat-error>
-          <mat-error *ngIf="formControlProdCode.hasError('required')">
-            product code is <strong>required</strong>
+          <mat-error *ngIf="formControlSS.hasError('min')">
+            Safety Stock should be greater than or equal to 0.
+          </mat-error>
+          <mat-error *ngIf="formControlSS.hasError('required')">
+            Safety Stock is
+            <strong>required</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -49,7 +116,8 @@
   <div class="card-box">
     <div class="row">
       <mat-toolbar class="toolbar">
-        <span class="toolbar-title"><i class="fa fa-tags" aria-hidden="true"></i> Tags</span>
+        <span class="toolbar-title">
+          <i class="fa fa-tags" aria-hidden="true"></i> Tags</span>
       </mat-toolbar>
     </div>
     <div class="row">
@@ -74,7 +142,8 @@
             Only Support case letters, Chinese and numbers.
           </mat-error>
           <mat-error *ngIf="formControlProdTag.hasError('required')">
-            product tag is <strong>required</strong>
+            product tag is
+            <strong>required</strong>
           </mat-error>
         </mat-form-field>
       </div>
@@ -83,7 +152,10 @@
       <div class="col-xs-8">
         <mat-chip-list>
           <mat-chip *ngFor="let chip of chips" class="mat-chip">
-            {{chip.value}} <a (click)="remove(chip.key)" href="javascript:void(0)" class="tc-grey-800"><i class="fa fa-times" aria-hidden="true"></i></a>
+            {{chip.value}}
+            <a (click)="remove(chip.key)" href="javascript:void(0)" class="tc-grey-800">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
           </mat-chip>
         </mat-chip-list>
       </div>

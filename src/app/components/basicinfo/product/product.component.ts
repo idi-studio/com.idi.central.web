@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { ProductService, TagService, IProduct, ITag } from '../../../services';
+import { ProductService, TagService, CategoryService, IProduct, ITag, IOption } from '../../../services';
 import { BaseComponent, PageHeader, Command, Status, Regex } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
@@ -15,16 +15,21 @@ export class ProductComponent extends BaseComponent implements OnInit {
     header: PageHeader;
     formControlProdCtg = new FormControl('', [Validators.required])
     formControlProdName = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_NAME)])
-    formControlProdCode = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
+    formControlUnit = new FormControl({ value: 'PCS' }, [Validators.required, Validators.pattern(Regex.LETTERS)])
+    formControlBin = new FormControl({ value: 'P001' }, [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER)])
+    formControlSKU = new FormControl({ value: '1.00' }, [Validators.required, Validators.min(0.01), Validators.max(999999999)])
+    formControlSS = new FormControl({ value: '0.00' }, [Validators.required, Validators.min(0), Validators.max(999999999)])
     formControlProdTag = new FormControl('', [Validators.required, Validators.pattern(Regex.PROD_TAG)])
 
     cmd: Command;
     selectedCategory: string
-    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
+    // selectedOption: string
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
+    options: IOption[] = []
     tags: ITag[]
     chips: ITag[] = []
 
-    constructor(private product: ProductService, private tag: TagService,
+    constructor(private product: ProductService, private tag: TagService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
@@ -52,6 +57,8 @@ export class ProductComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
+            this.options = await this.category.options('store').toPromise()
+            this.current.skid = this.options.length > 0 ? this.options[0].id : ''
             this.tags = await this.tag.all().toPromise()
             this.selectedCategory = this.tags.length > 0 ? this.tags[0].key : ''
 
@@ -75,7 +82,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
     }
 
     valid(): boolean {
-        return this.formControlProdName.valid && this.formControlProdCode.valid
+        return this.formControlProdName.valid && this.formControlSKU.valid && this.formControlSS.valid
     }
 
     back(): void {
@@ -131,6 +138,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
             }
 
             this.show(result.message)
+
+            if (result.status == Status.Success) {
+                this.back()
+            }
         }
         catch (error) {
             this.tags = [];

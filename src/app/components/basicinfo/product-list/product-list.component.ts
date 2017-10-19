@@ -24,10 +24,10 @@ export class ProductListComponent extends BaseComponent implements OnInit {
         this.gridview = new GirdView(this.dataTable)
         this.gridview.sortBy = 'name'
         this.gridview.columns = [
-            { name: 'name', label: 'Name', filter: true },
-            { name: 'code', label: 'Code', filter: true, hidden: true },
+            { name: 'name', label: 'Name', filter: true, width: 250 },
+            // { name: 'code', label: 'Code', filter: true, hidden: true },
             { name: 'description', label: 'Description', filter: true, hidden: true },
-            { name: 'tags', label: 'Tags', hidden: true },
+            { name: 'tags', label: 'Tags', hidden: false },
             { name: 'active', label: 'Active?', filter: false, hidden: true },
             { name: 'onshelf', label: 'OnShelf?', filter: false, hidden: false, width: 100 },
             { name: 'id', label: '', filter: false, hidden: false, width: 20 },

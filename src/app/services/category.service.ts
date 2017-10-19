@@ -10,14 +10,19 @@ export const TypeNames = {
     TradeStatus: 'TradeStatus',
 }
 
+export interface IOption {
+    id: string
+    name: string
+}
+
 @Injectable()
 export class CategoryService extends RESTService {
 
     constructor(http: Http) { super(http) }
 
-    all(name: string): Observable<Array<any>> {
+    enums(name: string): Observable<Array<any>> {
 
-        return super.post(`/api/catg`, { name: name }).map((res: Response) => {
+        return super.post(`/api/catg/enum`, { name: name }).map((res: Response) => {
 
             var result = res.json();
 
@@ -25,6 +30,19 @@ export class CategoryService extends RESTService {
                 return result.data
 
             return new Array<any>()
+        });
+    }
+
+    options(name: string): Observable<Array<IOption>> {
+
+        return super.post(`/api/catg/option`, { name: name }).map((res: Response) => {
+
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return new Array<IOption>()
         });
     }
 }

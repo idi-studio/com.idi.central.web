@@ -18,7 +18,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     editable: boolean = false
     files: Array<File> = []
     categorys: any[]
-    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false }
+    current: IProduct =  { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
 
     constructor(private product: ProductService, private productImage: ProductImageService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
@@ -39,7 +39,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            this.categorys = await this.category.all(TypeNames.ImageCategory).toPromise()
+            this.categorys = await this.category.enums(TypeNames.ImageCategory).toPromise()
         }
         catch (error) {
             this.handle(error)
