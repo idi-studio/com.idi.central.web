@@ -9,19 +9,19 @@ export class RESTService {
     constructor(private http: Http, private file?: TdFileService) { }
 
     protected post(url: string, params: any = {}): Observable<any> {
-        return this.http.post(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
+        return this.http.post(Runtime.instance.baseUrl() + url, params, { headers: this.buildHeader(url) })
     }
 
     protected put(url: string, params: any = {}): Observable<any> {
-        return this.http.put(Runtime.instance.baseUrl + url, params, { headers: this.buildHeader(url) })
+        return this.http.put(Runtime.instance.baseUrl() + url, params, { headers: this.buildHeader(url) })
     }
 
     protected delete(url: string): Observable<any> {
-        return this.http.delete(Runtime.instance.baseUrl + url, { headers: this.buildHeader(url) })
+        return this.http.delete(Runtime.instance.baseUrl() + url, { headers: this.buildHeader(url) })
     }
 
     protected get(url: string): Observable<any> {
-        return this.http.get(Runtime.instance.baseUrl + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
+        return this.http.get(Runtime.instance.baseUrl() + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
     }
 
     protected upload(url: string, files: File[], formData?: FormData): Observable<any> {
@@ -37,7 +37,7 @@ export class RESTService {
             formData.append(file.name, file)
         }
 
-        let options: IUploadOptions = { url: Runtime.instance.baseUrl + url, method: 'post', headers: headers, formData: formData };
+        let options: IUploadOptions = { url: Runtime.instance.baseUrl() + url, method: 'post', headers: headers, formData: formData };
 
         return this.file.upload(options);
     }
