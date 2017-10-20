@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, PageEvent } from '@angular/material';
+import { MatSnackBar, PageEvent, MatPaginatorIntl } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { OrderService, IOrder, VoucherService, IVoucher } from '../../../services';
 import { BaseComponent, PageHeader, Status, OrderStatus, GirdView } from '../../../core';
@@ -14,14 +14,14 @@ export class OrderListComponent extends BaseComponent implements OnInit {
     header: PageHeader = new PageHeader('Orders', ['Sales', 'Orders']);
     gridview: GirdView
 
-    constructor(private order: OrderService, private voucher: VoucherService, private dataTable: TdDataTableService,
+    constructor(private order: OrderService, private voucher: VoucherService, private dataTable: TdDataTableService, private paginator: MatPaginatorIntl,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {
-        this.gridview = new GirdView(this.dataTable)
+        this.gridview = new GirdView(this.dataTable, this.paginator)
         this.gridview.sortBy = 'sn'
         this.gridview.columns = [
             { name: 'sn', label: 'SN', filter: true, width: 200 },

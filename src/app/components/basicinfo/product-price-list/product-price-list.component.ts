@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, PageEvent } from '@angular/material';
+import { MatSnackBar, PageEvent, MatPaginatorIntl } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { ProductService, ProductPriceService, IProduct, IProductPrice } from '../../../services';
 import { BaseComponent, PageHeader, PriceCategory, GirdView } from '../../../core';
@@ -11,18 +11,19 @@ import 'rxjs/add/operator/toPromise';
 })
 export class ProductPriceListComponent extends BaseComponent implements OnInit {
 
+
     header: PageHeader = new PageHeader('Product', ['Basic Info', 'Product', 'Prices']);
     gridview: GirdView
     current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
 
-    constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService,
+    constructor(private product: ProductService, private price: ProductPriceService, private dataTable: TdDataTableService, private paginator: MatPaginatorIntl,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {
-        this.gridview = new GirdView(this.dataTable)
+        this.gridview = new GirdView(this.dataTable, this.paginator)
         this.gridview.sortBy = 'category'
         this.gridview.columns = [
             { name: 'category', label: 'Category', filter: true, hidden: true },
@@ -32,7 +33,7 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
             { name: 'startdate', label: 'Expiration Date', filter: false },
             { name: 'id', label: '', filter: false, hidden: false },
         ]
-        this.bind();
+        this.bind()
     }
 
     async bind(): Promise<void> {

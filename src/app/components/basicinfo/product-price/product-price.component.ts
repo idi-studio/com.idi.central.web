@@ -123,7 +123,7 @@ export class ProductPriceComponent extends BaseComponent implements OnInit {
     }
 
     initUI(): void {
-        this.header.title = this.currentProduct.name
+        // this.header.title = this.currentProduct.name
 
         if (this.hasGrade(this.current.category)) {
             this.formControlGrade.enable()

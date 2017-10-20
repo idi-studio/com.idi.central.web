@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { MatSnackBar, PageEvent } from '@angular/material';
+import { MatSnackBar, PageEvent, MatPaginatorIntl } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
 import { StoreService, CategoryService, IOption } from '../../../services';
 import { BaseComponent, PageHeader, GirdView, ObjectValidator, Status, Regex } from '../../../core';
@@ -27,14 +27,14 @@ export class StoreDetailsComponent extends BaseComponent implements OnInit {
     formControlBin = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER)])
     formControlQuantity = new FormControl('', [Validators.required, Validators.min(0.01)])
 
-    constructor(private store: StoreService, private category: CategoryService, private dataTable: TdDataTableService,
+    constructor(private store: StoreService, private category: CategoryService, private dataTable: TdDataTableService, private paginator: MatPaginatorIntl,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
         super(route, router, snack, loading, dialog)
     }
 
     ngOnInit(): void {
-        this.gridview = new GirdView(this.dataTable)
+        this.gridview = new GirdView(this.dataTable, this.paginator)
         this.gridview.sortBy = 'product'
         this.gridview.columns = [
             { name: 'product', label: 'Product', filter: true },

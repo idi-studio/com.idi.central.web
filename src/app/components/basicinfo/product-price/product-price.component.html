@@ -5,7 +5,7 @@
 
     <div class="row">
       <mat-toolbar class="toolbar">
-        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i> {{currentProduct.name}}</span>
         <span class="toolbar-spacer"></span>
         <span class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="submit()">save</mat-icon></span>
       </mat-toolbar>

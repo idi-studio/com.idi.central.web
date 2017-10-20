@@ -44,6 +44,7 @@ import { StoreListComponent } from './components/inventory/store-list/store-list
 import { StoreDetailsComponent } from './components/inventory/store-details/store-details.component';
 
 const routes: Route[] = [
+    { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },

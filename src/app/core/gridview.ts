@@ -1,9 +1,10 @@
 import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableRowClickEvent } from '@covalent/core';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MatPaginatorIntl } from '@angular/material';
 
 export class GirdView {
 
     table: TdDataTableService
+    paginator: MatPaginatorIntl
     fromRow: number = 1
     pageNumber: number = 1
 
@@ -22,8 +23,10 @@ export class GirdView {
     public selectedRows: any[] = []
     public multiple: boolean = false
 
-    constructor(table: TdDataTableService) {
+    constructor(table: TdDataTableService, paginator: MatPaginatorIntl) {
         this.table = table
+        this.paginator = paginator
+        this.paginator.itemsPerPageLabel='Page Size '
     }
 
     public sort(sortEvent: ITdDataTableSortChangeEvent): void {
