@@ -16,8 +16,11 @@ export class GirdView {
     public searchTerm: string = ''
     public pageSize: number = 10
     public pageSizeOptions: number[] = [5, 10, 15, 20]
+    public sortable: boolean = true
     public sortBy: string = 'id'
     public sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
+    public selectedRows: any[] = []
+    public multiple: boolean = false
 
     constructor(table: TdDataTableService) {
         this.table = table

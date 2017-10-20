@@ -105,10 +105,10 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-checkbox [checked]="current.active" [(ngModel)]="current.active" [indeterminate]="indeterminate"> {{current.active?"Activated":"Inactive"}} </mat-checkbox>
+        <mat-checkbox [checked]="current.active" [(ngModel)]="current.active"> {{current.active?"Activated":"Inactive"}} </mat-checkbox>
       </div>
       <div *ngIf="editable()" class="col-md-4 col-sm-6 col-xs-10">
-        <mat-checkbox [checked]="current.onshelf" [(ngModel)]="current.onshelf" [indeterminate]="indeterminate"> {{current.onshelf?"On Shelf":"Off Shelf"}} </mat-checkbox>
+        <mat-checkbox [checked]="current.onshelf" [(ngModel)]="current.onshelf"> {{current.onshelf?"On Shelf":"Off Shelf"}} </mat-checkbox>
       </div>
     </div>
   </div>

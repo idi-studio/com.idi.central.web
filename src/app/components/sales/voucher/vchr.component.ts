@@ -17,7 +17,7 @@ export class VoucherComponent extends BaseComponent implements OnInit {
     paymethods: any[]
     statuses: any[]
     files: Array<File> = []
-    current: IVoucher = { id: '', tn: '', status: 0, sn: '', date: '', paymethod: 0, payment: 0, payable: 0, remark: '', oid: '' }
+    current: IVoucher = { id: '', tn: '', status: 0, sn: '', date: '', paymethod: 0, payment: 0, payable: 0, remark: '', oid: '', doc: '' }
     formControlPayment = new FormControl({ value: '', disabled: true }, [Validators.required, Validators.min(0.01)])
     formControlPaymethod = new FormControl({ value: '', disabled: true }, [Validators.required])
 

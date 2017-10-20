@@ -9,8 +9,8 @@
       </td-search-box>
       <span class="toolbar-icon"><i class="fa fa-plus" aria-hidden="true"></i></span>
     </mat-toolbar>
-    <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [clickable]="gridview.clickable" [multiple]="multiple"
-      [sortable]="true" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
+    <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [clickable]="gridview.clickable" [multiple]="gridview.multiple"
+      [sortable]="gridview.sortable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
       <ng-template tdDataTableTemplate="active" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <i *ngIf="value" class="fa fa-check-square-o" aria-hidden="true"></i>

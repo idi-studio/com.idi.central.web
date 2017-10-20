@@ -10,7 +10,7 @@
       <span class="toolbar-icon" (click)="add()"><i class="fa fa-plus" aria-hidden="true"></i></span>
     </mat-toolbar>
     <div class="row">
-      <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
+      <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="gridview.multiple" [sortable]="gridview.sortable"
         [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
         <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
           <span *ngIf="value==0" class="tc-pink-700"><i class="fa fa-female" aria-hidden="true"></i></span>

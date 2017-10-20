@@ -8,7 +8,7 @@
         flex> </td-search-box>
       <span class="toolbar-icon" (click)="add()"><i class="fa fa-plus-square" aria-hidden="true"></i></span>
     </mat-toolbar>
-    <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="multiple" [sortable]="true"
+    <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable" [multiple]="gridview.multiple" [sortable]="gridview.sortable"
       [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
       <ng-template tdDataTableTemplate="categoryname" let-value="value" let-row="row" let-column="column">
         <i *ngIf="!row.active" class="fa fa-square-o" aria-hidden="true"></i>

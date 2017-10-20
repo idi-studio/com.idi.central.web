@@ -15,6 +15,7 @@ export interface IVoucher {
     payable: number
     remark: string
     oid: string
+    doc: string
 }
 
 @Injectable()

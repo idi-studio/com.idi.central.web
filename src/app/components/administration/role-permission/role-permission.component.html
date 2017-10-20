@@ -18,7 +18,7 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12" *ngFor="let item of module.permissions;">
-          <mat-checkbox [checked]="item.checked" [(ngModel)]="item.checked" [indeterminate]="indeterminate">{{item.code}}</mat-checkbox>
+          <mat-checkbox [checked]="item.checked" [(ngModel)]="item.checked">{{item.code}}</mat-checkbox>
         </div>
       </div>
     </div>

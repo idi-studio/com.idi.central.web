@@ -15,7 +15,7 @@
     </mat-toolbar>
     <div class="row">
       <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable"
-        [multiple]="multiple" [sortable]="true" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows"
+        [multiple]="gridview.multiple" [sortable]="gridview.sortable" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows"
         [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
       </td-data-table>
       <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
