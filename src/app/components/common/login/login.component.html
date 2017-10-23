@@ -16,7 +16,7 @@
         <form class="m-t-20">
           <div class="form-group row">
             <div class="col-xs-12">
-              <mat-form-field class="md-input-full-width">
+              <mat-form-field class="mat-input-full-width">
                 <input matInput placeholder="Username" [formControl]="formControlUsername" autocomplete="off" maxlength="20">
                 <mat-error *ngIf="formControlUsername.hasError('pattern')">
                   Please enter a valid username
@@ -30,7 +30,7 @@
 
           <div class="form-group row">
             <div class="col-xs-12">
-              <mat-form-field class="md-input-full-width">
+              <mat-form-field class="mat-input-full-width">
                 <input matInput placeholder="Password" type="password" [formControl]="formControlPassword" maxlength="20">
                 <mat-error *ngIf="formControlPassword.hasError('required')">
                   Password is <strong>required</strong>

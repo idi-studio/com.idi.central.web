@@ -1655,7 +1655,7 @@ td-highlight {
     font-style: italic; }
 
 /* ---------------------------------- Custom Styles --------------------------------------------- */
-md-icon {
+mat-icon {
   cursor: pointer; }
 
 .text-thumb {
@@ -1664,11 +1664,8 @@ md-icon {
   text-overflow: ellipsis;
   white-space: nowrap; }
 
-.md-input-full-width {
+.mat-input-full-width {
   width: 100%; }
-
-.md-input-width-80 {
-  width: 60%; }
 
 .mat-select-flex {
   padding-top: 3px; }
@@ -1676,7 +1673,7 @@ md-icon {
 .mat-select-flex .mat-select {
   width: 100%; }
 
-.md-chip {
+.mat-chip {
   margin: 5px !important; }
 
 .card-box {

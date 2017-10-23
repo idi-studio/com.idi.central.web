@@ -11,7 +11,7 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="name" [(ngModel)]="current.name" placeholder="Name" [formControl]="formControlCustName" autocomplete="off"
             maxlength="20">
           <mat-error *ngIf="formControlCustName.hasError('pattern')">
@@ -23,7 +23,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <span matPrefix><strong>+86</strong>&nbsp;</span>
           <input matInput name="phone" [(ngModel)]="current.phone" placeholder="Phone No." [formControl]="formControlPhone" autocomplete="off"
             maxlength="20">
@@ -38,7 +38,7 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <div class="mat-input-container md-input-full-width">
+        <div class="mat-input-container mat-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
               <md-radio-group [(ngModel)]="current.gender">
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <div class="mat-input-container md-input-full-width">
+        <div class="mat-input-container mat-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
               <mat-select name="grade" placeholder="Grade" [(ngModel)]="current.grade" #category>
@@ -127,7 +127,7 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="receiver" [(ngModel)]="shipping.receiver" [formControl]="formControlReceiver" placeholder="Receiver"
             autocomplete="off" maxlength="20">
           <mat-error *ngIf="formControlReceiver.hasError('pattern')">
@@ -139,7 +139,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <span matPrefix><strong>+86</strong>&nbsp;</span>
           <input matInput name="contactno" [(ngModel)]="shipping.contactno" [formControl]="formControlContactNo" placeholder="Contact No."
             autocomplete="off" maxlength="20">
@@ -154,7 +154,7 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="province" [(ngModel)]="shipping.province" [formControl]="formControlProvince" placeholder="Province"
             autocomplete="off" maxlength="20">
           <mat-error *ngIf="formControlProvince.hasError('required')">
@@ -163,7 +163,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="city" [(ngModel)]="shipping.city" [formControl]="formControlCity" placeholder="City" autocomplete="off"
             maxlength="20">
           <mat-error *ngIf="formControlCity.hasError('required')">
@@ -174,7 +174,7 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="area" [(ngModel)]="shipping.area" [formControl]="formControlArea" placeholder="Area" autocomplete="off"
             maxlength="20">
           <mat-error *ngIf="formControlArea.hasError('required')">
@@ -183,7 +183,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="street" [(ngModel)]="shipping.street" [formControl]="formControlStreet" placeholder="Street" autocomplete="off"
             maxlength="20">
           <mat-error *ngIf="formControlStreet.hasError('required')">
@@ -194,7 +194,7 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="detail" [(ngModel)]="shipping.detail" [formControl]="formControlDetail" placeholder="Detail" autocomplete="off"
             maxlength="100">
           <mat-error *ngIf="formControlDetail.hasError('required')">
@@ -203,7 +203,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="postcode" [(ngModel)]="shipping.postcode" [formControl]="formControlPostcode" placeholder="Postcode"
             autocomplete="off" maxlength="20">
           <mat-error *ngIf="formControlPostcode.hasError('required')">

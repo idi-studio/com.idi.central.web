@@ -18,7 +18,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
     editable: boolean = false
     files: Array<File> = []
     categorys: any[]
-    current: IProduct =  { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
+    current: IProduct = { id: '', name: '', code: '', tags: [], images: [], active: false, onshelf: false, skid: '', sku: 1, ss: 0, unit: 'PCS', bin: 'P001' }
 
     constructor(private product: ProductService, private productImage: ProductImageService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
@@ -32,6 +32,21 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
 
         this.initUI();
         this.filter();
+    }
+
+    onSelected(files: FileList | File): void {
+        this.load();
+
+        try {
+            if (files instanceof File) {
+                this.files = [files]
+            }
+        } catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 
     async initUI(): Promise<void> {
@@ -126,6 +141,7 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
             if (result.status == Status.Success) {
                 this.editable = false
                 this.show('Product image(s) updated.')
+                this.filter()
             }
             else {
                 this.alert(result.message)
@@ -136,7 +152,6 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         }
         finally {
             this.unload()
-            this.filter();
         }
     }
 
@@ -161,9 +176,9 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
         this.load();
 
         try {
-            let result = await this.productImage.add(this.current.id, this.files).toPromise()
+            let result = await this.productImage.attach(this.current.id, this.files).toPromise()
 
-            if (result.status == Status.Success) {
+            if (result.status === Status.Success) {
                 this.show('Product image(s) uploaded.');
                 this.filter();
             }

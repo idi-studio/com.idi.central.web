@@ -10,7 +10,7 @@
     </mat-toolbar>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="name" [(ngModel)]="current.name" placeholder="Store Name" [formControl]="formControlStoreName" autocomplete="off"
             maxlength="50">
           <mat-error *ngIf="formControlStoreName.hasError('pattern')">

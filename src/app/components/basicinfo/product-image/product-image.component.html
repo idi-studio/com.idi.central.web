@@ -5,10 +5,11 @@
     <div class="row">
       <mat-toolbar class="toolbar">
         <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-        <td-file-input class="hidden" #fileInput [(ngModel)]="files" multiple [disabled]="true" accept=".png,.jpg,.jpge"></td-file-input>
+        <td-file-input class="hidden" #fileInput [(ngModel)]="files" multiple [disabled]="false" (select)="onSelected($event)" accept=".png,.jpg,.jpge"></td-file-input>
         <span class="toolbar-spacer"></span>
         <span *ngIf="!editable" class="toolbar-icon"><mat-icon (click)="fileInput.inputElement.click()">folder</mat-icon></span>
-        <span *ngIf="!editable" class="toolbar-icon"><mat-icon (click)="edit()">edit</mat-icon></span>
+        <span *ngIf="!editable&&valid()" class="toolbar-icon"><mat-icon (click)="upload()">file_upload</mat-icon></span>
+        <span *ngIf="!editable&&!valid()" class="toolbar-icon"><mat-icon (click)="edit()">edit</mat-icon></span>
         <span *ngIf="editable" class="toolbar-icon"><mat-icon  (click)="save()">save</mat-icon></span>
         <span *ngIf="editable" class="toolbar-icon"><mat-icon *ngIf="editable" (click)="cancel()">cancel</mat-icon></span>
       </mat-toolbar>
@@ -40,7 +41,7 @@
                 </td>
               </tr>
             </tbody>
-            <tfoot>
+            <!-- <tfoot>
               <tr>
                 <th class="text-right" colspan="5">
                   <button md-raised-button color="accent" [disabled]="!valid()" (click)="upload()">
@@ -48,7 +49,7 @@
                   </button>
                 </th>
               </tr>
-            </tfoot>
+            </tfoot> -->
           </table>
         </div>
       </div>
@@ -57,17 +58,17 @@
       <h3>No image(s) to display.</h3>
     </div>
     <div *ngIf="hasImages()" class="row">
-      <md-card *ngFor="let image of current.images" class="col-md-3 col-sm-3 col-xs-10">
-        <md-card-header>
-          <md-card-title class="md-card-title-pad-left-none">
+      <mat-card *ngFor="let image of current.images" class="col-md-3 col-sm-3 col-xs-10">
+        <mat-card-header>
+          <mat-card-title class="md-card-title-pad-left-none">
             <span><i class="fa fa-picture-o" aria-hidden="true"></i></span> &nbsp;
             <span>{{image.name}}</span>
-          </md-card-title>
-        </md-card-header>
+          </mat-card-title>
+        </mat-card-header>
         <div class="md-card-image-box" layout="row" layout-align="center center">
           <img md-card-image [src]="image.url" class="md-card-image">
         </div>
-        <md-card-actions>
+        <mat-card-actions>
           <div *ngIf="!editable" layout="row">
             <div flex="30">
               <span class="label bgc-blue-grey-700">{{categorydesc(image.category)}}</span>
@@ -97,8 +98,8 @@
               </div>
             </div>
           </div>
-        </md-card-actions>
-      </md-card>
+        </mat-card-actions>
+      </mat-card>
     </div>
   </div>
 </div>

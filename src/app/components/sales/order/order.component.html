@@ -14,24 +14,24 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <input matInput name="name" [(ngModel)]="current.sn" placeholder="SN" disabled>
           </mat-form-field>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <input matInput name="date" [(ngModel)]="current.date" placeholder="Date" disabled>
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <input matInput name="status" [(ngModel)]="current.statusdesc" placeholder="Status" disabled>
           </mat-form-field>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <input matInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [matAutocomplete]="auto">
             <mat-error *ngIf="formControlCustomer.hasError('required')">
               Customer is <strong>required</strong>
@@ -49,7 +49,7 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-10">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <textarea matInput name="remark" [(ngModel)]="current.remark" [formControl]="formControlRemark" placeholder="Remark" rows="1"
               maxlength="200"></textarea>
             <mat-hint align="end">{{current.remark.length}} / 200</mat-hint>

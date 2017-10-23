@@ -13,7 +13,7 @@
 
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <div class="mat-input-container md-input-full-width">
+        <div class="mat-input-container mat-input-full-width">
           <div class="mat-input-wrapper">
             <div class="mat-input-infix mat-select-flex">
               <mat-select name="category" placeholder="Category" [formControl]="formControlCategory" [(ngModel)]="current.category" (change)="onCategoryChanged($event)">
@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput type="number" name="amount" [(ngModel)]="current.amount" placeholder="Amount" [formControl]="formControlAmount"
             autocomplete="off">
           <mat-error *ngIf="formControlAmount.hasError('required')">
@@ -41,7 +41,7 @@
 
     <div class="row" *ngIf="hasTerm(current.category)">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="startdate" [(ngModel)]="current.startdate" [min]="minDate" [max]="maxDate" [formControl]="formControlStart"
             [matDatepicker]="startpicker" placeholder="Start Date">
           <span matSuffix>00:00:00 &nbsp;</span>
@@ -55,7 +55,7 @@
         <mat-datepicker #startpicker></mat-datepicker>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="duedate" [(ngModel)]="current.duedate" [min]="minDate" [max]="maxDate" [formControl]="formControlDue"
             [matDatepicker]="duepicker" placeholder="Due Date">
           <span matSuffix>23:59:59 &nbsp;</span>
@@ -72,7 +72,7 @@
     <div class="row" *ngIf="hasGrade(current.category)">
       <div layout="row" class="col-md-4 col-sm-6 col-xs-10">
         <div flex="40">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <input matInput type="number" name="grade" [(ngModel)]="current.grade" placeholder="Grade" [formControl]="formControlGrade"
               autocomplete="off">
             <mat-error *ngIf="formControlGrade.hasError('max')">
@@ -88,7 +88,7 @@
         </div>
         <div flex="10"></div>
         <div flex="40">
-          <mat-form-field class="md-input-full-width">
+          <mat-form-field class="mat-input-full-width">
             <input matInput type="number" name="grade" [(ngModel)]="current.gradeto" placeholder="To" [formControl]="formControlGradeTo" autocomplete="off">
             <mat-error *ngIf="formControlGradeTo.hasError('max')">
               Grade should be less than or equal to 100.

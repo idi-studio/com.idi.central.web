@@ -41,7 +41,7 @@
     </mat-toolbar>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="product" placeholder="Product" [formControl]="formControlProduct" [matAutocomplete]="auto">
           <mat-error *ngIf="formControlProduct.hasError('required')">
             Product is
@@ -58,7 +58,7 @@
         </mat-autocomplete>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput type="text" name="bin" [(ngModel)]="stock.bin" placeholder="Bin Code" [formControl]="formControlBin">
         </mat-form-field>
         <mat-error *ngIf="formControlBin.hasError('required')">
@@ -70,7 +70,7 @@
         </mat-error>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput type="number" name="qty" [(ngModel)]="stock.qty" placeholder="Quantity" [formControl]="formControlQuantity">
         </mat-form-field>
         <mat-error *ngIf="formControlQuantity.hasError('required')">

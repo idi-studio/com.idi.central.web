@@ -16,7 +16,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 /* ---------------------------------- Custom Styles --------------------------------------------- */
 
-md-icon {
+mat-icon {
   cursor: pointer;
 }
 
@@ -27,12 +27,8 @@ md-icon {
   white-space: nowrap;
 }
 
-.md-input-full-width {
+.mat-input-full-width {
   width: 100%;
-}
-
-.md-input-width-80 {
-  width: 60%;
 }
 
 .mat-select-flex {
@@ -43,7 +39,7 @@ md-icon {
   width: 100%;
 }
 
-.md-chip {
+.mat-chip {
   margin: 5px !important;
 }
 

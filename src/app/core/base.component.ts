@@ -62,6 +62,13 @@ export abstract class BaseComponent {
 
         let errMsg: string;
 
+        console.log(error)
+
+        if (error.status == undefined) {
+            this.alert(error.toString());
+            return
+        }
+
         switch (error.status) {
             case 0:
                 errMsg = 'Cannot connect to server.'
@@ -83,7 +90,7 @@ export abstract class BaseComponent {
         this.alert(errMsg);
 
         if (error.status == 401)
-            this.router.navigate(['/central'])
+            this.navigate('/central')
     }
 
     protected alert(message: string) {

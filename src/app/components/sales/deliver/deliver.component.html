@@ -11,12 +11,12 @@
     </div>
     <div class="row">
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="sn" [(ngModel)]="current.sn" placeholder="Order No." disabled>
         </mat-form-field>
       </div>
       <div class="col-md-4 col-sm-6 col-xs-10">
-        <mat-form-field class="md-input-full-width">
+        <mat-form-field class="mat-input-full-width">
           <input matInput name="cn" [(ngModel)]="current.cn" placeholder="Courier No." [formControl]="formControlCourierNo" autocomplete="off"
             maxlength="20">
           <mat-error *ngIf="formControlCourierNo.hasError('pattern')">
