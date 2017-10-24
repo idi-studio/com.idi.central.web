@@ -42,6 +42,9 @@ export class OrderComponent extends BaseComponent implements OnInit {
             // { name: 'code', label: 'Code', filter: true, hidden: true },
             // { name: 'desc', label: 'Description', filter: true, hidden: true },
             // { name: 'tags', label: 'Tags', filter: false, hidden: true },
+            { name: 'qty', label: 'Qty.', filter: false, width: 120 },
+            { name: 'avl', label: 'Avl.', filter: false, width: 120 },
+            { name: 'rev', label: 'Rev.', filter: false, width: 120 },
             { name: 'price', label: 'Price', filter: false, width: 120 },
             { name: 'id', label: '', filter: false, hidden: false, width: 100 },
         ]

@@ -5,11 +5,19 @@
     <div class="card-box">
       <div class="row">
         <mat-toolbar class="toolbar">
-          <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+          <span (click)="back()">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+          </span>
           <span class="toolbar-spacer"></span>
-          <span *ngIf="editable()" class="toolbar-icon"><mat-icon (click)="save()">save</mat-icon></span>
-          <span *ngIf="editable()" class="toolbar-icon"><mat-icon (click)="done()">done</mat-icon></span>
-          <span *ngIf="editable()" class="toolbar-icon tc-red-800"><mat-icon (click)="delete()">delete</mat-icon></span>
+          <span *ngIf="editable()" class="toolbar-icon">
+            <mat-icon (click)="save()">save</mat-icon>
+          </span>
+          <span *ngIf="editable()" class="toolbar-icon">
+            <mat-icon (click)="done()">done</mat-icon>
+          </span>
+          <span *ngIf="editable()" class="toolbar-icon tc-red-800">
+            <mat-icon (click)="delete()">delete</mat-icon>
+          </span>
         </mat-toolbar>
       </div>
       <div class="row">
@@ -34,7 +42,8 @@
           <mat-form-field class="mat-input-full-width">
             <input matInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [matAutocomplete]="auto">
             <mat-error *ngIf="formControlCustomer.hasError('required')">
-              Customer is <strong>required</strong>
+              Customer is
+              <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="formControlCustomer.hasError('object')">
               Invalid customer
@@ -60,9 +69,13 @@
     <div class="card-box" *ngIf="!showlist">
       <div class="row">
         <mat-toolbar class="toolbar">
-          <span class="toolbar-icon-back"><mat-icon>reorder</mat-icon></span>
+          <span class="toolbar-icon-back">
+            <mat-icon>reorder</mat-icon>
+          </span>
           <span class="toolbar-spacer"></span>
-          <span class="toolbar-icon"><mat-icon *ngIf="editable()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon></span>
+          <span class="toolbar-icon">
+            <mat-icon *ngIf="editable()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon>
+          </span>
         </mat-toolbar>
       </div>
       <div class="row">
@@ -90,7 +103,9 @@
                   <td>{{item.qty | number:'1.2-2'}}</td>
                   <td>{{item.unitprice*item.qty | number:'1.2-2'}}</td>
                   <td class="text-right">
-                    <span *ngIf="editable()" class="tc-red-800" (click)="deleteItem(item.id)"><i class="fa fa-times" aria-hidden="true"></i></span>
+                    <span *ngIf="editable()" class="tc-red-800" (click)="deleteItem(item.id)">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -112,7 +127,9 @@
     <div class="card-box" *ngIf="showlist">
       <div class="row">
         <mat-toolbar class="toolbar">
-          <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="cancel()"><i class="fa fa-times" aria-hidden="true"></i></span>
+          <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="cancel()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </span>
           <td-search-box #searchBox backIcon="arrow_back" placeholder="Search here" (searchDebounce)="gridview.search($event)" flex>
           </td-search-box>
         </mat-toolbar>
@@ -121,40 +138,37 @@
         <div class="row">
           <div class="col-xs-10">
             <td-data-table #dataTable [data]="gridview.filteredData" [columns]="gridview.columns" [selectable]="gridview.selectable"
-              [multiple]="gridview.multiple" [sortable]="gridview.sortable" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy" [(ngModel)]="gridview.selectedRows"
-              [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
-              <!-- <ng-template tdDataTableTemplate="tags" let-value="value" let-row="row" let-column="column">
-                <div layout="row">
-                  <mat-chip-list>
-                    <mat-chip *ngFor="let item of value">
-                      <span matTooltip="{{item.name}}">{{ item.value }}</span>
-                    </mat-chip>
-                  </mat-chip-list>
-                </div>
-              </ng-template> -->
+              [multiple]="gridview.multiple" [sortable]="gridview.sortable" [clickable]="gridview.clickable" [sortBy]="gridview.sortBy"
+              [(ngModel)]="gridview.selectedRows" [sortOrder]="gridview.sortOrder" (sortChange)="gridview.sort($event)">
               <ng-template tdDataTableTemplate="name" let-value="value" let-row="row" let-column="column">
-                <div class="row">
-                  <div class="col-xs-12">
-                    {{value}}
-                  </div>
-                  <div class="col-xs-12">
-                    <span *ngFor="let tag of row.tags" class="label label-default" matTooltip="{{tag.name}}">{{ tag.value }}</span>
-                  </div>
-                </div>
+                {{value}}
+              </ng-template>
+              <ng-template tdDataTableTemplate="qty" let-value="value" let-row="row" let-column="column">
+                {{ value | number:'1.2-2'}}
+              </ng-template>
+              <ng-template tdDataTableTemplate="rev" let-value="value" let-row="row" let-column="column">
+                {{ value | number:'1.2-2'}}
+              </ng-template>
+              <ng-template tdDataTableTemplate="avl" let-value="value" let-row="row" let-column="column">
+                <span class="tc-red-700" *ngIf="value==0"><strong>{{ value | number:'1.2-2'}}</strong></span>
+                <span *ngIf="value>0">{{ value | number:'1.2-2'}}</span>
               </ng-template>
               <ng-template tdDataTableTemplate="price" let-value="value" let-row="row" let-column="column">
                 {{ value.amount | number:'1.2-2'}}
               </ng-template>
               <ng-template tdDataTableTemplate="id" let-value="value" let-row="row" let-column="column">
                 <div *ngIf="row.price" layout="row" layout-align="end end">
-                  <button mat-icon-button (click)="add(value,row.price.id)"><mat-icon>add_shopping_cart</mat-icon></button>
+                  <button [disabled]="row.avl==0" mat-icon-button (click)="add(value,row.price.id)">
+                    <mat-icon>add_shopping_cart</mat-icon>
+                  </button>
                 </div>
               </ng-template>
             </td-data-table>
             <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
               <span class="md-caption tc-grey-400">No Product(s) for Sale.</span>
             </div>
-            <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions" (page)="gridview.page($event)">
+            <mat-paginator [length]="gridview.filteredTotal" [pageSize]="gridview.pageSize" [pageSizeOptions]="gridview.pageSizeOptions"
+              (page)="gridview.page($event)">
             </mat-paginator>
           </div>
         </div>
