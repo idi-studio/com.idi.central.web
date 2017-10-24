@@ -39,17 +39,14 @@ export class OrderComponent extends BaseComponent implements OnInit {
         this.gridview.sortBy = 'name'
         this.gridview.columns = [
             { name: 'name', label: 'Name', filter: true },
-            // { name: 'code', label: 'Code', filter: true, hidden: true },
-            // { name: 'desc', label: 'Description', filter: true, hidden: true },
-            // { name: 'tags', label: 'Tags', filter: false, hidden: true },
             { name: 'qty', label: 'Qty.', filter: false, width: 120 },
             { name: 'avl', label: 'Avl.', filter: false, width: 120 },
             { name: 'rev', label: 'Rev.', filter: false, width: 120 },
             { name: 'price', label: 'Price', filter: false, width: 120 },
             { name: 'id', label: '', filter: false, hidden: false, width: 100 },
         ]
-        this.bindView();
-        this.bindTable();
+        this.bindView()
+        this.bindTable()
 
         this.filteredOptions = this.formControlCustomer.valueChanges.startWith(null)
             .map(cust => cust && typeof cust === 'object' ? cust.name : cust)
@@ -128,6 +125,13 @@ export class OrderComponent extends BaseComponent implements OnInit {
         if (this.cmd == Command.View)
             return false
 
+        return this.current.status === OrderStatus.Created
+    }
+
+    pending(): boolean {
+        if (this.cmd == Command.View)
+            return false
+
         return this.current.status === OrderStatus.Pending
     }
 
@@ -142,6 +146,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
     valid(): boolean {
         var valid = this.formControlCustomer.valid
 
+        console.log(valid)
+
         if (valid) {
             var cust = this.formControlCustomer.value as ICustomer
             this.current.custid = cust.id
@@ -155,8 +161,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
     async done(): Promise<void> {
 
-        if (!this.valid() || this.current.items.length === 0) {
-            this.show("Incompleted order.")
+        if (this.current.items.length === 0) {
+            this.show("Please select product.")
             return
         }
 
@@ -168,9 +174,6 @@ export class OrderComponent extends BaseComponent implements OnInit {
     }
 
     async doneHandle(): Promise<void> {
-
-        if (!this.valid())
-            return
 
         try {
             let result = await this.order.confirm(this.current.id).toPromise()
@@ -201,6 +204,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             this.show(result.message)
 
             if (result.status == Status.Success) {
+                this.bindView()
                 this.bindTable()
             }
         }

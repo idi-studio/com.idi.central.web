@@ -10,13 +10,13 @@
           </span>
           <span class="toolbar-spacer"></span>
           <span *ngIf="editable()" class="toolbar-icon">
-            <mat-icon (click)="save()">save</mat-icon>
-          </span>
-          <span *ngIf="editable()" class="toolbar-icon">
-            <mat-icon (click)="done()">done</mat-icon>
+            <mat-icon matTooltip="Save" (click)="save()">save</mat-icon>
           </span>
           <span *ngIf="editable()" class="toolbar-icon tc-red-800">
-            <mat-icon (click)="delete()">delete</mat-icon>
+              <mat-icon matTooltip="Drop" (click)="delete()">delete</mat-icon>
+            </span>
+          <span *ngIf="pending()" class="toolbar-icon">
+            <mat-icon matTooltip="Confirm" (click)="done()">done</mat-icon>
           </span>
         </mat-toolbar>
       </div>
@@ -42,8 +42,7 @@
           <mat-form-field class="mat-input-full-width">
             <input matInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [matAutocomplete]="auto">
             <mat-error *ngIf="formControlCustomer.hasError('required')">
-              Customer is
-              <strong>required</strong>
+              Customer is <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="formControlCustomer.hasError('object')">
               Invalid customer
@@ -74,7 +73,7 @@
           </span>
           <span class="toolbar-spacer"></span>
           <span class="toolbar-icon">
-            <mat-icon *ngIf="editable()" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon>
+            <mat-icon *ngIf="pending()" matTooltip="Add Product(s)" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon>
           </span>
         </mat-toolbar>
       </div>
