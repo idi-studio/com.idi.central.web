@@ -22,6 +22,7 @@
           <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="permission(row.name)"><mat-icon>settings_applications</mat-icon><span>Permission</span></button>
+            <button mat-menu-item (click)="rolemenu(row.name)"><mat-icon>settings_applications</mat-icon><span>Menu</span></button>
           </mat-menu>
         </div>
       </ng-template>

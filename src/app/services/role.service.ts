@@ -28,6 +28,25 @@ export class RoleService extends RESTService {
         });
     }
 
+    menus(name: string): Observable<Array<any>> {
+
+        return super.get(`/api/role/menu/${name}`).map((res: Response) => {
+
+            var result = res.json();
+
+            if (result.status == Status.Success)
+                return result.data
+
+            return new Array<any>()
+        });
+    }
+
+    authorizeMenu(value: any): Observable<any> {
+        return super.put('/api/role/authorize-menu', value).map((res: Response) => {
+            return res.json();
+        });
+    }
+
     permission(name: string): Observable<Array<any>> {
 
         return super.get(`/api/role/permission/${name}`).map((res: Response) => {

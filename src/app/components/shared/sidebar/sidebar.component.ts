@@ -9,10 +9,14 @@ declare var $: any;
 })
 export class SidebarComponent implements OnInit {
 
-    main: MenuItem[] = Navigation.instance.main
-    help: MenuItem[] = Navigation.instance.help
+    main: MenuItem[] = []
+    help: MenuItem[] = []
 
     ngOnInit(): void {
+        Navigation.instance.init()
+        this.main = Navigation.instance.main
+        this.help = Navigation.instance.help
+        
         $(function () {
             // NAVIGATION HIGHLIGHT & OPEN PARENT
             $('#sidebar-menu ul li.has_sub a.active').parents('li:last').children('a:first').addClass('active').trigger('click');

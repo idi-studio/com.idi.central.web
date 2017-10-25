@@ -21,6 +21,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 //Administration
 import { RoleListComponent } from './components/administration/role-list/role-list.component';
 import { RolePermissionComponent } from './components/administration/role-permission/role-permission.component';
+import { RoleMenuComponent } from './components/administration/role-menu/role-menu.component';
 import { UserListComponent } from './components/administration/user-list/user-list.component';
 import { UserRoleComponent } from './components/administration/user-role/user-role.component';
 
@@ -54,6 +55,7 @@ const routes: Route[] = [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'role/list', component: RoleListComponent },
             { path: 'role/permission/:name', component: RolePermissionComponent },
+            { path: 'role/menu/:name', component: RoleMenuComponent },
             { path: 'user/list', component: UserListComponent },
             { path: 'user/role/:username', component: UserRoleComponent },
             { path: 'product/list', component: ProductListComponent },
@@ -88,7 +90,7 @@ export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
     MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, OAuthComponent,
     DashboardComponent,
-    RoleListComponent, RolePermissionComponent,
+    RoleListComponent, RolePermissionComponent, RoleMenuComponent,
     UserListComponent, UserRoleComponent,
     ProductListComponent, ProductComponent, ProductPriceComponent, ProductPriceListComponent, ProductImageComponent,
     OrderListComponent, OrderComponent,

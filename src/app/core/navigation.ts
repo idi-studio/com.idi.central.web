@@ -34,7 +34,7 @@ export class Navigation {
         this.init();
     }
 
-    private init() {
+    public init() {
 
         this.help = [
             new MenuItem('User Guide', null, 'fa fa-book', [
