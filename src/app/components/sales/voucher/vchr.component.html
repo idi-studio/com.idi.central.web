@@ -4,12 +4,12 @@
   <div class="card-box">
     <div class="row">
       <mat-toolbar class="toolbar">
-        <span (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+        <span matTooltip="Back" (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
         <td-file-input class="hidden" #fileInput [(ngModel)]="files" [disabled]="false" accept=".png,.jpg,.jpge" (select)="selectEvent($event)"></td-file-input>
         <span class="toolbar-spacer"></span>
-        <span *ngIf="editable()" class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="fileInput.inputElement.click()">attachment</mat-icon></span>
-        <span *ngIf="editable()" class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="save()">save</mat-icon></span>
-        <span *ngIf="editable()" class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="done()">done</mat-icon></span>
+        <span *ngIf="editable()" class="toolbar-icon"><mat-icon matTooltip="Attach" class="toolbar-icon" (click)="fileInput.inputElement.click()">attachment</mat-icon></span>
+        <span *ngIf="editable()" class="toolbar-icon"><mat-icon matTooltip="Save" class="toolbar-icon" (click)="save()">save</mat-icon></span>
+        <span *ngIf="editable()" class="toolbar-icon"><mat-icon matTooltip="Confirm" class="toolbar-icon" (click)="done()">done</mat-icon></span>
       </mat-toolbar>
     </div>
     <div class="row">

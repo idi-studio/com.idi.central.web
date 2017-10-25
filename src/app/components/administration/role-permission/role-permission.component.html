@@ -3,9 +3,9 @@
 <div class="row">
   <div class="card-box">
     <mat-toolbar class="toolbar">
-      <span class="toolbar-icon-back" (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i>  {{name}}</span>
+      <span class="toolbar-icon-back" matTooltip="Back" (click)="back()"><i class="fa fa-chevron-left" aria-hidden="true"></i>  {{name}}</span>
       <span class="toolbar-spacer"></span>
-      <span class="toolbar-icon"><mat-icon class="toolbar-icon" (click)="submit()">save</mat-icon></span>
+      <span class="toolbar-icon"><mat-icon matTooltip="Save" class="toolbar-icon" (click)="submit()">save</mat-icon></span>
     </mat-toolbar>
 
     <div *ngFor="let module of modules">

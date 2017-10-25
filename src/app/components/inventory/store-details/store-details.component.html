@@ -3,13 +3,13 @@
 <div class="row">
   <div class="card-box" *ngIf="!editable">
     <mat-toolbar class="toolbar">
-      <span class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="back()">
+      <span matTooltip="Back" class="toolbar-icon-back" *ngIf="!searchBox.searchVisible" (click)="back()">
         <i class="fa fa-chevron-left" aria-hidden="true"></i> {{current.name}}
       </span>
       <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here" (searchDebounce)="gridview.search($event)"
         flex>
       </td-search-box>
-      <span class="toolbar-icon" (click)="add()">
+      <span matTooltip="Add" class="toolbar-icon" (click)="add()">
         <mat-icon>playlist_add</mat-icon>
       </span>
     </mat-toolbar>

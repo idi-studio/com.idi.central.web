@@ -131,6 +131,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
             case 'delete':
             case 'confirm':
                 return this.cmd == Command.Update && this.current.status == OrderStatus.Pending
+            case 'cancel':
+                return this.cmd == Command.Update && this.current.status == OrderStatus.Confirmed
             case 'drop':
                 return this.cmd == Command.Update && (this.current.status == OrderStatus.Created || this.current.status == OrderStatus.Pending)
             default:
@@ -171,15 +173,47 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
         this.confirm('Are you sure to confirm this order?', (accepted) => {
             if (accepted) {
-                this.doneHandle()
+                this.doconfirm()
             }
         })
     }
 
-    async doneHandle(): Promise<void> {
+    async doconfirm(): Promise<void> {
 
         try {
             let result = await this.order.confirm(this.current.id).toPromise()
+
+            this.show(result.message)
+
+            if (result.status == Status.Success) {
+                this.bindView()
+                this.bindTable()
+            }
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
+    }
+
+    async cancel(): Promise<void> {
+
+        if (this.current.status != OrderStatus.Confirmed)
+            return
+
+        this.confirm('Are you sure to cancel this order?', (accepted) => {
+            if (accepted) {
+                this.docancel()
+            }
+        })
+    }
+
+    async docancel(): Promise<void> {
+
+        try {
+            let result = await this.order.cancel(this.current.id).toPromise()
 
             this.show(result.message)
 
@@ -239,7 +273,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
         }
     }
 
-    cancel(): void {
+    close(): void {
         this.showlist = false;
         this.bindTable();
     }
@@ -248,12 +282,12 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
         this.confirm('Are you confirm to delete this order?', (accepted) => {
             if (accepted) {
-                this.deleteHandle()
+                this.dodelete()
             }
         })
     }
 
-    async deleteHandle(): Promise<void> {
+    async dodelete(): Promise<void> {
         try {
             let result = await this.order.remove(this.current.id).toPromise()
             this.show(result.message)
@@ -269,16 +303,16 @@ export class OrderComponent extends BaseComponent implements OnInit {
         }
     }
 
-    deleteItem(id: string): void {
+    deleteitem(id: string): void {
 
         this.confirm('Are you confirm to delete this record?', (accepted) => {
             if (accepted) {
-                this.deleteItemHandle(id)
+                this.dodeleteitem(id)
             }
         })
     }
 
-    async deleteItemHandle(id: string): Promise<void> {
+    async dodeleteitem(id: string): Promise<void> {
         try {
             let result = await this.orderItem.remove(id).toPromise()
             this.alert(result.message)

@@ -144,9 +144,9 @@ export class VoucherComponent extends BaseComponent implements OnInit {
 
         try {
 
-            let result: any;
+            let result = await this.voucher.update(this.current).toPromise()
 
-            result = await this.voucher.update(this.current).toPromise()
+            console.log(typeof result)
 
             this.show(result.message)
         }

@@ -26,8 +26,8 @@ export class OrderListComponent extends BaseComponent implements OnInit {
         this.gridview.columns = [
             { name: 'sn', label: 'SN', filter: true, width: 200 },
             { name: 'statusdesc', label: 'Status', filter: true, width: 120 },
-            { name: 'date', label: 'Date', filter: true, width: 200 },
-            { name: 'remark', label: 'Remark', filter: true },
+            { name: 'custname', label: 'Customer', filter: true, width: 200 },
+            { name: 'date', label: 'Date', filter: true },
             { name: 'id', label: '', filter: false, width: 20 }
         ]
         this.bind()

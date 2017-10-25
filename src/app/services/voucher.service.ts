@@ -30,50 +30,39 @@ export class VoucherService extends RESTService {
             if (result.status == Status.Success)
                 return result.data
 
-            return null;
-        });
+            return null
+        })
     }
-
-    // all(): Observable<Array<IVoucher>> {
-
-    //     return super.get('/api/vchr/list').map((res: Response) => {
-
-    //         var result = res.json();
-
-    //         if (result.status == Status.Success)
-    //             return result.data
-
-    //         return new Array<IVoucher>()
-    //     });
-    // }
 
     attach(id: string, files: File[]): Observable<any> {
         let formData = new FormData()
         formData.append('vchrid', id)
-        return this.upload('/api/vchr/attach', files, formData)
+        return this.upload('/api/vchr/attach', files, formData).map((res: Response) => {
+            return JSON.parse(res.toString())
+        })
     }
 
     add(value: any): Observable<any> {
         return super.post('/api/vchr', value).map((res: Response) => {
-            return res.json();
+            return res.json()
         });
     }
 
     update(value: IVoucher): Observable<any> {
         return super.put(`/api/vchr/${value.id}`, value).map((res: Response) => {
-            return res.json();
+            return res.json()
         });
     }
 
     paid(id: string): Observable<any> {
         return super.put(`/api/vchr/paid/${id}`).map((res: Response) => {
-            return res.json();
-        });
+            return res.json()
+        })
     }
 
     remove(id: string): Observable<any> {
         return super.delete(`/api/vchr/${id}`).map((res: Response) => {
-            return res.json();
-        });
+            return res.json()
+        })
     }
 }
