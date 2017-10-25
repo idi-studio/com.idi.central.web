@@ -73,7 +73,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
             let cust = new List(this.options).FirstOrDefault(e => e.id == this.current.custid)
             this.formControlCustomer.setValue(cust)
 
-            if (!this.editable()) {
+            if (this.current.status > 2 || this.cmd == Command.View) {
                 this.formControlRemark.disable()
                 this.formControlCustomer.disable()
             }
@@ -121,18 +121,21 @@ export class OrderComponent extends BaseComponent implements OnInit {
         return new List(this.current.items).Sum(e => e.unitprice * e.qty);
     }
 
-    editable(): boolean {
-        if (this.cmd == Command.View)
-            return false
-
-        return this.current.status === OrderStatus.Created
-    }
-
-    pending(): boolean {
-        if (this.cmd == Command.View)
-            return false
-
-        return this.current.status === OrderStatus.Pending
+    visible(name: string): boolean {
+        switch (name) {
+            case 'list':
+                return this.current.status > OrderStatus.Created
+            case 'save':
+                return this.cmd == Command.Update && this.current.status == OrderStatus.Created
+            case 'add':
+            case 'delete':
+            case 'confirm':
+                return this.cmd == Command.Update && this.current.status == OrderStatus.Pending
+            case 'drop':
+                return this.cmd == Command.Update && (this.current.status == OrderStatus.Created || this.current.status == OrderStatus.Pending)
+            default:
+                return false
+        }
     }
 
     back(): void {

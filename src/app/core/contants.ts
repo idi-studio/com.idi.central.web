@@ -27,14 +27,14 @@ export enum PictureCategory {
 }
 
 export enum OrderStatus {
-    Cancelled = 1,
-    Created =2,
+    Created = 2,
     Pending = 4,
     Confirmed = 8,
     Paid = 16,
     Shipped = 32,
     Received = 64,
-    Traded = 128
+    Traded = 128,
+    Cancelled = 1024
 }
 
 export enum PayMethod {

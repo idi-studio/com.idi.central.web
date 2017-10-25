@@ -5,18 +5,18 @@
     <div class="card-box">
       <div class="row">
         <mat-toolbar class="toolbar">
-          <span (click)="back()">
+          <span (click)="back()" class="toolbar-icon-back">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
           </span>
           <span class="toolbar-spacer"></span>
-          <span *ngIf="editable()" class="toolbar-icon">
+          <span *ngIf="visible('save')" class="toolbar-icon">
             <mat-icon matTooltip="Save" (click)="save()">save</mat-icon>
           </span>
-          <span *ngIf="editable()" class="toolbar-icon tc-red-800">
-              <mat-icon matTooltip="Drop" (click)="delete()">delete</mat-icon>
-            </span>
-          <span *ngIf="pending()" class="toolbar-icon">
+          <span *ngIf="visible('confirm')" class="toolbar-icon">
             <mat-icon matTooltip="Confirm" (click)="done()">done</mat-icon>
+          </span>
+          <span *ngIf="visible('drop')" class="toolbar-icon tc-red-800">
+            <mat-icon matTooltip="Drop" (click)="delete()">delete</mat-icon>
           </span>
         </mat-toolbar>
       </div>
@@ -42,7 +42,8 @@
           <mat-form-field class="mat-input-full-width">
             <input matInput name="customer" placeholder="Customer" [formControl]="formControlCustomer" [matAutocomplete]="auto">
             <mat-error *ngIf="formControlCustomer.hasError('required')">
-              Customer is <strong>required</strong>
+              Customer is
+              <strong>required</strong>
             </mat-error>
             <mat-error *ngIf="formControlCustomer.hasError('object')">
               Invalid customer
@@ -65,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div class="card-box" *ngIf="!showlist">
+    <div class="card-box" *ngIf="!showlist&&visible('list')">
       <div class="row">
         <mat-toolbar class="toolbar">
           <span class="toolbar-icon-back">
@@ -73,7 +74,7 @@
           </span>
           <span class="toolbar-spacer"></span>
           <span class="toolbar-icon">
-            <mat-icon *ngIf="pending()" matTooltip="Add Product(s)" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon>
+            <mat-icon *ngIf="visible('add')" matTooltip="Add Product(s)" (click)="shopping(current.id)" class="tc-grey-800">add_shopping_cart</mat-icon>
           </span>
         </mat-toolbar>
       </div>
@@ -102,7 +103,7 @@
                   <td>{{item.qty | number:'1.2-2'}}</td>
                   <td>{{item.unitprice*item.qty | number:'1.2-2'}}</td>
                   <td class="text-right">
-                    <span *ngIf="editable()" class="tc-red-800" (click)="deleteItem(item.id)">
+                    <span *ngIf="visible('delete')" class="tc-red-800" (click)="deleteItem(item.id)">
                       <i class="fa fa-times" aria-hidden="true"></i>
                     </span>
                   </td>
@@ -149,7 +150,9 @@
                 {{ value | number:'1.2-2'}}
               </ng-template>
               <ng-template tdDataTableTemplate="avl" let-value="value" let-row="row" let-column="column">
-                <span class="tc-red-700" *ngIf="value==0"><strong>{{ value | number:'1.2-2'}}</strong></span>
+                <span class="tc-red-700" *ngIf="value==0">
+                  <strong>{{ value | number:'1.2-2'}}</strong>
+                </span>
                 <span *ngIf="value>0">{{ value | number:'1.2-2'}}</span>
               </ng-template>
               <ng-template tdDataTableTemplate="price" let-value="value" let-row="row" let-column="column">
