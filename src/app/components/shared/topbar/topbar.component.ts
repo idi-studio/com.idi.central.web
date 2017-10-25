@@ -10,26 +10,14 @@ declare var $: any;
 })
 export class TopbarComponent implements OnInit {
 
-    title: string = 'Central';
-    profile: any;
+    title: string = 'Central'
+    profile: any
 
     constructor(private router: Router) { }
 
     ngOnInit(): void {
-        this.init();
-        this.load();
-    }
-
-    async load(): Promise<void> {
-        try {
-            this.profile = JSON.parse(Runtime.instance.get('profile'))
-        }
-        catch (error) {
-            this.profile = null;
-            if (error.status === 401) {
-                this.router.navigate(['/login'])
-            }
-        }
+        this.profile = JSON.parse(Runtime.instance.get('profile'))
+        this.init()
     }
 
     lock(): void {

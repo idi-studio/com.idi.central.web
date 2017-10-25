@@ -19,7 +19,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
     header: PageHeader
     gridview: GirdView
     cmd: Command;
-    current: IOrder = { id: '', custid: '', sn: '', status: 0, statusdesc: '', date: '', remark: '', items: [] }
+    current: IOrder = { id: '', custid: '', custname: '', sn: '', status: 0, statusdesc: '', date: '', remark: '', items: [] }
     orderId: string;
     options: ICustomer[] = []
     filteredOptions: Observable<ICustomer[]>

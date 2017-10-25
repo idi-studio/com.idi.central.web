@@ -41,6 +41,7 @@ export class Runtime {
     unauthorize() {
         this.remove('username');
         this.remove('token');
+        this.remove('profile');
         this.set('authorized', 'N');
     }
 }
