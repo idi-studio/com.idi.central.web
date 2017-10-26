@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, PageEvent, MatPaginatorIntl } from '@angular/material';
 import { TdDialogService, TdLoadingService, TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn } from '@covalent/core';
 import { UserService, IUser } from '../../../services';
-import { BaseComponent, PageHeader, GirdView } from '../../../core';
+import { BaseComponent, PageHeader, GirdView, Status } from '../../../core';
 import 'rxjs/add/operator/toPromise';
 
 @Component({
@@ -24,12 +24,13 @@ export class UserListComponent extends BaseComponent implements OnInit {
         this.gridview = new GirdView(this.dataTable, this.paginator)
         this.gridview.sortBy = 'username'
         this.gridview.columns = [
-            { name: 'photo', label: 'Photo', tooltip: 'Photo', width: 100 },
+            { name: 'photo', label: 'Photo', tooltip: 'Photo', width: 50 },
             { name: 'username', label: 'User ID', filter: true },
             { name: 'name', label: 'Name', filter: true },
             { name: 'gender', label: 'Gender', width: 100 },
             { name: 'birthday', label: 'Birthday', filter: true, width: 150 },
             { name: 'active', label: 'Active?', filter: true, width: 100 },
+            { name: 'locked', label: 'Lock?', filter: true, width: 100 },
             { name: 'id', label: '', filter: false, width: 20 },
         ]
         this.bind();
@@ -54,5 +55,23 @@ export class UserListComponent extends BaseComponent implements OnInit {
 
     role(username: string): void {
         this.navigate(`/central/user/${username}/role`)
+    }
+
+    async lock(username: string): Promise<void> {
+        this.load()
+        try {
+            var result = await this.user.lock(username).toPromise()
+
+            this.show(result.message)
+
+            if (result.status == Status.Success)
+                this.bind()
+        }
+        catch (error) {
+            this.handle(error)
+        }
+        finally {
+            this.unload()
+        }
     }
 }

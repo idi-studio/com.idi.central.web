@@ -65,4 +65,10 @@ export class UserService extends RESTService {
             return res.json();
         });
     }
+
+    lock(username: string): Observable<any> {
+        return super.post('/api/user/lock', { username: username }).map((res: Response) => {
+            return res.json();
+        });
+    }
 }

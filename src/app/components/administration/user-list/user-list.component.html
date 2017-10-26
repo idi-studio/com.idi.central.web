@@ -18,15 +18,18 @@
           <i *ngIf="!value" class="fa fa-square-o" aria-hidden="true"></i>
         </div>
       </ng-template>
+      <ng-template tdDataTableTemplate="locked" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <i matTooltip="locked until {{row.locktime}}" *ngIf="value" class="fa fa-check-square-o" aria-hidden="true"></i>
+            <i *ngIf="!value" class="fa fa-square-o" aria-hidden="true"></i>
+          </div>
+        </ng-template>
       <ng-template tdDataTableTemplate="gender" let-value="value" let-row="row" let-column="column">
         <div layout="row">
           <i *ngIf="value==-1" class="fa fa-user-secret" aria-hidden="true"></i>
           <i *ngIf="value==0" class="fa fa-female tc-pink-800" aria-hidden="true"></i>
           <i *ngIf="value==1" class="fa fa-male tc-light-blue-800" aria-hidden="true"></i>
         </div>
-      </ng-template>
-      <ng-template tdDataTableTemplate="birthday" let-value="value" let-row="row" let-column="column">
-        <div layout="row">{{value | date: 'yyyy-MM-dd'}}</div>
       </ng-template>
       <ng-template tdDataTableTemplate="photo" let-value="value" let-row="row" let-column="column">
         <div layout="row">
@@ -38,6 +41,8 @@
           <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="role(row.username)"><mat-icon>group</mat-icon><span>Role</span></button>
+            <button *ngIf="!row.locked" mat-menu-item (click)="lock(row.username)"><mat-icon>lock</mat-icon><span>Lock</span></button>
+            <button *ngIf="row.locked" mat-menu-item (click)="lock(row.username)"><mat-icon>lock_open</mat-icon><span>Unlock</span></button>
           </mat-menu>
         </div>
       </ng-template>
