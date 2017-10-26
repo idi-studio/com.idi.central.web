@@ -12,8 +12,8 @@
     </mat-toolbar>
 
     <div *ngFor="let menu of menus">
-      <div class="row">
-        <div class="page-header" style="padding-left:15px;padding-right:20px;">
+      <div class="row" style="padding-left:15px;padding-right:20px;">
+        <div class="page-header">
           <span>{{menu.name}}</span> 
           <div class="pull-right">
             <mat-slide-toggle [(ngModel)]="menu.checked" [checked]="menu.checked"></mat-slide-toggle>

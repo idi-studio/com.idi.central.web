@@ -53,6 +53,6 @@ export class UserListComponent extends BaseComponent implements OnInit {
     }
 
     role(username: string): void {
-        this.navigate(`/central/user/role/${username}`)
+        this.navigate(`/central/user/${username}/role`)
     }
 }

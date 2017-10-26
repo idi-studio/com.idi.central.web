@@ -54,10 +54,10 @@ const routes: Route[] = [
         path: 'central', component: MainComponent, children: [
             { path: 'dashboard', component: DashboardComponent },
             { path: 'role/list', component: RoleListComponent },
-            { path: 'role/permission/:name', component: RolePermissionComponent },
-            { path: 'role/menu/:name', component: RoleMenuComponent },
+            { path: 'role/:name/permission', component: RolePermissionComponent },
+            { path: 'role/:name/menu', component: RoleMenuComponent },
             { path: 'user/list', component: UserListComponent },
-            { path: 'user/role/:username', component: UserRoleComponent },
+            { path: 'user/:username/role', component: UserRoleComponent },
             { path: 'product/list', component: ProductListComponent },
             { path: 'product/info/:cmd', component: ProductComponent },
             { path: 'product/info/:cmd/:id', component: ProductComponent },

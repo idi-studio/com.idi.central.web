@@ -49,10 +49,10 @@ export class RoleListComponent extends BaseComponent implements OnInit {
     }
 
     permission(name: string): void {
-        this.navigate(`/central/role/permission/${name.toLowerCase()}`)
+        this.navigate(`/central/role/${name.toLowerCase()}/permission`)
     }
 
     rolemenu(name: string): void {
-        this.navigate(`/central/role/menu/${name.toLowerCase()}`)
+        this.navigate(`/central/role/${name.toLowerCase()}/menu`)
     }
 }
