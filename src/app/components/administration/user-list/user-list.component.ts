@@ -31,6 +31,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
             { name: 'birthday', label: 'Birthday', filter: true, width: 150 },
             { name: 'active', label: 'Active?', filter: true, width: 100 },
             { name: 'locked', label: 'Lock?', filter: true, width: 100 },
+            { name: 'latest', label: 'Latest Login', filter: true, width: 150 },
             { name: 'id', label: '', filter: false, width: 20 },
         ]
         this.bind();
