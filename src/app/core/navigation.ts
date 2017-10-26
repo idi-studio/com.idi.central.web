@@ -43,10 +43,12 @@ export class Navigation {
 
         this.main = []
 
-        let profile = JSON.parse(Runtime.instance.get('profile'))
+        let json = Runtime.instance.get('profile')
 
-        if (!profile)
+        if (json == '')
             return
+            
+        let profile = JSON.parse(Runtime.instance.get('profile'))
 
         profile.menus.forEach(element => {
             var menu = new MenuItem(element.name, element.action, element.icon)

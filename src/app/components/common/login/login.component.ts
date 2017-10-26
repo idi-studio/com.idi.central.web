@@ -69,4 +69,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
     async github(): Promise<void> {
         window.location.href = this.oauth.authorize(OAuthType.GitHub)
     }
+
+    async unavailale(): Promise<void> {
+        this.alert('Unavailale.')
+    }
 }
