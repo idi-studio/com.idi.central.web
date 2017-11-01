@@ -25,7 +25,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
         this.gridview.sortBy = 'username'
         this.gridview.columns = [
             { name: 'photo', label: 'Photo', tooltip: 'Photo', width: 50 },
-            { name: 'username', label: 'User ID', filter: true },
+            { name: 'username', label: 'User ID', filter: true, width: 150 },
             { name: 'name', label: 'Name', filter: true },
             { name: 'gender', label: 'Gender', width: 100 },
             { name: 'birthday', label: 'Birthday', filter: true, width: 150 },

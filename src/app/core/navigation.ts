@@ -47,8 +47,14 @@ export class Navigation {
 
         if (json == '')
             return
-            
+
         let profile = JSON.parse(Runtime.instance.get('profile'))
+
+        if (typeof profile.menus == 'undefined')
+        {
+            Runtime.instance.unauthorize()
+            return
+        }
 
         profile.menus.forEach(element => {
             var menu = new MenuItem(element.name, element.action, element.icon)
