@@ -1,23 +1,22 @@
-import { NgModule, } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, } from '@angular/forms';
-import { FlexLayoutModule, } from '@angular/flex-layout';
+import { NgModule, } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FormsModule, ReactiveFormsModule, } from '@angular/forms'
+import { FlexLayoutModule, } from '@angular/flex-layout'
+import { AngularEchartsModule } from 'ngx-echarts'
 import {
     CovalentDataTableModule, CovalentMediaModule, CovalentLoadingModule,
     CovalentNotificationsModule, CovalentLayoutModule, CovalentMenuModule,
     CovalentPagingModule, CovalentSearchModule, CovalentStepsModule,
     CovalentCommonModule, CovalentDialogsModule, CovalentChipsModule,
     CovalentFileModule
-} from '@covalent/core';
+} from '@covalent/core'
 import {
     MatButtonModule, MatCardModule, MatIconModule,
     MatListModule, MatMenuModule, MatTooltipModule,
     MatSlideToggleModule, MatInputModule, MatCheckboxModule, MatSliderModule, MatPaginatorModule,
     MatToolbarModule, MatSnackBarModule, MatSidenavModule, MatRadioModule, MatAutocompleteModule,
     MatTabsModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule,
-} from '@angular/material';
-
-// import { NgxChartsModule, } from '@swimlane/ngx-charts';
+} from '@angular/material'
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -40,29 +39,14 @@ const COVALENT_MODULES: any[] = [
     CovalentNotificationsModule, CovalentLayoutModule, CovalentMenuModule,
     CovalentPagingModule, CovalentSearchModule, CovalentStepsModule, CovalentFileModule,
     CovalentCommonModule, CovalentDialogsModule, CovalentChipsModule,
-];
+]
 
-// const CHART_MODULES: any[] = [
-//   NgxChartsModule,
-// ];
+const CHART_MODULES: any[] = [AngularEchartsModule]
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ANGULAR_MODULES,
-        MATERIAL_MODULES,
-        COVALENT_MODULES,
-        // CHART_MODULES,
-        FLEX_LAYOUT_MODULES,
-    ],
+    imports: [CommonModule, ANGULAR_MODULES, MATERIAL_MODULES, COVALENT_MODULES, CHART_MODULES, FLEX_LAYOUT_MODULES],
+    exports: [ANGULAR_MODULES, MATERIAL_MODULES, COVALENT_MODULES, CHART_MODULES, FLEX_LAYOUT_MODULES],
     declarations: [],
-    providers: [],
-    exports: [
-        ANGULAR_MODULES,
-        MATERIAL_MODULES,
-        COVALENT_MODULES,
-        // CHART_MODULES,
-        FLEX_LAYOUT_MODULES,
-    ]
+    providers: []
 })
 export class SharedModule { }
