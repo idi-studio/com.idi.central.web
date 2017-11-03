@@ -39,6 +39,8 @@ import { CustomerListComponent } from './components/sales/cust-list/cust-list.co
 import { CustomerComponent } from './components/sales/cust/cust.component';
 import { VoucherComponent } from './components/sales/voucher/vchr.component';
 import { DeliverComponent } from './components/sales/deliver/deliver.component';
+import { PromotionListComponent } from './components/sales/prom-list/prom-list.component';
+import { PromotionComponent } from './components/sales/prom/prom.component';
 
 //Inventory
 import { StoreListComponent } from './components/inventory/store-list/store-list.component';
@@ -73,6 +75,9 @@ const routes: Route[] = [
             { path: 'vchr/:id', component: VoucherComponent },
             { path: 'store/list', component: StoreListComponent },
             { path: 'store/details/:id', component: StoreDetailsComponent },
+            { path: 'prom/list', component: PromotionListComponent },
+            { path: 'prom/info/:cmd', component: PromotionComponent },
+            { path: 'prom/info/:cmd/:id', component: PromotionComponent },
         ]
     },
     // { path: '**', component: PageNotFoundComponent }
@@ -88,14 +93,9 @@ export class AppRoutingModule {
 
 export const CentralComponents: any[] = [
     TopbarComponent, SidebarComponent, SidebarRightComponent, FootbarComponent, PageHeaderComponent,
-    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, OAuthComponent,
-    DashboardComponent,
-    RoleListComponent, RolePermissionComponent, RoleMenuComponent,
-    UserListComponent, UserRoleComponent,
+    MainComponent, LoginComponent, LogoutComponent, ForgotPasswordComponent, OAuthComponent, DashboardComponent,
+    RoleListComponent, RolePermissionComponent, RoleMenuComponent, UserListComponent, UserRoleComponent,
     ProductListComponent, ProductComponent, ProductPriceComponent, ProductPriceListComponent, ProductImageComponent,
-    OrderListComponent, OrderComponent,
-    CustomerListComponent, CustomerComponent,
-    VoucherComponent,
-    DeliverComponent,
-    StoreListComponent, StoreDetailsComponent,
+    OrderListComponent, OrderComponent, CustomerListComponent, CustomerComponent, VoucherComponent, DeliverComponent, PromotionListComponent,
+    StoreListComponent, StoreDetailsComponent, PromotionComponent
 ];

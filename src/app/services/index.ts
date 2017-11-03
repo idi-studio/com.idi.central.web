@@ -15,4 +15,5 @@ export { DeliverService, IDeliver } from './deliver.service'
 export { OAuthService } from './oauth.service'
 export { StoreService } from './store.service'
 export { DashboardService } from './dashboard.service'
+export { PromotionService, IPromotion } from './promotion.service'
 

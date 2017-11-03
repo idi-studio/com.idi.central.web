@@ -64,7 +64,7 @@ export abstract class BaseComponent {
 
         console.log(error)
 
-        if (error.status == undefined) {
+        if (typeof error.status == 'undefined') {
             this.alert(error.toString());
             return
         }
