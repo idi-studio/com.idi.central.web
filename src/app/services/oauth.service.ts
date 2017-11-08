@@ -27,7 +27,7 @@ export class OAuthService extends RESTService {
             var result = res.json();
 
             if (result.status == Status.Success) {
-                Runtime.instance.authorize(Runtime.instance.clientId, result.data.access_token)
+                Runtime.instance.authorize(Runtime.instance.config().clientId, result.data.access_token)
             }
 
             return result;

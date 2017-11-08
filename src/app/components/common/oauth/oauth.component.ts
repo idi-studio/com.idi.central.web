@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { TdDialogService, TdLoadingService } from '@covalent/core';
-import { BaseComponent, Status, Regex, OAuthType } from '../../../core';
+import { BaseComponent, Status, Regex, OAuthType, Runtime } from '../../../core';
 import { TokenService, OAuthService, UserService } from '../../../services';
 import 'rxjs/add/operator/toPromise';
 
@@ -27,12 +27,12 @@ export class OAuthComponent extends BaseComponent implements OnInit {
     }
 
     async github(): Promise<void> {
-        console.log('auth github')
+        console.log('authentication via github')
 
         let params = {
             code: this.queryParams('code'),
             state: this.queryParams('state'),
-            redirect_uri: 'http://localhost:4200/oauth/login',
+            redirect_uri: Runtime.instance.config().oauth.github.redirect_uri,
             type: OAuthType.GitHub
         }
 

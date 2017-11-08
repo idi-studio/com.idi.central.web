@@ -27,9 +27,9 @@
       </ng-template>
       <ng-template tdDataTableTemplate="startdate" let-value="value" let-row="row" let-column="column">
         <div *ngIf="hasTerm(row.category)" layout="row">
-          <span class="text-md">{{row.startdate | date: 'yyyy/M/d HH:mm:ss'}}</span>
+          <span class="text-md">{{row.startdate | date: 'yyyyMMdd HH mm:ss'}}</span>
           <span class="text-md tc-grey-400">&nbsp;<i class="fa fa-long-arrow-right" aria-hidden="true"></i>&nbsp;</span>
-          <span class="text-md">{{row.duedate | date: 'yyyy/M/d  HH:mm:ss'}}</span>
+          <span class="text-md">{{row.duedate | date: 'yyyyMMdd HH mm:ss'}}</span>
         </div>
         <div *ngIf="!hasTerm(row.category)" layout="row">
           <span class="text-md tc-grey-400">N.A</span>

@@ -29,9 +29,9 @@ export class ProductPriceListComponent extends BaseComponent implements OnInit {
             { name: 'category', label: 'Category', filter: true, hidden: true },
             { name: 'categoryname', label: 'Category', filter: true },
             { name: 'amount', label: 'Amount', numeric: true, format: v => v.toFixed(2), filter: true },
-            { name: 'grade', label: 'Grade', filter: true },
-            { name: 'startdate', label: 'Expiration Date', filter: false },
-            { name: 'id', label: '', filter: false, hidden: false },
+            { name: 'grade', label: 'Grade', filter: true, width: 80 },
+            { name: 'startdate', label: 'Expiration Date', filter: false, width: 400 },
+            { name: 'id', label: '', filter: false, hidden: false, width: 50 },
         ]
         this.bind()
     }

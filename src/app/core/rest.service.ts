@@ -6,22 +6,26 @@ import 'rxjs/add/operator/toPromise';
 
 export class RESTService {
 
-    constructor(private http: Http, private file?: TdFileService) { }
+    private baseUrl: string
+
+    constructor(private http: Http, private file?: TdFileService) {
+        this.baseUrl = Runtime.instance.config().baseUrl
+    }
 
     protected post(url: string, params: any = {}): Observable<any> {
-        return this.http.post(Runtime.instance.baseUrl() + url, params, { headers: this.buildHeader(url) })
+        return this.http.post(this.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 
     protected put(url: string, params: any = {}): Observable<any> {
-        return this.http.put(Runtime.instance.baseUrl() + url, params, { headers: this.buildHeader(url) })
+        return this.http.put(this.baseUrl + url, params, { headers: this.buildHeader(url) })
     }
 
     protected delete(url: string): Observable<any> {
-        return this.http.delete(Runtime.instance.baseUrl() + url, { headers: this.buildHeader(url) })
+        return this.http.delete(this.baseUrl + url, { headers: this.buildHeader(url) })
     }
 
     protected get(url: string): Observable<any> {
-        return this.http.get(Runtime.instance.baseUrl() + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
+        return this.http.get(this.baseUrl + url, { headers: this.buildHeader(url), method: RequestMethod.Get })
     }
 
     protected upload(url: string, files: File[], formData?: FormData): Observable<any> {
@@ -37,7 +41,7 @@ export class RESTService {
             formData.append(file.name, file)
         }
 
-        let options: IUploadOptions = { url: Runtime.instance.baseUrl() + url, method: 'post', headers: headers, formData: formData };
+        let options: IUploadOptions = { url: this.baseUrl + url, method: 'post', headers: headers, formData: formData };
 
         return this.file.upload(options);
     }
@@ -49,7 +53,7 @@ export class RESTService {
         if (url == '/api/token') {
             headers.append('Content-Type', 'application/x-www-form-urlencoded');
             headers.append('Access-Control-Allow-Origin', '*');
-            headers.append('Authorization', 'Basic ' + Runtime.instance.clientKey);
+            headers.append('Authorization', 'Basic ' + Runtime.instance.config().clientKey);
         } else {
             headers.append('Content-Type', 'application/json');
             headers.append('Access-Control-Allow-Origin', '*');

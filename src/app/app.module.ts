@@ -1,5 +1,5 @@
 //Angular
-import { NgModule, Type, LOCALE_ID } from '@angular/core'
+import { NgModule, Type, LOCALE_ID, enableProdMode } from '@angular/core'
 import { HttpModule } from '@angular/http'
 import { BrowserModule, Title } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
