@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
-import { TdDialogService, TdLoadingService } from '@covalent/core';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { MatSnackBar } from '@angular/material'
+import { TdDialogService, TdLoadingService } from '@covalent/core'
 import { BaseComponent, Runtime } from '../../../core'
+import { Observable } from 'rxjs/Rx'
 
 declare var $: any;
-// declare var FastClick: any;
 declare var jQuery: any;
 
 @Component({
@@ -14,6 +14,8 @@ declare var jQuery: any;
 export class MainComponent extends BaseComponent implements OnInit {
 
     authorized: boolean
+    timer: any
+    username: any
 
     constructor(protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
         protected loading: TdLoadingService, protected dialog: TdDialogService) {
@@ -21,8 +23,19 @@ export class MainComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.init();
+        this.init()
         this.authorized = Runtime.instance.authorized()
+        this.username = Runtime.instance.get('username')
+        this.start()
+    }
+
+    private start(): void {
+        this.timer = Observable.timer(new Date(), 5000)
+        this.timer.subscribe(t => {
+            let username = Runtime.instance.get('username')
+            if (username != this.username)
+                this.navigate('/login')
+        });
     }
 
     private init(): void {
@@ -111,7 +124,6 @@ export class MainComponent extends BaseComponent implements OnInit {
         }
 
         $(function () {
-            // FastClick.attach(document.body);
             resizefunc.push('initscrolls');
             resizefunc.push('changeptype');
 
