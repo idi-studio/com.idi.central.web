@@ -8,10 +8,16 @@ export interface IPromotion {
     subject: string
     start: string
     end: string
-    price: any
+    price: IPromotionPrice
     pid: string
     pname: string
     enabled: boolean
+}
+
+export interface IPromotionPrice {
+    original: number,
+    current: number,
+    vip: Array<number>
 }
 
 @Injectable()

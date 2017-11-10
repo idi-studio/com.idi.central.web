@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { FormControl, Validators } from '@angular/forms'
+import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material'
 import { TdDialogService, TdLoadingService } from '@covalent/core'
 import { PromotionService, IPromotion, CategoryService, IOption } from '../../../services'
@@ -19,13 +19,28 @@ export class PromotionComponent extends BaseComponent implements OnInit {
     header: PageHeader
     cmd: Command
     options: IOption[] = []
+    grade: number[] = []
     filteredOptions: Observable<IOption[]>
-    current: IPromotion = { id: '', subject: '', pid: '', pname: '', price: null, enabled: false, start: '', end: '' }
+    current: IPromotion = { id: '', subject: '', pid: '', pname: '', price: { original: 0, current: 0, vip: [0, 0, 0, 0, 0, 0, 0, 0, 0] }, enabled: false, start: '', end: '' }
 
-    formControlSubject = new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER_CHINESE_SPACES)])
-    formControlProduct = new FormControl('', [Validators.required, ObjectValidator()])
-    formControlStart = new FormControl('', [Validators.required])
-    formControlEnd = new FormControl('', [Validators.required])
+    formGroup: FormGroup = new FormGroup({
+        'subject': new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER_CHINESE_SPACES)]),
+        'product': new FormControl('', [Validators.required, ObjectValidator()]),
+        'start': new FormControl('', [Validators.required]),
+        'end': new FormControl('', [Validators.required]),
+        'original': new FormControl('', [Validators.required]),
+        'current': new FormControl('', [Validators.required]),
+        'enabled': new FormControl(''),
+        'vip1': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip2': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip3': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip4': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip5': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip6': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip7': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip8': new FormControl('', [Validators.required, Validators.min(0)]),
+        'vip9': new FormControl('', [Validators.required, Validators.min(0)])
+    })
 
     constructor(private prom: PromotionService, private category: CategoryService,
         protected route: ActivatedRoute, protected router: Router, protected snack: MatSnackBar,
@@ -45,10 +60,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
                 break
             case Command.View:
                 this.header = new PageHeader('Promotion', ['Sales', 'Promotion', 'View'])
-                this.formControlSubject.disable()
-                this.formControlProduct.disable()
-                this.formControlStart.disable()
-                this.formControlEnd.disable()
+                this.formGroup.disable()
                 break
             default:
                 this.back()
@@ -70,7 +82,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
         try {
 
             this.options = await this.category.options("product").toPromise()
-            this.filteredOptions = this.formControlProduct.valueChanges.startWith(null)
+            this.filteredOptions = this.formGroup.get('product').valueChanges.startWith(null)
                 .map(option => option && typeof option === 'object' ? option.name : option)
                 .map(name => name ? this.filter(name) : this.options.slice())
 
@@ -78,8 +90,14 @@ export class PromotionComponent extends BaseComponent implements OnInit {
                 let id = this.routeParams('id')
                 this.current = await this.prom.single(id).toPromise()
                 let option = new List(this.options).FirstOrDefault(e => e.id == this.current.pid)
-                this.formControlProduct.setValue(option)
-                this.formControlSubject.setValue(this.current.subject)
+                this.formGroup.get('product').setValue(option)
+                if (this.current.price.vip.length != 9) {
+                    this.current.price.vip = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                }
+                this.current.price.vip.forEach((val, index) => {
+                    if (index < 10)
+                        this.formGroup.get(`vip${index + 1}`).setValue(val)
+                })
             }
         }
         catch (error) {
@@ -89,8 +107,8 @@ export class PromotionComponent extends BaseComponent implements OnInit {
 
     valid(): boolean {
 
-        if (this.formControlProduct.valid) {
-            var option = this.formControlProduct.value as IOption
+        if (this.formGroup.get('product').valid) {
+            var option = this.formGroup.get('product').value as IOption
             this.current.pid = option.id
             this.current.pname = option.name
         }
@@ -99,8 +117,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
             this.current.pname = ''
         }
 
-        return this.formControlSubject.valid && this.formControlProduct.valid
-            && this.formControlStart.valid && this.formControlEnd.valid
+        return this.formGroup.valid
     }
 
     back(): void {
@@ -113,7 +130,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
 
         try {
 
-            let result: any;
+            let result: any
 
             switch (this.cmd) {
                 case Command.Create:
