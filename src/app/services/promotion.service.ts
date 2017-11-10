@@ -11,7 +11,7 @@ export interface IPromotion {
     price: IPromotionPrice
     pid: string
     pname: string
-    enabled: boolean
+    active: boolean
 }
 
 export interface IPromotionPrice {

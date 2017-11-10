@@ -21,7 +21,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
     options: IOption[] = []
     grade: number[] = []
     filteredOptions: Observable<IOption[]>
-    current: IPromotion = { id: '', subject: '', pid: '', pname: '', price: { original: 0, current: 0, vip: [0, 0, 0, 0, 0, 0, 0, 0, 0] }, enabled: false, start: '', end: '' }
+    current: IPromotion = { id: '', subject: '', pid: '', pname: '', price: { original: 0, current: 0, vip: [0, 0, 0, 0, 0, 0, 0, 0, 0] }, active: false, start: '', end: '' }
 
     formGroup: FormGroup = new FormGroup({
         'subject': new FormControl('', [Validators.required, Validators.pattern(Regex.LETTERS_NUMBER_CHINESE_SPACES)]),
@@ -30,7 +30,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
         'end': new FormControl('', [Validators.required]),
         'original': new FormControl('', [Validators.required]),
         'current': new FormControl('', [Validators.required]),
-        'enabled': new FormControl(''),
+        'active': new FormControl(''),
         'vip1': new FormControl('', [Validators.required, Validators.min(0)]),
         'vip2': new FormControl('', [Validators.required, Validators.min(0)]),
         'vip3': new FormControl('', [Validators.required, Validators.min(0)]),
@@ -116,6 +116,13 @@ export class PromotionComponent extends BaseComponent implements OnInit {
             this.current.pid = ''
             this.current.pname = ''
         }
+
+        for (var index = 0; index < 9; index++) {
+            let ctrl = this.formGroup.get(`vip${index + 1}`)
+            if (ctrl.valid)
+                this.current.price.vip[index] = ctrl.value
+        }
+
 
         return this.formGroup.valid
     }
