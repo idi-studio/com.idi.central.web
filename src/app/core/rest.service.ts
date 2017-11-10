@@ -1,8 +1,11 @@
-import { Headers, Response, RequestMethod, Http } from '@angular/http';
-import { TdFileService, IUploadOptions } from '@covalent/core';
-import { Observable } from 'rxjs/Observable';
-import { Runtime } from './runtime';
-import 'rxjs/add/operator/toPromise';
+
+import { Headers, Response, RequestMethod, Http } from '@angular/http'
+import { TdFileService, IUploadOptions } from '@covalent/core'
+import { Observable } from 'rxjs/Observable'
+import { Runtime } from './runtime'
+import 'rxjs/add/operator/toPromise'
+
+declare const Buffer
 
 export class RESTService {
 
@@ -41,9 +44,9 @@ export class RESTService {
             formData.append(file.name, file)
         }
 
-        let options: IUploadOptions = { url: this.baseUrl + url, method: 'post', headers: headers, formData: formData };
+        let options: IUploadOptions = { url: this.baseUrl + url, method: 'post', headers: headers, formData: formData }
 
-        return this.file.upload(options);
+        return this.file.upload(options)
     }
 
     private buildHeader(url: string): Headers {
@@ -51,13 +54,14 @@ export class RESTService {
         let headers = new Headers();
 
         if (url == '/api/token') {
-            headers.append('Content-Type', 'application/x-www-form-urlencoded');
-            headers.append('Access-Control-Allow-Origin', '*');
-            headers.append('Authorization', 'Basic ' + Runtime.instance.config().clientKey);
+            let config = Runtime.instance.config()
+            headers.append('Content-Type', 'application/x-www-form-urlencoded')
+            headers.append('Access-Control-Allow-Origin', '*')
+            headers.append('Authorization', 'Basic ' + new Buffer(`${config.clientId}:${config.clientKey}`,'utf-8').toString('base64'))
         } else {
-            headers.append('Content-Type', 'application/json');
-            headers.append('Access-Control-Allow-Origin', '*');
-            headers.append('Authorization', 'Bearer ' + Runtime.instance.get('token'));
+            headers.append('Content-Type', 'application/json')
+            headers.append('Access-Control-Allow-Origin', '*')
+            headers.append('Authorization', 'Bearer ' + Runtime.instance.get('token'))
         }
 
         return headers;

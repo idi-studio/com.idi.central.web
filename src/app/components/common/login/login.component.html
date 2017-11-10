@@ -6,8 +6,11 @@
     <div class="card-box m-b-0">
       <div class="text-xs-center m-t-20">
         <a class="logo">
-          <i class="zmdi zmdi-group-work icon-c-logo"></i>
-          <span> Central</span>
+          <!-- <i class="zmdi zmdi-group-work icon-c-logo"></i> -->
+          <span>
+            <img width="32" height="32" src="assets/images/logo.svg" />
+          </span>
+          <span>{{title}}</span>
         </a>
       </div>
       <div class="m-t-10 p-20">
@@ -79,11 +82,11 @@
               </button>
             </div>
             <div class="col-sm-4">
-              <button type="button" class="btn btn-wechat btn-block waves-effect waves-light m-t-20" (click)="unavailale()">
+              <button type="button" class="btn btn-wechat btn-block waves-effect waves-light m-t-20" disabled="disabled" (click)="unavailale()">
                 <i class="fa fa-weixin" aria-hidden="true"></i>&nbsp;&nbsp;Wechat </button>
             </div>
             <div class="col-sm-4">
-              <button type="button" class="btn btn-alipay btn-block waves-effect waves-light m-t-20" (click)="unavailale()">
+              <button type="button" class="btn btn-alipay btn-block waves-effect waves-light m-t-20" disabled="disabled" (click)="unavailale()">
                 <img width="16" width="16" src="./assets/images/alipay.svg">&nbsp;&nbsp;Alipay </button>
             </div>
           </div>
@@ -97,7 +100,7 @@
   </div>
   <!-- end card-box-->
 
-  <div class="m-t-20">
+  <!-- <div class="m-t-20">
     <div class="text-xs-center">
       <p class="text-white">Don't have an account?
         <a class="text-white m-l-5" routerLink="/register">
@@ -105,6 +108,6 @@
         </a>
       </p>
     </div>
-  </div>
+  </div> -->
 
 </div>

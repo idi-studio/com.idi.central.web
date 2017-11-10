@@ -1,16 +1,6 @@
 import { environment } from '../../environments/environment'
 export class Runtime {
     public static readonly instance: Runtime = new Runtime()
-    // public clientId: string = 'com.idi.central.web'
-    // public clientKey: string = 'Y29tLmlkaS5jZW50cmFsLndlYjo2RUQ1QzQ3OC0xRjNBLTRDODItQjY2OC05OTkxN0Q2Nzc4NEU='
-    // public user: any = null
-
-    // baseUrl(): string {
-    //     if (!/localhost/.test(document.location.host)) {
-    //         return `http://${document.location.host.split(':')[0]}:50963`
-    //     }
-    //     return 'http://localhost:50963'
-    // }
 
     set(key: string, value: string) {
         localStorage.setItem(key, value)
@@ -51,8 +41,9 @@ export class Runtime {
     }
 
     private production = {
+        title: 'Central',
         clientId: 'com.idi.central.web',
-        clientKey: 'Y29tLmlkaS5jZW50cmFsLndlYjo2RUQ1QzQ3OC0xRjNBLTRDODItQjY2OC05OTkxN0Q2Nzc4NEU=',
+        clientKey: '6ED5C4781F3A4C82B66899917D67784E',
         baseUrl: 'http://www.idi-studio.com.cn',
         oauth: {
             github: { redirect_uri: 'http://www.idi-studio.com.cn/oauth/login' }
@@ -60,8 +51,9 @@ export class Runtime {
     }
 
     private development = {
+        title: 'Central',
         clientId: 'com.idi.central.web',
-        clientKey: 'Y29tLmlkaS5jZW50cmFsLndlYjo2RUQ1QzQ3OC0xRjNBLTRDODItQjY2OC05OTkxN0Q2Nzc4NEU=',
+        clientKey: '6ED5C4781F3A4C82B66899917D67784E',
         baseUrl: 'http://localhost:50963',
         oauth: {
             github: { redirect_uri: 'http://localhost:4200/oauth/login' }

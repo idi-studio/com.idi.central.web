@@ -16,6 +16,7 @@ export class TopbarComponent implements OnInit {
     constructor(private router: Router) { }
 
     ngOnInit(): void {
+        this.title = Runtime.instance.config().title
         this.profile = JSON.parse(Runtime.instance.get('profile'))
         this.init()
     }

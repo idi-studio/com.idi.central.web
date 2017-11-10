@@ -13,7 +13,8 @@ import 'rxjs/add/operator/toPromise';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
 
-    formControlUsername = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)]);
+    title:string
+    formControlUsername = new FormControl('', [Validators.required, Validators.pattern(Regex.IDENTIFIER)])
     formControlPassword = new FormControl('', [Validators.required]);
 
     constructor(private token: TokenService, private oauth: OAuthService, private user: UserService,
@@ -23,8 +24,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formControlUsername.setValue('administrator');
-        this.formControlPassword.setValue('p@55w0rd');
+        this.title = Runtime.instance.config().title
+        this.formControlUsername.setValue('administrator')
+        this.formControlPassword.setValue('p@55w0rd')
         if (Runtime.instance.authorized()) {
             this.navigate("/central")
         }
