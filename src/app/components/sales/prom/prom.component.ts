@@ -20,6 +20,7 @@ export class PromotionComponent extends BaseComponent implements OnInit {
     cmd: Command
     options: IOption[] = []
     grade: number[] = []
+    enabled: boolean
     filteredOptions: Observable<IOption[]>
     current: IPromotion = { id: '', subject: '', pid: '', pname: '', price: { original: 0, current: 0, vip: [0, 0, 0, 0, 0, 0, 0, 0, 0] }, active: false, start: '', end: '' }
 
@@ -54,13 +55,16 @@ export class PromotionComponent extends BaseComponent implements OnInit {
         switch (this.cmd) {
             case Command.Create:
                 this.header = new PageHeader('Promotion', ['Sales', 'Promotion', 'Add'])
+                this.enabled = true
                 break
             case Command.Update:
                 this.header = new PageHeader('Promotion', ['Sales', 'Promotion', 'Edit'])
+                this.enabled = true
                 break
             case Command.View:
                 this.header = new PageHeader('Promotion', ['Sales', 'Promotion', 'View'])
                 this.formGroup.disable()
+                this.enabled = false
                 break
             default:
                 this.back()
