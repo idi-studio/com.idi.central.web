@@ -18,6 +18,8 @@ export class PromotionComponent extends BaseComponent implements OnInit {
 
     header: PageHeader
     cmd: Command
+    minDate=new Date("1980/01/01")
+    maxDate=new Date('2050/01/01')
     options: IOption[] = []
     grade: number[] = []
     enabled: boolean
