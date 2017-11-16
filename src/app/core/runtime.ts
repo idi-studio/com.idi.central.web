@@ -41,7 +41,13 @@ export class Runtime {
         if (/localhost:4200/.test(document.location.host)) {
             return this.debug
         }
-        return environment.production ? this.production : this.development
+
+        if (/localhost/.test(document.location.host)) {
+            return this.development
+        }
+
+        return this.production
+        // return environment.production ? this.production : this.development
     }
 
     private production = {
