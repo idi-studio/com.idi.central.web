@@ -37,6 +37,10 @@ export class Runtime {
     }
 
     config(): any {
+
+        if (/localhost:4200/.test(document.location.host)) {
+            return this.debug
+        }
         return environment.production ? this.production : this.development
     }
 
@@ -54,9 +58,19 @@ export class Runtime {
         title: 'Central',
         clientId: 'com.idi.central.web',
         clientKey: '6ED5C4781F3A4C82B66899917D67784E',
+        baseUrl: 'http://localhost',
+        oauth: {
+            github: { redirect_uri: 'http://localhost/oauth/login' }
+        }
+    }
+
+    private debug = {
+        title: 'Central',
+        clientId: 'com.idi.central.web',
+        clientKey: '6ED5C4781F3A4C82B66899917D67784E',
         baseUrl: 'http://localhost:50963',
         oauth: {
-            github: { redirect_uri: 'http://localhost:4200/oauth/login' }
+            github: { redirect_uri: 'http://localhost:50963/oauth/login' }
         }
     }
 }
