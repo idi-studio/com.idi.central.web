@@ -74,6 +74,7 @@ export class Runtime {
         title: 'Central',
         clientId: 'com.idi.central.web',
         clientKey: '6ED5C4781F3A4C82B66899917D67784E',
+        // baseUrl: 'http://www.idi-studio.com.cn',
         baseUrl: 'http://localhost:50963',
         oauth: {
             github: { redirect_uri: 'http://localhost:50963/oauth/login' }

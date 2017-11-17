@@ -36,7 +36,6 @@ export class MainComponent extends BaseComponent implements OnInit {
             if (username != this.username && username != ''){
                 console.log(`account changed ('${this.username}' not equal to '${username}')`)
                 window.location.href='/central'
-                // this.navigate('/login')
             }
         });
     }
