@@ -26,7 +26,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
     ngOnInit(): void {
         this.title = Runtime.instance.config().title
         this.formControlUsername.setValue('administrator')
-        // this.formControlPassword.setValue('p@55w0rd')
         if (Runtime.instance.authorized()) {
             this.navigate("/central")
         }
