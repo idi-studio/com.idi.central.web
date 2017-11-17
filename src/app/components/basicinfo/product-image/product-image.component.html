@@ -23,7 +23,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Type</th>
-                <th>Size <span class="md-caption">(KB) (800KB)</span></th>
+                <th>Size <span class="md-caption">(KB) (&lt;800KB)</span></th>
                 <th></th>
               </tr>
             </thead>
@@ -33,8 +33,8 @@
                 <td>{{file.name}}</td>
                 <td>{{file.type}}</td>
                 <td>
-                  <span>{{file.size/1024 | number:'1.2-2'}}</span>
-                  <span *ngIf="file.size/1024>800" class="tc-orange-400"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
+                  <span>{{ convert(file.size) }}</span>
+                  <span *ngIf="convert(file.size)>800" class="tc-orange-400"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i></span>
                 </td>
                 <td class="text-right">
                   <span class="tc-red-800" (click)="drop(i)"><i class="fa fa-times" aria-hidden="true"></i></span>

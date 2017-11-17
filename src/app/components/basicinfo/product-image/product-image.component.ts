@@ -211,4 +211,8 @@ export class ProductImageComponent extends BaseComponent implements OnInit {
                 return ''
         }
     }
+
+    convert(size: number): number {
+        return Math.floor(size / 1024)
+    }
 }

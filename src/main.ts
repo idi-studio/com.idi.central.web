@@ -5,7 +5,7 @@ import { AppModule } from './app/';
 
 if (environment.production) {
   if (!/localhost/.test(document.location.host)) {
-    enableProdMode();
+    enableProdMode()
   }
 }
 
