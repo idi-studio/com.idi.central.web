@@ -33,8 +33,11 @@ export class MainComponent extends BaseComponent implements OnInit {
         this.timer = Observable.timer(new Date(), 5000)
         this.timer.subscribe(t => {
             let username = Runtime.instance.get('username')
-            if (username != this.username)
-                this.navigate('/login')
+            if (username != this.username && username != ''){
+                console.log(`account changed ('${this.username}' not equal to '${username}')`)
+                window.location.href='/central'
+                // this.navigate('/login')
+            }
         });
     }
 

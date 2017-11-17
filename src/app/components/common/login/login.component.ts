@@ -27,7 +27,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
         this.title = Runtime.instance.config().title
         this.formControlUsername.setValue('administrator')
         if (Runtime.instance.authorized()) {
-            this.navigate("/central")
+            // window.location.href='/central'
+            this.navigate('/central')
         }
     }
 
